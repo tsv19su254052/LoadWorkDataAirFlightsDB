@@ -200,6 +200,7 @@ def myApplication():
         m.save(data, close_file=False)
         webView = QtWebEngineWidgets.QWebEngineView()
         webView.setHtml(data.getvalue().decode())
+        # очищаем предыдущую отрисовку
         if myDialog.verticalLayout_Map is not None:
             while myDialog.verticalLayout_Map.count():
                 child = myDialog.verticalLayout_Map.takeAt(0)
@@ -207,6 +208,7 @@ def myApplication():
                     child.widget().deleteLater()
                 elif child.layout() is not None:
                     myDialog.verticalLayout_Map.clearLayout(child.layout())
+        # новая отрисовка
         myDialog.verticalLayout_Map.addWidget(webView)
 
     def SwitchingGUI(Key):
@@ -482,7 +484,7 @@ def myApplication():
         # Кнопка "Поиск" нажата
         CodeWMO, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
         if ok:
-            DBAirPort = S.QueryAirPortByFAA_LID(CodeWMO)
+            DBAirPort = S.QueryAirPortByWMO(CodeWMO)
             if DBAirPort is not None:
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia

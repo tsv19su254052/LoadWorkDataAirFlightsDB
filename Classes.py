@@ -649,6 +649,48 @@ class Servers:
         # todo В процессе разработки
         pass
 
+    def QueryAirPortByFAA_LID(self, faa_lid):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def QueryAirPortByFAA_LID_SQLAlchemy(self, faa_lid):
+        # todo В процессе разработки
+        pass
+
+    def QueryAirPortByWMO(self, wmo):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def QueryAirPortByWMO_SQLAlchemy(self, wmo):
+        # todo В процессе разработки
+        pass
+
     def QueryAirPortByPK(self, pk):
         # Возвращает строку аэропорта по первичному ключу
         try:

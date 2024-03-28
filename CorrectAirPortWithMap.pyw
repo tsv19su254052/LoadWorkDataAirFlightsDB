@@ -452,6 +452,40 @@ def myApplication():
             SetFields()
 
     def PushButtonSearchByFAA_LID():
+        # Кнопка "Поиск" нажата
+        CodeFAA_LID, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
+        if ok:
+            myDialog.lineEditCodeFAA_LID.setText(str(CodeFAA_LID))
+            Code = myDialog.lineEditCodeFAA_LID.text()
+            DBAirPort = S.QueryAirPortByFAA_LID(Code)
+            if DBAirPort is not None:
+                A.Position = DBAirPort.AirPortUniqueNumber
+                A.SourceCSVFile = DBAirPort.SourceCSVFile
+                A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
+                A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
+                A.HyperLinkToOperatorSite = DBAirPort.HyperLinkToOperatorSite
+                A.AirPortCodeIATA = DBAirPort.AirPortCodeIATA
+                A.AirPortCodeICAO = DBAirPort.AirPortCodeICAO
+                A.AirPortCodeFAA_LID = DBAirPort.AirPortCodeFAA_LID
+                A.AirPortCodeWMO = DBAirPort.AirPortCodeWMO
+                A.AirPortName = DBAirPort.AirPortName
+                A.AirPortCity = DBAirPort.AirPortCity
+                A.AirPortCounty = DBAirPort.AirPortCounty
+                A.AirPortCountry = DBAirPort.AirPortCountry
+                A.AirPortLatitude = DBAirPort.AirPortLatitude
+                A.AirPortLongitude = DBAirPort.AirPortLongitude
+                A.HeightAboveSeaLevel = DBAirPort.HeightAboveSeaLevel
+                A.AirPortDescription = DBAirPort.AirPortDescription
+                A.AirPortFacilities = DBAirPort.AirPortFacilities
+                A.AirPortIncidents = DBAirPort.AirPortIncidents
+            elif DBAirPort is None:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не найдена")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+            else:
+                pass
+            SetFields()
         pass
 
     def PushButtonSearchByWMO():

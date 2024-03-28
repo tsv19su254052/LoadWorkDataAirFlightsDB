@@ -163,7 +163,7 @@ def myApplication():
         myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
-        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт оператора аэропорта</a>")
+        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
         myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
         myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
@@ -301,7 +301,6 @@ def myApplication():
                 myDialog.lineEdit_Schema.setText(S.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
                 # Переводим в рабочее состояние (продолжение)
                 SwitchingGUI(True)
-                myDialog.pushButton_UpdateDB.setEnabled(True)  # возможно пока не тут
                 myDialog.pushButton_DisconnectDB.setEnabled(True)
                 A.Position = 1
             except Exception:
@@ -368,13 +367,28 @@ def myApplication():
             message.exec_()
 
     def PushButtonChangeHyperLinkWikiPedia():
-        pass
+        Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
+        if ok:
+            A.HyperLinkToWikiPedia = Link
+            print(str(Link))
+            myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(A.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+            myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkAirPort():
-        pass
+        Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
+        if ok:
+            A.HyperLinkToAirPortSite = Link
+            print(str(Link))
+            myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+            myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkOperator():
-        pass
+        Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
+        if ok:
+            A.HyperLinkToOperatorSite = Link
+            print(str(Link))
+            myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+            myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinks():
         pass
@@ -413,6 +427,7 @@ def myApplication():
             else:
                 pass
             SetFields()
+            myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByICAO():
         # Кнопка "Поиск" нажата
@@ -446,6 +461,7 @@ def myApplication():
             else:
                 pass
             SetFields()
+            myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByFAA_LID():
         # Кнопка "Поиск" нажата
@@ -479,6 +495,7 @@ def myApplication():
             else:
                 pass
             SetFields()
+            myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByWMO():
         # Кнопка "Поиск" нажата
@@ -512,6 +529,7 @@ def myApplication():
             else:
                 pass
             SetFields()
+            myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonInsertByIATAandICAO():
         # кнопка 'Вставить новый' нажата

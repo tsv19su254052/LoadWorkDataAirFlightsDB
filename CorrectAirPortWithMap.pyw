@@ -381,9 +381,9 @@ def myApplication():
 
     def PushButtonSearchByIATA():
         # Кнопка "Поиск" нажата
-        CodeIATA, ok = QtWidgets.QInputDialog.getText(myDialog, "Код IATA", "Введите код IATA")
+        Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код IATA", "Введите код IATA")
         if ok:
-            DBAirPort = S.QueryAirPortByIATA(CodeIATA)
+            DBAirPort = S.QueryAirPortByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
             if DBAirPort is not None:
@@ -416,9 +416,9 @@ def myApplication():
 
     def PushButtonSearchByICAO():
         # Кнопка "Поиск" нажата
-        CodeICAO, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
+        Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
         if ok:
-            DBAirPort = S.QueryAirPortByICAO(CodeICAO)
+            DBAirPort = S.QueryAirPortByICAO(Code)
             if DBAirPort is not None:
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
@@ -449,9 +449,9 @@ def myApplication():
 
     def PushButtonSearchByFAA_LID():
         # Кнопка "Поиск" нажата
-        CodeFAA_LID, ok = QtWidgets.QInputDialog.getText(myDialog, "Код FAA LID", "Введите код FAA LID")
+        Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код FAA LID", "Введите код FAA LID")
         if ok:
-            DBAirPort = S.QueryAirPortByFAA_LID(CodeFAA_LID)
+            DBAirPort = S.QueryAirPortByFAA_LID(Code)
             if DBAirPort is not None:
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
@@ -482,9 +482,9 @@ def myApplication():
 
     def PushButtonSearchByWMO():
         # Кнопка "Поиск" нажата
-        CodeWMO, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
+        Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
         if ok:
-            DBAirPort = S.QueryAirPortByWMO(CodeWMO)
+            DBAirPort = S.QueryAirPortByWMO(Code)
             if DBAirPort is not None:
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia

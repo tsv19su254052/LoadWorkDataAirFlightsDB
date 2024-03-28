@@ -77,7 +77,7 @@ def myApplication():
     myDialog.pushButton_SearchByFAALID.setEnabled(False)
     myDialog.pushButton_SearchByWMO.setToolTip("Поиск по коду WMO\n (выводит первую запись из БД, дубликаты не предусматриваются)")
     myDialog.pushButton_SearchByWMO.setEnabled(False)
-    myDialog.pushButton_SearchAndInsertByIATAandICAO.setToolTip("Поиск и вставка по коду IATA\nЕсли код IATA пустой, то вероятно просто аэродром без инфраструктуры")
+    myDialog.pushButton_SearchAndInsertByIATAandICAO.setToolTip("Считаем, что аэропорт или аэродром однозначно определяются сочетанием кодов IATA и ICAO\nКоды FAA LID и WMO подисываются дополнительно\nЕсли код IATA пустой, то вероятно просто аэродром или взлетная полоса без инфраструктуры")
     myDialog.pushButton_SearchAndInsertByIATAandICAO.setEnabled(False)
     myDialog.textEdit_AirPortName.setEnabled(False)
     myDialog.textEdit_AirPortCity.setEnabled(False)

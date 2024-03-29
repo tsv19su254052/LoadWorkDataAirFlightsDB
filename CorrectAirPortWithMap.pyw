@@ -108,8 +108,8 @@ def myApplication():
     myDialog.textEdit_AirPortFacilities.setEnabled(False)
     myDialog.textEdit_Incidents.setEnabled(False)
     myDialog.verticalLayout_Map.setEnabled(False)
-    myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
-    myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.lineEdit_CodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.lineEdit_CodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
     myDialogInputIATAandICAO.checkBox_Status_IATA.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
     myDialogInputIATAandICAO.checkBox_Status_ICAO.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
     myDialogInputIATAandICAO.pushButton_SearchInsert.setToolTip("Внимательно проверить введенные данные. Исправления после вставки не предусматриваются")
@@ -566,15 +566,15 @@ def myApplication():
 
     def Check_IATA():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(False)
+            myDialogInputIATAandICAO.lineEdit_CodeIATA.setEnabled(False)
         else:
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_CodeIATA.setEnabled(True)
 
     def Check_ICAO():
         if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(False)
+            myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(False)
         else:
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(True)
 
     def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():

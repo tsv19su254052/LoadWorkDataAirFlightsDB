@@ -2458,6 +2458,58 @@ class Ui_DialogInputIATAandICAO(QtWidgets.QDialog):
 
     # Начало вставки тела конвертированного ресурсного файла
     def setupUi(self, Dialog):
+        if not Dialog.objectName():
+            Dialog.setObjectName(u"Dialog")
+        Dialog.resize(240, 245)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
+        Dialog.setSizePolicy(sizePolicy)
+        self.label = QtWidgets.QLabel(Dialog)
+        self.label.setObjectName(u"label")
+        self.label.setGeometry(QtCore.QRect(130, 30, 31, 16))
+        self.label_2 = QtWidgets.QLabel(Dialog)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setGeometry(QtCore.QRect(130, 60, 31, 16))
+        self.lineEdit_CodeIATA = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_CodeIATA.setObjectName(u"lineEdit_CodeIATA")
+        self.lineEdit_CodeIATA.setGeometry(QtCore.QRect(10, 30, 113, 20))
+        self.lineEdit_CodeICAO = QtWidgets.QLineEdit(Dialog)
+        self.lineEdit_CodeICAO.setObjectName(u"lineEdit_CodeICAO")
+        self.lineEdit_CodeICAO.setGeometry(QtCore.QRect(10, 60, 113, 20))
+        self.checkBox_Status_IATA = QtWidgets.QCheckBox(Dialog)
+        self.checkBox_Status_IATA.setObjectName(u"checkBox_Status_IATA")
+        self.checkBox_Status_IATA.setGeometry(QtCore.QRect(170, 30, 61, 18))
+        self.pushButton_SearchInsert = QtWidgets.QPushButton(Dialog)
+        self.pushButton_SearchInsert.setObjectName(u"pushButton_SearchInsert")
+        self.pushButton_SearchInsert.setGeometry(QtCore.QRect(150, 90, 81, 23))
+        self.checkBox_Status_ICAO = QtWidgets.QCheckBox(Dialog)
+        self.checkBox_Status_ICAO.setObjectName(u"checkBox_Status_ICAO")
+        self.checkBox_Status_ICAO.setGeometry(QtCore.QRect(170, 60, 61, 18))
+        self.label_25 = QtWidgets.QLabel(Dialog)
+        self.label_25.setObjectName(u"label_25")
+        self.label_25.setGeometry(QtCore.QRect(10, 90, 131, 141))
+        self.label_25.setPixmap(QtGui.QPixmap(u"\u0417\u043d\u0430\u0447\u043a\u0438 (\u0418\u043a\u043e\u043d\u043a\u0438)/edit.ico"))
+
+        self.retranslateUi(Dialog)
+
+        QtCore.QMetaObject.connectSlotsByName(Dialog)
+    # setupUi
+
+    def retranslateUi(self, Dialog):
+        Dialog.setWindowTitle(QtCore.QCoreApplication.translate("Dialog", u"Dialog", None))
+        self.label.setText(QtCore.QCoreApplication.translate("Dialog", u"IATA", None))
+        self.label_2.setText(QtCore.QCoreApplication.translate("Dialog", u"ICAO", None))
+        self.checkBox_Status_IATA.setText(QtCore.QCoreApplication.translate("Dialog", u"\u041f\u0443\u0441\u0442\u043e", None))
+        self.pushButton_SearchInsert.setText(QtCore.QCoreApplication.translate("Dialog", u"\u0412\u0441\u0442\u0430\u0432\u043a\u0430", None))
+        self.checkBox_Status_ICAO.setText(QtCore.QCoreApplication.translate("Dialog", u"\u041f\u0443\u0441\u0442\u043e", None))
+        self.label_25.setText("")
+    # retranslateUi
+
+
+    """
+    def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(240, 245)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -2503,6 +2555,7 @@ class Ui_DialogInputIATAandICAO(QtWidgets.QDialog):
         self.checkBox_Status_IATA.setText(_translate("Dialog", "Пусто"))
         self.pushButton_SearchInsert.setText(_translate("Dialog", "Вставка"))
         self.checkBox_Status_ICAO.setText(_translate("Dialog", "Пусто"))
+    """
 
     # Окончание вставки тела конвертированного ресурсного файла
 

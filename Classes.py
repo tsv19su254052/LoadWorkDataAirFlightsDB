@@ -729,15 +729,15 @@ class Servers:
         finally:
             return ResultSQL
 
-    def UpdateAirPort(self, iata, icao, name, city, county, country, lat, long, height, csv, desc, facilities, incidents):
-        # Обновляет данные аэропорта по его коду IATA в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
+    def UpdateAirPort(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)
-            SQLQuery = "UPDATE dbo.AirPortsTable SET AirPortCodeICAO = '" + str(icao) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
+            SQLQuery = "UPDATE dbo.AirPortsTable SET SourceCSVFile = '" + str(csv) + "', HyperLinkToWikiPedia = '" + str(hyperlinkWiki) + "', HyperLinkToAirPortSite = '" + str(hyperlinkAirPort) + "', HyperLinkToOperatorSite = '" + str(hyperlinkOperator)
+            SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
             SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
-            SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height) + ", SourceCSVFile = '" + str(csv)
-            SQLQuery += "', AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' WHERE AirPortCodeIATA = '" + str(iata) + "' "
+            SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
+            SQLQuery += "', AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
             self.cnxnRT.commit()

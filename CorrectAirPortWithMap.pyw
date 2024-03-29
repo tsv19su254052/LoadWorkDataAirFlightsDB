@@ -343,9 +343,11 @@ def myApplication():
             myDialog.pushButton_ConnectDB.setEnabled(True)
 
     def PushButtonUpdateDB():
-        # Кнопка "Записать"
-        # todo вставить диалог выбора и проверки сертификата (ЭЦП) и условный переход с проверкой
+        A.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
+        A.AirPortCodeIATA = myDialog.lineEdit_AirPortCodeIATA.text()
         A.AirPortCodeICAO = myDialog.lineEdit_AirPortCodeICAO.text()
+        A.AirPortCodeFAA_LID = myDialog.lineEdit_AirPortCodeFAA_LID.text()
+        A.AirPortCodeWMO = myDialog.lineEdit_AirPortCodeWMO.text()
         A.AirPortName = myDialog.textEdit_AirPortName.toPlainText()
         A.AirPortCity = myDialog.textEdit_AirPortCity.toPlainText()
         A.AirPortCounty = myDialog.textEdit_AirPortCounty.toPlainText()
@@ -353,13 +355,18 @@ def myApplication():
         A.AirPortLatitude = myDialog.lineEdit_AirPortLatitude.text()
         A.AirPortLongitude = myDialog.lineEdit_AirPortLongitude.text()
         A.HeightAboveSeaLevel = myDialog.lineEdit_HeightAboveSeaLevel.text()
-        A.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
         A.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
         # Вносим изменение
-        ResultUpdate = S.UpdateAirPort(A.AirPortCodeIATA,
+        ResultUpdate = S.UpdateAirPort(A.SourceCSVFile,
+                                       A.HyperLinkToWikiPedia,
+                                       A.HyperLinkToAirPortSite,
+                                       A.HyperLinkToOperatorSite,
+                                       A.AirPortCodeIATA,
                                        A.AirPortCodeICAO,
+                                       A.AirPortCodeFAA_LID,
+                                       A.AirPortCodeWMO,
                                        A.AirPortName,
                                        A.AirPortCity,
                                        A.AirPortCounty,
@@ -367,7 +374,6 @@ def myApplication():
                                        A.AirPortLatitude,
                                        A.AirPortLongitude,
                                        A.HeightAboveSeaLevel,
-                                       A.SourceCSVFile,
                                        A.AirPortDescription,
                                        A.AirPortFacilities,
                                        A.AirPortIncidents)

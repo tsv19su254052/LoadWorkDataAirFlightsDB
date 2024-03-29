@@ -2391,10 +2391,10 @@ class Ui_DialogCorrectAirLine(QtWidgets.QDialog):
 
 # Конвертация ресурсного файла *.ui -> *.py в терминале командой (командной строке)
 # > pyuic5 Qt_Designer_CorrectDialogAirLinesInput.ui -o Qt_Designer_CorrectDialogAirLinesInput.py
-class Ui_DialogCorrectAirLineInput(QtWidgets.QDialog):
+class Ui_DialogInputIATAandICAO(QtWidgets.QDialog):
     def __init__(self):
         # просто сразу вызываем конструктор предка
-        super(Ui_DialogCorrectAirLineInput, self).__init__()  # конструктор предка
+        super(Ui_DialogInputIATAandICAO, self).__init__()  # конструктор предка
         # а потом остальное
         pass
 

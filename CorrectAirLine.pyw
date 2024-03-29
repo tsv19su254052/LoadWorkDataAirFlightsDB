@@ -35,9 +35,9 @@ def myApplication():
     myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
     myDialog.setFixedSize(862, 830)
     myDialog.setWindowTitle('АвиаКомпании')
-    myDialogInput = Classes.Ui_DialogCorrectAirLineInput()
-    myDialogInput.setupUi(Dialog=myDialogInput)
-    myDialogInput.setFixedSize(240, 245)
+    myDialogInputIATAandICAO = Classes.Ui_DialogInputIATAandICAO()
+    myDialogInputIATAandICAO.setupUi(Dialog=myDialogInputIATAandICAO)
+    myDialogInputIATAandICAO.setFixedSize(240, 245)
     # Переводим в исходное состояние
     #myDialogInput.checkBox_Status_IATA.isChecked(False)
     #myDialogInput.checkBox_Status_ICAO.isChecked(False)
@@ -154,13 +154,13 @@ def myApplication():
     myDialog.pushButton_Next.setEnabled(False)
     myDialog.pushButton_Update.setToolTip("Запись внесенных изменений\n Перед нажатием правильно заполнить и проверить введенные данные")
     myDialog.pushButton_Update.setEnabled(False)
-    myDialogInput.lineEdit_AirLineCodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
-    myDialogInput.lineEdit_AirLineCodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
-    myDialogInput.checkBox_Status_IATA.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
-    myDialogInput.checkBox_Status_ICAO.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
+    myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.checkBox_Status_IATA.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
+    myDialogInputIATAandICAO.checkBox_Status_ICAO.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
     myDialog.lineEdit_AirLineID.setToolTip("Номер по старой базе данных авиакомпаний")
     myDialog.lineEdit_AirLineAlias.setToolTip("Псевдоним по старой базе данных авиакомпаний")
-    myDialogInput.pushButton_SearchInsert.setToolTip("Внимательно проверить введенные данные. Исправления после вставки не предусматриваются")
+    myDialogInputIATAandICAO.pushButton_SearchInsert.setToolTip("Внимательно проверить введенные данные. Исправления после вставки не предусматриваются")
     # Добавляем атрибут ввода
     myDialog.lineEditCodeIATA = QtWidgets.QLineEdit()
     myDialog.lineEditCodeICAO = QtWidgets.QLineEdit()
@@ -184,9 +184,9 @@ def myApplication():
     myDialog.pushButton_Previous.clicked.connect(lambda: PushButtonPrevious())
     myDialog.pushButton_Next.clicked.connect(lambda: PushButtonNext())
     myDialog.pushButton_Update.clicked.connect(lambda: PushButtonUpdate())
-    myDialogInput.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInsert())
-    myDialogInput.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
-    myDialogInput.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
+    myDialogInputIATAandICAO.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInsert())
+    myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
+    myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
     def PushButtonSelectDB():
         if not S.Connected_AL:
@@ -474,33 +474,33 @@ def myApplication():
     def PushButtonSearchByIATAandICAO():
         # кнопка "Поиск и Вставка"
         # Отрисовка диалога ввода
-        myDialogInput.setWindowTitle("Диалог ввода")
-        myDialogInput.setWindowModality(QtCore.Qt.ApplicationModal)
-        myDialogInput.show()
+        myDialogInputIATAandICAO.setWindowTitle("Диалог ввода")
+        myDialogInputIATAandICAO.setWindowModality(QtCore.Qt.ApplicationModal)
+        myDialogInputIATAandICAO.show()
 
     def Check_IATA():
-        if myDialogInput.checkBox_Status_IATA.isChecked():
-            myDialogInput.lineEdit_AirLineCodeIATA.setEnabled(False)
+        if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
+            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(False)
         else:
-            myDialogInput.lineEdit_AirLineCodeIATA.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(True)
 
     def Check_ICAO():
-        if myDialogInput.checkBox_Status_ICAO.isChecked():
-            myDialogInput.lineEdit_AirLineCodeICAO.setEnabled(False)
+        if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
+            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(False)
         else:
-            myDialogInput.lineEdit_AirLineCodeICAO.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(True)
 
     def PushButtonInsert():
-        if myDialogInput.checkBox_Status_IATA.isChecked():
+        if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
         else:
-            Code_IATA = myDialogInput.lineEdit_AirLineCodeIATA.text()
-        if myDialogInput.checkBox_Status_ICAO.isChecked():
+            Code_IATA = myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.text()
+        if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
             Code_ICAO = None
         else:
-            Code_ICAO = myDialogInput.lineEdit_AirLineCodeICAO.text()
+            Code_ICAO = myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.text()
         DBAirLine = S.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
-        myDialogInput.close()
+        myDialogInputIATAandICAO.close()
 
         def Transfer():
             A.Position = DBAirLine.AirLineUniqueNumber

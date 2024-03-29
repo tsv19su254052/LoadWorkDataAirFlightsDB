@@ -563,7 +563,7 @@ def myApplication():
             Code_ICAO = None
         else:
             Code_ICAO = myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.text()
-        DBAirLine = S.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+        DBAirPort = S.QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
         def Transfer():

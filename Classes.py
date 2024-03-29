@@ -712,6 +712,9 @@ class Servers:
         # todo В процессе разработки
         pass
 
+    def QueryAirPortByIATAandICAO(self, iata, icao):
+        pass
+
     def UpdateAirPort(self, iata, icao, name, city, county, country, lat, long, height, csv, desc, facilities, incidents):
         # Обновляет данные аэропорта по его коду IATA в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
         try:

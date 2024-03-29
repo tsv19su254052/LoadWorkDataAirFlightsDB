@@ -567,47 +567,43 @@ def myApplication():
         myDialogInputIATAandICAO.close()
 
         def Transfer():
-            A.Position = DBAirLine.AirLineUniqueNumber
-            A.AirLine_ID = DBAirLine.AirLine_ID
-            A.AirLineName = DBAirLine.AirLineName
-            A.AirLineAlias = DBAirLine.AirLineAlias
-            A.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
-            A.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
-            A.AirLineCallSighn = DBAirLine.AirLineCallSighn
-            A.AirLineCity = DBAirLine.AirLineCity
-            A.AirLineCountry = DBAirLine.AirLineCountry
-            if DBAirLine.AirLineStatus is not None:
-                A.AirLineStatus = DBAirLine.AirLineStatus
-            else:
-                A.AirLineStatus = False
-            if DBAirLine.CreationDate:
-                A.CreationDate = DBAirLine.CreationDate
-            A.AirLineDescription = DBAirLine.AirLineDescription
-            if DBAirLine.Alliance:
-                A.Alliance = DBAirLine.Alliance
-            else:
-                A.Alliance = 4
-            if A.Position == 1:
-                myDialog.pushButton_Begin.setEnabled(False)
-                myDialog.pushButton_Previous.setEnabled(False)
-            if A.Position >= 2:
-                myDialog.pushButton_Begin.setEnabled(True)
-                myDialog.pushButton_Previous.setEnabled(True)
+            A.SourceCSVFile = DBAirPort.SourceCSVFile
+            A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
+            A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
+            A.HyperLinkToOperatorSite = DBAirPort.HyperLinkToOperatorSite
+            if DBAirPort.AirPortCodeIATA is not None:
+                A.AirPortCodeIATA = DBAirPort.AirPortCodeIATA
+            if DBAirPort.AirPortCodeICAO is not None:
+                A.AirPortCodeICAO = DBAirPort.AirPortCodeICAO
+            if DBAirPort.AirPortCodeFAA_LID is not None:
+                A.AirPortCodeFAA_LID = DBAirPort.AirPortCodeFAA_LID
+            if DBAirPort.AirPortCodeWMO is not None:
+                A.AirPortCodeWMO = DBAirPort.AirPortCodeWMO
+            A.AirPortName = DBAirPort.AirPortName
+            A.AirPortCity = DBAirPort.AirPortName
+            A.AirPortCounty = DBAirPort.AirPortCounty
+            A.AirPortCountry = DBAirPort.AirPortCountry
+            A.AirPortLatitude = DBAirPort.AirPortLatitude
+            A.AirPortLongitude = DBAirPort.AirPortLongitude
+            A.HeightAboveSeaLevel = DBAirPort.HeightAboveSeaLevel
+            A.AirPortDescription = DBAirPort.AirPortDescription
+            A.AirPortFacilities = DBAirPort.AirPortFacilities
+            A.AirPortIncidents = DBAirPort.AirPortIncidents
             SetFields()
 
-        if DBAirLine is not None:
+        if DBAirPort is not None:
             # Переходим на найденную запись
             Transfer()
             message = QtWidgets.QMessageBox()
             message.setText("Такая запись есть")
             message.setIcon(QtWidgets.QMessageBox.Information)
             message.exec_()
-        elif DBAirLine is None:
+        elif DBAirPort is None:
             # Вставка новой строки
-            ResultInsert = S.InsertAirLineByIATAandICAO(Code_IATA, Code_ICAO)
+            ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
-                DBAirLine = S.QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
-                if DBAirLine is not None:
+                DBAirPort = S.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
+                if DBAirPort is not None:
                     Transfer()
                 else:
                     message = QtWidgets.QMessageBox()

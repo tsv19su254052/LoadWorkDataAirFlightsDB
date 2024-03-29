@@ -696,7 +696,7 @@ class Servers:
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
             self.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE dbo.AirPortsTable.AirPortUniqueNumber=" + str(pk)  # можно убрать лишнее
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE dbo.AirPortsTable.AirPortUniqueNumber= " + str(pk)  # можно убрать лишнее
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
             self.cnxnRT.commit()
@@ -713,7 +713,21 @@ class Servers:
         pass
 
     def QueryAirPortByIATAandICAO(self, iata, icao):
-        pass
+        # Возвращает строку аэропорта по кодам IATA и ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE dbo.AirPortsTable.AirPortCodeIATA= '" + str(iata) + "' AND dbo.AirPortsTable.AirPortCodeICAO= '" + str(icao) + "' "  # можно убрать лишнее
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
 
     def UpdateAirPort(self, iata, icao, name, city, county, country, lat, long, height, csv, desc, facilities, incidents):
         # Обновляет данные аэропорта по его коду IATA в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
@@ -756,6 +770,26 @@ class Servers:
             return ResultSQL
 
     def InsertAirPortByIATA_SQLAlchemy(self, iata):
+        # todo В процессе разработки
+        pass
+
+    def InsertAirPortByIATAandICAO(self, iata, icao):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def InsertAirPortByIATAandICAO_SQLAlchemy(self, iata, icao):
         # todo В процессе разработки
         pass
 

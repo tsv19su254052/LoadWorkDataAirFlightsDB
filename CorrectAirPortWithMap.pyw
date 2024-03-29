@@ -131,7 +131,7 @@ def myApplication():
     myDialog.pushButton_SearchByWMO.clicked.connect(lambda: PushButtonSearchByWMO())
     myDialog.pushButton_SearchAndInsertByIATAandICAO.clicked.connect(lambda: PushButtonInsertByIATAandICAO())
     myDialog.pushButton_HyperLinksChange.clicked.connect(lambda: PushButtonChangeHyperLinks())
-    myDialogInputIATAandICAO.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInsert())
+    myDialogInputIATAandICAO.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInput())
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
@@ -554,7 +554,7 @@ def myApplication():
         else:
             myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(True)
 
-    def PushButtonInsert():
+    def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
         else:

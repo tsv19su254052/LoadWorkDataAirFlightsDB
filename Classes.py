@@ -716,7 +716,15 @@ class Servers:
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
             self.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE dbo.AirPortsTable.AirPortCodeIATA= '" + str(iata) + "' AND dbo.AirPortsTable.AirPortCodeICAO= '" + str(icao) + "' "  # можно убрать лишнее
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable "
+            if iata is None:
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += "WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+            else:
+                SQLQuery += "WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
             self.cnxnRT.commit()

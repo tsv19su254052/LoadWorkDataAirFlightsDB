@@ -176,10 +176,26 @@ def myApplication():
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
-        myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
-        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
-        myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
+        if A.AirPortCodeIATA is None:
+            myDialog.lineEdit_AirPortCodeIATA.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeIATA.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
+        if A.AirPortCodeICAO is None:
+            myDialog.lineEdit_AirPortCodeICAO.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeICAO.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
+        if A.AirPortCodeFAA_LID is None:
+            myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
+        if A.AirPortCodeWMO is None:
+            myDialog.lineEdit_AirPortCodeWMO.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeWMO.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()
         myDialog.textEdit_AirPortName.append(str(A.AirPortName))
         myDialog.textEdit_AirPortCity.clear()
@@ -359,24 +375,24 @@ def myApplication():
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
         # Вносим изменение
-        ResultUpdate = S.UpdateAirPort(A.SourceCSVFile,
-                                       A.HyperLinkToWikiPedia,
-                                       A.HyperLinkToAirPortSite,
-                                       A.HyperLinkToOperatorSite,
-                                       A.AirPortCodeIATA,
-                                       A.AirPortCodeICAO,
-                                       A.AirPortCodeFAA_LID,
-                                       A.AirPortCodeWMO,
-                                       A.AirPortName,
-                                       A.AirPortCity,
-                                       A.AirPortCounty,
-                                       A.AirPortCountry,
-                                       A.AirPortLatitude,
-                                       A.AirPortLongitude,
-                                       A.HeightAboveSeaLevel,
-                                       A.AirPortDescription,
-                                       A.AirPortFacilities,
-                                       A.AirPortIncidents)
+        ResultUpdate = S.UpdateAirPortByIATAandICAO(A.SourceCSVFile,
+                                                    A.HyperLinkToWikiPedia,
+                                                    A.HyperLinkToAirPortSite,
+                                                    A.HyperLinkToOperatorSite,
+                                                    A.AirPortCodeIATA,
+                                                    A.AirPortCodeICAO,
+                                                    A.AirPortCodeFAA_LID,
+                                                    A.AirPortCodeWMO,
+                                                    A.AirPortName,
+                                                    A.AirPortCity,
+                                                    A.AirPortCounty,
+                                                    A.AirPortCountry,
+                                                    A.AirPortLatitude,
+                                                    A.AirPortLongitude,
+                                                    A.HeightAboveSeaLevel,
+                                                    A.AirPortDescription,
+                                                    A.AirPortFacilities,
+                                                    A.AirPortIncidents)
         if not ResultUpdate:
             message = QtWidgets.QMessageBox()
             message.setText("Запись не переписалась")

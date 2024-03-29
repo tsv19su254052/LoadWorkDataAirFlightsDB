@@ -729,7 +729,7 @@ class Servers:
         finally:
             return ResultSQL
 
-    def UpdateAirPort(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
+    def UpdateAirPortByIATAandICAO(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)
@@ -737,7 +737,18 @@ class Servers:
             SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
             SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
             SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
-            SQLQuery += "', AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            SQLQuery += "', AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
+            if iata is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
             self.cnxnRT.commit()
@@ -749,11 +760,12 @@ class Servers:
         finally:
             return ResultSQL
 
-    def UpdateAirPort_SQLAlchemy(self, iata, icao, name, city, county, country, lat, long, height, csv, desc, facilities, incidents):
+    def UpdateAirPort_SQLAlchemyByIATAandICAO(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
         # todo В процессе разработки
         pass
 
     def InsertAirPortByIATA(self, iata):
+        # fixme дописать функционал, когда код пустой
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
@@ -777,7 +789,16 @@ class Servers:
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
-            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
+            if iata is None:
+                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES (NULL, '" + str(icao) + "') "
+            elif icao is None:
+                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', NULL) "
+            elif iata is None and icao is None:
+                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES (NULL, NULL) "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
             self.cnxnRT.commit()

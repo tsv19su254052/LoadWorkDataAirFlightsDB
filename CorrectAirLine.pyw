@@ -477,7 +477,6 @@ def myApplication():
         myDialogInput.setWindowTitle("Диалог ввода")
         myDialogInput.setWindowModality(QtCore.Qt.ApplicationModal)
         myDialogInput.show()
-        # Привязки обработчиков
 
     def Check_IATA():
         if myDialogInput.checkBox_Status_IATA.isChecked():

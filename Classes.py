@@ -61,7 +61,7 @@ class AirCraft:
 class AirPort:
     # fixme правильно писать конструктор
     def __init__(self):
-        self.HyperLinkToWikiPedia = "https://ru.wikipedia.org/wiki"
+        self.HyperLinkToWikiPedia = " "
         self.HyperLinkToAirPortSite = " "
         self.HyperLinkToOperatorSite = " "
         self.HyperLinksToOtherSites = " "
@@ -81,7 +81,6 @@ class AirPort:
         self.AirPortRunWays = " "
         self.AirPortFacilities = " "
         self.AirPortIncidents = " "
-        self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
 
 
 # Делаем предка
@@ -747,7 +746,6 @@ class Servers:
                 #print("raise Exception")
                 #raise Exception
             else:
-                print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True

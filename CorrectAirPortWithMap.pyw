@@ -135,37 +135,6 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
-    def CommonPart():
-        DBAirPort = S.QueryAirPortByPK(A.Position)
-        if DBAirPort is not None:
-            A.AirPortCodeIATA = DBAirPort.AirPortCodeIATA
-            A.AirPortCodeICAO = DBAirPort.AirPortCodeICAO
-            A.AirPortName = DBAirPort.AirPortName
-            A.AirPortCity = DBAirPort.AirPortCity
-            A.AirPortCounty = DBAirPort.AirPortCounty
-            A.AirPortCountry = DBAirPort.AirPortCountry
-            A.AirPortLatitude = DBAirPort.AirPortLatitude
-            A.AirPortLongitude = DBAirPort.AirPortLongitude
-            A.HeightAboveSeaLevel = DBAirPort.HeightAboveSeaLevel
-            A.SourceCSVFile = DBAirPort.SourceCSVFile
-            A.AirPortDescription = DBAirPort.AirPortDescription
-            A.AirPortFacilities = DBAirPort.AirPortFacilities
-            A.AirPortIncidents = DBAirPort.AirPortIncidents
-            SetFields()
-            return True
-        elif DBAirPort is None:
-            message = QtWidgets.QMessageBox()
-            message.setText("Запись не найдена")
-            message.setIcon(QtWidgets.QMessageBox.Information)
-            message.exec_()
-            return False
-        else:
-            message = QtWidgets.QMessageBox()
-            message.setText("Запись не прочиталась")
-            message.setIcon(QtWidgets.QMessageBox.Warning)
-            message.exec_()
-            return False
-
     def SetFields():
         # Выводим записи
         myDialog.textEdit_SourceCSVFile.clear()
@@ -186,16 +155,8 @@ def myApplication():
         else:
             myDialog.lineEdit_AirPortCodeICAO.setEnabled(True)
             myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
-        if A.AirPortCodeFAA_LID is None:
-            myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(False)
-        else:
-            myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(True)
-            myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
-        if A.AirPortCodeWMO is None:
-            myDialog.lineEdit_AirPortCodeWMO.setEnabled(False)
-        else:
-            myDialog.lineEdit_AirPortCodeWMO.setEnabled(True)
-            myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
+        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
+        myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()
         myDialog.textEdit_AirPortName.append(str(A.AirPortName))
         myDialog.textEdit_AirPortCity.clear()
@@ -329,7 +290,6 @@ def myApplication():
                 # Переводим в рабочее состояние (продолжение)
                 SwitchingGUI(True)
                 myDialog.pushButton_DisconnectDB.setEnabled(True)
-                A.Position = 1
             except Exception:
                 # Переводим в рабочее состояние
                 myDialog.pushButton_ConnectDB.setEnabled(True)

@@ -540,11 +540,11 @@ def myApplication():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
         else:
-            Code_IATA = myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.text()
+            Code_IATA = myDialogInputIATAandICAO.lineEdit_CodeIATA.text()
         if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
             Code_ICAO = None
         else:
-            Code_ICAO = myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.text()
+            Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
         DBAirPort = S.QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
@@ -562,7 +562,7 @@ def myApplication():
             if DBAirPort.AirPortCodeWMO is not None:
                 A.AirPortCodeWMO = DBAirPort.AirPortCodeWMO
             A.AirPortName = DBAirPort.AirPortName
-            A.AirPortCity = DBAirPort.AirPortName
+            A.AirPortCity = DBAirPort.AirPortCity
             A.AirPortCounty = DBAirPort.AirPortCounty
             A.AirPortCountry = DBAirPort.AirPortCountry
             A.AirPortLatitude = DBAirPort.AirPortLatitude

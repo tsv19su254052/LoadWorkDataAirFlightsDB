@@ -582,7 +582,7 @@ def myApplication():
                     Transfer()
                 else:
                     message = QtWidgets.QMessageBox()
-                    message.setText("Запись не прочиталась. Посмотрите ее через поиск")
+                    message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")
                     message.setIcon(QtWidgets.QMessageBox.Warning)
                     message.exec_()
             else:

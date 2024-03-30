@@ -145,8 +145,16 @@ def myApplication():
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
-        myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
+        if A.AirPortCodeIATA == 'None':
+            myDialog.lineEdit_AirPortCodeIATA.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeIATA.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
+        if A.AirPortCodeICAO == 'None':
+            myDialog.lineEdit_AirPortCodeICAO.setEnabled(False)
+        else:
+            myDialog.lineEdit_AirPortCodeICAO.setEnabled(True)
+            myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
         myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
         myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()

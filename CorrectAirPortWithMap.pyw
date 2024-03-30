@@ -377,6 +377,8 @@ def myApplication():
             message.setText("Запись не переписалась")
             message.setIcon(QtWidgets.QMessageBox.Warning)
             message.exec_()
+        else:
+            S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO)
 
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
@@ -582,6 +584,7 @@ def myApplication():
                 if DBAirPort is not None:
                     ReadingQuery(DBAirPort)
                     SetFields()
+                    S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO)
                 else:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")

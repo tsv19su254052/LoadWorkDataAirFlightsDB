@@ -811,8 +811,46 @@ class Servers:
         finally:
             return ResultSQL
 
-    def IncrementLogCountChangedAirPort(self):
-        pass
+    def IncrementLogCountChangedAirPort(self, iata, icao):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
+            if iata is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            Count = ResultSQL[0]
+            if Count is None:
+                Count = 1
+            else:
+                Count += 1
+            print("LogCountChanged = " + str(Count))
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
+            if iata is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
 
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой

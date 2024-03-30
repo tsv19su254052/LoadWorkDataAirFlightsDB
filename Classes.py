@@ -722,9 +722,9 @@ class Servers:
             elif icao is None:
                 SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
             elif iata is None and icao is None:
-                SQLQuery += "WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
             else:
-                SQLQuery += "WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
             self.cnxnRT.commit()

@@ -145,12 +145,12 @@ def myApplication():
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        if A.AirPortCodeIATA == 'None':
+        if A.AirPortCodeIATA is None:
             myDialog.lineEdit_AirPortCodeIATA.setEnabled(False)
         else:
             myDialog.lineEdit_AirPortCodeIATA.setEnabled(True)
             myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
-        if A.AirPortCodeICAO == 'None':
+        if A.AirPortCodeICAO is None:
             myDialog.lineEdit_AirPortCodeICAO.setEnabled(False)
         else:
             myDialog.lineEdit_AirPortCodeICAO.setEnabled(True)
@@ -404,7 +404,10 @@ def myApplication():
             myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinks():
-        pass
+        message = QtWidgets.QMessageBox()
+        message.setText("Пока в разработке")
+        message.setIcon(QtWidgets.QMessageBox.Information)
+        message.exec_()
 
     def PushButtonSearchByIATA():
         # Кнопка "Поиск" нажата
@@ -573,7 +576,7 @@ def myApplication():
         myDialogInputIATAandICAO.close()
 
         if DBAirPort is None:
-            # Вставка новой строки
+            # Вставляем новую запись
             ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
                 DBAirPort = S.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)

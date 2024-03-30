@@ -1286,9 +1286,6 @@ class Ui_DialogCorrectAirPortsWithMap(QtWidgets.QDialog):
         self.lineEdit_HeightAboveSeaLevel = QtWidgets.QLineEdit(Dialog)
         self.lineEdit_HeightAboveSeaLevel.setObjectName(u"lineEdit_HeightAboveSeaLevel")
         self.lineEdit_HeightAboveSeaLevel.setGeometry(QtCore.QRect(150, 750, 131, 20))
-        self.lineEdit_AirPortCodeIATA = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_AirPortCodeIATA.setObjectName(u"lineEdit_AirPortCodeIATA")
-        self.lineEdit_AirPortCodeIATA.setGeometry(QtCore.QRect(10, 340, 113, 20))
         self.lineEdit_AirPortLongitude = QtWidgets.QLineEdit(Dialog)
         self.lineEdit_AirPortLongitude.setObjectName(u"lineEdit_AirPortLongitude")
         self.lineEdit_AirPortLongitude.setGeometry(QtCore.QRect(80, 750, 61, 20))
@@ -1318,7 +1315,7 @@ class Ui_DialogCorrectAirPortsWithMap(QtWidgets.QDialog):
         self.label_5.setGeometry(QtCore.QRect(20, 540, 241, 16))
         self.label_2 = QtWidgets.QLabel(Dialog)
         self.label_2.setObjectName(u"label_2")
-        self.label_2.setGeometry(QtCore.QRect(130, 370, 47, 13))
+        self.label_2.setGeometry(QtCore.QRect(130, 370, 41, 16))
         self.lineEdit_AirPortLatitude = QtWidgets.QLineEdit(Dialog)
         self.lineEdit_AirPortLatitude.setObjectName(u"lineEdit_AirPortLatitude")
         self.lineEdit_AirPortLatitude.setGeometry(QtCore.QRect(10, 750, 61, 20))
@@ -1327,10 +1324,7 @@ class Ui_DialogCorrectAirPortsWithMap(QtWidgets.QDialog):
         self.label_19.setGeometry(QtCore.QRect(90, 730, 51, 21))
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setObjectName(u"label")
-        self.label.setGeometry(QtCore.QRect(130, 340, 51, 16))
-        self.lineEdit_AirPortCodeICAO = QtWidgets.QLineEdit(Dialog)
-        self.lineEdit_AirPortCodeICAO.setObjectName(u"lineEdit_AirPortCodeICAO")
-        self.lineEdit_AirPortCodeICAO.setGeometry(QtCore.QRect(10, 370, 113, 20))
+        self.label.setGeometry(QtCore.QRect(130, 340, 41, 16))
         self.label_21 = QtWidgets.QLabel(Dialog)
         self.label_21.setObjectName(u"label_21")
         self.label_21.setGeometry(QtCore.QRect(20, 160, 171, 21))
@@ -1436,11 +1430,17 @@ class Ui_DialogCorrectAirPortsWithMap(QtWidgets.QDialog):
         self.pushButton_SearchByWMO.setGeometry(QtCore.QRect(190, 430, 71, 23))
         self.label_28 = QtWidgets.QLabel(Dialog)
         self.label_28.setObjectName(u"label_28")
-        self.label_28.setGeometry(QtCore.QRect(20, 320, 161, 21))
+        self.label_28.setGeometry(QtCore.QRect(20, 310, 41, 21))
+        self.label_CodeIATA = QtWidgets.QLabel(Dialog)
+        self.label_CodeIATA.setObjectName(u"label_CodeIATA")
+        self.label_CodeIATA.setGeometry(QtCore.QRect(20, 340, 101, 20))
+        self.label_CodeICAO = QtWidgets.QLabel(Dialog)
+        self.label_CodeICAO.setObjectName(u"label_CodeICAO")
+        self.label_CodeICAO.setGeometry(QtCore.QRect(20, 370, 101, 20))
 
         self.retranslateUi(Dialog)
 
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -1491,11 +1491,13 @@ class Ui_DialogCorrectAirPortsWithMap(QtWidgets.QDialog):
         self.pushButton_SearchByFAALID.setText(QtCore.QCoreApplication.translate("Dialog", u"\u041f\u043e\u0438\u0441\u043a", None))
         self.pushButton_SearchByWMO.setText(QtCore.QCoreApplication.translate("Dialog", u"\u041f\u043e\u0438\u0441\u043a", None))
         self.label_28.setText(QtCore.QCoreApplication.translate("Dialog", u"\u041a\u043e\u0434\u044b:", None))
+        self.label_CodeIATA.setText(QtCore.QCoreApplication.translate("Dialog", u"IATA", None))
+        self.label_CodeICAO.setText(QtCore.QCoreApplication.translate("Dialog", u"ICAO", None))
     # retranslateUi
 
     # Окончание вставки тела конвертированного ресурсного файла
 
-        # Добавляем функционал класса главного диалога
+    # Добавляем функционал класса главного диалога
 
     def closeEvent(self, event):
         reply = QtWidgets.QMessageBox.question(self, 'Предупреждение', "Закрыть диалог?",

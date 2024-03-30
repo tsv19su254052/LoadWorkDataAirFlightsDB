@@ -785,13 +785,26 @@ class Servers:
                 SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            if ResultSQL is None:
-                ResultSQL = 1
+            Count = ResultSQL[0]
+            if Count is None:
+                Count = 1
+            else:
+                Count += 1
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
+            if iata is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
             self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
             self.cnxnRT.rollback()
-            pass
         else:
             pass
         finally:

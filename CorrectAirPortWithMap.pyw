@@ -218,7 +218,6 @@ def myApplication():
         A.AirPortFacilities = ResultQuery.AirPortFacilities
         A.AirPortIncidents = ResultQuery.AirPortIncidents
         A.LogCountViewed = ResultQuery.LogCountViewed
-        A.LogCountViewed += 1
         S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO)
 
     def SwitchingGUI(Key):

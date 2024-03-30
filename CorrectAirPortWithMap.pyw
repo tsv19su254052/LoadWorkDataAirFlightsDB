@@ -147,11 +147,13 @@ def myApplication():
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
         if A.AirPortCodeIATA is None:
+            myDialog.label_CodeIATA.setText(" ")
             myDialog.label_CodeIATA.setEnabled(False)
         else:
             myDialog.label_CodeIATA.setEnabled(True)
             myDialog.label_CodeIATA.setText(str(A.AirPortCodeIATA))
         if A.AirPortCodeICAO is None:
+            myDialog.label_CodeICAO.setText(" ")
             myDialog.label_CodeICAO.setEnabled(False)
         else:
             myDialog.label_CodeICAO.setEnabled(True)

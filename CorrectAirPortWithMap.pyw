@@ -69,8 +69,6 @@ def myApplication():
     myDialog.pushButton_HyperLinkChange_Wikipedia.setEnabled(False)
     myDialog.pushButton_HyperLinkChange_AirPort.setEnabled(False)
     myDialog.pushButton_HyperLinkChange_Operator.setEnabled(False)
-    myDialog.label_CodeIATA.setEnabled(False)
-    myDialog.label_CodeICAO.setEnabled(False)
     myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(False)
     myDialog.lineEdit_AirPortCodeWMO.setEnabled(False)
     myDialog.pushButton_SearchByIATA.setToolTip("Поиск по коду IATA\n (выводит первую запись из БД, дубликаты не предусматриваются)")
@@ -148,15 +146,11 @@ def myApplication():
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
         if A.AirPortCodeIATA is None:
             myDialog.label_CodeIATA.setText(" ")
-            myDialog.label_CodeIATA.setEnabled(False)
         else:
-            myDialog.label_CodeIATA.setEnabled(True)
             myDialog.label_CodeIATA.setText(str(A.AirPortCodeIATA))
         if A.AirPortCodeICAO is None:
             myDialog.label_CodeICAO.setText(" ")
-            myDialog.label_CodeICAO.setEnabled(False)
         else:
-            myDialog.label_CodeICAO.setEnabled(True)
             myDialog.label_CodeICAO.setText(A.AirPortCodeICAO)
         myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
         myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
@@ -236,8 +230,6 @@ def myApplication():
         myDialog.pushButton_HyperLinkChange_Wikipedia.setEnabled(Key)
         myDialog.pushButton_HyperLinkChange_AirPort.setEnabled(Key)
         myDialog.pushButton_HyperLinkChange_Operator.setEnabled(Key)
-        myDialog.label_CodeIATA.setEnabled(Key)
-        myDialog.label_CodeICAO.setEnabled(Key)
         myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(Key)
         myDialog.lineEdit_AirPortCodeWMO.setEnabled(Key)
         myDialog.pushButton_SearchByIATA.setEnabled(Key)

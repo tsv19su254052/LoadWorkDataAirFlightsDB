@@ -770,6 +770,36 @@ class Servers:
         # todo В процессе разработки
         pass
 
+    def IncrementLogCountViewedAirPort(self, iata, icao):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
+            if iata is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            if ResultSQL is None:
+                ResultSQL = 1
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+            pass
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def IncrementLogCountChangedAirPort(self):
+        pass
+
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой
         try:

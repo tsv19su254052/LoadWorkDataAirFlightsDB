@@ -15,6 +15,9 @@ import Classes
 
 # Делаем экземпляры
 A = Classes.AirPort()
+A.LogCountViewed = 0
+A.LogCountChanged = 0
+A.LogCountChangedOthers = 0
 S = Classes.Servers()
 # Добавляем аттрибуты
 #S.ServerName = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
@@ -214,6 +217,9 @@ def myApplication():
         A.AirPortDescription = ResultQuery.AirPortDescription
         A.AirPortFacilities = ResultQuery.AirPortFacilities
         A.AirPortIncidents = ResultQuery.AirPortIncidents
+        A.LogCountViewed = ResultQuery.LogCountViewed
+        A.LogCountViewed += 1
+        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO)
 
     def SwitchingGUI(Key):
         myDialog.comboBox_DB.setEnabled(not Key)

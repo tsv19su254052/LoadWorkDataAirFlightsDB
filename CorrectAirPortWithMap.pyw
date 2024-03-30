@@ -178,16 +178,6 @@ def myApplication():
         myDialog.textEdit_AirPortFacilities.append(A.AirPortFacilities)
         myDialog.textEdit_Incidents.clear()
         myDialog.textEdit_Incidents.append(A.AirPortIncidents)
-        coordinates = (A.AirPortLatitude, A.AirPortLongitude)
-        # Варианты карт: OpenStreetMap (подробная цветная), CartoDB Positron (серенькая), CartoDB Voyager (аскетичная, мало подписей и меток), NASAGIBS Blue Marble (пока не отрисовывается)
-        m = folium.Map(tiles='OpenStreetMap',
-                       zoom_start=13,
-                       location=coordinates)
-        # save map data to data object
-        data = io.BytesIO()
-        m.save(data, close_file=False)
-        webView = QtWebEngineWidgets.QWebEngineView()
-        webView.setHtml(data.getvalue().decode())
         # очищаем предыдущую отрисовку
         if myDialog.verticalLayout_Map is not None:
             while myDialog.verticalLayout_Map.count():
@@ -196,8 +186,17 @@ def myApplication():
                     child.widget().deleteLater()
                 elif child.layout() is not None:
                     myDialog.verticalLayout_Map.clearLayout(child.layout())
-        # новая отрисовка
-        myDialog.verticalLayout_Map.addWidget(webView)
+        if A.AirPortLatitude is not None and A.AirPortLongitude is not None:
+            coordinates = (A.AirPortLatitude, A.AirPortLongitude)
+            # Варианты карт: OpenStreetMap (подробная цветная), CartoDB Positron (серенькая), CartoDB Voyager (аскетичная, мало подписей и меток), NASAGIBS Blue Marble (пока не отрисовывается)
+            m = folium.Map(tiles='OpenStreetMap', zoom_start=13, location=coordinates)
+            # save map data to data object
+            data = io.BytesIO()
+            m.save(data, close_file=False)
+            webView = QtWebEngineWidgets.QWebEngineView()
+            webView.setHtml(data.getvalue().decode())
+            # новая отрисовка
+            myDialog.verticalLayout_Map.addWidget(webView)
 
     def ReadingQuery(ResultQuery):
         A.SourceCSVFile = ResultQuery.SourceCSVFile

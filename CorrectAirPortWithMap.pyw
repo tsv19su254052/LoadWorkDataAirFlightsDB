@@ -199,6 +199,30 @@ def myApplication():
         # новая отрисовка
         myDialog.verticalLayout_Map.addWidget(webView)
 
+    def ReadingQuery(ResultQuery):
+        A.SourceCSVFile = ResultQuery.SourceCSVFile
+        A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
+        A.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
+        A.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
+        if ResultQuery.AirPortCodeIATA is not None:
+            A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
+        if ResultQuery.AirPortCodeICAO is not None:
+            A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
+        if ResultQuery.AirPortCodeFAA_LID is not None:
+            A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
+        if ResultQuery.AirPortCodeWMO is not None:
+            A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
+        A.AirPortName = ResultQuery.AirPortName
+        A.AirPortCity = ResultQuery.AirPortCity
+        A.AirPortCounty = ResultQuery.AirPortCounty
+        A.AirPortCountry = ResultQuery.AirPortCountry
+        A.AirPortLatitude = ResultQuery.AirPortLatitude
+        A.AirPortLongitude = ResultQuery.AirPortLongitude
+        A.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
+        A.AirPortDescription = ResultQuery.AirPortDescription
+        A.AirPortFacilities = ResultQuery.AirPortFacilities
+        A.AirPortIncidents = ResultQuery.AirPortIncidents
+
     def SwitchingGUI(Key):
         myDialog.comboBox_DB.setEnabled(not Key)
         myDialog.comboBox_Driver.setEnabled(not Key)
@@ -393,7 +417,14 @@ def myApplication():
             DBAirPort = S.QueryAirPortByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
-            if DBAirPort is not None:
+            if DBAirPort is None:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не найдена")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+            else:
+                ReadingQuery(DBAirPort)
+                """
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
                 A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
@@ -412,22 +443,23 @@ def myApplication():
                 A.AirPortDescription = DBAirPort.AirPortDescription
                 A.AirPortFacilities = DBAirPort.AirPortFacilities
                 A.AirPortIncidents = DBAirPort.AirPortIncidents
-            elif DBAirPort is None:
-                message = QtWidgets.QMessageBox()
-                message.setText("Запись не найдена")
-                message.setIcon(QtWidgets.QMessageBox.Information)
-                message.exec_()
-            else:
-                pass
-            SetFields()
-            myDialog.pushButton_UpdateDB.setEnabled(True)
+                """
+                SetFields()
+                myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByICAO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
         if ok:
             DBAirPort = S.QueryAirPortByICAO(Code)
-            if DBAirPort is not None:
+            if DBAirPort is None:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не найдена")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+            else:
+                ReadingQuery(DBAirPort)
+                """
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
                 A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
@@ -446,22 +478,23 @@ def myApplication():
                 A.AirPortDescription = DBAirPort.AirPortDescription
                 A.AirPortFacilities = DBAirPort.AirPortFacilities
                 A.AirPortIncidents = DBAirPort.AirPortIncidents
-            elif DBAirPort is None:
-                message = QtWidgets.QMessageBox()
-                message.setText("Запись не найдена")
-                message.setIcon(QtWidgets.QMessageBox.Information)
-                message.exec_()
-            else:
-                pass
-            SetFields()
-            myDialog.pushButton_UpdateDB.setEnabled(True)
+                """
+                SetFields()
+                myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByFAA_LID():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код FAA LID", "Введите код FAA LID")
         if ok:
             DBAirPort = S.QueryAirPortByFAA_LID(Code)
-            if DBAirPort is not None:
+            if DBAirPort is None:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не найдена")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+            else:
+                ReadingQuery(DBAirPort)
+                """
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
                 A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
@@ -480,22 +513,23 @@ def myApplication():
                 A.AirPortDescription = DBAirPort.AirPortDescription
                 A.AirPortFacilities = DBAirPort.AirPortFacilities
                 A.AirPortIncidents = DBAirPort.AirPortIncidents
-            elif DBAirPort is None:
-                message = QtWidgets.QMessageBox()
-                message.setText("Запись не найдена")
-                message.setIcon(QtWidgets.QMessageBox.Information)
-                message.exec_()
-            else:
-                pass
-            SetFields()
-            myDialog.pushButton_UpdateDB.setEnabled(True)
+                """
+                SetFields()
+                myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def PushButtonSearchByWMO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
         if ok:
             DBAirPort = S.QueryAirPortByWMO(Code)
-            if DBAirPort is not None:
+            if DBAirPort is None:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не найдена")
+                message.setIcon(QtWidgets.QMessageBox.Information)
+                message.exec_()
+            else:
+                ReadingQuery(DBAirPort)
+                """
                 A.SourceCSVFile = DBAirPort.SourceCSVFile
                 A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
                 A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
@@ -514,15 +548,9 @@ def myApplication():
                 A.AirPortDescription = DBAirPort.AirPortDescription
                 A.AirPortFacilities = DBAirPort.AirPortFacilities
                 A.AirPortIncidents = DBAirPort.AirPortIncidents
-            elif DBAirPort is None:
-                message = QtWidgets.QMessageBox()
-                message.setText("Запись не найдена")
-                message.setIcon(QtWidgets.QMessageBox.Information)
-                message.exec_()
-            else:
-                pass
-            SetFields()
-            myDialog.pushButton_UpdateDB.setEnabled(True)
+                """
+                SetFields()
+                myDialog.pushButton_UpdateDB.setEnabled(True)
 
     def Check_IATA():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
@@ -548,38 +576,14 @@ def myApplication():
         DBAirPort = S.QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
-        def Transfer():
-            A.SourceCSVFile = DBAirPort.SourceCSVFile
-            A.HyperLinkToWikiPedia = DBAirPort.HyperLinkToWikiPedia
-            A.HyperLinkToAirPortSite = DBAirPort.HyperLinkToAirPortSite
-            A.HyperLinkToOperatorSite = DBAirPort.HyperLinkToOperatorSite
-            if DBAirPort.AirPortCodeIATA is not None:
-                A.AirPortCodeIATA = DBAirPort.AirPortCodeIATA
-            if DBAirPort.AirPortCodeICAO is not None:
-                A.AirPortCodeICAO = DBAirPort.AirPortCodeICAO
-            if DBAirPort.AirPortCodeFAA_LID is not None:
-                A.AirPortCodeFAA_LID = DBAirPort.AirPortCodeFAA_LID
-            if DBAirPort.AirPortCodeWMO is not None:
-                A.AirPortCodeWMO = DBAirPort.AirPortCodeWMO
-            A.AirPortName = DBAirPort.AirPortName
-            A.AirPortCity = DBAirPort.AirPortCity
-            A.AirPortCounty = DBAirPort.AirPortCounty
-            A.AirPortCountry = DBAirPort.AirPortCountry
-            A.AirPortLatitude = DBAirPort.AirPortLatitude
-            A.AirPortLongitude = DBAirPort.AirPortLongitude
-            A.HeightAboveSeaLevel = DBAirPort.HeightAboveSeaLevel
-            A.AirPortDescription = DBAirPort.AirPortDescription
-            A.AirPortFacilities = DBAirPort.AirPortFacilities
-            A.AirPortIncidents = DBAirPort.AirPortIncidents
-            SetFields()
-
         if DBAirPort is None:
             # Вставка новой строки
             ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
                 DBAirPort = S.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirPort is not None:
-                    Transfer()
+                    ReadingQuery(DBAirPort)
+                    SetFields()
                 else:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")
@@ -592,7 +596,8 @@ def myApplication():
                 message.exec_()
         else:
             # Переходим на найденную запись
-            Transfer()
+            ReadingQuery(DBAirPort)
+            SetFields()
             message = QtWidgets.QMessageBox()
             message.setText("Такая запись есть")
             message.setIcon(QtWidgets.QMessageBox.Information)

@@ -65,6 +65,7 @@ def myApplication():
     myDialog.label_hyperlink_to_WikiPedia.setEnabled(False)
     myDialog.label_HyperLink_to_AirPort.setEnabled(False)
     myDialog.label_HyperLink_to_Operator.setEnabled(False)
+    myDialog.textBrowser_HyperLinks.setToolTip("Пока в разработке")
     myDialog.pushButton_HyperLinkChange_Wikipedia.setEnabled(False)
     myDialog.pushButton_HyperLinkChange_AirPort.setEnabled(False)
     myDialog.pushButton_HyperLinkChange_Operator.setEnabled(False)

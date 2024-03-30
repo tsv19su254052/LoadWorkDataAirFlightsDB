@@ -790,6 +790,7 @@ class Servers:
                 Count = 1
             else:
                 Count += 1
+            print("LogCountViewed = " + str(Count))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             if iata is None:
                 SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "

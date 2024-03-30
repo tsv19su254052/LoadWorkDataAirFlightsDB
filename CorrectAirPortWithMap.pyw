@@ -2,10 +2,9 @@
 
 
 # QtSQL медленнее, чем pyodbc
+import sys, io, os, socket
 import pyodbc
-import sys
 from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
-import io
 import folium
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
@@ -218,7 +217,7 @@ def myApplication():
         A.AirPortFacilities = ResultQuery.AirPortFacilities
         A.AirPortIncidents = ResultQuery.AirPortIncidents
         A.LogCountViewed = ResultQuery.LogCountViewed
-        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO)
+        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin())
 
     def SwitchingGUI(Key):
         myDialog.comboBox_DB.setEnabled(not Key)
@@ -378,7 +377,7 @@ def myApplication():
             message.setIcon(QtWidgets.QMessageBox.Warning)
             message.exec_()
         else:
-            S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO)
+            S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin())
 
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
@@ -584,7 +583,7 @@ def myApplication():
                 if DBAirPort is not None:
                     ReadingQuery(DBAirPort)
                     SetFields()
-                    S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO)
+                    S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin())
                 else:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")

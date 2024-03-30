@@ -770,7 +770,7 @@ class Servers:
         # todo В процессе разработки
         pass
 
-    def IncrementLogCountViewedAirPort(self, iata, icao):
+    def IncrementLogCountViewedAirPort(self, iata, icao, host, user):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)
@@ -811,7 +811,7 @@ class Servers:
         finally:
             return ResultSQL
 
-    def IncrementLogCountChangedAirPort(self, iata, icao):
+    def IncrementLogCountChangedAirPort(self, iata, icao, host, user):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)

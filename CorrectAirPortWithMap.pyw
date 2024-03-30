@@ -145,16 +145,8 @@ def myApplication():
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        if A.AirPortCodeIATA is None:
-            myDialog.lineEdit_AirPortCodeIATA.setEnabled(False)
-        else:
-            myDialog.lineEdit_AirPortCodeIATA.setEnabled(True)
-            myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
-        if A.AirPortCodeICAO is None:
-            myDialog.lineEdit_AirPortCodeICAO.setEnabled(False)
-        else:
-            myDialog.lineEdit_AirPortCodeICAO.setEnabled(True)
-            myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
+        myDialog.lineEdit_AirPortCodeIATA.setText(str(A.AirPortCodeIATA))
+        myDialog.lineEdit_AirPortCodeICAO.setText(str(A.AirPortCodeICAO))
         myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
         myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()
@@ -204,14 +196,10 @@ def myApplication():
         A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
         A.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
         A.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
-        if ResultQuery.AirPortCodeIATA is not None:
-            A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
-        if ResultQuery.AirPortCodeICAO is not None:
-            A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
-        if ResultQuery.AirPortCodeFAA_LID is not None:
-            A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
-        if ResultQuery.AirPortCodeWMO is not None:
-            A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
+        A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
+        A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
+        A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
+        A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
         A.AirPortName = ResultQuery.AirPortName
         A.AirPortCity = ResultQuery.AirPortCity
         A.AirPortCounty = ResultQuery.AirPortCounty

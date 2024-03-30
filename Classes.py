@@ -795,16 +795,18 @@ class Servers:
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ("
             if iata is None:
-                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES (NULL, '" + str(icao) + "') "
+                SQLQuery += " NULL, '" + str(icao) + "' "
             elif icao is None:
-                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', NULL) "
+                SQLQuery += " '" + str(iata) + "', NULL "
             elif iata is None and icao is None:
-                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES (NULL, NULL) "
+                SQLQuery += " NULL, NULL "
                 #print("raise Exception")
                 #raise Exception
             else:
-                SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
+                SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
+            SQLQuery += ") "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
             self.cnxnRT.commit()

@@ -573,14 +573,7 @@ def myApplication():
             A.AirPortIncidents = DBAirPort.AirPortIncidents
             SetFields()
 
-        if DBAirPort is not None:
-            # Переходим на найденную запись
-            Transfer()
-            message = QtWidgets.QMessageBox()
-            message.setText("Такая запись есть")
-            message.setIcon(QtWidgets.QMessageBox.Information)
-            message.exec_()
-        elif DBAirPort is None:
+        if DBAirPort is None:
             # Вставка новой строки
             ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
@@ -597,6 +590,14 @@ def myApplication():
                 message.setText("Запись не вставилась")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
+        else:
+            # Переходим на найденную запись
+            Transfer()
+            message = QtWidgets.QMessageBox()
+            message.setText("Такая запись есть")
+            message.setIcon(QtWidgets.QMessageBox.Information)
+            message.exec_()
+
 
     def PushButtonInsertByIATAandICAO():
         # кнопка "Поиск и Вставка"

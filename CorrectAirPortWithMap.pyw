@@ -377,6 +377,7 @@ def myApplication():
             message.setIcon(QtWidgets.QMessageBox.Warning)
             message.exec_()
         else:
+            # fixme Пользователи без права на изменение не фиксируются
             S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin())
 
     def PushButtonChangeHyperLinkWikiPedia():
@@ -583,6 +584,7 @@ def myApplication():
                 if DBAirPort is not None:
                     ReadingQuery(DBAirPort)
                     SetFields()
+                    # fixme Пользователи без права на изменение не фиксируются
                     S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin())
                 else:
                     message = QtWidgets.QMessageBox()

@@ -16,7 +16,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставили 5-ую верси
 # > pyqt6-tools designer
 # todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 from sqlalchemy import create_engine
-
+from xml.etree import ElementTree  # полная реализация, меньше объем исходников
 
 
 # Делаем предка
@@ -801,11 +801,16 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             ResultXML = self.seekRT.fetchone()
-            DateAndTimeViewedXML = ResultXML[0]
-            if DateAndTimeViewedXML is None:
+            if ResultXML[0] is None:
                 print(" DateAndTimeViewed = " + str(dtn))
                 DateAndTimeViewedXML = "<Viewed> <User Name = '" + str(user) + "'> <DateTime From = '" + str(host) + "'> sql:variable('" + str(dtn) + "' </DateTime> </User> </Viewed> "
                 XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(DateAndTimeViewedXML) + "' "
+            else:
+                tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
+                root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
+                xml_to_String = ElementTree.tostring(root_tag, method='xml')  # XML-ная строка
+                root_tag_Name = root_tag.tag  # имя корневого тэга
+                root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             if iata is None:
                 SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "

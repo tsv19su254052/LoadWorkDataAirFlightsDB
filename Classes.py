@@ -770,19 +770,28 @@ class Servers:
         # todo В процессе разработки
         pass
 
-    def IncrementLogCountViewedAirPort(self, iata, icao, host, user):
+    def IncrementLogCountViewedAirPort(self, iata, icao, host, user, dtn):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)
             SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
             if iata is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
             elif icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
             elif iata is None and icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
             else:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
             Count = ResultSQL[0]
@@ -791,6 +800,12 @@ class Servers:
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
+            ResultXML = self.seekRT.fetchone()
+            DateAndTimeViewedXML = ResultXML[0]
+            if DateAndTimeViewedXML is None:
+                print(" DateAndTimeViewed = " + str(dtn))
+                DateAndTimeViewedXML = "<Viewed> <User Name = '" + str(user) + "'> <DateTime From = '" + str(host) + "'> sql:variable('" + str(dtn) + "' </DateTime> </User> </Viewed> "
+                XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(DateAndTimeViewedXML) + "' "
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             if iata is None:
                 SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
@@ -811,7 +826,7 @@ class Servers:
         finally:
             return ResultSQL
 
-    def IncrementLogCountChangedAirPort(self, iata, icao, host, user):
+    def IncrementLogCountChangedAirPort(self, iata, icao, host, user, dtn):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)

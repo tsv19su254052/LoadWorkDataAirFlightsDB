@@ -823,7 +823,7 @@ class Servers:
                 if Search.attrib['Name'] == user:
                     print("Добавляем новую подветку с отметкой времени и с Host-ом")
                     newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
-                    newDateTime.attrib['From'] = str(host)
+                    newDateTime.attrib['From'] = str(host)  # fixme новая подветка не дописалась
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     #User.append(DateTime)  # fixme новая подветка не дописалась
                 else:

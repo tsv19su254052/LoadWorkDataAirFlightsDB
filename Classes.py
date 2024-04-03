@@ -818,7 +818,9 @@ class Servers:
                 # Ищем User-а по имени
                 xQuery = "./User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                if root_tag.findall(xQuery) is None:
+                Search = root_tag.findall(xQuery)
+                print(" поиск подветки = " + str(Search))
+                if Search is None:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     #User = ElementTree.Element('User', Name=str(user))
                     #DateTime = ElementTree.Element('DateTime', From=str(host))

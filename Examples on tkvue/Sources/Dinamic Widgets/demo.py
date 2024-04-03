@@ -103,6 +103,7 @@ class RootDialog(tkvue.Component):
                 </Frame>
             </TopLevel>
             """
+        print(" template = " + str(template))
     # fixme читает внешний XML-ный файл и перегоняем его в текст - работает
     elif Choice == 1:
         with open(xmlfile, mode='r') as XMLfile:

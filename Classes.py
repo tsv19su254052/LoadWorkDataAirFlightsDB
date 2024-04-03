@@ -803,16 +803,15 @@ class Servers:
             self.seekRT.execute(XMLQuery)
             ResultXML = self.seekRT.fetchone()
             if ResultXML[0] is None:
-                print(" DateAndTimeViewed = " + str(dtn))
                 root_tag = ElementTree.Element('Viewed')
                 User = ElementTree.Element('User', Name=str(user))
                 DateTime = ElementTree.Element('DateTime', From=str(host))
                 DateTime.text = str(dtn)
                 User.append(DateTime)
                 root_tag.append(User)
-                template = ElementTree.tostring(root_tag, method='xml')  # XML-ная строка
-                print(" template = " + str(template))
-                XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(template) + "' "
+                xml_to_String = ElementTree.tostring(root_tag, method='xml')  # XML-ная строка
+                print(" template = " + str(xml_to_String))
+                XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
                 self.seekRT.execute(XMLQuery)
             else:
                 tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру

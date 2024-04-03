@@ -809,8 +809,10 @@ class Servers:
                 DateTime.text = str(dtn)
                 User.append(DateTime)
                 root_tag.append(User)
-                xml_to_String = ElementTree.tostring(root_tag, method='xml')  # XML-ная строка
+                xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
                 print(" template = " + str(xml_to_String))
+                #print(" dump = " + str(ElementTree.dump(root_tag)))
+                print(" root tag name = " + str(root_tag.tag))
                 XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
                 self.seekRT.execute(XMLQuery)
             else:

@@ -827,8 +827,8 @@ class Servers:
                     root_tag.append(User)
                 else:
                     print("Добавляем новую подветку с отметкой времени и с Host-ом")
-                    DateTime = ElementTree.Element('DateTime', From=str(host))
-                    DateTime.text = str(dtn)
+                    #DateTime = ElementTree.Element('DateTime', From=str(host))
+                    #DateTime.text = str(dtn)
                     User.append(DateTime)
                 root_tag_Name = root_tag.tag  # имя корневого тэга
                 root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря

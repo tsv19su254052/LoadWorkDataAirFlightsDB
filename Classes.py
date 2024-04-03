@@ -794,25 +794,42 @@ class Servers:
                 XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT.execute(XMLQuery)
+            ResultXML = self.seekRT.fetchone()
             Count = ResultSQL[0]
             if Count is None:
                 Count = 1
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
-            self.seekRT.execute(XMLQuery)
-            ResultXML = self.seekRT.fetchone()
+            User = ElementTree.Element('User', Name=str(user))
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
             if ResultXML[0] is None:
                 root_tag = ElementTree.Element('Viewed')
-                User = ElementTree.Element('User', Name=str(user))
-                DateTime = ElementTree.Element('DateTime', From=str(host))
-                DateTime.text = str(dtn)
+                #User = ElementTree.Element('User', Name=str(user))
+                #DateTime = ElementTree.Element('DateTime', From=str(host))
+                #DateTime.text = str(dtn)
                 User.append(DateTime)
                 root_tag.append(User)
             else:
                 tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
                 root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
                 # Ищем User-а по имени
+                xQuery = "./User[@Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
+                if root_tag.findall(xQuery) is None:
+                    print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
+                    #User = ElementTree.Element('User', Name=str(user))
+                    #DateTime = ElementTree.Element('DateTime', From=str(host))
+                    #DateTime.text = str(dtn)
+                    User.append(DateTime)
+                    root_tag.append(User)
+                else:
+                    print("Добавляем новую подветку с отметкой времени и с Host-ом")
+                    DateTime = ElementTree.Element('DateTime', From=str(host))
+                    DateTime.text = str(dtn)
+                    User.append(DateTime)
                 root_tag_Name = root_tag.tag  # имя корневого тэга
                 root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка

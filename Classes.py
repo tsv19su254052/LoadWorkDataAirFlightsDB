@@ -814,7 +814,9 @@ class Servers:
                 root_tag.append(User)
             else:
                 tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
+                print(" tree = " + str(tree_from_XML_as_a_SAX_using_xml))
                 root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
+                print(" root tag" + str(root_tag))
                 # Ищем User-а по имени
                 xQuery = "./User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))

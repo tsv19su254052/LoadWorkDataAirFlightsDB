@@ -825,13 +825,8 @@ class Servers:
                 print(" xQuery = " + str(xQuery))
                 Search = root_tag.find(xQuery)
                 print(" Search = " + str(Search))
-                for i in Search:
-                    if i.attrib["Name"] == user:
-                        Found = True
-                    else:
-                        Found = False
                 print(" поиск подветки = " + str(Search))
-                if Found:
+                if Search:
                     print("Добавляем новую подветку с отметкой времени и с Host-ом")
                     #User = ElementTree.Element('User', Name=str(user))
                     #DateTime = ElementTree.Element('DateTime', From=str(host))

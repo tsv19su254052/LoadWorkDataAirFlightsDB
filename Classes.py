@@ -821,19 +821,24 @@ class Servers:
                 xQuery = "./User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
                 Search = root_tag.find(xQuery)
+                for i in Search:
+                    if i.attrib["Name"] == user:
+                        Found = True
+                    else:
+                        Found = False
                 print(" поиск подветки = " + str(Search))
-                if Search is None:
-                    print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
+                if Found:
+                    print("Добавляем новую подветку с отметкой времени и с Host-ом")
                     #User = ElementTree.Element('User', Name=str(user))
                     #DateTime = ElementTree.Element('DateTime', From=str(host))
                     #DateTime.text = str(dtn)
                     User.append(DateTime)
-                    root_tag.append(User)
                 else:
-                    print("Добавляем новую подветку с отметкой времени и с Host-ом")
+                    print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     #DateTime = ElementTree.Element('DateTime', From=str(host))
                     #DateTime.text = str(dtn)
                     User.append(DateTime)
+                    root_tag.append(User)
                 root_tag_Name = root_tag.tag  # имя корневого тэга
                 root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка

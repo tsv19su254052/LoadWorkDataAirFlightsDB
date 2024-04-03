@@ -820,7 +820,7 @@ class Servers:
                 # Ищем User-а по имени
                 xQuery = "./User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                Search = root_tag.findall(xQuery)
+                Search = root_tag.find(xQuery)
                 print(" поиск подветки = " + str(Search))
                 if Search is None:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")

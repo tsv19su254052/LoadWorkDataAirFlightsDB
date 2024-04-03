@@ -821,13 +821,11 @@ class Servers:
                 Search = root_tag.find('.//User')  # список указателей
                 print(" Search = " + str(Search))
                 if Search.attrib['Name'] == user:
-                    Search = root_tag.find('.//DateTime')
-                    if Search.text != dtn:
-                        print("Добавляем новую подветку с отметкой времени и с Host-ом")
-                        newDateTime = ElementTree.SubElement(User, DateTime)
-                        newDateTime.attrib['From'] = dtn
-                        #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                    User.append(DateTime)  # fixme новая подветка не дописалась
+                    print("Добавляем новую подветку с отметкой времени и с Host-ом")
+                    newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
+                    newDateTime.attrib['From'] = str(host)
+                    #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                    #User.append(DateTime)  # fixme новая подветка не дописалась
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     User.append(DateTime)

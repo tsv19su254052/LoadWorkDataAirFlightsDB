@@ -772,8 +772,8 @@ class Servers:
 
     def IncrementLogCountViewedAirPort(self, iata, icao, host, user, dtn):
         try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekRT.execute(SQLQuery)
+            Query = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(Query)
             SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
             XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
             if iata is None:
@@ -836,19 +836,19 @@ class Servers:
                 XMLQuery += Append
             else:
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-            SQLQuery += Append
-            XMLQuery += Append
+                SQLQuery += Append
+                XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             self.seekRT.execute(XMLQuery)
             self.cnxnRT.commit()
-            ResultSQL = True
+            Result = True
         except Exception:
-            ResultSQL = False
+            Result = False
             self.cnxnRT.rollback()
         else:
             pass
         finally:
-            return ResultSQL
+            return Result
 
     def IncrementLogCountChangedAirPort(self, iata, icao, host, user, dtn):
         try:

@@ -808,47 +808,27 @@ class Servers:
             print(" ResultXML = " + str(ResultXML[0]))
             if ResultXML[0] is None:
                 root_tag = ElementTree.Element('Viewed')
-                #User = ElementTree.Element('User', Name=str(user))
-                #DateTime = ElementTree.Element('DateTime', From=str(host))
-                #DateTime.text = str(dtn)
                 User.append(DateTime)
                 root_tag.append(User)
             else:
                 #tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
-                tree_from_XML_as_a_SAX_using_xml = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
-                print(" tree_from_XML_as_a_SAX_using_xml = " + str(tree_from_XML_as_a_SAX_using_xml))
                 #root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
-                root_tag = tree_from_XML_as_a_SAX_using_xml  # так как используем frostring
-                print(" root tag" + str(root_tag))
+                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
+                print(" root tag = " + str(root_tag))
                 # Ищем User-а по имени
                 #xQuery = ".//User[@Name='" + str(user) + "'] "
                 #print(" xQuery = " + str(xQuery))
                 #Search = root_tag.findall(xQuery)
-                Search = root_tag.findall('.//User')
+                Search = root_tag.findall('.//User')  # список указателей
                 print(" Search = " + str(Search))
                 for i in Search:
                     if i.attrib['Name'] == user:
                         print("Добавляем новую подветку с отметкой времени и с Host-ом")
-                        # User = ElementTree.Element('User', Name=str(user))
-                        # DateTime = ElementTree.Element('DateTime', From=str(host))
-                        # DateTime.text = str(dtn)
                         User.append(DateTime)
-                        Found = True
                     else:
                         print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                         User.append(DateTime)
                         root_tag.append(User)
-                        Found = False
-                    pass
-                if Found:
-                    #print("Добавляем новую подветку с отметкой времени и с Host-ом")
-                    #User.append(DateTime)
-                    pass
-                else:
-                    #print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
-                    #User.append(DateTime)
-                    #root_tag.append(User)
-                    pass
                 root_tag_Name = root_tag.tag  # имя корневого тэга
                 root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка

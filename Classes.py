@@ -812,10 +812,11 @@ class Servers:
             else:
                 tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
                 root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
+                # Ищем User-а по имени
                 root_tag_Name = root_tag.tag  # имя корневого тэга
                 root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
-            print(" xml_to_String = " + str(xml_to_String))
+            print(" xml to String = " + str(xml_to_String))
             # print(" dump = " + str(ElementTree.dump(root_tag)))
             print(" root tag name = " + str(root_tag.tag))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)

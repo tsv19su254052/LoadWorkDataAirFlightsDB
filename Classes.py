@@ -821,6 +821,7 @@ class Servers:
                 xQuery = "./User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
                 Search = root_tag.find(xQuery)
+                print(" Search = " + str(Search))
                 for i in Search:
                     if i.attrib["Name"] == user:
                         Found = True

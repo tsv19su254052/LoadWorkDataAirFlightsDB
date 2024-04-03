@@ -815,10 +815,9 @@ class Servers:
                 #root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
                 print(" root tag = " + str(root_tag))
-                # Ищем User-а по имени
                 #xQuery = ".//User[@Name='" + str(user) + "'] "
                 #print(" xQuery = " + str(xQuery))
-                #Search = root_tag.findall(xQuery)
+                #Search = root_tag.find(xQuery)
                 Search = root_tag.find('.//User')  # список указателей
                 print(" Search = " + str(Search))
                 if Search.attrib['Name'] == user:

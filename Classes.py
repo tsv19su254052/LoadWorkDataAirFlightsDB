@@ -828,8 +828,8 @@ class Servers:
                     User.append(DateTime)  # fixme не дописалась
                     #root_tag.extend(User)
                     #root_tag.extend(DateTime)
-                    ElementTree.dump(root_tag)
-                    ElementTree.Comment('Test Text')
+                    ElementTree.dump(root_tag)  # fixme не дописалась
+                    ElementTree.Comment('Test Text')  # fixme ничего не изменилось
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     User.append(DateTime)

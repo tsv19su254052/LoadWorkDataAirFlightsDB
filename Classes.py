@@ -823,7 +823,8 @@ class Servers:
                     newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
                     newDateTime.attrib['From'] = str(host)  # fixme не дописалась
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                    User.append(newDateTime)  # fixme не дописалась
+                    User.append(DateTime)
+                    User.append(newDateTime)
                     #root_tag.extend(User)
                     #root_tag.extend(DateTime)
                     ElementTree.dump(User)  # fixme не дописалась

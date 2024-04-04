@@ -822,6 +822,7 @@ class Servers:
                     print("Добавляем еще одну подветку с отметкой времени и с Host-ом")
                     newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
                     newDateTime.attrib['From'] = str(host)  # fixme не дописалась
+                    newDateTime.text = str(dtn)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     User.append(DateTime)
                     User.append(newDateTime)

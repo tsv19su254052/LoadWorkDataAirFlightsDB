@@ -829,6 +829,7 @@ class Servers:
                     #root_tag.extend(User)
                     #root_tag.extend(DateTime)
                     ElementTree.dump(root_tag)
+                    ElementTree.Comment('Test Text')
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     User.append(DateTime)

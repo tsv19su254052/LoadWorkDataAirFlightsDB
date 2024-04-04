@@ -802,6 +802,7 @@ class Servers:
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
+            user = 'ArtemTest'
             User = ElementTree.Element('User', Name=str(user))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -811,15 +812,12 @@ class Servers:
                 User.append(DateTime)
                 root_tag.append(User)
             else:
-                #tree_from_XML_as_a_SAX_using_xml = ElementTree.parse(ResultXML[0])  # указатель на XML-ную структуру
-                #root_tag = tree_from_XML_as_a_SAX_using_xml.getroot()  # становимся на корневой тэг
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
                 print(" root tag = " + str(root_tag))
                 #xQuery = ".//User[@Name='" + str(user) + "'] "
                 #print(" xQuery = " + str(xQuery))
                 #Search = root_tag.find(xQuery)
                 Search = root_tag.find('.//User')  # список указателей
-                print(" Search = " + str(Search))
                 if Search.attrib['Name'] == user:
                     print("Добавляем еще одну подветку с отметкой времени и с Host-ом")
                     newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
@@ -828,7 +826,7 @@ class Servers:
                     User.append(DateTime)  # fixme не дописалась
                     #root_tag.extend(User)
                     #root_tag.extend(DateTime)
-                    ElementTree.dump(root_tag)  # fixme не дописалась
+                    ElementTree.dump(User)  # fixme не дописалась
                     ElementTree.Comment('Test Text')  # fixme ничего не изменилось
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")

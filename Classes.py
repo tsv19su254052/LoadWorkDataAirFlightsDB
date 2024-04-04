@@ -826,6 +826,7 @@ class Servers:
                     DateTime.text = str(dtn)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     ElementTree.Comment('Test Text')  # fixme ничего не изменилось
+                    ElementTree.dump(User)
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
                     User.append(DateTime)

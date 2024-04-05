@@ -821,15 +821,15 @@ class Servers:
                 Search = root_tag.find('.//User')  # указатель
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
-                    DateTime = ElementTree.SubElement(DateTime, 'DateTime')  # fixme а вставилась новая ветка
-                    DateTime = ElementTree.SubElement(User, 'DateTime')  # fixme а вставилась новая ветка
+                    DateTime = ElementTree.SubElement(DateTime, 'DateTime')
+                    DateTime = ElementTree.SubElement(User, 'DateTime')
                     #DateTime.attrib['From'] = str(host)
                     #DateTime.text = str(dtn)
                     #User.append(DateTime)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     #root_tag.append(User)
                 else:
-                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
+                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")  # fixme Каждый раз вставляется новая ветка (поиск не срабатывает)
                     root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))

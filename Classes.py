@@ -822,9 +822,10 @@ class Servers:
                     print("Добавляем еще одну подветку с отметкой времени и с Host-ом")
                     #newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                    User.append(DateTime)
                     ElementTree.Comment('Test Text')  # fixme ничего не изменилось
                     ElementTree.dump(User)
-                    print(" get = " + str(root_tag.get('DateTime')))
+                    print(" get = " + str(root_tag.get('From')))
                     print(" getchildren User = " + str(root_tag.getchildren(User)))
                 else:
                     print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")

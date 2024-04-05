@@ -821,9 +821,9 @@ class Servers:
                 Search = root_tag.find('.//User')  # список указателей
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
-                    DateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
-                    DateTime.attrib['From'] = str(host)
-                    DateTime.text = str(dtn)
+                    DateTime = ElementTree.SubElement(User, 'DateTime')  # fixme вставилась новая ветка
+                    #DateTime.attrib['From'] = str(host)
+                    #DateTime.text = str(dtn)
                     #User.append(DateTime)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     #root_tag.append(User)

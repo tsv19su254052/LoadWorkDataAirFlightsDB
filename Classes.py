@@ -818,10 +818,11 @@ class Servers:
                 #xQuery = ".//User[@Name='" + str(user) + "'] "
                 #print(" xQuery = " + str(xQuery))
                 #Search = root_tag.find(xQuery)
-                Search = root_tag.find('.//User')  # список указателей
+                Search = root_tag.find('.//User')  # указатель
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
                     DateTime = ElementTree.SubElement(DateTime, 'DateTime')  # fixme а вставилась новая ветка
+                    DateTime = ElementTree.SubElement(User, 'DateTime')  # fixme а вставилась новая ветка
                     #DateTime.attrib['From'] = str(host)
                     #DateTime.text = str(dtn)
                     #User.append(DateTime)

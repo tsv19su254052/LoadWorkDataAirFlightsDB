@@ -802,8 +802,8 @@ class Servers:
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
-            host = 'WorkComp4'
-            user = 'ArtemTest2'
+            #host = 'WorkComp5'
+            #user = 'ArtemTest3'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -821,7 +821,7 @@ class Servers:
                 Search = root_tag.find('.//User')  # список указателей
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
-                    DateTime = ElementTree.SubElement(User, 'DateTime')  # fixme вставилась новая ветка
+                    DateTime = ElementTree.SubElement(DateTime, 'DateTime')  # fixme а вставилась новая ветка
                     #DateTime.attrib['From'] = str(host)
                     #DateTime.text = str(dtn)
                     #User.append(DateTime)

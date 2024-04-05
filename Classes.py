@@ -812,28 +812,27 @@ class Servers:
             if ResultXML[0] is None:
                 print("Добавляем ветку с User-ом, подветку с Host-ом и с отметкой времени")
                 root_tag = ElementTree.Element('Viewed')
-                root_tag.append(User)
             else:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
-                #xQuery = ".//User[@Name='" + str(user) + "'] "
-                #print(" xQuery = " + str(xQuery))
-                #Search = root_tag.find(xQuery)
-                Search = root_tag.find('.//User')  # указатель
+                xQuery = ".//User[@Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
+                if root_tag.find(xQuery):
+                    print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени через xQuery")
+                Search = root_tag.find(".//User")  # указатель
+                # fixme Каждый раз вставляется новая ветка (поиск не срабатывает)
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
-                    DateTime = ElementTree.SubElement(DateTime, 'DateTime')
-                    DateTime = ElementTree.SubElement(User, 'DateTime')
+                    #DateTime = ElementTree.SubElement(DateTime, 'DateTime')
+                    #DateTime = ElementTree.SubElement(User, 'DateTime')
                     #DateTime.attrib['From'] = str(host)
                     #DateTime.text = str(dtn)
-                    #User.append(DateTime)
+                    User.append(DateTime)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                    #root_tag.append(User)
                 else:
-                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")  # fixme Каждый раз вставляется новая ветка (поиск не срабатывает)
-                    root_tag.append(User)
+                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
+            root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
-            # print(" dump = " + str(ElementTree.dump(root_tag)))
             print(" root tag name = " + str(root_tag.tag))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "

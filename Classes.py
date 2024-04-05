@@ -808,7 +808,7 @@ class Servers:
             DateTime.text = str(dtn)
             print(" ResultXML = " + str(ResultXML[0]))
             if ResultXML[0] is None:
-                print("Добавляем ветку с User-ом, с Host-ом и с отметкой времени")
+                print("Добавляем ветку с User-ом, подветку с Host-ом и с отметкой времени")
                 root_tag = ElementTree.Element('Viewed')
                 User.append(DateTime)
                 root_tag.append(User)
@@ -820,12 +820,14 @@ class Servers:
                 Search = root_tag.find('.//User')  # список указателей
                 if Search.attrib['Name'] == user:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
-                    #newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
+                    newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
+                    DateTime.attrib['From'] = str(host)
+                    DateTime.text = str(dtn)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                    User.append(DateTime)
-                    s = ElementTree.SubElement(User, 'newTag')
+                    #User.append(DateTime)
+                    #№s = ElementTree.SubElement(User, 'newTag')
                 else:
-                    print("Добавляем новую подветку с новым User-ом, с Host-ом и с отметкой времени")
+                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка

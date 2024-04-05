@@ -802,8 +802,8 @@ class Servers:
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
-            #host = 'WorkComp5'
-            #user = 'ArtemTest3'
+            host = 'WorkComp5'
+            user = 'ArtemTest3'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -817,18 +817,20 @@ class Servers:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
                 xQuery = ".//User[Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                for node in root_tag.findall(".//User"):
-                    if node.attrib['Name'] == str(user):
-                        print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени через xQuery")
-                        newDateTime = ElementTree.SubElement(User, 'DateTime')
-                        newDateTime.attrib['From'] = str(host)
-                        newDateTime.text = str(dtn)
-                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                        User.append(newDateTime)
-                else:
-                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
+                Search = root_tag.findall(".//User")
+                if Search is None:
+                    print("Добавляем ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
+                else:
+                    for node in Search:
+                        if node.attrib['Name'] == str(user):
+                            print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени через xQuery")
+                            newDateTime = ElementTree.SubElement(User, 'DateTime')
+                            newDateTime.attrib['From'] = str(host)
+                            newDateTime.text = str(dtn)
+                            # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                            #User.append(newDateTime)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
             print(" root tag name = " + str(root_tag.tag))

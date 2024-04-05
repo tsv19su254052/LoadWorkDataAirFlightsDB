@@ -827,8 +827,6 @@ class Servers:
                     print("Добавляем новую подветку с новым User-ом, с Host-ом и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
-                root_tag_Name = root_tag.tag  # имя корневого тэга
-                root_tag_Attr = root_tag.attrib  # аттрибут(ы) корневого тэга в виде словаря
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
             # print(" dump = " + str(ElementTree.dump(root_tag)))

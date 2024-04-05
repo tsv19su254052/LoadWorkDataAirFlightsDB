@@ -808,6 +808,7 @@ class Servers:
             DateTime.text = str(dtn)
             print(" ResultXML = " + str(ResultXML[0]))
             if ResultXML[0] is None:
+                print("Добавляем ветку с новым User-ом с Host-ом и с отметкой времени")
                 root_tag = ElementTree.Element('Viewed')
                 User.append(DateTime)
                 root_tag.append(User)
@@ -819,16 +820,12 @@ class Servers:
                 #Search = root_tag.find(xQuery)
                 Search = root_tag.find('.//User')  # список указателей
                 if Search.attrib['Name'] == user:
-                    print("Добавляем еще одну подветку с отметкой времени и с Host-ом")
+                    print("Добавляем еще одну подветку с Host-ом и с отметкой времени")
                     #newDateTime = ElementTree.SubElement(User, 'DateTime')  # fixme который User?
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                     User.append(DateTime)
-                    ElementTree.Comment('Test Text')  # fixme ничего не изменилось
-                    ElementTree.dump(User)
-                    print(" get = " + str(root_tag.get('From')))
-                    print(" getchildren User = " + str(root_tag.getchildren(User)))
                 else:
-                    print("Добавляем новую подветку с новым User-ом и с отметкой времени с Host-ом")
+                    print("Добавляем новую подветку с новым User-ом с Host-ом и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
                 root_tag_Name = root_tag.tag  # имя корневого тэга

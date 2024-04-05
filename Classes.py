@@ -816,11 +816,13 @@ class Servers:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
                 xQuery = ".//User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                if root_tag.find(xQuery):
+                if root_tag.find(xQuery) is not None:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени через xQuery")
                 Search = root_tag.find(".//User")  # указатель
                 # fixme Каждый раз вставляется новая ветка (поиск не срабатывает)
-                if Search.attrib['Name'] == user:
+                if Search.attrib['Name'] is None:
+                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
+                else:
                     print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
                     #DateTime = ElementTree.SubElement(DateTime, 'DateTime')
                     #DateTime = ElementTree.SubElement(User, 'DateTime')
@@ -828,8 +830,6 @@ class Servers:
                     #DateTime.text = str(dtn)
                     User.append(DateTime)
                     #root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                else:
-                    print("Добавляем новую ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
             root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))

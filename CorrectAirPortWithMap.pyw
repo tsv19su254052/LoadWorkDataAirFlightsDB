@@ -352,8 +352,8 @@ def myApplication():
         A.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
-        DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
-        if A.LogCountChanged < DBAirPort.LogCountChanged:
+        DBAirPort = S.QueryAirPortByIATAandICAO(iata=A.AirPortCodeIATA, icao=A.AirPortCodeICAO)
+        if DBAirPort.LogCountChanged is not None and A.LogCountChanged < DBAirPort.LogCountChanged:
             qm = QtWidgets.QMessageBox()
             qm.setText("Данные уже изменены. Перечитайте данные")
             qm.setIcon(QtWidgets.QMessageBox.Warning)

@@ -798,11 +798,9 @@ class Servers:
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
             self.seekRT.execute(XMLQuery)
             ResultXML = self.seekRT.fetchone()
-            Count = ResultSQL[0]
-            if Count is None:
-                Count = 1
-            else:
-                Count += 1
+            Count = 1
+            if ResultSQL[0] is not None:
+                Count += ResultSQL[0]
             print("LogCountViewed = " + str(Count))
             #host = 'WorkCompTest1'
             #user = 'ArtemTest20'
@@ -895,11 +893,9 @@ class Servers:
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
             self.seekRT.execute(XMLQuery)
             ResultXML = self.seekRT.fetchone()
-            Count = ResultSQL[0]
-            if Count is None:
-                Count = 1
-            else:
-                Count += 1
+            Count = 1
+            if ResultSQL[0] is not None:
+                Count += ResultSQL[0]
             print("LogCountChanged = " + str(Count))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)

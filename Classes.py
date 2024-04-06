@@ -805,7 +805,7 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             host = 'WorkCompTest1'
-            user = 'ArtemTest11'
+            user = 'ArtemTest12'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -829,7 +829,7 @@ class Servers:
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         #User.append(DateTime)
                         #root_tag.append(User)
-                xQuery = ".//User[Name='" + str(user) + "'] "
+                xQuery = ".//*[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
                 if root_tag.find(xQuery) is None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")

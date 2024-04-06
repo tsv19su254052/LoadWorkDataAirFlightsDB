@@ -805,7 +805,7 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             host = 'WorkCompTest1'
-            user = 'ArtemTest17'
+            user = 'ArtemTest19'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -816,26 +816,27 @@ class Servers:
                 root_tag = ElementTree.Element('Viewed')
                 root_tag.append(User)
             else:
-                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
+                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
                 Search = root_tag.findall(".//User")
                 print(" Search = " + str(Search))
+                added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
                         newDateTime = ElementTree.SubElement(User, 'DateTime')
                         newDateTime.attrib['From'] = str(host)
                         newDateTime.text = str(dtn)
+                        added = True
                         #User.append(newDateTime)  # fixme добавляет еще раз
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         #User.append(DateTime)
                         #root_tag.append(User)
-                xQuery = ".//User[@Name='" + str(user) + "'] "
-                print(" xQuery = " + str(xQuery))
-                # fixme условие срабатывает всегда
-                if root_tag.find(xQuery) is None:
-                    print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
+                if not added:
+                    print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     #User.append(DateTime)
                     root_tag.append(User)
+                xQuery = ".//User[@Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(termcolor.colored(" xml to String = " + str(xml_to_String), "red", "on_yellow"))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)

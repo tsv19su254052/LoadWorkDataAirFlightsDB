@@ -17,6 +17,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставили 5-ую верси
 # todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 from sqlalchemy import create_engine
 from xml.etree import ElementTree  # полная реализация, меньше объем исходников
+import colorama
 
 
 # Делаем предка
@@ -810,7 +811,7 @@ class Servers:
             User = ElementTree.Element('User', Name=str(user))
             User.append(DateTime)
             if ResultXML[0] is None:
-                print("Добавляем ветку с User-ом, подветку с Host-ом и с отметкой времени")
+                print(colorama.Fore.GREEN + "Добавляем ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                 root_tag = ElementTree.Element('Viewed')
                 root_tag.append(User)
             else:
@@ -818,14 +819,15 @@ class Servers:
                 xQuery = ".//User[Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
                 Search = root_tag.findall(".//User")
+                print(" Search = " + str(Search))
                 if Search is None:
-                    print("Добавляем ветку с новым User-ом, подветку с Host-ом и с отметкой времени")
+                    print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
                 else:
                     for node in Search:
                         if node.attrib['Name'] == str(user):
-                            print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
+                            print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
                             newDateTime = ElementTree.SubElement(User, 'DateTime')
                             newDateTime.attrib['From'] = str(host)
                             newDateTime.text = str(dtn)

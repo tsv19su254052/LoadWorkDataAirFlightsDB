@@ -804,8 +804,8 @@ class Servers:
             else:
                 Count += 1
             print("LogCountViewed = " + str(Count))
-            host = 'WorkComp6'
-            user = 'ArtemTest4'
+            host = 'WorkCompTest1'
+            user = 'ArtemTest5'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)

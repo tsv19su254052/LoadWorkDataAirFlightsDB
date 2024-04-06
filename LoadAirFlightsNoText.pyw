@@ -106,7 +106,10 @@ def myApplication():
         for attemptNumber in range(len(ListYear)):
             ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))
         #myDialog.label_execute.setText("Исходные данные перепакованы")  # оболочка зависает и слетает
-        myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")
+        if S.SetInputDate:
+            myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")
+        else:
+            myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: blue")
         print("Исходные данные перепакованы")
         # Списки
         ListAirLinesAdded = []

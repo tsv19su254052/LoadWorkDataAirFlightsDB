@@ -805,7 +805,7 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             host = 'WorkCompTest1'
-            user = 'ArtemTest15'
+            user = 'ArtemTest16'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -831,7 +831,7 @@ class Servers:
                         #root_tag.append(User)
                 xQuery = ".//User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                # fixme условие пока не срабатывает
+                # fixme условие срабатывает всегда
                 if root_tag.find(".//User[@Name='" + str(user) + "'] ") is None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     #User.append(DateTime)

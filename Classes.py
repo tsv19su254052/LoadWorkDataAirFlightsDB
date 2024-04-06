@@ -831,6 +831,7 @@ class Servers:
                             newDateTime.text = str(dtn)
                             # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                             User.append(newDateTime)
+                            root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
             print(" root tag name = " + str(root_tag.tag))

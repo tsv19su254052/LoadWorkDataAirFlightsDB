@@ -825,8 +825,9 @@ class Servers:
                         newDateTime = ElementTree.SubElement(User, 'DateTime')
                         newDateTime.attrib['From'] = str(host)
                         newDateTime.text = str(dtn)
-                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         User.append(newDateTime)
+                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                        #User.append(DateTime)
                         #root_tag.append(User)
                 xQuery = ".//User[Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))

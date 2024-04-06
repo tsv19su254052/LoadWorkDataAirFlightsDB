@@ -799,9 +799,6 @@ class Servers:
             self.seekRT.execute(XMLQuery)
             ResultXML = self.seekRT.fetchone()
             Count = 1
-            if ResultSQL[0] is not None:
-                Count += ResultSQL[0]
-            print("LogCountViewed = " + str(Count))
             #host = 'WorkCompTest1'
             #user = 'ArtemTest20'
             print(" ResultXML = " + str(ResultXML[0]))
@@ -814,6 +811,7 @@ class Servers:
                 root_tag = ElementTree.Element('Viewed')
                 root_tag.append(User)
             else:
+                Count += ResultSQL[0]
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
                 Search = root_tag.findall(".//User")
                 print(" Search = " + str(Search))
@@ -835,6 +833,7 @@ class Servers:
                     root_tag.append(User)
                 xQuery = ".//User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
+            print("LogCountViewed = " + str(Count))
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(termcolor.colored(" xml to String = " + str(xml_to_String), "red", "on_yellow"))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
@@ -894,9 +893,6 @@ class Servers:
             self.seekRT.execute(XMLQuery)
             ResultXML = self.seekRT.fetchone()
             Count = 1
-            if ResultSQL[0] is not None:
-                Count += ResultSQL[0]
-            print("LogCountChanged = " + str(Count))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
             User = ElementTree.Element('User', Name=str(user))
@@ -906,6 +902,7 @@ class Servers:
                 root_tag = ElementTree.Element('Changed')
                 root_tag.append(User)
             else:
+                Count += ResultSQL[0]
                 root_tag = ElementTree.fromstring(ResultXML[0])
                 Search = root_tag.findall(".//User")
                 added = False
@@ -917,6 +914,7 @@ class Servers:
                 if not added:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     root_tag.append(User)
+            print("LogCountChanged = " + str(Count))
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
             print(" xml_to_String = " + str(xml_to_String))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)

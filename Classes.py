@@ -825,12 +825,12 @@ class Servers:
                 else:
                     for node in Search:
                         if node.attrib['Name'] == str(user):
-                            print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени через xQuery")
+                            print("Добавляем в ветку с User-ом еще одну подветку с Host-ом и с отметкой времени")
                             newDateTime = ElementTree.SubElement(User, 'DateTime')
                             newDateTime.attrib['From'] = str(host)
                             newDateTime.text = str(dtn)
                             # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                            #User.append(newDateTime)
+                            User.append(newDateTime)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
             print(" root tag name = " + str(root_tag.tag))

@@ -15,7 +15,6 @@ import Classes
 A = Classes.AirPort()
 A.LogCountViewed = 0
 A.LogCountChanged = 0
-A.LogCountChangedOthers = 0
 S = Classes.Servers()
 # Добавляем аттрибуты
 #S.ServerName = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS

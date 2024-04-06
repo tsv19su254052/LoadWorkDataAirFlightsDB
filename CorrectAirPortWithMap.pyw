@@ -353,12 +353,8 @@ def myApplication():
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
         DBAirPort = S.QueryAirPortByIATAandICAO(iata=A.AirPortCodeIATA, icao=A.AirPortCodeICAO)
-        if DBAirPort.LogCountChanged is not None and A.LogCountChanged < DBAirPort.LogCountChanged:
-            qm = QtWidgets.QMessageBox()
-            qm.setText("Данные уже изменены. Перечитайте данные")
-            qm.setIcon(QtWidgets.QMessageBox.Warning)
-            qm.exec_()
-        else:
+        LogCountChangedCurrent = DBAirPort.LogCountChanged
+        if LogCountChangedCurrent is None or (A.LogCountChanged is not None and LogCountChangedCurrent is not None and A.LogCountChanged == LogCountChangedCurrent):
             # Вносим изменение
             ResultUpdate = S.UpdateAirPortByIATAandICAO(A.SourceCSVFile,
                                                         A.HyperLinkToWikiPedia,
@@ -378,16 +374,21 @@ def myApplication():
                                                         A.AirPortDescription,
                                                         A.AirPortFacilities,
                                                         A.AirPortIncidents)
-            if not ResultUpdate:
-                message = QtWidgets.QMessageBox()
-                message.setText("Запись не переписалась")
-                message.setIcon(QtWidgets.QMessageBox.Warning)
-                message.exec_()
-            else:
+            if ResultUpdate:
                 # fixme Пользователи без права на изменение не фиксируются
                 S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
                 #DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
                 #A.LogCountChanged = DBAirPort.LogCountChanged
+            else:
+                message = QtWidgets.QMessageBox()
+                message.setText("Запись не переписалась")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+        else:
+            qm = QtWidgets.QMessageBox()
+            qm.setText("Перечитайте данные (уже изменены)")
+            qm.setIcon(QtWidgets.QMessageBox.Warning)
+            qm.exec_()
 
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")

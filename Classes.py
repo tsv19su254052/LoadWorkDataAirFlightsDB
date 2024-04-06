@@ -831,9 +831,10 @@ class Servers:
                         #root_tag.append(User)
                 xQuery = ".//User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
+                # fixme условие пока не срабатывает
                 if root_tag.find(".//User[@Name='" + str(user) + "'] ") is None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
-                    #User.append(DateTime)  # fixme добавляется новая ветка с 2-мя подветками
+                    #User.append(DateTime)
                     root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(termcolor.colored(" xml to String = " + str(xml_to_String), "red", "on_yellow"))

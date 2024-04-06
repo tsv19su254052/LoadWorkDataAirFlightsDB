@@ -805,7 +805,7 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             host = 'WorkCompTest1'
-            user = 'ArtemTest5'
+            user = 'ArtemTest6'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -825,7 +825,7 @@ class Servers:
                         newDateTime = ElementTree.SubElement(User, 'DateTime')
                         newDateTime.attrib['From'] = str(host)
                         newDateTime.text = str(dtn)
-                        User.append(newDateTime)
+                        #User.append(newDateTime)  # fixme добавляет еще раз
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         #User.append(DateTime)
                         #root_tag.append(User)

@@ -3,7 +3,7 @@ import datetime
 # QtSQL медленнее, чем pyodbc
 import sys, io, os, socket
 import pyodbc
-from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
+from PyQt5 import QtCore, QtWidgets, QtGui, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
@@ -216,6 +216,7 @@ def myApplication():
         A.AirPortFacilities = ResultQuery.AirPortFacilities
         A.AirPortIncidents = ResultQuery.AirPortIncidents
         A.LogCountViewed = ResultQuery.LogCountViewed
+        A.LogCountChanged = ResultQuery.LogCountChanged
         S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
 
     def SwitchingGUI(Key):
@@ -351,33 +352,43 @@ def myApplication():
         A.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
-        # Вносим изменение
-        ResultUpdate = S.UpdateAirPortByIATAandICAO(A.SourceCSVFile,
-                                                    A.HyperLinkToWikiPedia,
-                                                    A.HyperLinkToAirPortSite,
-                                                    A.HyperLinkToOperatorSite,
-                                                    A.AirPortCodeIATA,
-                                                    A.AirPortCodeICAO,
-                                                    A.AirPortCodeFAA_LID,
-                                                    A.AirPortCodeWMO,
-                                                    A.AirPortName,
-                                                    A.AirPortCity,
-                                                    A.AirPortCounty,
-                                                    A.AirPortCountry,
-                                                    A.AirPortLatitude,
-                                                    A.AirPortLongitude,
-                                                    A.HeightAboveSeaLevel,
-                                                    A.AirPortDescription,
-                                                    A.AirPortFacilities,
-                                                    A.AirPortIncidents)
-        if not ResultUpdate:
-            message = QtWidgets.QMessageBox()
-            message.setText("Запись не переписалась")
-            message.setIcon(QtWidgets.QMessageBox.Warning)
-            message.exec_()
-        else:
-            # fixme Пользователи без права на изменение не фиксируются
-            S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+        DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+        ChangedCurrent = DBAirPort.LogCountChanged
+        if A.LogCountChanged < ChangedCurrent:
+            qm = QtWidgets.QMessageBox()
+            qm.setText("Данные уже изменены. Переписать данные?")
+            qm.setIcon(QtWidgets.QMessageBox.Warning)
+            reply = qm.question(qm.Yes | qm.No, qm.No)
+            if reply == qm.Yes:
+                # Вносим изменение
+                ResultUpdate = S.UpdateAirPortByIATAandICAO(A.SourceCSVFile,
+                                                            A.HyperLinkToWikiPedia,
+                                                            A.HyperLinkToAirPortSite,
+                                                            A.HyperLinkToOperatorSite,
+                                                            A.AirPortCodeIATA,
+                                                            A.AirPortCodeICAO,
+                                                            A.AirPortCodeFAA_LID,
+                                                            A.AirPortCodeWMO,
+                                                            A.AirPortName,
+                                                            A.AirPortCity,
+                                                            A.AirPortCounty,
+                                                            A.AirPortCountry,
+                                                            A.AirPortLatitude,
+                                                            A.AirPortLongitude,
+                                                            A.HeightAboveSeaLevel,
+                                                            A.AirPortDescription,
+                                                            A.AirPortFacilities,
+                                                            A.AirPortIncidents)
+                if not ResultUpdate:
+                    message = QtWidgets.QMessageBox()
+                    message.setText("Запись не переписалась")
+                    message.setIcon(QtWidgets.QMessageBox.Warning)
+                    message.exec_()
+                else:
+                    # fixme Пользователи без права на изменение не фиксируются
+                    S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                    DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+                    A.LogCountChanged = DBAirPort.LogCountChanged
 
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")

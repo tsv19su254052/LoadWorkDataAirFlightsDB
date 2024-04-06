@@ -924,7 +924,7 @@ class Servers:
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
             print(" xml_to_String = " + str(xml_to_String))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
-            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = " + str(xml_to_String) + "' "
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = '" + str(xml_to_String) + "' "
             if iata is None:
                 Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append

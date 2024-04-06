@@ -823,14 +823,14 @@ class Servers:
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
-                        newDateTime = ElementTree.SubElement(User, 'DateTime')
-                        newDateTime.attrib['From'] = str(host)
-                        newDateTime.text = str(dtn)
-                        added = True
+                        #newDateTime = ElementTree.SubElement(node, 'DateTime')
+                        #newDateTime.attrib['From'] = str(host)
+                        #newDateTime.text = str(dtn)
                         #User.append(newDateTime)  # fixme добавляет еще раз
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                        #User.append(DateTime)
+                        node.append(DateTime)
                         #root_tag.append(User)
+                        added = True
                 if not added:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     #User.append(DateTime)

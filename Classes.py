@@ -18,6 +18,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставили 5-ую верси
 from sqlalchemy import create_engine
 from xml.etree import ElementTree  # полная реализация, меньше объем исходников
 import colorama
+import termcolor
 
 
 # Делаем предка
@@ -816,26 +817,25 @@ class Servers:
                 root_tag.append(User)
             else:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру
-                xQuery = ".//User[Name='" + str(user) + "'] "
-                print(" xQuery = " + str(xQuery))
                 Search = root_tag.findall(".//User")
                 print(" Search = " + str(Search))
-                if Search is None:
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
+                        newDateTime = ElementTree.SubElement(User, 'DateTime')
+                        newDateTime.attrib['From'] = str(host)
+                        newDateTime.text = str(dtn)
+                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                        User.append(newDateTime)
+                        #root_tag.append(User)
+                xQuery = ".//User[Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
+                if root_tag.find(xQuery) is not None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)
-                else:
-                    for node in Search:
-                        if node.attrib['Name'] == str(user):
-                            print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
-                            newDateTime = ElementTree.SubElement(User, 'DateTime')
-                            newDateTime.attrib['From'] = str(host)
-                            newDateTime.text = str(dtn)
-                            # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                            User.append(newDateTime)
-                            #root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
-            print(" xml to String = " + str(xml_to_String))
+            print(termcolor.colored(" xml to String = " + str(xml_to_String), "red", "on_yellow"))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
             if iata is None:

@@ -830,7 +830,7 @@ class Servers:
                         #root_tag.append(User)
                 xQuery = ".//User[Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))
-                if root_tag.find(xQuery) is not None:
+                if root_tag.find(xQuery) is None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     User.append(DateTime)
                     root_tag.append(User)

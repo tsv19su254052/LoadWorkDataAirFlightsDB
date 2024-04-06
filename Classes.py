@@ -834,7 +834,6 @@ class Servers:
                             #root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(" xml to String = " + str(xml_to_String))
-            print(" root tag name = " + str(root_tag.tag))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
             XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
             if iata is None:

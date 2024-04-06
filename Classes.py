@@ -805,7 +805,7 @@ class Servers:
                 Count += 1
             print("LogCountViewed = " + str(Count))
             host = 'WorkCompTest1'
-            user = 'ArtemTest6'
+            user = 'ArtemTest7'
             print(" ResultXML = " + str(ResultXML[0]))
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -834,7 +834,7 @@ class Servers:
                 if root_tag.find(xQuery) is None:
                     print(colorama.Fore.LIGHTCYAN_EX + "Добавляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     User.append(DateTime)
-                    root_tag.append(User)
+                    #root_tag.append(User)
             xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
             print(termcolor.colored(" xml to String = " + str(xml_to_String), "red", "on_yellow"))
             SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)

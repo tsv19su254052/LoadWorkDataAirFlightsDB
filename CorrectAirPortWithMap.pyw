@@ -377,8 +377,8 @@ def myApplication():
             if ResultUpdate:
                 # fixme Пользователи без права на изменение не фиксируются
                 S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                #DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
-                #A.LogCountChanged = DBAirPort.LogCountChanged
+                DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+                A.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не переписалась")

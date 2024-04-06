@@ -874,41 +874,85 @@ class Servers:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
             self.seekRT.execute(SQLQuery)
             SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeChanged FROM dbo.AirPortsTable"
             if iata is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
             elif icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
             elif iata is None and icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
             else:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT.execute(XMLQuery)
+            ResultXML = self.seekRT.fetchone()
             Count = ResultSQL[0]
             if Count is None:
                 Count = 1
             else:
                 Count += 1
             print("LogCountChanged = " + str(Count))
-            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
-            if iata is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-            elif icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-            elif iata is None and icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
+            User = ElementTree.Element('User', Name=str(user))
+            User.append(DateTime)
+            if ResultXML[0] is None:
+                print(colorama.Fore.GREEN + "Добавляем ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
+                root_tag = ElementTree.Element('Changed')
+                root_tag.append(User)
             else:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                root_tag = ElementTree.fromstring(ResultXML[0])
+                Search = root_tag.findall(".//User")
+                print(" Search = " + str(Search))
+                added = False
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
+                        node.append(DateTime)
+                        added = True
+                if not added:
+                    print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
+                    root_tag.append(User)
+            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
+            print(" xml_to_String = " + str(xml_to_String))
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = " + str(xml_to_String) + "' "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
             self.seekRT.execute(SQLQuery)
-            ResultSQL = True
+            self.seekRT.execute(XMLQuery)
             self.cnxnRT.commit()
+            Result = True
         except Exception:
-            ResultSQL = False
+            Result = False
             self.cnxnRT.rollback()
         else:
             pass
         finally:
-            return ResultSQL
+            return Result
 
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой

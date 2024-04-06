@@ -595,6 +595,8 @@ def myApplication():
                     SetFields()
                     # fixme Пользователи без права на изменение не фиксируются
                     S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                    DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+                    A.LogCountChanged = DBAirPort.LogCountChanged
                 else:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")

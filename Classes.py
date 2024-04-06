@@ -912,7 +912,6 @@ class Servers:
             else:
                 root_tag = ElementTree.fromstring(ResultXML[0])
                 Search = root_tag.findall(".//User")
-                print(" Search = " + str(Search))
                 added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):

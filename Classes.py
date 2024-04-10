@@ -656,17 +656,30 @@ class Servers:
             SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
             SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
             SQLQuery += ", AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
+            if lat is not None and long is not None:
+                SQLGeoQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(long) + ", ' ', " + str(lat) + ", ') '), 4326) "
+            else:
+                SQLQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(0) + ", ' ', " + str(0) + ", ') '), 4326) "
             if iata is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
             elif icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
             elif iata is None and icao is None:
-                SQLQuery += " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
                 #print("raise Exception")
                 #raise Exception
             else:
-                SQLQuery += " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
             self.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLGeoQuery)
             ResultSQL = True
             self.cnxnRT.commit()
         except Exception:

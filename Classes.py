@@ -656,7 +656,7 @@ class Servers:
             SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
             SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
             SQLQuery += ", AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
-            # todo Вызвать хранимую процедуру для пересчета длин маршрутов, завязанных на этот аэропорт
+            # todo И надо пересчитать длины маршрутов, завязанных на этот аэропорт
             if lat is not None and long is not None:
                 SQLGeoQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(long) + ", ' ', " + str(lat) + ", ') '), 4326) "
             else:

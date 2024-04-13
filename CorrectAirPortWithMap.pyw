@@ -199,6 +199,7 @@ def myApplication():
             folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
             folium.TileLayer(show=False).add_to(m)
             folium.LayerControl().add_to(m)
+            m.add_child(folium.LatLngPopup())
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)

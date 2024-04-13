@@ -5,7 +5,7 @@ import sys, io, os, socket
 import pyodbc
 from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
-from folium.plugins import Draw
+from folium.plugins.draw import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
@@ -216,6 +216,7 @@ def myApplication():
                 print(" выбираем путь для записи файла *.geojson")
                 path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
                 if path:
+                    print(str(path))
                     item.setPath(path)
                     item.accept()
 

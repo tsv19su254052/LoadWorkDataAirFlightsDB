@@ -134,14 +134,6 @@ def myApplication():
     myDialogInputIATAandICAO.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInput())
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
-    webView = QtWebEngineWidgets.QWebEngineView()
-    webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme графическая оболочка слетает
-
-    def handle_downloadRequested(self, item):
-        path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
-        if path:
-            item.setPath(path)
-            item.accept()
 
     def SetFields():
         # Выводим записи
@@ -218,6 +210,15 @@ def myApplication():
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)
+            webView = QtWebEngineWidgets.QWebEngineView()
+
+            def handle_downloadRequested(self, item):
+                path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
+                if path:
+                    item.setPath(path)
+                    item.accept()
+
+            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)

@@ -185,7 +185,14 @@ def myApplication():
                     myDialog.verticalLayout_Map.clearLayout(child.layout())
         if A.AirPortLatitude is not None and A.AirPortLongitude is not None:
             coordinates = (A.AirPortLatitude, A.AirPortLongitude)
-            # Варианты карт: OpenStreetMap (подробная цветная), CartoDB Positron (серенькая), CartoDB Voyager (аскетичная, мало подписей и меток), NASAGIBS Blue Marble (пока не отрисовывается)
+            # Варианты карт:
+            #  - OpenStreetMap (подробная цветная),
+            #  - CartoDB Positron (серенькая),
+            #  - CartoDB Voyager (аскетичная, мало подписей и меток),
+            #  - NASAGIBS Blue Marble (пока не отрисовывается),
+            #  - Stamen Terrain - не работает,
+            #  - Esri - не работает,
+            #  - OpenWeatherMap - не работает,
             m = folium.Map(tiles='OpenStreetMap', zoom_start=13, location=coordinates)
             # save map data to data object
             data = io.BytesIO()

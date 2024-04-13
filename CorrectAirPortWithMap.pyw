@@ -5,7 +5,7 @@ import sys, io, os, socket
 import pyodbc
 from PyQt5 import QtCore, QtWidgets, QtGui, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
-from folium.plugins import Draw
+from folium.plugins import Draw, Fullscreen
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
@@ -201,6 +201,7 @@ def myApplication():
             folium.TileLayer(show=False).add_to(m)
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())
+            #Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)  # не работает в рамке
             Draw(export=True).add_to(m)
             # save map data to data object
             data = io.BytesIO()

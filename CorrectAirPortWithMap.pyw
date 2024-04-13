@@ -135,7 +135,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
-    def handle_downloadRequested(self, item):
+    def ExportGeoJSON(self, item):
         print(" выбираем путь записи файла *.geojson")
         path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
         if path:
@@ -203,11 +203,12 @@ def myApplication():
             #  - Esri - не работает,
             #  - OpenWeatherMap - не работает,
             zoom = 13
-            m = folium.Map(tiles='OpenStreetMap', zoom_start=zoom, location=coordinates)
+            m = folium.Map(tiles=None, zoom_start=zoom, location=coordinates)
             folium.TileLayer("CartoDB Positron").add_to(m)
             folium.TileLayer("CartoDB Voyager").add_to(m)
             folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
-            folium.TileLayer(show=False).add_to(m)
+            folium.TileLayer("OpenStreetMap").add_to(m)
+            folium.TileLayer(show=True).add_to(m)
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())
             Draw(export=True,
@@ -219,7 +220,7 @@ def myApplication():
             data = io.BytesIO()
             m.save(data, close_file=False)
             webView = QtWebEngineWidgets.QWebEngineView()
-            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme функция-обработчик не вызывается
+            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)

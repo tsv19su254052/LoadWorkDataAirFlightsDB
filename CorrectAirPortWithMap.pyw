@@ -437,6 +437,7 @@ def myApplication():
             A.HyperLinkToWikiPedia = Link
             print(str(Link))
             myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(A.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+            myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(A.HyperLinkToWikiPedia))
             myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkAirPort():
@@ -445,6 +446,7 @@ def myApplication():
             A.HyperLinkToAirPortSite = Link
             print(str(Link))
             myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+            myDialog.label_HyperLink_to_AirPort.setToolTip(str(A.HyperLinkToAirPortSite))
             myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkOperator():
@@ -453,6 +455,7 @@ def myApplication():
             A.HyperLinkToOperatorSite = Link
             print(str(Link))
             myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+            myDialog.label_HyperLink_to_Operator.setToolTip(str(A.HyperLinkToOperatorSite))
             myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinks():

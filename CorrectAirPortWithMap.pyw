@@ -210,12 +210,12 @@ def myApplication():
             folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
             folium.TileLayer("OpenStreetMap").add_to(m)
             folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=m&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Standard Roadmap',
+                                           name='Google Roadmap',
                                            attr='Google Map', ).add_to(m)
             folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=s&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Satellite Only', attr='Google Map', ).add_to(m)
+                                           name='Google Satellite', attr='Google Map', ).add_to(m)
             folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=y&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Hybrid',
+                                           name='Google Hybrid',
                                            attr='Google Map', ).add_to(m)
             folium.TileLayer(show=True).add_to(m)
             folium.LayerControl().add_to(m)

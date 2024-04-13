@@ -135,6 +135,14 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
+    def handle_downloadRequested(self, item):
+        print(" выбираем путь записи файла *.geojson")
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
+        if path:
+            print(str(path))
+            item.setPath(path)
+            item.accept()
+
     def SetFields():
         # Выводим записи
         myDialog.textEdit_SourceCSVFile.clear()
@@ -211,15 +219,6 @@ def myApplication():
             data = io.BytesIO()
             m.save(data, close_file=False)
             webView = QtWebEngineWidgets.QWebEngineView()
-
-            def handle_downloadRequested(self, item):
-                print(" выбираем путь для записи файла *.geojson")
-                path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
-                if path:
-                    print(str(path))
-                    item.setPath(path)
-                    item.accept()
-
             webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme функция-обработчик не вызывается
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка

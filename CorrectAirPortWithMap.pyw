@@ -213,12 +213,13 @@ def myApplication():
             webView = QtWebEngineWidgets.QWebEngineView()
 
             def handle_downloadRequested(self, item):
-                path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
+                print(" выбираем путь для записи файла *.geojson")
+                path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
                 if path:
                     item.setPath(path)
                     item.accept()
 
-            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)
+            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme функция-обработчик не вызывается
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)

@@ -135,7 +135,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
     webView = QtWebEngineWidgets.QWebEngineView()
-    webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested())  # fixme графическая оболочка слетает
+    webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme графическая оболочка слетает
 
     def handle_downloadRequested(self, item):
         path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())

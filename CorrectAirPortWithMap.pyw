@@ -149,10 +149,13 @@ def myApplication():
         myDialog.textEdit_SourceCSVFile.clear()
         myDialog.textEdit_SourceCSVFile.append(str(A.SourceCSVFile))
         myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(A.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+        myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(A.HyperLinkToWikiPedia))
         myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+        myDialog.label_HyperLink_to_AirPort.setToolTip(str(A.HyperLinkToAirPortSite))
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
         myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+        myDialog.label_HyperLink_to_Operator.setToolTip(str(A.HyperLinkToOperatorSite))
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
         if A.AirPortCodeIATA is None:
             myDialog.label_CodeIATA.setText(" ")

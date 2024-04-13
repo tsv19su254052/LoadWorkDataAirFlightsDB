@@ -202,7 +202,11 @@ def myApplication():
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())
             #Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)  # не работает в рамке
-            Draw(export=True).add_to(m)  # fixme Export не работает
+            Draw(export=True,
+                 filename="my_data.geojson",
+                 position="topleft",
+                 draw_options={"polyline": True, "rectangle": True, "circle": True, "circlemarker": True, },
+                 edit_options={"poly": {"allowIntersection": False}},).add_to(m)  # fixme Export не работает
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)

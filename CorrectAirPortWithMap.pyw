@@ -205,6 +205,10 @@ def myApplication():
             #  - OpenWeatherMap - не работает,
             zoom = 13
             m = folium.Map(tiles=None, zoom_start=zoom, location=coordinates)
+            folium.TileLayer("CartoDB Positron").add_to(m)
+            folium.TileLayer("CartoDB Voyager").add_to(m)
+            folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
+            folium.TileLayer("OpenStreetMap").add_to(m)
             folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=m&h1=p1Z&x={x}&y={y}&z={z}',
                                            name='Standard Roadmap',
                                            attr='Google Map', ).add_to(m)
@@ -213,10 +217,6 @@ def myApplication():
             folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=y&h1=p1Z&x={x}&y={y}&z={z}',
                                            name='Hybrid',
                                            attr='Google Map', ).add_to(m)
-            folium.TileLayer("CartoDB Positron").add_to(m)
-            folium.TileLayer("CartoDB Voyager").add_to(m)
-            folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
-            folium.TileLayer("OpenStreetMap").add_to(m)
             folium.TileLayer(show=True).add_to(m)
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())

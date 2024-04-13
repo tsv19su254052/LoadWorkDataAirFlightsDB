@@ -3,9 +3,9 @@ import datetime
 # QtSQL медленнее, чем pyodbc
 import sys, io, os, socket
 import pyodbc
-from PyQt5 import QtCore, QtWidgets, QtGui, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
+from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
-from folium.plugins import Draw, Fullscreen
+from folium.plugins import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
@@ -134,6 +134,14 @@ def myApplication():
     myDialogInputIATAandICAO.pushButton_SearchInsert.clicked.connect(lambda: PushButtonInput())
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
+    webView = QtWebEngineWidgets.QWebEngineView()
+    webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested())  # fixme графическая оболочка слетает
+
+    def handle_downloadRequested(self, item):
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
+        if path:
+            item.setPath(path)
+            item.accept()
 
     def SetFields():
         # Выводим записи
@@ -194,14 +202,14 @@ def myApplication():
             #  - Stamen Terrain - не работает,
             #  - Esri - не работает,
             #  - OpenWeatherMap - не работает,
-            m = folium.Map(tiles='OpenStreetMap', zoom_start=13, location=coordinates)
+            zoom = 13
+            m = folium.Map(tiles='OpenStreetMap', zoom_start=zoom, location=coordinates)
             folium.TileLayer("CartoDB Positron").add_to(m)
             folium.TileLayer("CartoDB Voyager").add_to(m)
             folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
             folium.TileLayer(show=False).add_to(m)
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())
-            #Fullscreen(position="topright", title="Expand me", title_cancel="Exit me", force_separate_button=True, ).add_to(m)  # не работает в рамке
             Draw(export=True,
                  filename="my_data.geojson",
                  position="topleft",
@@ -210,17 +218,9 @@ def myApplication():
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)
-            webView = QtWebEngineWidgets.QWebEngineView()
-            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme графическая оболочка слетает
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)
-
-        def handle_downloadRequested(self, item):
-            path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
-            if path:
-                item.setPath(path)
-                item.accept()
 
     def ReadingQuery(ResultQuery):
         A.SourceCSVFile = ResultQuery.SourceCSVFile

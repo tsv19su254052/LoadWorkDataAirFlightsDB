@@ -194,6 +194,11 @@ def myApplication():
             #  - Esri - не работает,
             #  - OpenWeatherMap - не работает,
             m = folium.Map(tiles='OpenStreetMap', zoom_start=13, location=coordinates)
+            folium.TileLayer("CartoDB Positron").add_to(m)
+            folium.TileLayer("CartoDB Voyager").add_to(m)
+            folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
+            folium.TileLayer(show=False).add_to(m)
+            folium.LayerControl().add_to(m)
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)

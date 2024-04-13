@@ -211,7 +211,7 @@ def myApplication():
             data = io.BytesIO()
             m.save(data, close_file=False)
             webView = QtWebEngineWidgets.QWebEngineView()
-            #webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested())  # fixme графическая оболочка слетает
+            webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested)  # fixme графическая оболочка слетает
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)

@@ -211,9 +211,16 @@ def myApplication():
             data = io.BytesIO()
             m.save(data, close_file=False)
             webView = QtWebEngineWidgets.QWebEngineView()
+            #webView.page().profile().downloadRequested.connect(lambda: handle_downloadRequested())  # fixme графическая оболочка слетает
             webView.setHtml(data.getvalue().decode())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)
+
+        def handle_downloadRequested(self, item):
+            path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", item.suggestedFileName())
+            if path:
+                item.setPath(path)
+                item.accept()
 
     def ReadingQuery(ResultQuery):
         A.SourceCSVFile = ResultQuery.SourceCSVFile

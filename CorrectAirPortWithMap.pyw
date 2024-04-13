@@ -135,6 +135,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
+    @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
         print(" выбираем путь записи файла *.geojson")
         path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
@@ -215,7 +216,7 @@ def myApplication():
                  filename="my_data.geojson",
                  position="topleft",
                  draw_options={"polyline": True, "rectangle": True, "circle": True, "circlemarker": True, },
-                 edit_options={"poly": {"allowIntersection": False}},).add_to(m)  # fixme Export не работает -> см. https://stackoverflow.com/questions/64402959/cant-export-coordinates-on-folium-draw-polygon-in-pyqt5-app
+                 edit_options={"poly": {"allowIntersection": False}}, ).add_to(m)  # fixme Export не работает -> см. https://stackoverflow.com/questions/64402959/cant-export-coordinates-on-folium-draw-polygon-in-pyqt5-app
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)

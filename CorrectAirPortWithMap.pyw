@@ -300,7 +300,7 @@ def myApplication():
                 def javaScriptConsoleMessage(self, level, msg, line, sourceID):
                     coords_dict = json.loads(msg)
                     coords = coords_dict['geometry']['coordinates'][0]
-                    print(coords)
+                    print(str(coords))
 
             webView = QtWebEngineWidgets.QWebEngineView()
             page = WebEnginePage(webView)

@@ -188,6 +188,14 @@ def myApplication():
         myDialog.textEdit_AirPortFacilities.append(A.AirPortFacilities)
         myDialog.textEdit_Incidents.clear()
         myDialog.textEdit_Incidents.append(A.AirPortIncidents)
+        # очищаем предыдущую отрисовку
+        if myDialog.verticalLayout_Map is not None:
+            while myDialog.verticalLayout_Map.count():
+                child = myDialog.verticalLayout_Map.takeAt(0)
+                if child.widget() is not None:
+                    child.widget().deleteLater()
+                elif child.layout() is not None:
+                    myDialog.verticalLayout_Map.clearLayout(child.layout())
         if A.AirPortLatitude is not None and A.AirPortLongitude is not None:
             coordinates = (A.AirPortLatitude, A.AirPortLongitude)
             # Варианты карт:
@@ -226,14 +234,6 @@ def myApplication():
             webView = QtWebEngineWidgets.QWebEngineView()
             webView.setHtml(data.getvalue().decode())
             webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
-            # очищаем предыдущую отрисовку
-            if myDialog.verticalLayout_Map is not None:
-                while myDialog.verticalLayout_Map.count():
-                    child = myDialog.verticalLayout_Map.takeAt(0)
-                    if child.widget() is not None:
-                        child.widget().deleteLater()
-                    elif child.layout() is not None:
-                        myDialog.verticalLayout_Map.clearLayout(child.layout())
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)
 

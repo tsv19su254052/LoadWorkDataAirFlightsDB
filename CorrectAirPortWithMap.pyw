@@ -135,6 +135,77 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
+    def ClearMap():
+        # очищаем предыдущую отрисовку
+        if myDialog.verticalLayout_Map is not None:
+            while myDialog.verticalLayout_Map.count():
+                child = myDialog.verticalLayout_Map.takeAt(0)
+                if child.widget() is not None:
+                    child.widget().deleteLater()
+                elif child.layout() is not None:
+                    myDialog.verticalLayout_Map.clearLayout(child.layout())
+
+
+    def SwitchingGUI(Key):
+        myDialog.comboBox_DB.setEnabled(not Key)
+        myDialog.comboBox_Driver.setEnabled(not Key)
+        myDialog.lineEdit_Server.setEnabled(Key)
+        myDialog.lineEdit_Driver.setEnabled(Key)
+        myDialog.lineEdit_ODBCversion.setEnabled(Key)
+        myDialog.lineEdit_DSN.setEnabled(Key)
+        myDialog.lineEdit_Schema.setEnabled(Key)
+        myDialog.textEdit_SourceCSVFile.setEnabled(Key)
+        myDialog.label_hyperlink_to_WikiPedia.setEnabled(Key)
+        myDialog.label_HyperLink_to_AirPort.setEnabled(Key)
+        myDialog.label_HyperLink_to_Operator.setEnabled(Key)
+        myDialog.pushButton_HyperLinkChange_Wikipedia.setEnabled(Key)
+        myDialog.pushButton_HyperLinkChange_AirPort.setEnabled(Key)
+        myDialog.pushButton_HyperLinkChange_Operator.setEnabled(Key)
+        myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(Key)
+        myDialog.lineEdit_AirPortCodeWMO.setEnabled(Key)
+        myDialog.pushButton_SearchByIATA.setEnabled(Key)
+        myDialog.pushButton_SearchByICAO.setEnabled(Key)
+        myDialog.pushButton_SearchByFAALID.setEnabled(Key)
+        myDialog.pushButton_SearchByWMO.setEnabled(Key)
+        myDialog.pushButton_SearchAndInsertByIATAandICAO.setEnabled(Key)
+        myDialog.textEdit_AirPortName.setEnabled(Key)
+        myDialog.textEdit_AirPortCity.setEnabled(Key)
+        myDialog.textEdit_AirPortCounty.setEnabled(Key)
+        myDialog.textEdit_AirPortCountry.setEnabled(Key)
+        myDialog.lineEdit_AirPortLatitude.setEnabled(Key)
+        myDialog.lineEdit_AirPortLongitude.setEnabled(Key)
+        myDialog.lineEdit_HeightAboveSeaLevel.setEnabled(Key)
+        myDialog.textBrowser_HyperLinks.setEnabled(Key)
+        myDialog.pushButton_HyperLinksChange.setEnabled(Key)
+        myDialog.textEdit_AirPortDescription.setEnabled(Key)
+        myDialog.textEdit_AirPortFacilities.setEnabled(Key)
+        myDialog.textEdit_Incidents.setEnabled(Key)
+        ClearMap()
+        myDialog.verticalLayout_Map.setEnabled(Key)
+
+    def ReadingQuery(ResultQuery):
+        A.SourceCSVFile = ResultQuery.SourceCSVFile
+        A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
+        A.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
+        A.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
+        A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
+        A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
+        A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
+        A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
+        A.AirPortName = ResultQuery.AirPortName
+        A.AirPortCity = ResultQuery.AirPortCity
+        A.AirPortCounty = ResultQuery.AirPortCounty
+        A.AirPortCountry = ResultQuery.AirPortCountry
+        A.AirPortLatitude = ResultQuery.AirPortLatitude
+        A.AirPortLongitude = ResultQuery.AirPortLongitude
+        A.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
+        A.AirPortDescription = ResultQuery.AirPortDescription
+        A.AirPortFacilities = ResultQuery.AirPortFacilities
+        A.AirPortIncidents = ResultQuery.AirPortIncidents
+        A.LogCountViewed = ResultQuery.LogCountViewed
+        A.LogCountChanged = ResultQuery.LogCountChanged
+        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+
     @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
         print(" выбираем путь записи файла *.geojson")
@@ -229,77 +300,6 @@ def myApplication():
             webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)
-
-    def ReadingQuery(ResultQuery):
-        A.SourceCSVFile = ResultQuery.SourceCSVFile
-        A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
-        A.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
-        A.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
-        A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
-        A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
-        A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
-        A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
-        A.AirPortName = ResultQuery.AirPortName
-        A.AirPortCity = ResultQuery.AirPortCity
-        A.AirPortCounty = ResultQuery.AirPortCounty
-        A.AirPortCountry = ResultQuery.AirPortCountry
-        A.AirPortLatitude = ResultQuery.AirPortLatitude
-        A.AirPortLongitude = ResultQuery.AirPortLongitude
-        A.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
-        A.AirPortDescription = ResultQuery.AirPortDescription
-        A.AirPortFacilities = ResultQuery.AirPortFacilities
-        A.AirPortIncidents = ResultQuery.AirPortIncidents
-        A.LogCountViewed = ResultQuery.LogCountViewed
-        A.LogCountChanged = ResultQuery.LogCountChanged
-        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-
-    def ClearMap():
-        # очищаем предыдущую отрисовку
-        if myDialog.verticalLayout_Map is not None:
-            while myDialog.verticalLayout_Map.count():
-                child = myDialog.verticalLayout_Map.takeAt(0)
-                if child.widget() is not None:
-                    child.widget().deleteLater()
-                elif child.layout() is not None:
-                    myDialog.verticalLayout_Map.clearLayout(child.layout())
-
-
-    def SwitchingGUI(Key):
-        myDialog.comboBox_DB.setEnabled(not Key)
-        myDialog.comboBox_Driver.setEnabled(not Key)
-        myDialog.lineEdit_Server.setEnabled(Key)
-        myDialog.lineEdit_Driver.setEnabled(Key)
-        myDialog.lineEdit_ODBCversion.setEnabled(Key)
-        myDialog.lineEdit_DSN.setEnabled(Key)
-        myDialog.lineEdit_Schema.setEnabled(Key)
-        myDialog.textEdit_SourceCSVFile.setEnabled(Key)
-        myDialog.label_hyperlink_to_WikiPedia.setEnabled(Key)
-        myDialog.label_HyperLink_to_AirPort.setEnabled(Key)
-        myDialog.label_HyperLink_to_Operator.setEnabled(Key)
-        myDialog.pushButton_HyperLinkChange_Wikipedia.setEnabled(Key)
-        myDialog.pushButton_HyperLinkChange_AirPort.setEnabled(Key)
-        myDialog.pushButton_HyperLinkChange_Operator.setEnabled(Key)
-        myDialog.lineEdit_AirPortCodeFAA_LID.setEnabled(Key)
-        myDialog.lineEdit_AirPortCodeWMO.setEnabled(Key)
-        myDialog.pushButton_SearchByIATA.setEnabled(Key)
-        myDialog.pushButton_SearchByICAO.setEnabled(Key)
-        myDialog.pushButton_SearchByFAALID.setEnabled(Key)
-        myDialog.pushButton_SearchByWMO.setEnabled(Key)
-        myDialog.pushButton_SearchAndInsertByIATAandICAO.setEnabled(Key)
-        myDialog.textEdit_AirPortName.setEnabled(Key)
-        myDialog.textEdit_AirPortCity.setEnabled(Key)
-        myDialog.textEdit_AirPortCounty.setEnabled(Key)
-        myDialog.textEdit_AirPortCountry.setEnabled(Key)
-        myDialog.lineEdit_AirPortLatitude.setEnabled(Key)
-        myDialog.lineEdit_AirPortLongitude.setEnabled(Key)
-        myDialog.lineEdit_HeightAboveSeaLevel.setEnabled(Key)
-        myDialog.textBrowser_HyperLinks.setEnabled(Key)
-        myDialog.pushButton_HyperLinksChange.setEnabled(Key)
-        myDialog.textEdit_AirPortDescription.setEnabled(Key)
-        myDialog.textEdit_AirPortFacilities.setEnabled(Key)
-        myDialog.textEdit_Incidents.setEnabled(Key)
-        ClearMap()
-        myDialog.verticalLayout_Map.setEnabled(Key)
 
     def PushButtonConnectDB():
         if not S.Connected_RT:

@@ -224,8 +224,8 @@ def myApplication():
             data = io.BytesIO()
             m.save(data, close_file=False)
             webView = QtWebEngineWidgets.QWebEngineView()
-            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             webView.setHtml(data.getvalue().decode())
+            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             # очищаем предыдущую отрисовку
             if myDialog.verticalLayout_Map is not None:
                 while myDialog.verticalLayout_Map.count():

@@ -188,14 +188,7 @@ def myApplication():
         myDialog.textEdit_AirPortFacilities.append(A.AirPortFacilities)
         myDialog.textEdit_Incidents.clear()
         myDialog.textEdit_Incidents.append(A.AirPortIncidents)
-        # очищаем предыдущую отрисовку
-        if myDialog.verticalLayout_Map is not None:
-            while myDialog.verticalLayout_Map.count():
-                child = myDialog.verticalLayout_Map.takeAt(0)
-                if child.widget() is not None:
-                    child.widget().deleteLater()
-                elif child.layout() is not None:
-                    myDialog.verticalLayout_Map.clearLayout(child.layout())
+        ClearMap()
         if A.AirPortLatitude is not None and A.AirPortLongitude is not None:
             coordinates = (A.AirPortLatitude, A.AirPortLongitude)
             # Варианты карт:
@@ -260,6 +253,17 @@ def myApplication():
         A.LogCountChanged = ResultQuery.LogCountChanged
         S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
 
+    def ClearMap():
+        # очищаем предыдущую отрисовку
+        if myDialog.verticalLayout_Map is not None:
+            while myDialog.verticalLayout_Map.count():
+                child = myDialog.verticalLayout_Map.takeAt(0)
+                if child.widget() is not None:
+                    child.widget().deleteLater()
+                elif child.layout() is not None:
+                    myDialog.verticalLayout_Map.clearLayout(child.layout())
+
+
     def SwitchingGUI(Key):
         myDialog.comboBox_DB.setEnabled(not Key)
         myDialog.comboBox_Driver.setEnabled(not Key)
@@ -294,6 +298,7 @@ def myApplication():
         myDialog.textEdit_AirPortDescription.setEnabled(Key)
         myDialog.textEdit_AirPortFacilities.setEnabled(Key)
         myDialog.textEdit_Incidents.setEnabled(Key)
+        ClearMap()
         myDialog.verticalLayout_Map.setEnabled(Key)
 
     def PushButtonConnectDB():

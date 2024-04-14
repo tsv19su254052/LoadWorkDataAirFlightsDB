@@ -1,7 +1,7 @@
 #  Interpreter 3.7 -> 3.10
 import datetime
 # QtSQL медленнее, чем pyodbc
-import sys, io, os, socket
+import sys, io, os, socket, json
 import pyodbc
 from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
@@ -295,7 +295,16 @@ def myApplication():
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)
+
+            class WebEnginePage(QtWebEngineWidgets.QWebEnginePage):
+                def javaScriptConsoleMessage(self, level, msg, line, sourceID):
+                    coords_dict = json.loads(msg)
+                    coords = coords_dict['geometry']['coordinates'][0]
+                    print(coords)
+
             webView = QtWebEngineWidgets.QWebEngineView()
+            page = WebEnginePage(webView)
+            webView.setPage(page)
             webView.setHtml(data.getvalue().decode())
             webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             # новая отрисовка

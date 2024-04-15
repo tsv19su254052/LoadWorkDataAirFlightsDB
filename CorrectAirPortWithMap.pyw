@@ -287,11 +287,12 @@ def myApplication():
             folium.TileLayer(show=True).add_to(m)
             folium.LayerControl().add_to(m)
             m.add_child(folium.LatLngPopup())
+            # fixme Export не работает -> см. https://stackoverflow.com/questions/64402959/cant-export-coordinates-on-folium-draw-polygon-in-pyqt5-app
             Draw(export=True,
                  filename="my_data.geojson",
                  position="topleft",
                  draw_options={"polyline": True, "rectangle": True, "circle": True, "circlemarker": True, },
-                 edit_options={"poly": {"allowIntersection": False}}, ).add_to(m)  # fixme Export не работает -> см. https://stackoverflow.com/questions/64402959/cant-export-coordinates-on-folium-draw-polygon-in-pyqt5-app
+                 edit_options={"poly": {"allowIntersection": False}}, ).add_to(m)
             # save map data to data object
             data = io.BytesIO()
             m.save(data, close_file=False)
@@ -303,10 +304,10 @@ def myApplication():
                     print(str(coords))
 
             webView = QtWebEngineWidgets.QWebEngineView()
+            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             page = WebEnginePage(webView)
             webView.setPage(page)
             webView.setHtml(data.getvalue().decode())
-            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
             # новая отрисовка
             myDialog.verticalLayout_Map.addWidget(webView)
 

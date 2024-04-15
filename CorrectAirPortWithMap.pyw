@@ -304,7 +304,7 @@ def myApplication():
                     print(str(coords))
 
             webView = QtWebEngineWidgets.QWebEngineView()
-            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается
+            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается, connect не работает
             page = WebEnginePage(webView)
             webView.setPage(page)
             webView.setHtml(data.getvalue().decode())

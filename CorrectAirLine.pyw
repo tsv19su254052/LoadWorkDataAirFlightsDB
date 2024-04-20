@@ -154,8 +154,8 @@ def myApplication():
     myDialog.pushButton_Next.setEnabled(False)
     myDialog.pushButton_Update.setToolTip("Запись внесенных изменений\n Перед нажатием правильно заполнить и проверить введенные данные")
     myDialog.pushButton_Update.setEnabled(False)
-    myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
-    myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.lineEdit_CodeIATA.setToolTip("Введите код IATA или поставьте галочку, если его нет")
+    myDialogInputIATAandICAO.lineEdit_CodeICAO.setToolTip("Введите код ICAO или поставьте галочку, если его нет")
     myDialogInputIATAandICAO.checkBox_Status_IATA.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
     myDialogInputIATAandICAO.checkBox_Status_ICAO.setToolTip("Пустая ячейка в БД (не считается, как пустая строка)")
     myDialog.lineEdit_AirLineID.setToolTip("Номер по старой базе данных авиакомпаний")
@@ -480,25 +480,25 @@ def myApplication():
 
     def Check_IATA():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(False)
+            myDialogInputIATAandICAO.lineEdit_CodeIATA.setEnabled(False)
         else:
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_CodeIATA.setEnabled(True)
 
     def Check_ICAO():
         if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(False)
+            myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(False)
         else:
-            myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.setEnabled(True)
+            myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(True)
 
     def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
         else:
-            Code_IATA = myDialogInputIATAandICAO.lineEdit_AirLineCodeIATA.text()
+            Code_IATA = myDialogInputIATAandICAO.lineEdit_CodeIATA.text()
         if myDialogInputIATAandICAO.checkBox_Status_ICAO.isChecked():
             Code_ICAO = None
         else:
-            Code_ICAO = myDialogInputIATAandICAO.lineEdit_AirLineCodeICAO.text()
+            Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
         DBAirLine = S.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 

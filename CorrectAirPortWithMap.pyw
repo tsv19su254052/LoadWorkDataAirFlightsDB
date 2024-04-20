@@ -567,7 +567,7 @@ def myApplication():
 
         if DBAirPort is None:
             # Вставляем новую запись
-            # fixme Вставилась запись с NULL и None
+            # fixme В базе вставилась запись с Code_IATA = NULL и Code_ICAO = "None"
             ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
                 DBAirPort = S.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)

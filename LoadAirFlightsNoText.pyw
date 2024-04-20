@@ -476,6 +476,7 @@ def myApplication():
         # with open(Log, 'a') as LogFile:
         #     LogFile.write(OutputString)
         #     LogFile.write('Вывод с помощью менеджера контекста\n')
+        # fixme Тут графическая оболочка слетела
         myDialog.label_execute.setText("Загрузка окончена")
         myDialog.label_execute.setStyleSheet("border: 5px solid; border-color: pink")
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))

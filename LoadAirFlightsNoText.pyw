@@ -67,7 +67,8 @@ S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS 
 S.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
 S.ServerName = "localhost\mssqlserver15"  # указал инстанс
 #S.ServerName = "localhost\sqldeveloper"  # указал инстанс
-S.radioButtonUseDB = True
+S.useDB = True
+S.useAirCraftsDB = False
 S.InputFileCSV = ' '
 S.LogFileTXT = ' '
 S.ErrorFileTXT = 'LogReport_Errors.txt'
@@ -477,6 +478,7 @@ def myApplication():
         #     LogFile.write(OutputString)
         #     LogFile.write('Вывод с помощью менеджера контекста\n')
         # fixme Тут графическая оболочка слетела
+        time.sleep(2)  # задержка, чтобы исправить этот момент
         myDialog.label_execute.setText("Загрузка окончена")
         myDialog.label_execute.setStyleSheet("border: 5px solid; border-color: pink")
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
@@ -494,7 +496,7 @@ def myApplication():
         S.cnxnAC_XML.close()
 
     def SwitchRadioButtons():
-        if S.radioButtonUseDB:
+        if S.useDB:
             myDialog.radioButton_DB.setChecked(True)
             myDialog.radioButton_DSN.setChecked(False)
             myDialog.comboBox_DB_FN.setEnabled(True)
@@ -847,7 +849,7 @@ def myApplication():
             S.myDSN_AC = str(ChoiceDSN_AC)
             try:
                 # Добавляем атрибут cnxn
-                if S.radioButtonUseDB:
+                if S.useDB:
                     # через драйвер СУБД + клиентский API-курсор
                     S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_AC, server=S.ServerNameFlights, database=S.DataBase_AC)
                     print("  БД = ", S.DataBase_AC, "подключена")
@@ -904,7 +906,7 @@ def myApplication():
             S.myDSN_FN = str(ChoiceDSN_FN)
             try:
                 # Добавляем атрибут cnxn
-                if S.radioButtonUseDB:
+                if S.useDB:
                     # через драйвер СУБД + клиентский API-курсор
                     S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_FN, server=S.ServerNameFlights, database=S.DataBase_FN)
                     print("  БД = ", S.DataBase_FN, "подключена")

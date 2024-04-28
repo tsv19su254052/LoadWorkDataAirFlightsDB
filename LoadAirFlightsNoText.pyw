@@ -50,18 +50,6 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 # Делаем экземпляр
 S = Classes.Servers()
 
-# Флаги
-S.useAirFlightsDB = True
-S.useAirCraftsDSN = False
-S.SetInputDate = False
-
-# Состояния
-S.Connected_AL = False
-S.Connected_AC = False
-S.Connected_RT = False
-S.Connected_FN = False
-S.Connected_AC_XML = False
-
 # Имена серверов
 #S.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
 S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
@@ -76,8 +64,19 @@ S.InputFileCSV = ' '
 S.LogFileTXT = ' '
 S.ErrorFileTXT = 'LogReport_Errors.txt'
 
+# Флаги
+S.useAirFlightsDB = True
+S.useAirCraftsDSN = False
+S.SetInputDate = False
 
-# Основная функция
+# Состояния
+S.Connected_AL = False
+S.Connected_AC = False
+S.Connected_RT = False
+S.Connected_FN = False
+S.Connected_AC_XML = False
+
+
 def myApplication():
     def SwitchRadioButtons():
         if S.useAirCraftsDSN:

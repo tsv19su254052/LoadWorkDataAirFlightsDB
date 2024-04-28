@@ -534,6 +534,7 @@ def myApplication():
                 finally:
                     pass
             """
+            myDialog.pushButton_Connect_AC.setEnabled(False)
             if not S.Connected_ACFN:
                 # Подключаемся к базе данных авиаперелетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
@@ -602,9 +603,6 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    #myDialog.radioButton_DB_AirFlights.setEnabled(False)
-                    #myDialog.radioButton_DSN_AirFlights.setEnabled(False)
-                    #myDialog.radioButton_DSN_AirCrafts.setEnabled(False)
                     myDialog.groupBox.setEnabled(False)
                     myDialog.comboBox_DB_FN.setEnabled(False)
                     myDialog.comboBox_Driver_FN.setEnabled(False)
@@ -662,13 +660,7 @@ def myApplication():
             S.cnxnFN.close()
             S.Connected_FN = False
             # Переключаем в исходное состояние
-            #myDialog.radioButton_DB_AirFlights.setEnabled(True)
-            #myDialog.radioButton_DSN_AirFlights.setEnabled(True)
-            #myDialog.radioButton_DSN_AirCrafts.setEnabled(True)
             UpdateDataSourcesChoiceByFlags()
-            #myDialog.comboBox_DB_FN.setEnabled(True)
-            #myDialog.comboBox_Driver_FN.setEnabled(True)
-            #myDialog.comboBox_DSN_FN.setEnabled(True)
             PrepareForInputData(False)
             # параметры соединения с сервером
             myDialog.lineEdit_Server_remote.setEnabled(False)

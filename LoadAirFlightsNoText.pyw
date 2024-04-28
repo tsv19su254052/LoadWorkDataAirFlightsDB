@@ -77,6 +77,94 @@ S.SetInputDate = False
 
 # Основная функция
 def myApplication():
+    # Одно прикладное приложение
+    myApp = QtWidgets.QApplication(sys.argv)
+    # Делаем экземпляры
+    myDialog = Classes.Ui_DialogLoadAirFlightsWithAirCrafts()
+    myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
+    myDialog.setFixedSize(940, 375)
+    myDialog.setWindowTitle('Загрузка рабочих данных')
+    # Дополняем функционал экземпляра главного диалога
+    # Переводим в исходное состояние
+    myDialog.label_Version.setText("Версия обработки " + str(__myOwnDevelopingVersion__))
+    # Получаем список DSN-ов
+    # Добавляем атрибут DSNs по ходу действия
+    S.DSNs = pyodbc.dataSources()  # добавленные системные DSN-ы
+    if S.DSNs:
+        for DSN in S.DSNs:
+            if not DSN:
+                break
+            myDialog.comboBox_DSN_FN.addItem(str(DSN))
+            myDialog.comboBox_DSN_AC.addItem(str(DSN))
+    # Получаем список драйверов баз данных
+    # Добавляем атрибут DriversODBC по ходу действия
+    S.DriversODBC = pyodbc.drivers()
+    if S.DriversODBC:
+        for DriverODBC in S.DriversODBC:
+            if not DriverODBC:
+                break
+            myDialog.comboBox_Driver_AL.addItem(str(DriverODBC))
+            myDialog.comboBox_Driver_RT.addItem(str(DriverODBC))
+            myDialog.comboBox_Driver_FN.addItem(str(DriverODBC))
+    # Добавляем базы данных в выпадающие списки
+    myDialog.comboBox_DB_AL.addItem("AirLinesDBNew62")
+    myDialog.comboBox_DB_RT.addItem("AirPortsAndRoutesDBNew62")
+    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew42")
+    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew52")
+    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
+    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
+    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew82WorkBase")
+    myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
+    myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
+    myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
+    SwitchRadioButtons()
+    myDialog.pushButton_Disconnect_AL.setEnabled(False)
+    myDialog.pushButton_Disconnect_RT.setEnabled(False)
+    myDialog.pushButton_Disconnect_AC.setEnabled(False)
+    myDialog.dateEdit_BeginDate.setEnabled(False)
+    myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
+    myDialog.checkBox_SetInputDate.setChecked(False)
+    myDialog.checkBox_SetInputDate.setEnabled(False)
+    myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
+    myDialog.pushButton_ChooseCSVFile.setEnabled(False)
+    myDialog.lineEdit_CSVFile.setEnabled(False)
+    myDialog.pushButton_ChooseTXTFile.setEnabled(False)
+    myDialog.lineEdit_TXTFile.setEnabled(False)
+    #myDialog.progressBar_completion.setEnabled(False)
+    #myDialog.progressBar_completion.setToolTip("Выполнение загрузки рабочих данных, проценты")
+    myDialog.pushButton_GetStarted.setEnabled(False)
+    myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
+    # параметры соединения с сервером
+    myDialog.lineEdit_Server.setEnabled(False)
+    myDialog.lineEdit_Server_remote.setEnabled(False)
+    myDialog.lineEdit_Driver_AL.setEnabled(False)
+    myDialog.lineEdit_Driver_RT.setEnabled(False)
+    myDialog.lineEdit_Driver_AC.setEnabled(False)
+    myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
+    myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
+    myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
+    myDialog.lineEdit_Schema_AL.setEnabled(False)
+    myDialog.lineEdit_Schema_RT.setEnabled(False)
+    myDialog.lineEdit_Schema_AC.setEnabled(False)
+    myDialog.lineEdit_DSN_AC.setEnabled(False)
+    myDialog.label_execute.setEnabled(False)
+    # Привязки обработчиков todo без lambda не работает
+    myDialog.pushButton_Connect_AL.clicked.connect(lambda: PushButtonSelectDB_AL())  # Подключиться к базе данных
+    myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных
+    myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonSelectDB_RT())
+    myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
+    myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC())
+    myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
+    # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered
+    myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
+    myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
+    myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
+    #myDialog.radioButton_DB.toggled.connect(lambda: RadioButtons())
+    #myDialog.radioButton_DSN.toggled.connect(lambda: RadioButtons())
+    myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
+    myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
+    myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
+
     def LoadThread(Csv, Log):
         """
         Читаем входной файл и перепаковываем его в DataFrame (кодировка UTF-8, шапка таблицы на столбцы, разделитель - ,)
@@ -516,94 +604,6 @@ def myApplication():
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(True)
 
-    # Одно прикладное приложение
-    myApp = QtWidgets.QApplication(sys.argv)
-    # Делаем экземпляры
-    myDialog = Classes.Ui_DialogLoadAirFlightsWithAirCrafts()
-    myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
-    myDialog.setFixedSize(940, 375)
-    myDialog.setWindowTitle('Загрузка рабочих данных')
-    # Дополняем функционал экземпляра главного диалога
-    # Переводим в исходное состояние
-    myDialog.label_Version.setText("Версия обработки " + str(__myOwnDevelopingVersion__))
-    # Получаем список DSN-ов
-    # Добавляем атрибут DSNs по ходу действия
-    S.DSNs = pyodbc.dataSources()  # добавленные системные DSN-ы
-    if S.DSNs:
-        for DSN in S.DSNs:
-            if not DSN:
-                break
-            myDialog.comboBox_DSN_FN.addItem(str(DSN))
-            myDialog.comboBox_DSN_AC.addItem(str(DSN))
-    # Получаем список драйверов баз данных
-    # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = pyodbc.drivers()
-    if S.DriversODBC:
-        for DriverODBC in S.DriversODBC:
-            if not DriverODBC:
-                break
-            myDialog.comboBox_Driver_AL.addItem(str(DriverODBC))
-            myDialog.comboBox_Driver_RT.addItem(str(DriverODBC))
-            myDialog.comboBox_Driver_FN.addItem(str(DriverODBC))
-    # Добавляем базы данных в выпадающие списки
-    myDialog.comboBox_DB_AL.addItem("AirLinesDBNew62")
-    myDialog.comboBox_DB_RT.addItem("AirPortsAndRoutesDBNew62")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew42")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew52")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew82WorkBase")
-    myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
-    myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
-    myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
-    SwitchRadioButtons()
-    myDialog.pushButton_Disconnect_AL.setEnabled(False)
-    myDialog.pushButton_Disconnect_RT.setEnabled(False)
-    myDialog.pushButton_Disconnect_AC.setEnabled(False)
-    myDialog.dateEdit_BeginDate.setEnabled(False)
-    myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
-    myDialog.checkBox_SetInputDate.setChecked(False)
-    myDialog.checkBox_SetInputDate.setEnabled(False)
-    myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
-    myDialog.pushButton_ChooseCSVFile.setEnabled(False)
-    myDialog.lineEdit_CSVFile.setEnabled(False)
-    myDialog.pushButton_ChooseTXTFile.setEnabled(False)
-    myDialog.lineEdit_TXTFile.setEnabled(False)
-    #myDialog.progressBar_completion.setEnabled(False)
-    #myDialog.progressBar_completion.setToolTip("Выполнение загрузки рабочих данных, проценты")
-    myDialog.pushButton_GetStarted.setEnabled(False)
-    myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
-    # параметры соединения с сервером
-    myDialog.lineEdit_Server.setEnabled(False)
-    myDialog.lineEdit_Server_remote.setEnabled(False)
-    myDialog.lineEdit_Driver_AL.setEnabled(False)
-    myDialog.lineEdit_Driver_RT.setEnabled(False)
-    myDialog.lineEdit_Driver_AC.setEnabled(False)
-    myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
-    myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
-    myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
-    myDialog.lineEdit_Schema_AL.setEnabled(False)
-    myDialog.lineEdit_Schema_RT.setEnabled(False)
-    myDialog.lineEdit_Schema_AC.setEnabled(False)
-    myDialog.lineEdit_DSN_AC.setEnabled(False)
-    myDialog.label_execute.setEnabled(False)
-    # Привязки обработчиков todo без lambda не работает
-    myDialog.pushButton_Connect_AL.clicked.connect(lambda: PushButtonSelectDB_AL())  # Подключиться к базе данных
-    myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных
-    myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonSelectDB_RT())
-    myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
-    myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC())
-    myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
-    # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered
-    myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
-    myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
-    myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
-    #myDialog.radioButton_DB.toggled.connect(lambda: RadioButtons())
-    #myDialog.radioButton_DSN.toggled.connect(lambda: RadioButtons())
-    myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
-    myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
-    myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
-
     def RadioButtonAirFlightsDB():
         if not S.Connected_FN:
             myDialog.comboBox_DB_FN.setEnabled(True)
@@ -611,13 +611,16 @@ def myApplication():
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(False)
             S.useAirFlightsDB = True
+            S.useAirCraftsDSN = False
 
     def RadioButtonAirFlightsDSN():
         if not S.Connected_FN:
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(True)
+            myDialog.comboBox_DSN_AC.setEnabled(False)
             S.useAirFlightsDB = False
+            S.useAirCraftsDSN = False
 
     def RadioButtonAirCraftsDSN():
         if not S.Connected_AC:

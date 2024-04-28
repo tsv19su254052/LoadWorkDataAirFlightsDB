@@ -164,6 +164,7 @@ def myApplication():
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
+    #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
@@ -199,7 +200,7 @@ def myApplication():
                 S.useAirCraftsDSN = False
                 UpdateDataSourcesBySwitchingRadioButtons()
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
-            if not S.Connected_AC:
+            if not S.Connected_AC_XML:
                 S.useAirCraftsDSN = True
                 UpdateDataSourcesBySwitchingRadioButtons()
 
@@ -483,6 +484,7 @@ def myApplication():
                         myDialog.dateEdit_BeginDate.setCalendarPopup(True)
                         myDialog.checkBox_SetInputDate.setEnabled(True)
                         myDialog.pushButton_GetStarted.setEnabled(True)
+                    myDialog.groupBox.setEnabled(False)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
                     myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -621,9 +623,10 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    myDialog.radioButton_DB_AirFlights.setEnabled(False)
-                    myDialog.radioButton_DSN_AirFlights.setEnabled(False)
-                    myDialog.radioButton_DSN_AirCrafts.setEnabled(False)
+                    #myDialog.radioButton_DB_AirFlights.setEnabled(False)
+                    #myDialog.radioButton_DSN_AirFlights.setEnabled(False)
+                    #myDialog.radioButton_DSN_AirCrafts.setEnabled(False)
+                    myDialog.groupBox.setEnabled(False)
                     myDialog.comboBox_DB_FN.setEnabled(False)
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
@@ -667,14 +670,14 @@ def myApplication():
             myDialog.lineEdit_TXTFile.setEnabled(False)
             myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
-            if not S.Connected_AL and not S.Connected_RT:
-                myDialog.lineEdit_Server.setEnabled(False)
+            myDialog.lineEdit_Server_remote.setEnabled(False)
             myDialog.lineEdit_Driver_AC.setEnabled(False)
             myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.pushButton_Connect_AC.setEnabled(True)
             myDialog.pushButton_Disconnect_AC.setEnabled(False)
+            myDialog.groupBox.setEnabled(True)
         if S.Connected_ACFN:
             # Снимаем курсор
             S.seekAC.close()
@@ -687,9 +690,10 @@ def myApplication():
             S.cnxnFN.close()
             S.Connected_FN = False
             # Переключаем в исходное состояние
-            myDialog.radioButton_DB_AirFlights.setEnabled(True)
-            myDialog.radioButton_DSN_AirFlights.setEnabled(True)
-            myDialog.radioButton_DSN_AirCrafts.setEnabled(True)
+            #myDialog.radioButton_DB_AirFlights.setEnabled(True)
+            #myDialog.radioButton_DSN_AirFlights.setEnabled(True)
+            #myDialog.radioButton_DSN_AirCrafts.setEnabled(True)
+            myDialog.groupBox.setEnabled(True)
             UpdateDataSourcesBySwitchingRadioButtons()
             #myDialog.comboBox_DB_FN.setEnabled(True)
             #myDialog.comboBox_Driver_FN.setEnabled(True)
@@ -709,6 +713,7 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.pushButton_Connect_AC.setEnabled(True)
             myDialog.pushButton_Disconnect_AC.setEnabled(False)
+            myDialog.groupBox.setEnabled(True)
 
 
     def PushButtonChooseCSVFile():

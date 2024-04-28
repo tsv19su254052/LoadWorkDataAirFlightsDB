@@ -516,7 +516,7 @@ class Servers:
                 SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
                 SQLQuery += str(Registration) + "') "
                 self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
-                # todo Дописать авиакомпанию-оператора с датами в поле AirFlightsByAirLines
+                # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines
                 ResultSQL = True
                 self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:

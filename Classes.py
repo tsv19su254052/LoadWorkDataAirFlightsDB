@@ -400,22 +400,31 @@ class Servers:
         finally:
             return ResultSQL
 
-    def QueryAirCraftByRegistration(self, Registration):
+    def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAC.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
-            self.seekAC.execute(SQLQuery)
-            ResultSQL = self.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-            self.cnxnAC.commit()
-        except Exception:
-            ResultSQL = False
-            self.cnxnAC.rollback()
+        if useAirCrafts:
+            try:
+                SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+                self.seekAC_XML.execute(SQLQuery)
+                SQLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WHERE AirCraftRegistration = '" + str(Registration) + "' "
+                self.seekAC_XML.execute(SQLQuery)
+                ResultSQL = self.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnAC_XML.commit()
+            except Exception:
+                ResultSQL = False
+                self.cnxnAC_XML.rollback()
         else:
-            pass
-        finally:
-            return ResultSQL
+            try:
+                SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+                self.seekAC.execute(SQLQuery)
+                SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
+                self.seekAC.execute(SQLQuery)
+                ResultSQL = self.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnAC.commit()
+            except Exception:
+                ResultSQL = False
+                self.cnxnAC.rollback()
+        return ResultSQL
 
     def QueryAirCraftByLN(self, ln):
         # Возвращает строку самолета по его LN

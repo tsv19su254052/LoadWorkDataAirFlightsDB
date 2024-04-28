@@ -699,7 +699,7 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = S.QueryAirCraftByRegistration(AC)
+                DBAirCraft = S.QueryAirCraftByRegistration(AC, S.useAirCraftsDSN)
                 if DBAirCraft is None:
                     DBAirLine = S.QueryAirLineByIATA(AL)
                     if DBAirLine is None:

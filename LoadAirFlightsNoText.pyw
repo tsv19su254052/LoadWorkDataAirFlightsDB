@@ -496,18 +496,26 @@ def myApplication():
         S.cnxnAC_XML.close()
 
     def SwitchRadioButtons():
-        if S.useDB:
-            myDialog.radioButton_DB_AirFlights.setChecked(True)
-            myDialog.radioButton_DSN_AirFlights.setChecked(False)
-            myDialog.comboBox_DB_FN.setEnabled(True)
-            myDialog.comboBox_Driver_FN.setEnabled(True)
-            myDialog.comboBox_DSN_FN.setEnabled(False)
-        else:
-            myDialog.radioButton_DB_AirFlights.setChecked(False)
-            myDialog.radioButton_DSN_AirFlights.setChecked(True)
+        if S.useAirCraftsDB:
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
-            myDialog.comboBox_DSN_FN.setEnabled(True)
+            myDialog.comboBox_DSN_FN.setEnabled(False)
+            myDialog.comboBox_DSN_AC.setEnabled(True)
+        else:
+            if S.useDB:
+                #myDialog.radioButton_DB_AirFlights.setChecked(True)
+                #myDialog.radioButton_DSN_AirFlights.setChecked(False)
+                myDialog.comboBox_DB_FN.setEnabled(True)
+                myDialog.comboBox_Driver_FN.setEnabled(True)
+                myDialog.comboBox_DSN_FN.setEnabled(False)
+                myDialog.comboBox_DSN_AC.setEnabled(False)
+            else:
+                #myDialog.radioButton_DB_AirFlights.setChecked(False)
+                #myDialog.radioButton_DSN_AirFlights.setChecked(True)
+                myDialog.comboBox_DB_FN.setEnabled(False)
+                myDialog.comboBox_Driver_FN.setEnabled(False)
+                myDialog.comboBox_DSN_FN.setEnabled(True)
+                myDialog.comboBox_DSN_AC.setEnabled(False)
 
     # Одно прикладное приложение
     myApp = QtWidgets.QApplication(sys.argv)

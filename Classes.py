@@ -1832,7 +1832,7 @@ class Ui_DialogLoadAirFlightsWithAirCrafts(QtWidgets.QDialog):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(Dialog.sizePolicy().hasHeightForWidth())
         Dialog.setSizePolicy(sizePolicy)
-        Dialog.setBaseSize(QtWidgets.QSize(0, 0))
+        #Dialog.setBaseSize(QtWidgets.QSize(0, 0))
         self.label_12 = QtWidgets.QLabel(Dialog)
         self.label_12.setObjectName(u"label_12")
         self.label_12.setGeometry(QtCore.QRect(50, 230, 81, 20))

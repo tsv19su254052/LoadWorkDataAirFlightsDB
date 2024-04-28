@@ -212,17 +212,17 @@ def myApplication():
     myDialog.label_execute.setEnabled(False)
 
     # Привязки обработчиков todo без lambda не работает
+    # todo Объединить radioButton, как на tkBuilder, и переделать на triggered
+    myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
+    #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует
     myDialog.pushButton_Connect_AL.clicked.connect(lambda: PushButtonConnect_AL())  # Подключиться к базе данных
     myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных
     myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonConnect_RT())
     myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonConnect_ACFN())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_ACFN())
-    # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered -> СДЕЛАЛ
-    myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
-    myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
-    myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
-    #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку

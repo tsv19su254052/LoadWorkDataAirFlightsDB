@@ -185,8 +185,6 @@ def myApplication():
     myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
     myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
     myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
-    #myDialog.radioButton_DB.toggled.connect(lambda: RadioButtons())
-    #myDialog.radioButton_DSN.toggled.connect(lambda: RadioButtons())
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
@@ -634,9 +632,6 @@ def myApplication():
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(True)
             S.useAirCraftsDSN = True
-
-    def RadioButtons():
-        print("Щелкнули переключатель")  # при привязке через toggled выводит эту надпись по два раза
 
     def PushButtonSelectDB_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)

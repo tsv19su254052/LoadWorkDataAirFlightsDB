@@ -187,18 +187,6 @@ def myApplication():
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(True)
 
-    def PrepareForInputData(Key):
-        myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
-        myDialog.lineEdit_CSVFile.setEnabled(Key)
-        myDialog.pushButton_ChooseTXTFile.setEnabled(Key)
-        myDialog.lineEdit_TXTFile.setEnabled(Key)
-        myDialog.dateEdit_BeginDate.setEnabled(Key)
-        if Key:
-            myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-        myDialog.checkBox_SetInputDate.setEnabled(Key)
-        myDialog.pushButton_GetStarted.setEnabled(Key)
-        pass
-
     def RadioButtonsToggled():
         # Переключатели + Состояния -> Флаги
         if myDialog.radioButton_DB_AirFlights.isChecked():
@@ -215,6 +203,18 @@ def myApplication():
             if not S.Connected_AC_XML:
                 S.useAirCraftsDSN = True
                 UpdateDataSourcesChoiceByFlags()
+
+    def PrepareForInputData(Key):
+        myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
+        myDialog.lineEdit_CSVFile.setEnabled(Key)
+        myDialog.pushButton_ChooseTXTFile.setEnabled(Key)
+        myDialog.lineEdit_TXTFile.setEnabled(Key)
+        myDialog.dateEdit_BeginDate.setEnabled(Key)
+        if Key:
+            myDialog.dateEdit_BeginDate.setCalendarPopup(True)
+        myDialog.checkBox_SetInputDate.setEnabled(Key)
+        myDialog.pushButton_GetStarted.setEnabled(Key)
+        pass
 
     def PushButtonSelectDB_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)
@@ -416,10 +416,8 @@ def myApplication():
                     # Добавляем атрибут cnxn
                     # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
                     S.cnxnAC_XML = pyodbc.connect("DSN=" + S.myDSN_AC_XML)
-                    print("  DSN = ", S.myDSN_AC_XML, "подключен")
                     # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
                     S.cnxnAC_XML.autocommit = False
-                    print("autocommit is disabled")
                     # Делаем свой экземпляр и ставим набор курсоров
                     # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
                     #
@@ -442,7 +440,6 @@ def myApplication():
                     # Клиентские однопроходные , статические API-курсоры ODBC.
                     # Добавляем атрибуты seek...
                     S.seekAC_XML = S.cnxnAC_XML.cursor()
-                    print("seeks is on")
                     S.Connected_AC_XML = True
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
@@ -460,6 +457,9 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
+                    myDialog.comboBox_DB_FN.setEnabled(False)
+                    myDialog.comboBox_Driver_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_FN.setEnabled(False)
                     myDialog.comboBox_DSN_AC.setEnabled(False)
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
@@ -552,16 +552,13 @@ def myApplication():
                         # через драйвер СУБД + клиентский API-курсор
                         S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
                         S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
-                        print("  БД = ", S.DataBase_ACFN, "подключена")
                     else:
                         # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
                         S.cnxnAC = pyodbc.connect("DSN=" + S.myDSN_ACFN)
                         S.cnxnFN = pyodbc.connect("DSN=" + S.myDSN_ACFN)
-                        print("  DSN = ", S.myDSN_ACFN, "подключен")
                     # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
                     S.cnxnAC.autocommit = False
                     S.cnxnFN.autocommit = False
-                    print("autocommit is disabled")
                     # Делаем свой экземпляр и ставим набор курсоров
                     # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
                     #
@@ -585,7 +582,6 @@ def myApplication():
                     # Добавляем атрибуты seek...
                     S.seekAC = S.cnxnAC.cursor()
                     S.seekFN = S.cnxnFN.cursor()
-                    print("seeks is on")
                     S.Connected_ACFN = True
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
@@ -603,13 +599,13 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    myDialog.groupBox.setEnabled(False)
                     myDialog.comboBox_DB_FN.setEnabled(False)
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
                     myDialog.comboBox_DSN_AC.setEnabled(False)
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
+                    myDialog.groupBox.setEnabled(False)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
                     myDialog.pushButton_Connect_AC.setEnabled(True)

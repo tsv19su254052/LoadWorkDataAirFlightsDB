@@ -67,8 +67,8 @@ S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS 
 S.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
 S.ServerName = "localhost\mssqlserver15"  # указал инстанс
 #S.ServerName = "localhost\sqldeveloper"  # указал инстанс
-S.useDB = True
-S.useAirCraftsDB = False
+S.useAirFlightsDB = True
+S.useAirCraftsDSN = False
 S.InputFileCSV = ' '
 S.LogFileTXT = ' '
 S.ErrorFileTXT = 'LogReport_Errors.txt'
@@ -496,26 +496,25 @@ def myApplication():
         S.cnxnAC_XML.close()
 
     def SwitchRadioButtons():
-        if S.useAirCraftsDB:
+        if S.useAirCraftsDSN:
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(True)
         else:
-            if S.useDB:
+            myDialog.comboBox_DSN_AC.setEnabled(False)
+            if S.useAirFlightsDB:
                 #myDialog.radioButton_DB_AirFlights.setChecked(True)
                 #myDialog.radioButton_DSN_AirFlights.setChecked(False)
                 myDialog.comboBox_DB_FN.setEnabled(True)
                 myDialog.comboBox_Driver_FN.setEnabled(True)
                 myDialog.comboBox_DSN_FN.setEnabled(False)
-                myDialog.comboBox_DSN_AC.setEnabled(False)
             else:
                 #myDialog.radioButton_DB_AirFlights.setChecked(False)
                 #myDialog.radioButton_DSN_AirFlights.setChecked(True)
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(True)
-                myDialog.comboBox_DSN_AC.setEnabled(False)
 
     # Одно прикладное приложение
     myApp = QtWidgets.QApplication(sys.argv)
@@ -560,7 +559,6 @@ def myApplication():
     SwitchRadioButtons()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
-    myDialog.pushButton_Disconnect_FN.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
     myDialog.dateEdit_BeginDate.setEnabled(False)
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
@@ -580,17 +578,13 @@ def myApplication():
     myDialog.lineEdit_Server_remote.setEnabled(False)
     myDialog.lineEdit_Driver_AL.setEnabled(False)
     myDialog.lineEdit_Driver_RT.setEnabled(False)
-    myDialog.lineEdit_Driver_FN.setEnabled(False)
     myDialog.lineEdit_Driver_AC.setEnabled(False)
     myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
     myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
-    myDialog.lineEdit_ODBCversion_FN.setEnabled(False)
     myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
     myDialog.lineEdit_Schema_AL.setEnabled(False)
     myDialog.lineEdit_Schema_RT.setEnabled(False)
-    myDialog.lineEdit_Schema_FN.setEnabled(False)
     myDialog.lineEdit_Schema_AC.setEnabled(False)
-    myDialog.lineEdit_DSN_FN.setEnabled(False)
     myDialog.lineEdit_DSN_AC.setEnabled(False)
     myDialog.label_execute.setEnabled(False)
     # Привязки обработчиков todo без lambda не работает
@@ -599,33 +593,41 @@ def myApplication():
     myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonSelectDB_RT())
     myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
     # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered
-    myDialog.radioButton_DB.clicked.connect(lambda: RadioButtonDB())
-    myDialog.radioButton_DSN.clicked.connect(lambda: RadioButtonDSN())
+    myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
+    myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
+    myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
     #myDialog.radioButton_DB.toggled.connect(lambda: RadioButtons())
     #myDialog.radioButton_DSN.toggled.connect(lambda: RadioButtons())
-    myDialog.pushButton_Connect_FN.clicked.connect(lambda: PushButtonSelectDB_FN())
-    myDialog.pushButton_Disconnect_FN.clicked.connect(lambda: PushButtonDisconnect_FN())
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC_XML())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC_XML())
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
 
-    def RadioButtonDB():
+    def RadioButtonAirFlightsDB():
         if not S.Connected_FN:
             myDialog.comboBox_DB_FN.setEnabled(True)
             myDialog.comboBox_Driver_FN.setEnabled(True)
             myDialog.comboBox_DSN_FN.setEnabled(False)
+            myDialog.comboBox_DSN_AC.setEnabled(False)
             S.radioButtonUseDB = True
             print("подключаемся без DSN")
 
-    def RadioButtonDSN():
+    def RadioButtonAirFlightsDSN():
         if not S.Connected_FN:
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(True)
             S.radioButtonUseDB = False
             print("подключаемся через DSN")
+
+    def RadioButtonAirCraftsDSN():
+        if not S.Connected_AC:
+            myDialog.comboBox_DB_FN.setEnabled(False)
+            myDialog.comboBox_Driver_FN.setEnabled(False)
+            myDialog.comboBox_DSN_FN.setEnabled(False)
+            myDialog.comboBox_DSN_AC.setEnabled(True)
+        pass
 
     def RadioButtons():
         print("Щелкнули переключатель")  # при привязке через toggled выводит эту надпись по два раза
@@ -858,7 +860,7 @@ def myApplication():
             S.myDSN_AC = str(ChoiceDSN_AC)
             try:
                 # Добавляем атрибут cnxn
-                if S.useDB:
+                if S.useAirFlightsDB:
                     # через драйвер СУБД + клиентский API-курсор
                     S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_AC, server=S.ServerNameFlights, database=S.DataBase_AC)
                     print("  БД = ", S.DataBase_AC, "подключена")
@@ -915,7 +917,7 @@ def myApplication():
             S.myDSN_FN = str(ChoiceDSN_FN)
             try:
                 # Добавляем атрибут cnxn
-                if S.useDB:
+                if S.useAirFlightsDB:
                     # через драйвер СУБД + клиентский API-курсор
                     S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_FN, server=S.ServerNameFlights, database=S.DataBase_FN)
                     print("  БД = ", S.DataBase_FN, "подключена")

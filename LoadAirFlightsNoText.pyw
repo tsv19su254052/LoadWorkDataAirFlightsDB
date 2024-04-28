@@ -29,7 +29,7 @@ import Classes
 
 
 # Версия обработки с цветным выводом
-__myOwnDevelopingVersion__ = 8.42
+__myOwnDevelopingVersion__ = 8.5
 # todo Версия задается тут. Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны. Выпуск релизов пока не имеет практической пользы, как указано в ReadME.md
 
 colorama.init(autoreset=False)  # используем Colorama, чтобы сделать работу Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
@@ -123,7 +123,7 @@ def myApplication():
         myDialog.pushButton_ChooseTXTFile.setEnabled(Key)
         myDialog.lineEdit_TXTFile.setEnabled(Key)
         myDialog.dateEdit_BeginDate.setEnabled(Key)
-        myDialog.checkBox_SetInputDate.setChecked(False)
+        #myDialog.checkBox_SetInputDate.setChecked(False)
         if Key:
             myDialog.dateEdit_BeginDate.setCalendarPopup(True)
         myDialog.checkBox_SetInputDate.setEnabled(Key)

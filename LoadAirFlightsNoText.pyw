@@ -497,14 +497,14 @@ def myApplication():
 
     def SwitchRadioButtons():
         if S.useDB:
-            myDialog.radioButton_DB.setChecked(True)
-            myDialog.radioButton_DSN.setChecked(False)
+            myDialog.radioButton_DB_AirFlights.setChecked(True)
+            myDialog.radioButton_DSN_AirFlights.setChecked(False)
             myDialog.comboBox_DB_FN.setEnabled(True)
             myDialog.comboBox_Driver_FN.setEnabled(True)
             myDialog.comboBox_DSN_FN.setEnabled(False)
         else:
-            myDialog.radioButton_DB.setChecked(False)
-            myDialog.radioButton_DSN.setChecked(True)
+            myDialog.radioButton_DB_AirFlights.setChecked(False)
+            myDialog.radioButton_DSN_AirFlights.setChecked(True)
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(True)
@@ -546,8 +546,9 @@ def myApplication():
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew82WorkBase")
-    myDialog.radioButton_DB.setToolTip("Использовать имя базы данных и драйвер СУБД")
-    myDialog.radioButton_DSN.setToolTip("Использовать системный или пользовательский DSN")
+    myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
+    myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
+    myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
     SwitchRadioButtons()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)

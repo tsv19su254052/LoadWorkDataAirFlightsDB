@@ -118,6 +118,18 @@ def myApplication():
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
 
+    def PrepareForInputData(Key):
+        myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
+        myDialog.lineEdit_CSVFile.setEnabled(Key)
+        myDialog.pushButton_ChooseTXTFile.setEnabled(Key)
+        myDialog.lineEdit_TXTFile.setEnabled(Key)
+        myDialog.dateEdit_BeginDate.setEnabled(Key)
+        myDialog.checkBox_SetInputDate.setChecked(False)
+        if Key:
+            myDialog.dateEdit_BeginDate.setCalendarPopup(True)
+        myDialog.checkBox_SetInputDate.setEnabled(Key)
+        myDialog.pushButton_GetStarted.setEnabled(Key)
+
     def UpdateAirLinesSourcesChoiceByStatesAndFlags():
         if S.Connected_AL:
             # Переключаем в рабочее состояние
@@ -225,7 +237,7 @@ def myApplication():
     myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonConnect_RT())
     myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonConnect_ACFN())
-    myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
+    myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_ACFN())
     # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered -> СДЕЛАЛ
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
@@ -246,18 +258,6 @@ def myApplication():
             if myDialog.radioButton_DSN_AirFlights.isChecked():
                 S.useAirFlightsDB = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
-
-    def PrepareForInputData(Key):
-        myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
-        myDialog.lineEdit_CSVFile.setEnabled(Key)
-        myDialog.pushButton_ChooseTXTFile.setEnabled(Key)
-        myDialog.lineEdit_TXTFile.setEnabled(Key)
-        myDialog.dateEdit_BeginDate.setEnabled(Key)
-        myDialog.checkBox_SetInputDate.setChecked(False)
-        if Key:
-            myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-        myDialog.checkBox_SetInputDate.setEnabled(Key)
-        myDialog.pushButton_GetStarted.setEnabled(Key)
 
     def PushButtonConnect_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)
@@ -575,7 +575,7 @@ def myApplication():
                 finally:
                     pass
 
-    def PushButtonDisconnect_AC():
+    def PushButtonDisconnect_ACFN():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if S.Connected_AC_XML:

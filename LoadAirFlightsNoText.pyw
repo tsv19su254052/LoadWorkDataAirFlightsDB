@@ -291,6 +291,7 @@ def myApplication():
 
     def PushButtonDisconnect_AL():
         # Обработчик кнопки 'Отключиться от базы данных'
+        myDialog.pushButton_Disconnect_AL.setEnabled(False)
         if S.Connected_AL:
             # Снимаем курсор
             S.seekAL.close()
@@ -308,7 +309,6 @@ def myApplication():
             myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
             myDialog.lineEdit_Schema_AL.setEnabled(False)
             myDialog.pushButton_Connect_AL.setEnabled(True)
-            myDialog.pushButton_Disconnect_AL.setEnabled(False)
 
     def PushButtonSelectDB_RT():
         myDialog.pushButton_Connect_RT.setEnabled(False)
@@ -384,6 +384,7 @@ def myApplication():
 
     def PushButtonDisconnect_RT():
         # Обработчик кнопки 'Отключиться от базы данных'
+        myDialog.pushButton_Disconnect_RT.setEnabled(False)
         if S.Connected_RT:
             # Снимаем курсор
             S.seekRT.close()
@@ -401,7 +402,6 @@ def myApplication():
             myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
             myDialog.lineEdit_Schema_RT.setEnabled(False)
             myDialog.pushButton_Connect_RT.setEnabled(True)
-            myDialog.pushButton_Disconnect_RT.setEnabled(False)
 
     def PushButtonSelectDB_ACFN():
         if S.useAirCraftsDSN:
@@ -626,6 +626,7 @@ def myApplication():
 
     def PushButtonDisconnect_AC():
         # Обработчик кнопки 'Отключиться от базы данных'
+        myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if S.Connected_AC_XML:
             # Снимаем курсор
             S.seekAC_XML.close()
@@ -648,7 +649,6 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.pushButton_Connect_AC.setEnabled(True)
-            myDialog.pushButton_Disconnect_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
         if S.Connected_ACFN:
             # Снимаем курсор
@@ -665,7 +665,6 @@ def myApplication():
             #myDialog.radioButton_DB_AirFlights.setEnabled(True)
             #myDialog.radioButton_DSN_AirFlights.setEnabled(True)
             #myDialog.radioButton_DSN_AirCrafts.setEnabled(True)
-            myDialog.groupBox.setEnabled(True)
             UpdateDataSourcesChoiceByFlags()
             #myDialog.comboBox_DB_FN.setEnabled(True)
             #myDialog.comboBox_Driver_FN.setEnabled(True)
@@ -678,7 +677,6 @@ def myApplication():
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.pushButton_Connect_AC.setEnabled(True)
-            myDialog.pushButton_Disconnect_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
 
 

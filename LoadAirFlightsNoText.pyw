@@ -169,6 +169,7 @@ def myApplication():
     def UpdateFlightsSourcesChoiceByStatesAndFlags():
         # Состояния + Флаги -> Графическая оболочка
         if S.Connected_AC_XML or S.Connected_ACFN:
+            # Переключаем в рабочее состояние
             myDialog.groupBox.setEnabled(False)
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
@@ -177,6 +178,12 @@ def myApplication():
             if S.Connected_AL and S.Connected_RT:
                 PrepareForInputData(True)
         else:
+            # Переключаем в исходное состояние
+            myDialog.lineEdit_Server_remote.setEnabled(False)
+            myDialog.lineEdit_Driver_AC.setEnabled(False)
+            myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
+            myDialog.lineEdit_Schema_AC.setEnabled(False)
+            myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
             if S.useAirCraftsDSN:
                 myDialog.comboBox_DB_FN.setEnabled(False)
@@ -195,12 +202,6 @@ def myApplication():
                     myDialog.comboBox_DSN_FN.setEnabled(True)
             # Переключаем в исходное состояние
             PrepareForInputData(False)
-            # параметры соединения с сервером
-            myDialog.lineEdit_Server_remote.setEnabled(False)
-            myDialog.lineEdit_Driver_AC.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
-            myDialog.lineEdit_Schema_AC.setEnabled(False)
-            myDialog.lineEdit_DSN_AC.setEnabled(False)
 
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -402,7 +403,6 @@ def myApplication():
                 UpdateAirPortsSourcesChoiceByStatesAndFlags()
                 myDialog.pushButton_Disconnect_RT.setEnabled(True)
             except Exception:
-                # Переводим в неактивное состояние
                 myDialog.pushButton_Connect_RT.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных аэропортов и маршрутов")

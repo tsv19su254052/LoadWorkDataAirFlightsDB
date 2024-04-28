@@ -277,14 +277,6 @@ def myApplication():
                 myDialog.comboBox_Driver_AL.setEnabled(False)
                 if S.Connected_RT and (S.Connected_ACFN or S.Connected_AC_XML):
                     PrepareForInputData(True)
-                    #myDialog.pushButton_ChooseCSVFile.setEnabled(True)
-                    #myDialog.lineEdit_CSVFile.setEnabled(True)
-                    #myDialog.pushButton_ChooseTXTFile.setEnabled(True)
-                    #myDialog.lineEdit_TXTFile.setEnabled(True)
-                    #myDialog.dateEdit_BeginDate.setEnabled(True)
-                    #myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-                    #myDialog.checkBox_SetInputDate.setEnabled(True)
-                    #myDialog.pushButton_GetStarted.setEnabled(True)
                 myDialog.pushButton_Disconnect_AL.setEnabled(True)
             except Exception:
                 myDialog.pushButton_Connect_AL.setEnabled(True)
@@ -308,14 +300,7 @@ def myApplication():
             # Переключаем в исходное состояние
             myDialog.comboBox_DB_AL.setEnabled(True)
             myDialog.comboBox_Driver_AL.setEnabled(True)
-            #myDialog.dateEdit_BeginDate.setEnabled(False)
-            #myDialog.checkBox_SetInputDate.setEnabled(False)
             PrepareForInputData(False)
-            #myDialog.pushButton_ChooseCSVFile.setEnabled(False)
-            #myDialog.lineEdit_CSVFile.setEnabled(False)
-            #myDialog.pushButton_ChooseTXTFile.setEnabled(False)
-            #myDialog.lineEdit_TXTFile.setEnabled(False)
-            #myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
             if not S.Connected_RT:
                 myDialog.lineEdit_Server.setEnabled(False)
@@ -383,14 +368,6 @@ def myApplication():
                 myDialog.comboBox_DB_RT.setEnabled(False)
                 myDialog.comboBox_Driver_RT.setEnabled(False)
                 if S.Connected_AL and (S.Connected_ACFN or S.Connected_AC_XML):
-                    #myDialog.pushButton_ChooseCSVFile.setEnabled(True)
-                    #myDialog.lineEdit_CSVFile.setEnabled(True)
-                    #myDialog.pushButton_ChooseTXTFile.setEnabled(True)
-                    #myDialog.lineEdit_TXTFile.setEnabled(True)
-                    #myDialog.dateEdit_BeginDate.setEnabled(True)
-                    #myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-                    #myDialog.checkBox_SetInputDate.setEnabled(True)
-                    #myDialog.pushButton_GetStarted.setEnabled(True)
                     PrepareForInputData(True)
                 myDialog.pushButton_Disconnect_RT.setEnabled(True)
             except Exception:
@@ -417,13 +394,6 @@ def myApplication():
             myDialog.comboBox_DB_RT.setEnabled(True)
             myDialog.comboBox_Driver_RT.setEnabled(True)
             PrepareForInputData(False)
-            #myDialog.dateEdit_BeginDate.setEnabled(False)
-            #myDialog.checkBox_SetInputDate.setEnabled(False)
-            #myDialog.pushButton_ChooseCSVFile.setEnabled(False)
-            #myDialog.lineEdit_CSVFile.setEnabled(False)
-            #myDialog.pushButton_ChooseTXTFile.setEnabled(False)
-            #myDialog.lineEdit_TXTFile.setEnabled(False)
-            #myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
             if not S.Connected_AL:
                 myDialog.lineEdit_Server.setEnabled(False)
@@ -493,14 +463,6 @@ def myApplication():
                     myDialog.comboBox_DSN_AC.setEnabled(False)
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
-                        #myDialog.pushButton_ChooseCSVFile.setEnabled(True)
-                        #myDialog.lineEdit_CSVFile.setEnabled(True)
-                        #myDialog.pushButton_ChooseTXTFile.setEnabled(True)
-                        #myDialog.lineEdit_TXTFile.setEnabled(True)
-                        #myDialog.dateEdit_BeginDate.setEnabled(True)
-                        #myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-                        #myDialog.checkBox_SetInputDate.setEnabled(True)
-                        #myDialog.pushButton_GetStarted.setEnabled(True)
                     myDialog.groupBox.setEnabled(False)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
@@ -650,14 +612,6 @@ def myApplication():
                     myDialog.comboBox_DSN_AC.setEnabled(False)
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
-                        #myDialog.pushButton_ChooseCSVFile.setEnabled(True)
-                        #myDialog.lineEdit_CSVFile.setEnabled(True)
-                        #myDialog.pushButton_ChooseTXTFile.setEnabled(True)
-                        #myDialog.lineEdit_TXTFile.setEnabled(True)
-                        #myDialog.dateEdit_BeginDate.setEnabled(True)
-                        #myDialog.dateEdit_BeginDate.setCalendarPopup(True)
-                        #myDialog.checkBox_SetInputDate.setEnabled(True)
-                        #myDialog.pushButton_GetStarted.setEnabled(True)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
                     myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -716,14 +670,7 @@ def myApplication():
             #myDialog.comboBox_DB_FN.setEnabled(True)
             #myDialog.comboBox_Driver_FN.setEnabled(True)
             #myDialog.comboBox_DSN_FN.setEnabled(True)
-            #myDialog.dateEdit_BeginDate.setEnabled(False)
-            #myDialog.checkBox_SetInputDate.setEnabled(False)
             PrepareForInputData(False)
-            #myDialog.pushButton_ChooseCSVFile.setEnabled(False)
-            #myDialog.lineEdit_CSVFile.setEnabled(False)
-            #myDialog.pushButton_ChooseTXTFile.setEnabled(False)
-            #myDialog.lineEdit_TXTFile.setEnabled(False)
-            #myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
             myDialog.lineEdit_Server_remote.setEnabled(False)
             myDialog.lineEdit_Driver_AC.setEnabled(False)

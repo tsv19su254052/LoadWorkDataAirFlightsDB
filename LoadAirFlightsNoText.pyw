@@ -78,32 +78,6 @@ S.Connected_AC_XML = False
 
 
 def myApplication():
-    def SwitchRadioButtons():
-        if S.useAirCraftsDSN:
-            myDialog.radioButton_DB_AirFlights.setChecked(False)
-            myDialog.radioButton_DSN_AirFlights.setChecked(False)
-            myDialog.radioButton_DSN_AirCrafts.setChecked(True)
-            myDialog.comboBox_DB_FN.setEnabled(False)
-            myDialog.comboBox_Driver_FN.setEnabled(False)
-            myDialog.comboBox_DSN_FN.setEnabled(False)
-            myDialog.comboBox_DSN_AC.setEnabled(True)
-        else:
-            myDialog.comboBox_DSN_AC.setEnabled(False)
-            if S.useAirFlightsDB:
-                myDialog.radioButton_DB_AirFlights.setChecked(True)
-                myDialog.radioButton_DSN_AirFlights.setChecked(False)
-                myDialog.radioButton_DSN_AirCrafts.setChecked(False)
-                myDialog.comboBox_DB_FN.setEnabled(True)
-                myDialog.comboBox_Driver_FN.setEnabled(True)
-                myDialog.comboBox_DSN_FN.setEnabled(False)
-            else:
-                myDialog.radioButton_DB_AirFlights.setChecked(False)
-                myDialog.radioButton_DSN_AirFlights.setChecked(True)
-                myDialog.radioButton_DSN_AirCrafts.setChecked(False)
-                myDialog.comboBox_DB_FN.setEnabled(False)
-                myDialog.comboBox_Driver_FN.setEnabled(False)
-                myDialog.comboBox_DSN_FN.setEnabled(True)
-
     # Одно прикладное приложение
     myApp = QtWidgets.QApplication(sys.argv)
     # Делаем экземпляры
@@ -141,10 +115,14 @@ def myApplication():
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew82WorkBase")
+    myDialog.comboBox_DB_FN.setEnabled(False)
+    myDialog.comboBox_Driver_FN.setEnabled(False)
+    myDialog.comboBox_DSN_FN.setEnabled(False)
+    myDialog.comboBox_DSN_AC.setEnabled(False)
     myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
     myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
     myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
-    SwitchRadioButtons()
+    #SwitchRadioButtons()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
@@ -182,13 +160,42 @@ def myApplication():
     myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
-    # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered
-    myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
-    myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
-    myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
+    # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered -> СДЕЛАЛ
+    #myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
+    #myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
+    #myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
+    myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
+
+    def SwitchRadioButtons():
+        if S.useAirCraftsDSN:
+            #myDialog.radioButton_DB_AirFlights.setChecked(False)
+            #myDialog.radioButton_DSN_AirFlights.setChecked(False)
+            #myDialog.radioButton_DSN_AirCrafts.setChecked(True)
+            myDialog.comboBox_DB_FN.setEnabled(False)
+            myDialog.comboBox_Driver_FN.setEnabled(False)
+            myDialog.comboBox_DSN_FN.setEnabled(False)
+            myDialog.comboBox_DSN_AC.setEnabled(True)
+        else:
+            myDialog.comboBox_DSN_AC.setEnabled(False)
+            if S.useAirFlightsDB:
+                #myDialog.radioButton_DB_AirFlights.setChecked(True)
+                #myDialog.radioButton_DSN_AirFlights.setChecked(False)
+                #myDialog.radioButton_DSN_AirCrafts.setChecked(False)
+                myDialog.comboBox_DB_FN.setEnabled(True)
+                myDialog.comboBox_Driver_FN.setEnabled(True)
+                myDialog.comboBox_DSN_FN.setEnabled(False)
+            else:
+                #myDialog.radioButton_DB_AirFlights.setChecked(False)
+                #myDialog.radioButton_DSN_AirFlights.setChecked(True)
+                #myDialog.radioButton_DSN_AirCrafts.setChecked(False)
+                myDialog.comboBox_DB_FN.setEnabled(False)
+                myDialog.comboBox_Driver_FN.setEnabled(False)
+                myDialog.comboBox_DSN_FN.setEnabled(True)
 
     def LoadThread(Csv, Log):
         """
@@ -633,6 +640,34 @@ def myApplication():
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(True)
             S.useAirCraftsDSN = True
+
+    def RadioButtonsToggled():
+        if myDialog.radioButton_DB_AirFlights.isChecked():
+            if not S.Connected_FN:
+                #myDialog.comboBox_DB_FN.setEnabled(True)
+                #myDialog.comboBox_Driver_FN.setEnabled(True)
+                #myDialog.comboBox_DSN_FN.setEnabled(False)
+                #myDialog.comboBox_DSN_AC.setEnabled(False)
+                S.useAirFlightsDB = True
+                S.useAirCraftsDSN = False
+                SwitchRadioButtons()
+        if myDialog.radioButton_DSN_AirFlights.isChecked():
+            if not S.Connected_FN:
+                #myDialog.comboBox_DB_FN.setEnabled(False)
+                #myDialog.comboBox_Driver_FN.setEnabled(False)
+                #myDialog.comboBox_DSN_FN.setEnabled(True)
+                #myDialog.comboBox_DSN_AC.setEnabled(False)
+                S.useAirFlightsDB = False
+                S.useAirCraftsDSN = False
+                SwitchRadioButtons()
+        if myDialog.radioButton_DSN_AirCrafts.isChecked():
+            if not S.Connected_AC:
+                #myDialog.comboBox_DB_FN.setEnabled(False)
+                #myDialog.comboBox_Driver_FN.setEnabled(False)
+                #myDialog.comboBox_DSN_FN.setEnabled(False)
+                #myDialog.comboBox_DSN_AC.setEnabled(True)
+                S.useAirCraftsDSN = True
+                SwitchRadioButtons()
 
     def PushButtonSelectDB_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)

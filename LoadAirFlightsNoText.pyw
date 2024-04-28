@@ -189,20 +189,15 @@ def myApplication():
 
     def RadioButtonsToggled():
         # Переключатели + Состояния -> Флаги
-        if myDialog.radioButton_DB_AirFlights.isChecked():
-            if not S.Connected_ACFN:
-                S.useAirFlightsDB = True
-                S.useAirCraftsDSN = False
-                UpdateDataSourcesChoiceByFlags()
-        if myDialog.radioButton_DSN_AirFlights.isChecked():
-            if not S.Connected_ACFN:
-                S.useAirFlightsDB = False
-                S.useAirCraftsDSN = False
-                UpdateDataSourcesChoiceByFlags()
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
-            if not S.Connected_AC_XML:
-                S.useAirCraftsDSN = True
-                UpdateDataSourcesChoiceByFlags()
+            S.useAirCraftsDSN = True
+        else:
+            S.useAirCraftsDSN = False
+            if myDialog.radioButton_DB_AirFlights.isChecked():
+                S.useAirFlightsDB = True
+            if myDialog.radioButton_DSN_AirFlights.isChecked():
+                S.useAirFlightsDB = False
+        UpdateDataSourcesChoiceByFlags()
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
@@ -654,7 +649,7 @@ def myApplication():
             S.seekFN.close()
             # Отключаемся от базы данных
             S.cnxnFN.close()
-            S.Connected_FN = False
+            S.Connected_ACFN = False
             # Переключаем в исходное состояние
             UpdateDataSourcesChoiceByFlags()
             PrepareForInputData(False)

@@ -49,17 +49,20 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 
 # Делаем экземпляр
 S = Classes.Servers()
-# Добавляем аттрибуты
+
+# Флаги
+S.useAirFlightsDB = True
+S.useAirCraftsDSN = False
+S.SetInputDate = False
+
+# Состояния
 S.Connected_AL = False
 S.Connected_AC = False
 S.Connected_RT = False
 S.Connected_FN = False
 S.Connected_AC_XML = False
-# print(" Загружать авиарейсы на Develop-Server? (работает медленнее) [y/n] ", end=" ")
-# if str(input()) == 'y':
-#     S.ServerNameFlights = "develop-server.movistar.vrn.skylink.local"
-# else:
-#     S.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"
+
+# Имена серверов
 #S.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
 S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
 #S.ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
@@ -67,12 +70,11 @@ S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS 
 S.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
 S.ServerName = "localhost\mssqlserver15"  # указал инстанс
 #S.ServerName = "localhost\sqldeveloper"  # указал инстанс
-S.useAirFlightsDB = True
-S.useAirCraftsDSN = False
+
+# Имена читаемых и записываемых файлов
 S.InputFileCSV = ' '
 S.LogFileTXT = ' '
 S.ErrorFileTXT = 'LogReport_Errors.txt'
-S.SetInputDate = False
 
 
 # Основная функция

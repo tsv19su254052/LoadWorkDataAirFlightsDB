@@ -71,7 +71,6 @@ S.SetInputDate = False
 
 # Состояния
 S.Connected_AL = False
-#S.Connected_AC = False
 S.Connected_RT = False
 S.Connected_ACFN = False
 S.Connected_AC_XML = False
@@ -203,9 +202,22 @@ def myApplication():
             # Переключаем в исходное состояние
             PrepareForInputData(False)
 
+    def RadioButtonsToggled():
+        # Переключатели -> Флаги
+        if myDialog.radioButton_DSN_AirCrafts.isChecked():
+            S.useAirCraftsDSN = True
+        else:
+            S.useAirCraftsDSN = False
+            if myDialog.radioButton_DB_AirFlights.isChecked():
+                S.useAirFlightsDB = True
+            if myDialog.radioButton_DSN_AirFlights.isChecked():
+                S.useAirFlightsDB = False
+        UpdateFlightsSourcesChoiceByStatesAndFlags()
+
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
-    UpdateFlightsSourcesChoiceByStatesAndFlags()
+    RadioButtonsToggled()
+    #UpdateFlightsSourcesChoiceByStatesAndFlags()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
@@ -226,18 +238,6 @@ def myApplication():
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
-
-    def RadioButtonsToggled():
-        # Переключатели -> Флаги
-        if myDialog.radioButton_DSN_AirCrafts.isChecked():
-            S.useAirCraftsDSN = True
-        else:
-            S.useAirCraftsDSN = False
-            if myDialog.radioButton_DB_AirFlights.isChecked():
-                S.useAirFlightsDB = True
-            if myDialog.radioButton_DSN_AirFlights.isChecked():
-                S.useAirFlightsDB = False
-        UpdateFlightsSourcesChoiceByStatesAndFlags()
 
     def PushButtonConnect_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)

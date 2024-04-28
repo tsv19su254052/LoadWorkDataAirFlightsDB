@@ -704,7 +704,7 @@ def myApplication():
                     DBAirLine = S.QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if S.InsertAirCraftByRegistration(Registration=AC, ALPK=None):
+                        if S.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=S.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "добавился", end=" ")
@@ -715,7 +715,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if S.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber):
+                        if S.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "добавился", end=" ")

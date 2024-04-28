@@ -217,7 +217,6 @@ def myApplication():
             myDialog.dateEdit_BeginDate.setCalendarPopup(True)
         myDialog.checkBox_SetInputDate.setEnabled(Key)
         myDialog.pushButton_GetStarted.setEnabled(Key)
-        pass
 
     def PushButtonSelectDB_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)
@@ -263,6 +262,7 @@ def myApplication():
                 S.seekAL = S.cnxnAL.cursor()
                 print("seeks is on")
                 S.Connected_AL = True
+                # Переключаем в рабочее состояние
                 # SQL Server
                 myDialog.lineEdit_Server.setEnabled(True)
                 myDialog.lineEdit_Server.setText(S.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
@@ -301,17 +301,17 @@ def myApplication():
             # Отключаемся от базы данных
             S.cnxnAL.close()
             S.Connected_AL = False
-            # Переключаем в исходное состояние
-            myDialog.comboBox_DB_AL.setEnabled(True)
-            myDialog.comboBox_Driver_AL.setEnabled(True)
-            PrepareForInputData(False)
-            # параметры соединения с сервером
-            if not S.Connected_RT:
-                myDialog.lineEdit_Server.setEnabled(False)
-            myDialog.lineEdit_Driver_AL.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
-            myDialog.lineEdit_Schema_AL.setEnabled(False)
-            myDialog.pushButton_Connect_AL.setEnabled(True)
+        # Переключаем в исходное состояние
+        myDialog.comboBox_DB_AL.setEnabled(True)
+        myDialog.comboBox_Driver_AL.setEnabled(True)
+        PrepareForInputData(False)
+        # параметры соединения с сервером
+        if not S.Connected_RT:
+            myDialog.lineEdit_Server.setEnabled(False)
+        myDialog.lineEdit_Driver_AL.setEnabled(False)
+        myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
+        myDialog.lineEdit_Schema_AL.setEnabled(False)
+        myDialog.pushButton_Connect_AL.setEnabled(True)
 
     def PushButtonSelectDB_RT():
         myDialog.pushButton_Connect_RT.setEnabled(False)
@@ -355,6 +355,7 @@ def myApplication():
                 S.seekRT = S.cnxnRT.cursor()
                 print("seeks is on")
                 S.Connected_RT = True
+                # Переключаем в рабочее состояние
                 # SQL Server
                 myDialog.lineEdit_Server.setText(S.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
                 myDialog.lineEdit_Server.setEnabled(True)
@@ -394,17 +395,17 @@ def myApplication():
             # Отключаемся от базы данных
             S.cnxnRT.close()
             S.Connected_RT = False
-            # Переключаем в исходное состояние
-            myDialog.comboBox_DB_RT.setEnabled(True)
-            myDialog.comboBox_Driver_RT.setEnabled(True)
-            PrepareForInputData(False)
-            # параметры соединения с сервером
-            if not S.Connected_AL:
-                myDialog.lineEdit_Server.setEnabled(False)
-            myDialog.lineEdit_Driver_RT.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
-            myDialog.lineEdit_Schema_RT.setEnabled(False)
-            myDialog.pushButton_Connect_RT.setEnabled(True)
+        # Переключаем в исходное состояние
+        myDialog.comboBox_DB_RT.setEnabled(True)
+        myDialog.comboBox_Driver_RT.setEnabled(True)
+        PrepareForInputData(False)
+        # параметры соединения с сервером
+        if not S.Connected_AL:
+            myDialog.lineEdit_Server.setEnabled(False)
+        myDialog.lineEdit_Driver_RT.setEnabled(False)
+        myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
+        myDialog.lineEdit_Schema_RT.setEnabled(False)
+        myDialog.pushButton_Connect_RT.setEnabled(True)
 
     def PushButtonSelectDB_ACFN():
         if S.useAirCraftsDSN:
@@ -444,6 +445,7 @@ def myApplication():
                     # Добавляем атрибуты seek...
                     S.seekAC_XML = S.cnxnAC_XML.cursor()
                     S.Connected_AC_XML = True
+                    # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
                     myDialog.lineEdit_Server_remote.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME))
@@ -475,64 +477,6 @@ def myApplication():
                 finally:
                     pass
         else:
-            """
-            if not S.Connected_AC:
-                # Подключаемся к таблице самолетов - пока так же, как и авиарейсы
-                ChoiceDB_AC = myDialog.comboBox_DB_FN.currentText()
-                ChoiceDriver_AC = myDialog.comboBox_Driver_FN.currentText()
-                # Добавляем атрибуты DataBase, DriverODBC
-                S.DataBase_AC = str(ChoiceDB_AC)
-                S.DriverODBC_AC = str(ChoiceDriver_AC)
-                ChoiceDSN_AC = myDialog.comboBox_DSN_FN.currentText()
-                # Добавляем атрибут myDSN
-                S.myDSN_AC = str(ChoiceDSN_AC)
-                try:
-                    # Добавляем атрибут cnxn
-                    if S.useAirFlightsDB:
-                        # через драйвер СУБД + клиентский API-курсор
-                        S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_AC, server=S.ServerNameFlights, database=S.DataBase_AC)
-                        print("  БД = ", S.DataBase_AC, "подключена")
-                    else:
-                        # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-                        S.cnxnAC = pyodbc.connect("DSN=" + S.myDSN_AC)
-                        print("  DSN = ", S.myDSN_AC, "подключен")
-                    # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                    S.cnxnAC.autocommit = False
-                    print("autocommit is disabled")
-                    # Делаем свой экземпляр и ставим набор курсоров
-                    # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                    #
-                    # Способы реализации курсоров:
-                    #  - SQL, Transact-SQL,
-                    #  - серверные API-курсоры (OLE DB, ADO, ODBC),
-                    #  - клиентские API-курсоры (выборка кэшируется на клиенте)
-                    #
-                    # API-курсоры ODBC по SQLSetStmtAttr:
-                    #  - тип SQL_ATTR_CURSOR_TYPE:
-                    #    - однопроходный (последовательный доступ),
-                    #    - статический (копия в tempdb),
-                    #    - управляемый набор ключей,
-                    #    - динамический,
-                    #    - смешанный
-                    #  - режим работы в стиле ISO:
-                    #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                    #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-
-                    # Клиентские однопроходные , статические API-курсоры ODBC.
-                    # Добавляем атрибуты seek...
-                    S.seekAC = S.cnxnAC.cursor()
-                    print("seeks is on")
-                    S.Connected_AC = True
-                except Exception:
-                    message = QtWidgets.QMessageBox()
-                    message.setText("Нет подключения к базе данных самолетов")
-                    message.setIcon(QtWidgets.QMessageBox.Warning)
-                    message.exec_()
-                else:
-                    pass
-                finally:
-                    pass
-            """
             myDialog.pushButton_Connect_AC.setEnabled(False)
             if not S.Connected_ACFN:
                 # Подключаемся к базе данных авиаперелетов
@@ -582,6 +526,7 @@ def myApplication():
                     S.seekAC = S.cnxnAC.cursor()
                     S.seekFN = S.cnxnFN.cursor()
                     S.Connected_ACFN = True
+                    # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
                     myDialog.lineEdit_Server_remote.setText(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME))

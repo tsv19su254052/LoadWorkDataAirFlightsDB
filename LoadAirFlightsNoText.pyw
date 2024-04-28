@@ -739,7 +739,7 @@ def myApplication():
                         if DBAirLine is None:
                             break
                         elif DBAirLine is not None:
-                            if S.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber):
+                            if S.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
                                 ListAirCraftsUpdated.append(AC)
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")

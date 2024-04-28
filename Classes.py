@@ -477,21 +477,24 @@ class Servers:
         finally:
             return ResultSQL
 
-    def UpdateAirCraft(self, Registration, ALPK):
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekAC.execute(SQLQuery)
-            SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
-            self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
-            ResultSQL = True
-            self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
-        except Exception:
-            ResultSQL = False
-            self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+    def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
+        if useAirCrafts:
+            return True
         else:
-            pass
-        finally:
-            return ResultSQL
+            try:
+                SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+                self.seekAC.execute(SQLQuery)
+                SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
+                self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                ResultSQL = True
+                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            except Exception:
+                ResultSQL = False
+                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+            else:
+                pass
+            finally:
+                return ResultSQL
 
     def UpdateAirCraftOperator(self, RegistartionXML):
         try:
@@ -516,7 +519,7 @@ class Servers:
                 SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
                 SQLQuery += str(Registration) + "') "
                 self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
-                # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines
+                # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
                 self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:

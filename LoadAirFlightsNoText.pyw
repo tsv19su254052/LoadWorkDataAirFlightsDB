@@ -122,7 +122,7 @@ def myApplication():
     myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
     myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
     myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
-    #UpdateDataSourcesChoiceByFlags()
+    #UpdateDataSourcesChoiceByStatesAndFlags()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
@@ -169,7 +169,7 @@ def myApplication():
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
 
-    def UpdateDataSourcesChoiceByFlags():
+    def UpdateDataSourcesChoiceByStatesAndFlags():
         # Состояния + Флаги -> Графическая оболочка
         if S.Connected_AC_XML or S.Connected_ACFN:
             myDialog.comboBox_DB_FN.setEnabled(False)
@@ -205,7 +205,7 @@ def myApplication():
                 S.useAirFlightsDB = True
             if myDialog.radioButton_DSN_AirFlights.isChecked():
                 S.useAirFlightsDB = False
-        UpdateDataSourcesChoiceByFlags()
+        UpdateDataSourcesChoiceByStatesAndFlags()
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
@@ -462,7 +462,7 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    UpdateDataSourcesChoiceByFlags()
+                    UpdateDataSourcesChoiceByStatesAndFlags()
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
@@ -543,7 +543,7 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    UpdateDataSourcesChoiceByFlags()
+                    UpdateDataSourcesChoiceByStatesAndFlags()
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
@@ -586,7 +586,7 @@ def myApplication():
         myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
         myDialog.lineEdit_Schema_AC.setEnabled(False)
         myDialog.lineEdit_DSN_AC.setEnabled(False)
-        UpdateDataSourcesChoiceByFlags()
+        UpdateDataSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
 
 

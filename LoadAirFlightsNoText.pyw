@@ -116,6 +116,7 @@ def myApplication():
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
+    myDialog.pushButton_GetStarted.setEnabled(False)
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
@@ -236,7 +237,7 @@ def myApplication():
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonConnect_ACFN())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_ACFN())
     myDialog.pushButton_ChooseCSVFile.clicked.connect(lambda: PushButtonChooseCSVFile())  # Выбрать файл данных
-    myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
+    myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseTXTFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
 
     def PushButtonConnect_AL():
@@ -585,7 +586,7 @@ def myApplication():
         S.filenameCSV = pathlib.Path(S.InputFileCSV).name  # сработало
         myDialog.lineEdit_CSVFile.setText(S.filenameCSV)
 
-    def PushButtonChooseLOGFile():
+    def PushButtonChooseTXTFile():
         filter = "Log Files (*.txt *.text)"
         S.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
         S.filenameTXT = pathlib.Path(S.LogFileTXT).name

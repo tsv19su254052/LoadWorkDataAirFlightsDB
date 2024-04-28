@@ -27,7 +27,7 @@
 
 использовались из источников:
  - [planespotters.net](https://www.planespotters.net/aircraft/index) - есть API-шки для получения ссылки на изображение
- - [airfleets.net](https://www.airfleets.net/listing/listing.htm) - платная, данные ха 2012-й год
+ - [airfleets.net](https://www.airfleets.net/listing/listing.htm) - данные платные за 2012-й год, API-шек пока нет
  - [apinfo.ru](http://apinfo.ru )
  - [openflights.org](http://openflights.org)
  - [ourairport.com](http://www1.ourairport.com) -переезжает на другое место, в России не открывается

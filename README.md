@@ -26,7 +26,7 @@
 ![формочка Аэропорты 2](https://github.com/tsv19su254052/LoadWorkData-GUIs-and-Utilities/assets/104857185/d756a572-f273-4d9d-92c6-4d04d5920268)
 
 использовались из источников:
- - [planespotters.net](https://www.planespotters.net/aircraft/index) - есть API-шки для получения ссылки на изображение в JSON
+ - [planespotters.net](https://www.planespotters.net/aircraft/index) - есть API-шки для получения 2-х ссылок на изображение внутри JSON
  - [airfleets.net](https://www.airfleets.net/listing/listing.htm) - данные платные за 2012-й год, API-шек пока нет
  - [apinfo.ru](http://apinfo.ru )
  - [openflights.org](http://openflights.org)

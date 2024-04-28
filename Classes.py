@@ -510,28 +510,36 @@ class Servers:
 
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
         if useAirCrafts:
-            pass
+            try:
+                SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+                self.seekAC_XML.execute(SQLQuery)
+                SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
+                SQLQuery += str(Registration) + "') "
+                self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
+                # todo Дописать авиакомпанию-оператора с датами в поле AirFlightsByAirLines
+                ResultSQL = True
+                self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            except Exception:
+                ResultSQL = False
+                self.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
                 self.seekAC.execute(SQLQuery)
                 if ALPK is None:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
-                    SQLQuery += str(Registration) + "') "  # nvarchar(50)
+                    SQLQuery += str(Registration) + "') "
                 else:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
-                    SQLQuery += str(Registration) + "', "  # nvarchar(50)
-                    SQLQuery += str(ALPK) + ") "  # bigint
+                    SQLQuery += str(Registration) + "', "
+                    SQLQuery += str(ALPK) + ") "
                 self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
                 self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
                 self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
-            else:
-                pass
-            finally:
-                return ResultSQL
+        return ResultSQL
 
     def InsertAirCraftByMSN(self, msn):
         try:

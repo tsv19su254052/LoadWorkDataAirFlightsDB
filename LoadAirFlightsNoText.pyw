@@ -170,25 +170,33 @@ def myApplication():
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
 
     def UpdateDataSourcesChoiceByFlags():
-        # Флаги -> Графическая оболочка
-        if S.useAirCraftsDSN:
+        # Состояния + Флаги -> Графическая оболочка
+        if S.Connected_AC_XML or S.Connected_ACFN:
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
-            myDialog.comboBox_DSN_AC.setEnabled(True)
-        else:
             myDialog.comboBox_DSN_AC.setEnabled(False)
-            if S.useAirFlightsDB:
-                myDialog.comboBox_DB_FN.setEnabled(True)
-                myDialog.comboBox_Driver_FN.setEnabled(True)
-                myDialog.comboBox_DSN_FN.setEnabled(False)
-            else:
+            myDialog.groupBox.setEnabled(False)
+        else:
+            myDialog.groupBox.setEnabled(True)
+            if S.useAirCraftsDSN:
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)
-                myDialog.comboBox_DSN_FN.setEnabled(True)
+                myDialog.comboBox_DSN_FN.setEnabled(False)
+                myDialog.comboBox_DSN_AC.setEnabled(True)
+            else:
+                myDialog.comboBox_DSN_AC.setEnabled(False)
+                if S.useAirFlightsDB:
+                    myDialog.comboBox_DB_FN.setEnabled(True)
+                    myDialog.comboBox_Driver_FN.setEnabled(True)
+                    myDialog.comboBox_DSN_FN.setEnabled(False)
+                else:
+                    myDialog.comboBox_DB_FN.setEnabled(False)
+                    myDialog.comboBox_Driver_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_FN.setEnabled(True)
 
     def RadioButtonsToggled():
-        # Переключатели + Состояния -> Флаги
+        # Переключатели -> Флаги
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
             S.useAirCraftsDSN = True
         else:
@@ -452,13 +460,9 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    myDialog.comboBox_DB_FN.setEnabled(False)
-                    myDialog.comboBox_Driver_FN.setEnabled(False)
-                    myDialog.comboBox_DSN_FN.setEnabled(False)
-                    myDialog.comboBox_DSN_AC.setEnabled(False)
+                    UpdateDataSourcesChoiceByFlags()
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
-                    myDialog.groupBox.setEnabled(False)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
                     myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -594,13 +598,9 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
-                    myDialog.comboBox_DB_FN.setEnabled(False)
-                    myDialog.comboBox_Driver_FN.setEnabled(False)
-                    myDialog.comboBox_DSN_FN.setEnabled(False)
-                    myDialog.comboBox_DSN_AC.setEnabled(False)
+                    UpdateDataSourcesChoiceByFlags()
                     if S.Connected_AL and S.Connected_RT:
                         PrepareForInputData(True)
-                    myDialog.groupBox.setEnabled(False)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
                     myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -622,23 +622,6 @@ def myApplication():
             # Отключаемся от базы данных
             S.cnxnAC_XML.close()
             S.Connected_AC_XML = False
-            # Переключаем в исходное состояние
-            myDialog.comboBox_DSN_AC.setEnabled(True)
-            myDialog.dateEdit_BeginDate.setEnabled(False)
-            myDialog.checkBox_SetInputDate.setEnabled(False)
-            myDialog.pushButton_ChooseCSVFile.setEnabled(False)
-            myDialog.lineEdit_CSVFile.setEnabled(False)
-            myDialog.pushButton_ChooseTXTFile.setEnabled(False)
-            myDialog.lineEdit_TXTFile.setEnabled(False)
-            myDialog.pushButton_GetStarted.setEnabled(False)
-            # параметры соединения с сервером
-            myDialog.lineEdit_Server_remote.setEnabled(False)
-            myDialog.lineEdit_Driver_AC.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
-            myDialog.lineEdit_Schema_AC.setEnabled(False)
-            myDialog.lineEdit_DSN_AC.setEnabled(False)
-            myDialog.pushButton_Connect_AC.setEnabled(True)
-            myDialog.groupBox.setEnabled(True)
         if S.Connected_ACFN:
             # Снимаем курсор
             S.seekAC.close()
@@ -650,17 +633,16 @@ def myApplication():
             # Отключаемся от базы данных
             S.cnxnFN.close()
             S.Connected_ACFN = False
-            # Переключаем в исходное состояние
-            UpdateDataSourcesChoiceByFlags()
-            PrepareForInputData(False)
-            # параметры соединения с сервером
-            myDialog.lineEdit_Server_remote.setEnabled(False)
-            myDialog.lineEdit_Driver_AC.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
-            myDialog.lineEdit_DSN_AC.setEnabled(False)
-            myDialog.lineEdit_Schema_AC.setEnabled(False)
-            myDialog.pushButton_Connect_AC.setEnabled(True)
-            myDialog.groupBox.setEnabled(True)
+        # Переключаем в исходное состояние
+        PrepareForInputData(False)
+        # параметры соединения с сервером
+        myDialog.lineEdit_Server_remote.setEnabled(False)
+        myDialog.lineEdit_Driver_AC.setEnabled(False)
+        myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
+        myDialog.lineEdit_Schema_AC.setEnabled(False)
+        myDialog.lineEdit_DSN_AC.setEnabled(False)
+        UpdateDataSourcesChoiceByFlags()
+        myDialog.pushButton_Connect_AC.setEnabled(True)
 
 
     def PushButtonChooseCSVFile():

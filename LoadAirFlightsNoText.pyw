@@ -122,7 +122,7 @@ def myApplication():
     myDialog.radioButton_DB_AirFlights.setToolTip("Использовать имя базы данных и драйвер СУБД")
     myDialog.radioButton_DSN_AirFlights.setToolTip("Использовать системный DSN")
     myDialog.radioButton_DSN_AirCrafts.setToolTip("Использовать системный DSN")  # дошел до сюда
-    #SwitchRadioButtons()
+    #UpdateDataSourcesBySwitchingRadioButtons()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
@@ -161,9 +161,6 @@ def myApplication():
     myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
     # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered -> СДЕЛАЛ
-    #myDialog.radioButton_DB_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDB())
-    #myDialog.radioButton_DSN_AirFlights.clicked.connect(lambda: RadioButtonAirFlightsDSN())
-    #myDialog.radioButton_DSN_AirCrafts.clicked.connect(lambda: RadioButtonAirCraftsDSN())
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
@@ -171,7 +168,7 @@ def myApplication():
     myDialog.pushButton_ChooseTXTFile.clicked.connect(lambda: PushButtonChooseLOGFile())  # Выбрать файл журнала
     myDialog.pushButton_GetStarted.clicked.connect(lambda: PushButtonGetStarted())  # Начать загрузку
 
-    def SwitchRadioButtons():
+    def UpdateDataSourcesBySwitchingRadioButtons():
         # Флаги -> Графическая оболочка
         if S.useAirCraftsDSN:
             myDialog.comboBox_DB_FN.setEnabled(False)
@@ -195,16 +192,16 @@ def myApplication():
             if not S.Connected_FN:
                 S.useAirFlightsDB = True
                 S.useAirCraftsDSN = False
-                SwitchRadioButtons()
+                UpdateDataSourcesBySwitchingRadioButtons()
         if myDialog.radioButton_DSN_AirFlights.isChecked():
             if not S.Connected_FN:
                 S.useAirFlightsDB = False
                 S.useAirCraftsDSN = False
-                SwitchRadioButtons()
+                UpdateDataSourcesBySwitchingRadioButtons()
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
             if not S.Connected_AC:
                 S.useAirCraftsDSN = True
-                SwitchRadioButtons()
+                UpdateDataSourcesBySwitchingRadioButtons()
 
     def PushButtonSelectDB_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)
@@ -689,7 +686,7 @@ def myApplication():
             # Переключаем в исходное состояние
             myDialog.radioButton_DB.setEnabled(True)
             myDialog.radioButton_DSN.setEnabled(True)
-            SwitchRadioButtons()
+            UpdateDataSourcesBySwitchingRadioButtons()
             #myDialog.comboBox_DB_FN.setEnabled(True)
             #myDialog.comboBox_Driver_FN.setEnabled(True)
             #myDialog.comboBox_DSN_FN.setEnabled(True)

@@ -174,9 +174,6 @@ def myApplication():
     def SwitchRadioButtons():
         # Флаги -> Графическая оболочка
         if S.useAirCraftsDSN:
-            #myDialog.radioButton_DB_AirFlights.setChecked(False)
-            #myDialog.radioButton_DSN_AirFlights.setChecked(False)
-            #myDialog.radioButton_DSN_AirCrafts.setChecked(True)
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
@@ -184,16 +181,10 @@ def myApplication():
         else:
             myDialog.comboBox_DSN_AC.setEnabled(False)
             if S.useAirFlightsDB:
-                #myDialog.radioButton_DB_AirFlights.setChecked(True)
-                #myDialog.radioButton_DSN_AirFlights.setChecked(False)
-                #myDialog.radioButton_DSN_AirCrafts.setChecked(False)
                 myDialog.comboBox_DB_FN.setEnabled(True)
                 myDialog.comboBox_Driver_FN.setEnabled(True)
                 myDialog.comboBox_DSN_FN.setEnabled(False)
             else:
-                #myDialog.radioButton_DB_AirFlights.setChecked(False)
-                #myDialog.radioButton_DSN_AirFlights.setChecked(True)
-                #myDialog.radioButton_DSN_AirCrafts.setChecked(False)
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(True)
@@ -202,28 +193,16 @@ def myApplication():
         # Переключатели + Состояния -> Флаги
         if myDialog.radioButton_DB_AirFlights.isChecked():
             if not S.Connected_FN:
-                #myDialog.comboBox_DB_FN.setEnabled(True)
-                #myDialog.comboBox_Driver_FN.setEnabled(True)
-                #myDialog.comboBox_DSN_FN.setEnabled(False)
-                #myDialog.comboBox_DSN_AC.setEnabled(False)
                 S.useAirFlightsDB = True
                 S.useAirCraftsDSN = False
                 SwitchRadioButtons()
         if myDialog.radioButton_DSN_AirFlights.isChecked():
             if not S.Connected_FN:
-                #myDialog.comboBox_DB_FN.setEnabled(False)
-                #myDialog.comboBox_Driver_FN.setEnabled(False)
-                #myDialog.comboBox_DSN_FN.setEnabled(True)
-                #myDialog.comboBox_DSN_AC.setEnabled(False)
                 S.useAirFlightsDB = False
                 S.useAirCraftsDSN = False
                 SwitchRadioButtons()
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
             if not S.Connected_AC:
-                #myDialog.comboBox_DB_FN.setEnabled(False)
-                #myDialog.comboBox_Driver_FN.setEnabled(False)
-                #myDialog.comboBox_DSN_FN.setEnabled(False)
-                #myDialog.comboBox_DSN_AC.setEnabled(True)
                 S.useAirCraftsDSN = True
                 SwitchRadioButtons()
 

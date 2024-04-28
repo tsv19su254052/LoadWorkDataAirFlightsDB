@@ -71,9 +71,9 @@ S.SetInputDate = False
 
 # Состояния
 S.Connected_AL = False
-S.Connected_AC = False
+#S.Connected_AC = False
 S.Connected_RT = False
-S.Connected_FN = False
+S.Connected_ACFN = False
 S.Connected_AC_XML = False
 
 
@@ -158,7 +158,7 @@ def myApplication():
     myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных
     myDialog.pushButton_Connect_RT.clicked.connect(lambda: PushButtonSelectDB_RT())
     myDialog.pushButton_Disconnect_RT.clicked.connect(lambda: PushButtonDisconnect_RT())
-    myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_AC())
+    myDialog.pushButton_Connect_AC.clicked.connect(lambda: PushButtonSelectDB_ACFN())
     myDialog.pushButton_Disconnect_AC.clicked.connect(lambda: PushButtonDisconnect_AC())
     # todo Объединить обе radioButton в одно, как на tkBuilder, и переделать на triggered -> СДЕЛАЛ
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
@@ -189,12 +189,12 @@ def myApplication():
     def RadioButtonsToggled():
         # Переключатели + Состояния -> Флаги
         if myDialog.radioButton_DB_AirFlights.isChecked():
-            if not S.Connected_FN:
+            if not S.Connected_ACFN:
                 S.useAirFlightsDB = True
                 S.useAirCraftsDSN = False
                 UpdateDataSourcesBySwitchingRadioButtons()
         if myDialog.radioButton_DSN_AirFlights.isChecked():
-            if not S.Connected_FN:
+            if not S.Connected_ACFN:
                 S.useAirFlightsDB = False
                 S.useAirCraftsDSN = False
                 UpdateDataSourcesBySwitchingRadioButtons()
@@ -262,7 +262,7 @@ def myApplication():
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB_AL.setEnabled(False)
                 myDialog.comboBox_Driver_AL.setEnabled(False)
-                if S.Connected_RT and S.Connected_AC and S.Connected_FN and S.Connected_AC_XML:
+                if S.Connected_RT and (S.Connected_ACFN or S.Connected_AC_XML):
                     myDialog.pushButton_ChooseCSVFile.setEnabled(True)
                     myDialog.lineEdit_CSVFile.setEnabled(True)
                     myDialog.pushButton_ChooseTXTFile.setEnabled(True)
@@ -273,11 +273,11 @@ def myApplication():
                     myDialog.pushButton_GetStarted.setEnabled(True)
                 myDialog.pushButton_Disconnect_AL.setEnabled(True)
             except Exception:
+                myDialog.pushButton_Connect_AL.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных авиакомпаний")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-                myDialog.pushButton_Connect_AL.setEnabled(True)
             else:
                 pass
             finally:
@@ -302,7 +302,7 @@ def myApplication():
             myDialog.lineEdit_TXTFile.setEnabled(False)
             myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
-            if not S.Connected_RT and not S.Connected_AC_XML:
+            if not S.Connected_RT:
                 myDialog.lineEdit_Server.setEnabled(False)
             myDialog.lineEdit_Driver_AL.setEnabled(False)
             myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
@@ -367,7 +367,7 @@ def myApplication():
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB_RT.setEnabled(False)
                 myDialog.comboBox_Driver_RT.setEnabled(False)
-                if S.Connected_AL and S.Connected_AC and S.Connected_FN and S.Connected_AC_XML:
+                if S.Connected_AL and (S.Connected_ACFN or S.Connected_AC_XML):
                     myDialog.pushButton_ChooseCSVFile.setEnabled(True)
                     myDialog.lineEdit_CSVFile.setEnabled(True)
                     myDialog.pushButton_ChooseTXTFile.setEnabled(True)
@@ -379,11 +379,11 @@ def myApplication():
                 myDialog.pushButton_Disconnect_RT.setEnabled(True)
             except Exception:
                 # Переводим в неактивное состояние
+                myDialog.pushButton_Connect_RT.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных аэропортов и маршрутов")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-                myDialog.pushButton_Connect_RT.setEnabled(True)
             else:
                 pass
             finally:
@@ -408,7 +408,7 @@ def myApplication():
             myDialog.lineEdit_TXTFile.setEnabled(False)
             myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
-            if not S.Connected_AL and not S.Connected_AC_XML:
+            if not S.Connected_AL:
                 myDialog.lineEdit_Server.setEnabled(False)
             myDialog.lineEdit_Driver_RT.setEnabled(False)
             myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
@@ -416,7 +416,7 @@ def myApplication():
             myDialog.pushButton_Connect_RT.setEnabled(True)
             myDialog.pushButton_Disconnect_RT.setEnabled(False)
 
-    def PushButtonSelectDB_AC():
+    def PushButtonSelectDB_ACFN():
         if S.useAirCraftsDSN:
             myDialog.pushButton_Connect_AC.setEnabled(False)
             if not S.Connected_AC_XML:
@@ -474,7 +474,7 @@ def myApplication():
                     myDialog.lineEdit_DSN_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
                     myDialog.comboBox_DSN_AC.setEnabled(False)
-                    if S.Connected_AL and S.Connected_RT and S.Connected_AC:
+                    if S.Connected_AL and S.Connected_RT:
                         myDialog.pushButton_ChooseCSVFile.setEnabled(True)
                         myDialog.lineEdit_CSVFile.setEnabled(True)
                         myDialog.pushButton_ChooseTXTFile.setEnabled(True)
@@ -485,11 +485,11 @@ def myApplication():
                         myDialog.pushButton_GetStarted.setEnabled(True)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
+                    myDialog.pushButton_Connect_AC.setEnabled(True)
                     message = QtWidgets.QMessageBox()
                     message.setText("Нет подключения к БД самолетов")
                     message.setIcon(QtWidgets.QMessageBox.Warning)
                     message.exec_()
-                    myDialog.pushButton_Connect_AC.setEnabled(True)
                 else:
                     pass
                 finally:
@@ -553,29 +553,29 @@ def myApplication():
                 finally:
                     pass
             """
-            if not S.Connected_FN and not S.Connected_AC:
+            if not S.Connected_ACFN:
                 # Подключаемся к базе данных авиаперелетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
-                ChoiceDB_FN = myDialog.comboBox_DB_FN.currentText()
-                ChoiceDriver_FN = myDialog.comboBox_Driver_FN.currentText()
+                ChoiceDB_ACFN = myDialog.comboBox_DB_FN.currentText()
+                ChoiceDriver_ACFN = myDialog.comboBox_Driver_FN.currentText()
                 # Добавляем атрибуты DataBase, DriverODBC
-                S.DataBase_FN = str(ChoiceDB_FN)
-                S.DriverODBC_FN = str(ChoiceDriver_FN)
-                ChoiceDSN_FN = myDialog.comboBox_DSN_FN.currentText()
+                S.DataBase_ACFN = str(ChoiceDB_ACFN)
+                S.DriverODBC_ACFN = str(ChoiceDriver_ACFN)
+                ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 # Добавляем атрибут myDSN
-                S.myDSN_FN = str(ChoiceDSN_FN)
+                S.myDSN_ACFN = str(ChoiceDSN_ACFN)
                 try:
                     # Добавляем атрибут cnxn
                     if S.useAirFlightsDB:
                         # через драйвер СУБД + клиентский API-курсор
-                        S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_FN, server=S.ServerNameFlights, database=S.DataBase_FN)
-                        S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_FN, server=S.ServerNameFlights, database=S.DataBase_FN)
-                        print("  БД = ", S.DataBase_FN, "подключена")
+                        S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
+                        S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
+                        print("  БД = ", S.DataBase_ACFN, "подключена")
                     else:
                         # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-                        S.cnxnAC = pyodbc.connect("DSN=" + S.myDSN_FN)
-                        S.cnxnFN = pyodbc.connect("DSN=" + S.myDSN_FN)
-                        print("  DSN = ", S.myDSN_FN, "подключен")
+                        S.cnxnAC = pyodbc.connect("DSN=" + S.myDSN_ACFN)
+                        S.cnxnFN = pyodbc.connect("DSN=" + S.myDSN_ACFN)
+                        print("  DSN = ", S.myDSN_ACFN, "подключен")
                     # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
                     S.cnxnAC.autocommit = False
                     S.cnxnFN.autocommit = False
@@ -604,8 +604,7 @@ def myApplication():
                     S.seekAC = S.cnxnAC.cursor()
                     S.seekFN = S.cnxnFN.cursor()
                     print("seeks is on")
-                    S.Connected_AC = True
-                    S.Connected_FN = True
+                    S.Connected_ACFN = True
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
                     myDialog.lineEdit_Server_remote.setText(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME))
@@ -629,7 +628,7 @@ def myApplication():
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
                     myDialog.comboBox_DSN_AC.setEnabled(False)
-                    if S.Connected_AL and S.Connected_RT and S.Connected_AC_XML:
+                    if S.Connected_AL and S.Connected_RT:
                         myDialog.pushButton_ChooseCSVFile.setEnabled(True)
                         myDialog.lineEdit_CSVFile.setEnabled(True)
                         myDialog.pushButton_ChooseTXTFile.setEnabled(True)
@@ -676,21 +675,21 @@ def myApplication():
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.pushButton_Connect_AC.setEnabled(True)
             myDialog.pushButton_Disconnect_AC.setEnabled(False)
-        if S.Connected_AC:
+        if S.Connected_ACFN:
             # Снимаем курсор
             S.seekAC.close()
             # Отключаемся от базы данных
             S.cnxnAC.close()
             S.Connected_AC = False
-        if S.Connected_FN:
             # Снимаем курсор
             S.seekFN.close()
             # Отключаемся от базы данных
             S.cnxnFN.close()
             S.Connected_FN = False
             # Переключаем в исходное состояние
-            myDialog.radioButton_DB.setEnabled(True)
-            myDialog.radioButton_DSN.setEnabled(True)
+            myDialog.radioButton_DB_AirFlights.setEnabled(True)
+            myDialog.radioButton_DSN_AirFlights.setEnabled(True)
+            myDialog.radioButton_DSN_AirCrafts.setEnabled(True)
             UpdateDataSourcesBySwitchingRadioButtons()
             #myDialog.comboBox_DB_FN.setEnabled(True)
             #myDialog.comboBox_Driver_FN.setEnabled(True)
@@ -704,12 +703,12 @@ def myApplication():
             myDialog.pushButton_GetStarted.setEnabled(False)
             # параметры соединения с сервером
             myDialog.lineEdit_Server_remote.setEnabled(False)
-            myDialog.lineEdit_Driver_FN.setEnabled(False)
-            myDialog.lineEdit_ODBCversion_FN.setEnabled(False)
-            myDialog.lineEdit_DSN_FN.setEnabled(False)
-            myDialog.lineEdit_Schema_FN.setEnabled(False)
-            myDialog.pushButton_Connect_FN.setEnabled(True)
-            myDialog.pushButton_Disconnect_FN.setEnabled(False)
+            myDialog.lineEdit_Driver_AC.setEnabled(False)
+            myDialog.lineEdit_ODBCversion_AC.setEnabled(False)
+            myDialog.lineEdit_DSN_AC.setEnabled(False)
+            myDialog.lineEdit_Schema_AC.setEnabled(False)
+            myDialog.pushButton_Connect_AC.setEnabled(True)
+            myDialog.pushButton_Disconnect_AC.setEnabled(False)
 
 
     def PushButtonChooseCSVFile():

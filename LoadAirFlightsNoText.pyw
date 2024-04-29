@@ -1023,7 +1023,6 @@ def myApplication():
         myDialog.checkBox_SetInputDate.setEnabled(False)
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
-        myDialog.pushButton_Disconnect_FN.setEnabled(False)
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         myDialog.label_execute.setEnabled(True)
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки

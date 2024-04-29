@@ -984,8 +984,19 @@ class Servers:
                         XMLQuery = "SELECT FlightsByRoutes, RoutesByFlights FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         ResultXML = self.seekAC_XML.fetchone()
+                        QuantitytCounted = 1
+                        step = ElementTree.Element('step', FlightDate=flightdate, BeginDate=begindate)
+                        step.text = str(QuantitytCounted)
                         if ResultXML[0] is None:
+                            Route = ElementTree.Element('Route', RouteFK=db_air_route)
+                            Route.text = 1
+                            Route.append(step)
+                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
+                            Flight.text = 1
+                            Flight.append(Route)
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
+                            root_tag_FlightsByRoutes.text = 1
+                            root_tag_FlightsByRoutes.append(Flight)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             Search = root_tag_FlightsByRoutes.findall(".//Route")

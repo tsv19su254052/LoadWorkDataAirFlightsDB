@@ -998,7 +998,7 @@ class Servers:
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
                             #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
-                            Route.text = str(QuantityOnThisRoute)
+                            #Route.text = str(QuantityOnThisRoute)  # fixme с этого места в SSMS в одну строчку
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             Search = root_tag_FlightsByRoutes.findall(".//Route")

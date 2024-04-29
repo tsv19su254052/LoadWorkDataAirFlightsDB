@@ -1005,6 +1005,7 @@ class Servers:
                                     pass
                                     #node.append()
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
+                        print(str(xml_FlightsByRoutes_to_String))
                         if ResultXML[1] is None:
                             step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
                             step.text = 1
@@ -1025,6 +1026,7 @@ class Servers:
                                     pass
                                     #node.append()
                         xml_RoutesByFlights_to_String = ElementTree.tostring(root_tag_RoutesByFlights, method='xml').decode(encoding="utf-8")  # XML-ная строка
+                        print(str(xml_RoutesByFlights_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "', RoutesByFlights = '" + str(xml_RoutesByFlights_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         self.cnxnAC_XML.commit()

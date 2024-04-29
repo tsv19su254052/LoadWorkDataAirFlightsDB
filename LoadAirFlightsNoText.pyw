@@ -994,10 +994,8 @@ def myApplication():
         # with open(Log, 'a') as LogFile:
         #     LogFile.write(OutputString)
         #     LogFile.write('Вывод с помощью менеджера контекста\n')
-        # fixme Тут графическая оболочка слетела
-        time.sleep(2)  # задержка, чтобы исправить этот момент
         myDialog.label_execute.setText("Загрузка окончена")
-        myDialog.label_execute.setStyleSheet("border: 5px solid; border-color: pink")
+        #myDialog.label_execute.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
         # Снимаем курсоры
         S.seekAL.close()

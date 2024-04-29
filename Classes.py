@@ -1026,12 +1026,12 @@ class Servers:
                                     #node.append()
                         xml_RoutesByFlights_to_String = ElementTree.tostring(root_tag_RoutesByFlights, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "', RoutesByFlights = '" + str(xml_RoutesByFlights_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                        Result = 1  # вставили
                         self.seekAC_XML.execute(XMLQuery)
                         self.cnxnAC_XML.commit()
+                        Result = 1  # вставили
                     except Exception:
-                        Result = 0  # не сработка
                         self.cnxnAC_XML.rollback()
+                        Result = 0  # не сработка
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -1058,8 +1058,8 @@ class Servers:
                         self.seekFN.execute(SQLQuery)
                         self.cnxnFN.commit()
                     except Exception:
-                        Result = 0  # не сработка
                         self.cnxnFN.rollback()
+                        Result = 0  # не сработка
                     finally:
                         pass
             elif db_air_craft is None:

@@ -1010,30 +1010,30 @@ class Servers:
                                     SearchRoute = nodeFlight.findall(".//Route")
                                     for nodeRoute in SearchRoute:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
-                                            # плюсуем 1 перелет
                                             SearchStep = nodeRoute.findall(".//step")
                                             for nodeStep in SearchStep:
                                                 if nodeStep.attrib['FlightDate'] == str(flightdate):
                                                     QuantitytCounted = int(nodeStep.text) + 1
                                                     nodeStep.text = str(QuantitytCounted)
                                                     #added = True
-                                                    #break
+                                                    break
                                                 else:
                                                     step.text = str(QuantitytCounted)
                                                     nodeRoute.append(step)
                                                     #added = True
-                                                    #break
+                                                    break
                                         else:
                                             step.text = str(QuantitytCounted)
                                             Route.append(step)
                                             nodeFlight.append(Route)
                                             #added = True
-                                            #break
+                                            break
                                 else:
                                     step.text = str(QuantitytCounted)
                                     Route.append(step)
                                     Flight.append(Route)
                                     root_tag_FlightsByRoutes.append(Flight)
+                                    break
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "

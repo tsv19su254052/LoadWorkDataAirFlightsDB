@@ -991,32 +991,40 @@ class Servers:
                         QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
                         step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
                         Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
+                        Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
+                        root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
                         if ResultXML[0] is None:
                             step.text = str(QuantitytCounted)
                             Route.append(step)
-                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             #Flight.text = str(1)
                             Flight.append(Route)
-                            root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
                             #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
                             #Route.text = str(QuantityOnThisRoute)  # fixme SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
+                            added = False
                             for nodeFlight in SearchFlight:
                                 if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
                                     SearchRoute = nodeFlight.findall(".//Route")
                                     for nodeRoute in SearchRoute:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
                                             # плюсуем 1 перелет
+                                            added = True
                                             pass
                                         else:
                                             nodeRoute.append(step)
+                                            added = True
                                 else:
                                     Route.append(step)
                                     nodeFlight.append(Route)
+                                    added = True
                                     pass
+                            if not added:
+                                Route.append(step)
+                                Flight.append(Route)
+                                root_tag_FlightsByRoutes.append(Flight)
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "

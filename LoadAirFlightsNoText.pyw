@@ -729,35 +729,37 @@ def myApplication():
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirCraft is not None:
-                    # todo Когда сделаю базу данных по самолетам, эту часть переделать
-                    DBAirLinePK = S.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
-                    if DBAirLinePK is None or DBAirLinePK.AirLineCodeIATA != AL:
-                        # fixme пустая ячейка в таблице SQL-ной БД - NULL <-> в Python-е - (None,) -> в условиях None и (None,) - не False и не True
-                        # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация UNKNOWN не имеет внешнего ключа авиакомпании
-                        # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация nan каждый раз переписывается на другую компанию-оператора
-                        DBAirLine = S.QueryAirLineByIATA(AL)
-                        if DBAirLine is None:
-                            break
-                        elif DBAirLine is not None:
-                            if S.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
-                                ListAirCraftsUpdated.append(AC)
-                                #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                                print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
+                    if S.useAirCraftsDSN:
+                        break
+                    else:
+                        DBAirLinePK = S.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
+                        if DBAirLinePK is None or DBAirLinePK.AirLineCodeIATA != AL:
+                            # fixme пустая ячейка в таблице SQL-ной БД - NULL <-> в Python-е - (None,) -> в условиях None и (None,) - не False и не True
+                            # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация UNKNOWN не имеет внешнего ключа авиакомпании
+                            # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация nan каждый раз переписывается на другую компанию-оператора
+                            DBAirLine = S.QueryAirLineByIATA(AL)
+                            if DBAirLine is None:
                                 break
+                            elif DBAirLine is not None:
+                                if S.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
+                                    ListAirCraftsUpdated.append(AC)
+                                    #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
+                                    print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
+                                    break
+                                else:
+                                    #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
+                                    print(colorama.Fore.LIGHTYELLOW_EX + "*", end=" ")
+                                    time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             else:
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
-                                print(colorama.Fore.LIGHTYELLOW_EX + "*", end=" ")
+                                print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
+                        elif DBAirLinePK.AirLineCodeIATA == AL:
+                            break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
-                    elif DBAirLinePK.AirLineCodeIATA == AL:
-                        break
-                    else:
-                        #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
-                        print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                        time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")

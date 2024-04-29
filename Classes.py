@@ -1024,8 +1024,11 @@ class Servers:
                                     node.append()
                         xml_RoutesByFlights_to_String = ElementTree.tostring(root_tag_RoutesByFlights, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "', RoutesByFlights = '" + str(xml_RoutesByFlights_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
+                        self.seekAC_XML.execute(XMLQuery)
+                        self.cnxnAC_XML.commit()
+                        Result = 1  # вставили
                     except Exception:
-                        ResultSQL = 0  # не сработка
+                        Result = 0  # не сработка
                         self.cnxnFN.rollback()
                 else:
                     try:
@@ -1041,31 +1044,31 @@ class Servers:
                             SQLQuery += str(db_air_craft) + ", '"  # bigint
                             SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
                             SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                            ResultSQL = 1  # вставили
+                            Result = 1  # вставили
                         elif ResultQuery is not None:
                             quantity = ResultQuery.QuantityCounted + 1
                             SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
                             SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
                             SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                            ResultSQL = 2  # сплюсовали
+                            Result = 2  # сплюсовали
                         else:
                             pass
                         self.seekFN.execute(SQLQuery)
                         self.cnxnFN.commit()
                     except Exception:
-                        ResultSQL = 0  # не сработка
+                        Result = 0  # не сработка
                         self.cnxnFN.rollback()
                     finally:
                         pass
             elif db_air_craft is None:
-                ResultSQL = 0
+                Result = 0
             else:
-                ResultSQL = 0
+                Result = 0
         elif db_air_route is None:
-            ResultSQL = 0
+            Result = 0
         else:
-            ResultSQL = 0
-        return ResultSQL
+            Result = 0
+        return Result
 
     def QueryCount(self):
         # Возвращает количество строк в таблице аэропортов

@@ -1011,9 +1011,14 @@ class Servers:
                                     for nodeRoute in SearchRoute:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
                                             # плюсуем 1 перелет
-                                            print(" + 1 такой авиаперелет")
-                                            added = True
-                                            pass
+                                            SearchStep = nodeRoute.findall(".//step")
+                                            for nodeStep in SearchStep:
+                                                if nodeStep.attrib['FlightDate'] == str(flightdate):
+                                                    QuantitytCounted = int(nodeStep.text) + 1
+                                                    nodeStep.text = str(QuantitytCounted)
+                                                    print(" + 1 такой авиаперелет")
+                                                    added = True
+                                                    pass
                                         else:
                                             step.text = str(QuantitytCounted)
                                             nodeRoute.append(step)

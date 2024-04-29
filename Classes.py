@@ -972,40 +972,43 @@ class Servers:
         finally:
             return ResultSQL
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate):
+    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts):
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
-            db_air_craft = self.QueryAirCraftByRegistration(ac).AirCraftUniqueNumber
+            db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
-                try:
-                    SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                    self.seekFN.execute(SQLQuery)
-                    SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
-                    SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                    self.seekFN.execute(SQLQuery)
-                    ResultQuery = self.seekFN.fetchone()
-                    if ResultQuery is None:
-                        SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
-                        SQLQuery += str(db_air_route) + ", "  # bigint
-                        SQLQuery += str(db_air_craft) + ", '"  # bigint
-                        SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
-                        SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                        ResultSQL = 1  # вставили
-                    elif ResultQuery is not None:
-                        quantity = ResultQuery.QuantityCounted + 1
-                        SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
-                        SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
-                        SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        ResultSQL = 2  # сплюсовали
-                    else:
-                        pass
-                    self.seekFN.execute(SQLQuery)
-                    self.cnxnFN.commit()
-                except Exception:
-                    ResultSQL = 0  # не сработка
-                    self.cnxnFN.rollback()
-                finally:
+                if useAirCrafts:
                     pass
+                else:
+                    try:
+                        SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+                        self.seekFN.execute(SQLQuery)
+                        SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
+                        SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
+                        self.seekFN.execute(SQLQuery)
+                        ResultQuery = self.seekFN.fetchone()
+                        if ResultQuery is None:
+                            SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
+                            SQLQuery += str(db_air_route) + ", "  # bigint
+                            SQLQuery += str(db_air_craft) + ", '"  # bigint
+                            SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
+                            SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
+                            ResultSQL = 1  # вставили
+                        elif ResultQuery is not None:
+                            quantity = ResultQuery.QuantityCounted + 1
+                            SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
+                            SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
+                            SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
+                            ResultSQL = 2  # сплюсовали
+                        else:
+                            pass
+                        self.seekFN.execute(SQLQuery)
+                        self.cnxnFN.commit()
+                    except Exception:
+                        ResultSQL = 0  # не сработка
+                        self.cnxnFN.rollback()
+                    finally:
+                        pass
             elif db_air_craft is None:
                 ResultSQL = 0
             else:

@@ -988,10 +988,10 @@ class Servers:
                         if ResultXML[0] is None:
                             step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
                             step.text = 1
-                            Route = ElementTree.Element('Route', RouteFK=db_air_route)
+                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                             Route.text = 1
                             Route.append(step)
-                            Flight = ElementTree.Element('Flight', FlightNumberString=al + fn)
+                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             Flight.text = 1
                             Flight.append(Route)
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
@@ -1010,7 +1010,7 @@ class Servers:
                             Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             Flight.text = 1
                             Flight.append(step)
-                            Route = ElementTree.Element('Route', RouteFK=db_air_route)
+                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                             Route.text = 1
                             Route.append(Flight)
                             root_tag_RoutesByFlights = ElementTree.Element('RoutesByFlights')

@@ -1001,16 +1001,26 @@ class Servers:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             Search = root_tag_FlightsByRoutes.findall(".//Route")
                             for node in Search:
-                                if node.attrib['RouteFK=' + str(db_air_route)]:
+                                if node.attrib['RouteFK'] == str(db_air_route):
                                     node.append()
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         if ResultXML[1] is None:
+                            step = ElementTree.Element('step', FlightDate=flightdate, BeginDate=begindate)
+                            step.text = 1
+                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
+                            Flight.text = 1
+                            Flight.append(step)
+                            Route = ElementTree.Element('Route', RouteFK=db_air_route)
+                            Route.text = 1
+                            Route.append(Flight)
                             root_tag_RoutesByFlights = ElementTree.Element('RoutesByFlights')
+                            root_tag_RoutesByFlights.text = 1
+                            root_tag_RoutesByFlights.append(Route)
                         else:
                             root_tag_RoutesByFlights = ElementTree.fromstring(ResultXML[1])
                             Search = root_tag_RoutesByFlights.findall(".//Flight")
                             for node in Search:
-                                if node.attrib['FlightNumberString=' + str(al) + str(fn)]:
+                                if node.attrib['FlightNumberString'] == str(al) + str(fn):
                                     node.append()
                         xml_RoutesByFlights_to_String = ElementTree.tostring(root_tag_RoutesByFlights, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "', RoutesByFlights = '" + str(xml_RoutesByFlights_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "

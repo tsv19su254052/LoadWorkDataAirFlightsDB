@@ -1011,6 +1011,7 @@ class Servers:
                                     for nodeRoute in SearchRoute:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
                                             # плюсуем 1 перелет
+                                            print(" + 1 такой авиаперелет")
                                             added = True
                                             pass
                                         else:

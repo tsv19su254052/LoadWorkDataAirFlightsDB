@@ -1015,14 +1015,17 @@ class Servers:
                                             added = True
                                             pass
                                         else:
+                                            step.text = str(QuantitytCounted)
                                             nodeRoute.append(step)
                                             added = True
                                 else:
+                                    step.text = str(QuantitytCounted)
                                     Route.append(step)
                                     nodeFlight.append(Route)
                                     added = True
                                     pass
                             if not added:
+                                step.text = str(QuantitytCounted)
                                 Route.append(step)
                                 Flight.append(Route)
                                 root_tag_FlightsByRoutes.append(Flight)

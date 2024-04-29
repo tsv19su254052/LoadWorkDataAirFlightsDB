@@ -986,13 +986,13 @@ class Servers:
                         ResultXML = self.seekAC_XML.fetchone()
                         print(" ResultXML = " + str(ResultXML))
                         QuantitytCounted = 1
+                        step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
+                        step.text = str(QuantitytCounted)
+                        Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
+                        Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                         if ResultXML[0] is None:
-                            step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                            step.text = str(QuantitytCounted)
-                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                             #Route.text = str(1)
                             Route.append(step)
-                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             #Flight.text = str(1)
                             Flight.append(Route)
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
@@ -1008,16 +1008,12 @@ class Servers:
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         if ResultXML[1] is None:
-                            step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                            step.text = str(1)
-                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
-                            Flight.text = str(1)
+                            #Flight.text = str(1)
                             Flight.append(step)
-                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                            Route.text = str(1)
+                            #Route.text = str(1)
                             Route.append(Flight)
                             root_tag_RoutesByFlights = ElementTree.Element('RoutesByFlights')
-                            root_tag_RoutesByFlights.text = str(1)
+                            #root_tag_RoutesByFlights.text = str(1)
                             root_tag_RoutesByFlights.append(Route)
                         else:
                             root_tag_RoutesByFlights = ElementTree.fromstring(ResultXML[1])

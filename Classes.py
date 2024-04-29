@@ -985,12 +985,14 @@ class Servers:
                         self.seekAC_XML.execute(XMLQuery)
                         ResultXML = self.seekAC_XML.fetchone()
                         print(" ResultXML = " + str(ResultXML))
-                        QuantitytCounted = 1
-                        QuantityOnThisRoute = 1
+                        QuantitytCounted = 1  # количество таких авиаперелетов за этот день
+                        QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
+                        QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
+                        QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
                         step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
+                        Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                         if ResultXML[0] is None:
                             step.text = str(QuantitytCounted)
-                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                             Route.append(step)
                             Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             #Flight.text = str(1)
@@ -1007,7 +1009,14 @@ class Servers:
                                     SearchRoute = nodeFlight.findall(".//Route")
                                     for nodeRoute in SearchRoute:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
+                                            # плюсуем 1 перелет
+                                            pass
+                                        else:
                                             nodeRoute.append(step)
+                                else:
+                                    Route.append(step)
+                                    nodeFlight.append(Route)
+                                    pass
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "

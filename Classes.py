@@ -986,11 +986,11 @@ class Servers:
                         ResultXML = self.seekAC_XML.fetchone()
                         print(" ResultXML = " + str(ResultXML))
                         QuantitytCounted = 1
+                        QuantityOnThisRoute = 1
                         if ResultXML[0] is None:
                             step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
                             step.text = str(QuantitytCounted)
                             Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                            #Route.text = str(1)
                             Route.append(step)
                             Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             #Flight.text = str(1)
@@ -998,6 +998,7 @@ class Servers:
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
                             #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
+                            Route.text = str(QuantityOnThisRoute)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             Search = root_tag_FlightsByRoutes.findall(".//Route")

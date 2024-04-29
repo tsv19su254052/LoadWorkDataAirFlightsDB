@@ -988,15 +988,15 @@ class Servers:
                         QuantitytCounted = 1
                         if ResultXML[0] is None:
                             step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                            step.text = str(1)
+                            step.text = str(QuantitytCounted)
                             Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                            Route.text = str(1)
+                            #Route.text = str(1)
                             Route.append(step)
                             Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
-                            Flight.text = str(1)
+                            #Flight.text = str(1)
                             Flight.append(Route)
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
-                            root_tag_FlightsByRoutes.text = str(1)
+                            #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])

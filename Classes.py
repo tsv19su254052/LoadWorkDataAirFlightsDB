@@ -981,18 +981,18 @@ class Servers:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
                         self.seekAC_XML.execute(SQLQuery)
-                        XMLQuery = "SELECT FlightsByRoutes, RoutesByFlights FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
+                        XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         ResultXML = self.seekAC_XML.fetchone()
                         print(" ResultXML = " + str(ResultXML))
                         QuantitytCounted = 1
-                        step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                        step.text = str(QuantitytCounted)
-                        Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                        Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                         if ResultXML[0] is None:
+                            step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
+                            step.text = str(QuantitytCounted)
+                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                             #Route.text = str(1)
                             Route.append(step)
+                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                             #Flight.text = str(1)
                             Flight.append(Route)
                             root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
@@ -1007,24 +1007,7 @@ class Servers:
                                     #node.append()
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
-                        if ResultXML[1] is None:
-                            #Flight.text = str(1)
-                            Flight.append(step)
-                            #Route.text = str(1)
-                            Route.append(Flight)
-                            root_tag_RoutesByFlights = ElementTree.Element('RoutesByFlights')
-                            #root_tag_RoutesByFlights.text = str(1)
-                            root_tag_RoutesByFlights.append(Route)
-                        else:
-                            root_tag_RoutesByFlights = ElementTree.fromstring(ResultXML[1])
-                            Search = root_tag_RoutesByFlights.findall(".//Flight")
-                            for node in Search:
-                                if node.attrib['FlightNumberString'] == str(al) + str(fn):
-                                    pass
-                                    #node.append()
-                        xml_RoutesByFlights_to_String = ElementTree.tostring(root_tag_RoutesByFlights, method='xml').decode(encoding="utf-8")  # XML-ная строка
-                        print("xml_RoutesByFlights_to_String = " + str(xml_RoutesByFlights_to_String))
-                        XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "', RoutesByFlights = '" + str(xml_RoutesByFlights_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
+                        XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         self.cnxnAC_XML.commit()
                         Result = 1  # вставили

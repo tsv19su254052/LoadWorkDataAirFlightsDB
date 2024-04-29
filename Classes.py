@@ -1031,7 +1031,7 @@ class Servers:
                         Result = 1  # вставили
                     except Exception:
                         Result = 0  # не сработка
-                        self.cnxnFN.rollback()
+                        self.cnxnAC_XML.rollback()
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

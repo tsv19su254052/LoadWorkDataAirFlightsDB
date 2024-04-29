@@ -922,11 +922,11 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        OutputString += " Сервер СУБД = " + str(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-        OutputString += " Драйвер = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-        OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-        OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-        OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+        #OutputString += " Сервер СУБД = " + str(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
+        #OutputString += " Драйвер = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
+        #OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
+        #OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
+        #OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
         OutputString += " Длительность загрузки = " + str(__EndTime__ - __StartTime__) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"
@@ -1001,16 +1001,20 @@ def myApplication():
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
         # Снимаем курсоры
         S.seekAL.close()
-        S.seekAC.close()
         S.seekRT.close()
-        S.seekFN.close()
-        S.seekAC_XML.close()
+        if S.useAirCraftsDSN:
+            S.seekAC_XML.close()
+        else:
+            S.seekAC.close()
+            S.seekFN.close()
         # Отключаемся от баз данных
         S.cnxnAL.close()
-        S.cnxnAC.close()
         S.cnxnRT.close()
-        S.cnxnFN.close()
-        S.cnxnAC_XML.close()
+        if S.useAirCraftsDSN:
+            S.cnxnAC_XML.close()
+        else:
+            S.cnxnAC.close()
+            S.cnxnFN.close()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)

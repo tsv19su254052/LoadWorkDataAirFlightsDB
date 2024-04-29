@@ -978,7 +978,15 @@ class Servers:
             db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
                 if useAirCrafts:
-                    pass
+                    try:
+                        SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+                        self.seekAC_XML.execute(SQLQuery)
+                        XMLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
+                        self.seekAC_XML.execute(XMLQuery)
+                        ResultXML = self.seekAC_XML.fetchone()
+                    except Exception:
+                        ResultSQL = 0  # не сработка
+                        self.cnxnFN.rollback()
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

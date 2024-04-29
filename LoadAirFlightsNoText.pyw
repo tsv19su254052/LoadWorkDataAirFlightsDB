@@ -834,7 +834,7 @@ def myApplication():
                 deadlockCount = attemptNumber
                 DBAirLine = S.QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = S.QueryAirCraftByRegistration(AC)
+                    DBAirCraft = S.QueryAirCraftByRegistration(AC, S.useAirCraftsDSN)
                     if DBAirCraft is not None:
                         DBAirRoute = S.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:

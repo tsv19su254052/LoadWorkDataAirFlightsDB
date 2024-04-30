@@ -757,7 +757,7 @@ class Servers:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
                 Search = root_tag.findall(".//User")
                 print(" Search = " + str(Search))
-                added = False
+                #added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
@@ -768,8 +768,9 @@ class Servers:
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         node.append(DateTime)
                         #root_tag.append(User)
-                        added = True
-                if not added:
+                        #added = True
+                        break
+                else:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     #User.append(DateTime)
                     root_tag.append(User)
@@ -847,13 +848,14 @@ class Servers:
                 Count += ResultSQL[0]
                 root_tag = ElementTree.fromstring(ResultXML[0])
                 Search = root_tag.findall(".//User")
-                added = False
+                #added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
                         node.append(DateTime)
-                        added = True
-                if not added:
+                        #added = True
+                        break
+                else:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     root_tag.append(User)
             print("LogCountChanged = " + str(Count))
@@ -973,6 +975,10 @@ class Servers:
             return ResultSQL
 
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts):
+
+        class Results():
+            Result = False
+
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
             db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
@@ -1016,32 +1022,35 @@ class Servers:
                                                     QuantitytCounted = int(nodeStep.text) + 1
                                                     nodeStep.text = str(QuantitytCounted)
                                                     #added = True
+                                                    Results.Result = 2  # сплюсовали
                                                     break
                                             else:
                                                 step.text = str(QuantitytCounted)
                                                 nodeRoute.append(step)
                                                 #added = True
+                                                Results.Result = 1  # вставили
                                                 break
                                     else:
                                         step.text = str(QuantitytCounted)
                                         Route.append(step)
                                         nodeFlight.append(Route)
                                         #added = True
+                                        Results.Result = 1  # вставили
                                         break
                             else:
                                 step.text = str(QuantitytCounted)
                                 Route.append(step)
                                 Flight.append(Route)
                                 root_tag_FlightsByRoutes.append(Flight)
+                                Results.Result = 1  # вставили
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         self.cnxnAC_XML.commit()
-                        Result = 1  # вставили
                     except Exception:
                         self.cnxnAC_XML.rollback()
-                        Result = 0  # не сработка
+                        Results.Result = 0  # не сработка
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -1056,31 +1065,31 @@ class Servers:
                             SQLQuery += str(db_air_craft) + ", '"  # bigint
                             SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
                             SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                            Result = 1  # вставили
+                            Results.Result = 1  # вставили
                         elif ResultQuery is not None:
                             quantity = ResultQuery.QuantityCounted + 1
                             SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
                             SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
                             SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                            Result = 2  # сплюсовали
+                            Results.Result = 2  # сплюсовали
                         else:
                             pass
                         self.seekFN.execute(SQLQuery)
                         self.cnxnFN.commit()
                     except Exception:
                         self.cnxnFN.rollback()
-                        Result = 0  # не сработка
+                        Results.Result = 0  # не сработка
                     finally:
                         pass
             elif db_air_craft is None:
-                Result = 0
+                Results.Result = 0
             else:
-                Result = 0
+                Results.Result = 0
         elif db_air_route is None:
-            Result = 0
+            Results.Result = 0
         else:
-            Result = 0
-        return Result
+            Results.Result = 0
+        return Results.Result
 
     def QueryCount(self):
         # Возвращает количество строк в таблице аэропортов

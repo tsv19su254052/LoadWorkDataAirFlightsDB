@@ -663,10 +663,8 @@ def myApplication():
         #myDialog.label_execute.setText("Загрузка начата")  # оболочка зависает и слетает
         print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
         # Сигнал на обновление полоски выполнения
-        # _signalUpdateProgressBar = QtCore.pyqtSignal(float)
         completion = 0  # Выполнение загрузки
         ExecutePrevious = 0
-        # pbar = tqdm.tqdm(len(ListAirLineCodeIATA))
         # Один внешний цикл и три вложенных цикла
         for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):
             print(colorama.Fore.BLUE + "Авикомпания", str(AL), end=" ")
@@ -892,9 +890,6 @@ def myApplication():
                 ExecutePrevious = Execute
             # todo Сделать полосу выполнения все время внизу со всеми параметрами например с помощью tqdm - Не работает в цикле
             print(colorama.Fore.CYAN + "Выполнение =", str(Execute), "%")
-            # pbar.update()
-            # myDialog.progressBar_completion.setValue(int(Execute))  # fixme выдает ошибку про рекурсивную отрисовку (см. снимок экрана)
-        # pbar.close()
         # Отметка времени окончания загрузки
         __EndTime__ = datetime.datetime.now()
         # Убираем с конца столбцы с нулями

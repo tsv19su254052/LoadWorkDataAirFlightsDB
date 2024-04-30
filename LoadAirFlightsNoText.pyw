@@ -621,7 +621,7 @@ def myApplication():
         ListFlightDateConcatenated = []
         for attemptNumber in range(len(ListYear)):
             #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))
-            ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d'%ListMonth[attemptNumber] + "-" + '%02d'%ListDay[attemptNumber])
+            ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d' % ListMonth[attemptNumber] + "-" + '%02d' % ListDay[attemptNumber])
         #myDialog.label_execute.setText("Исходные данные перепакованы")  # оболочка зависает и слетает
         if S.SetInputDate:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")

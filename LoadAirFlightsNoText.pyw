@@ -922,11 +922,18 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        #OutputString += " Сервер СУБД = " + str(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-        #OutputString += " Драйвер = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-        #OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-        #OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-        #OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+        if S.useAirCraftsDSN:
+            OutputString += " Сервер СУБД = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
+            OutputString += " Драйвер = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
+            OutputString += " Версия ODBC = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
+            OutputString += " DSN = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
+            OutputString += " Схема = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+        else:
+            OutputString += " Сервер СУБД = " + str(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
+            OutputString += " Драйвер = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
+            OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
+            OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
+            OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
         OutputString += " Длительность загрузки = " + str(__EndTime__ - __StartTime__) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"

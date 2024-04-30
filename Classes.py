@@ -1006,11 +1006,10 @@ class Servers:
                             Flight.append(Route)
                             #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
-                            #Route.text = str(QuantityOnThisRoute)  # fixme SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
+                            #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                            added = False
                             for nodeFlight in SearchFlight:
                                 if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
                                     SearchRoute = nodeFlight.findall(".//Route")
@@ -1021,20 +1020,17 @@ class Servers:
                                                 if nodeStep.attrib['FlightDate'] == str(flightdate):
                                                     QuantitytCounted = int(nodeStep.text) + 1
                                                     nodeStep.text = str(QuantitytCounted)
-                                                    #added = True
                                                     Results.Result = 2  # сплюсовали
                                                     break
                                             else:
                                                 step.text = str(QuantitytCounted)
                                                 nodeRoute.append(step)
-                                                #added = True
                                                 Results.Result = 1  # вставили
                                                 break
                                     else:
                                         step.text = str(QuantitytCounted)
                                         Route.append(step)
                                         nodeFlight.append(Route)
-                                        #added = True
                                         Results.Result = 1  # вставили
                                         break
                             else:

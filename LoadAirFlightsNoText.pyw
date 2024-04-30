@@ -677,7 +677,7 @@ def myApplication():
                     if S.InsertAirLineByIATAandICAO(AL, None):
                         ListAirLinesAdded.append(AL)
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                        print(colorama.Fore.GREEN + "добавилась ", end=" ")
+                        print(colorama.Fore.GREEN + "вставилась ", end=" ")
                         break
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -706,7 +706,7 @@ def myApplication():
                         if S.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=S.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                            print(colorama.Fore.GREEN + "добавился", end=" ")
+                            print(colorama.Fore.GREEN + "вставился", end=" ")
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -717,7 +717,7 @@ def myApplication():
                         if S.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                            print(colorama.Fore.GREEN + "добавился", end=" ")
+                            print(colorama.Fore.GREEN + "вставился", end=" ")
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -782,7 +782,7 @@ def myApplication():
                             if S.InsertAirRoute(DBAirPortDep.AirPortUniqueNumber, DBAirPortArr.AirPortUniqueNumber):
                                 CountRoutesAdded += 1
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                                print(colorama.Fore.GREEN + "добавился", end=" ")
+                                print(colorama.Fore.GREEN + "вставился", end=" ")
                                 break
                             else:
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -799,7 +799,7 @@ def myApplication():
                         # Вставляем аэропорт только с кодом IATA
                         if S.InsertAirPortByIATA(Arr):
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                            print(colorama.Fore.GREEN + "добавили аэропорт", str(Arr), end=" ")
+                            print(colorama.Fore.GREEN + "вставили аэропорт", str(Arr), end=" ")
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
@@ -813,7 +813,7 @@ def myApplication():
                     # Вставляем аэропорт только с кодом IATA
                     if S.InsertAirPortByIATA(Dep):
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                        print(colorama.Fore.GREEN + "добавили аэропорт", str(Dep), end=" ")
+                        print(colorama.Fore.GREEN + "вставили аэропорт", str(Dep), end=" ")
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
@@ -936,15 +936,15 @@ def myApplication():
         # Формируем итоги
         # todo Сделать итоги в виде XML и писать его полем XML.Document в базу данных
         if ListAirLinesAdded:
-            OutputString += " - добавлены авиакомпании: \n  "
+            OutputString += " - вставились авиакомпании: \n  "
             OutputString += str(set(ListAirLinesAdded))  # fixme с регистрациями NaN надолго зависает, не убирает повторы и не группирует
             OutputString += " \n"
         if ListAirLinesFailed:
-            OutputString += " - не добавлены данные по авиакомпаниям: \n  "
+            OutputString += " - не вставились данные по авиакомпаниям: \n  "
             OutputString += str(set(ListAirLinesFailed))
             OutputString += " \n"
         if ListAirCraftsAdded:
-            OutputString += " - добавлены самолеты: \n  "
+            OutputString += " - вставили самолеты: \n  "
             OutputString += str(set(ListAirCraftsAdded))
             OutputString += " \n"
         if ListAirCraftsUpdated:
@@ -958,20 +958,20 @@ def myApplication():
             OutputString += str(set(ListAirCraftsFailed))
             OutputString += " \n"
         if CountRoutesAdded:
-            OutputString += " - добавлено " + str(CountRoutesAdded) + " маршрутов \n"
+            OutputString += " - вставились " + str(CountRoutesAdded) + " маршруты \n"
         if CountRoutesFailed:
-            OutputString += " - не добавлено " + str(CountRoutesFailed) + " маршрутов \n"
+            OutputString += " - не вставились " + str(CountRoutesFailed) + " маршруты \n"
             OutputString += " \n"
         if ListAirPortsNotFounded:
             OutputString += " - не найдены аэропорты: \n  "
             OutputString += str(set(ListAirPortsNotFounded))
             OutputString += " \n"
         if CountFlightsAdded:
-            OutputString += " - добавлено " + str(CountFlightsAdded) + " авиарейсов \n"
+            OutputString += " - вставились " + str(CountFlightsAdded) + " авиарейсы \n"
         if CountFlightsFailed:
-            OutputString += " - не добавлено " + str(CountFlightsFailed) + " авиарейсов \n"
+            OutputString += " - не вставились " + str(CountFlightsFailed) + " авиарейсы \n"
         if CountFlightsPadded:
-            OutputString += " - сплюсовано " + str(CountFlightsPadded) + " авиарейсов \n"
+            OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиарейсы \n"
         OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
         # Дописываем в журнал (обычным способом)
         # fixme Большая строка не дописывается, скрипт долго висит

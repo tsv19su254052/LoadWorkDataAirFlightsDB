@@ -977,7 +977,7 @@ class Servers:
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts):
 
         class Results():
-            Result = False  # 0 - несработка, 1 - вставили, 2 - сплюсовали
+            Result = False  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
@@ -1020,25 +1020,25 @@ class Servers:
                                                 if nodeStep.attrib['FlightDate'] == str(flightdate):
                                                     QuantitytCounted = int(nodeStep.text) + 1
                                                     nodeStep.text = str(QuantitytCounted)
-                                                    Results.Result = 2  # сплюсовали
+                                                    Results.Result = 2
                                                     break
                                             else:
                                                 step.text = str(QuantitytCounted)
                                                 nodeRoute.append(step)
-                                                Results.Result = 1  # вставили
+                                                Results.Result = 1
                                                 break
                                     else:
                                         step.text = str(QuantitytCounted)
                                         Route.append(step)
                                         nodeFlight.append(Route)
-                                        Results.Result = 1  # вставили
+                                        Results.Result = 1
                                         break
                             else:
                                 step.text = str(QuantitytCounted)
                                 Route.append(step)
                                 Flight.append(Route)
                                 root_tag_FlightsByRoutes.append(Flight)
-                                Results.Result = 1  # вставили
+                                Results.Result = 1
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
@@ -1046,7 +1046,7 @@ class Servers:
                         self.cnxnAC_XML.commit()
                     except Exception:
                         self.cnxnAC_XML.rollback()
-                        Results.Result = 0  # не сработка
+                        Results.Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -1061,20 +1061,20 @@ class Servers:
                             SQLQuery += str(db_air_craft) + ", '"  # bigint
                             SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
                             SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                            Results.Result = 1  # вставили
+                            Results.Result = 1
                         elif ResultQuery is not None:
                             quantity = ResultQuery.QuantityCounted + 1
                             SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
                             SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
                             SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                            Results.Result = 2  # сплюсовали
+                            Results.Result = 2
                         else:
                             pass
                         self.seekFN.execute(SQLQuery)
                         self.cnxnFN.commit()
                     except Exception:
                         self.cnxnFN.rollback()
-                        Results.Result = 0  # не сработка
+                        Results.Result = 0
                     finally:
                         pass
             elif db_air_craft is None:

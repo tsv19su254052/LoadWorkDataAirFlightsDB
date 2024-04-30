@@ -977,8 +977,6 @@ def myApplication():
             OutputString += " - не добавлено " + str(CountFlightsFailed) + " авиарейсов \n"
         if CountFlightsPadded:
             OutputString += " - сплюсовано " + str(CountFlightsPadded) + " авиарейсов \n"
-        if CountProgressBarFailed:
-            OutputString += " - отказов полосы выполнения =" + str(CountProgressBarFailed) + " \n"
         OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
         # Дописываем в журнал (обычным способом)
         # fixme Большая строка не дописывается, скрипт долго висит

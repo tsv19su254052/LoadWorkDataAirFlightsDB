@@ -977,7 +977,7 @@ class Servers:
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts):
 
         class Results():
-            Result = False
+            Result = False  # 0 - несработка, 1 - вставили, 2 - сплюсовали
 
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:

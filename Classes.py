@@ -990,7 +990,6 @@ class Servers:
                         XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         ResultXML = self.seekAC_XML.fetchone()
-                        print(" ResultXML = " + str(ResultXML))
                         QuantitytCounted = 1  # количество таких авиаперелетов за этот день
                         QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                         QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
@@ -1040,7 +1039,6 @@ class Servers:
                                 root_tag_FlightsByRoutes.append(Flight)
                                 Results.Result = 1
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
-                        print("xml_FlightsByRoutes_to_String = " +str(xml_FlightsByRoutes_to_String))
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         self.cnxnAC_XML.commit()

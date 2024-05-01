@@ -974,7 +974,7 @@ class Servers:
         finally:
             return ResultSQL
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts):
+    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results():
             Result = False  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали

@@ -67,6 +67,7 @@ S.ErrorFileTXT = 'LogReport_Errors.txt'
 # Флаги
 S.useAirFlightsDB = True
 S.useAirCraftsDSN = False
+S.useXQuery = False
 S.SetInputDate = False
 
 # Состояния
@@ -840,7 +841,7 @@ def myApplication():
                         DBAirRoute = S.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = S.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, S.BeginDate, S.useAirCraftsDSN)
+                            ResultModify = S.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, S.BeginDate, S.useAirCraftsDSN, S.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

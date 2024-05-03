@@ -117,6 +117,8 @@ def myApplication():
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
+    myDialog.radioButton_DSN_AirCrafts_DOM.setToolTip("При использовании ПОЛНОЙ модели восстановления БД\n данный метод мягко говоря сильно загружает файл журнала *.ldf")
+    myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Можно выставить в свойствах БД модель восстановления - ПОЛНАЯ \n экономит ресурсы, но работает медленнее")
     myDialog.radioButton_DB_AirFlights.setChecked(True)
     myDialog.radioButton_DSN_AirCrafts_DOM.setChecked(True)
 

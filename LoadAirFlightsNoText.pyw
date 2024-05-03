@@ -117,7 +117,7 @@ def myApplication():
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
-    myDialog.radioButton_DB_AirFlights.setEnabled(True)
+    myDialog.radioButton_DB_AirFlights.setChecked(True)
     myDialog.pushButton_GetStarted.setEnabled(False)
 
     def PrepareForInputData(Key):

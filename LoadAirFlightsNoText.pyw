@@ -118,7 +118,7 @@ def myApplication():
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
     myDialog.radioButton_DB_AirFlights.setChecked(True)
-    myDialog.pushButton_GetStarted.setEnabled(False)
+    myDialog.radioButton_DSN_AirCrafts_DOM.setChecked(True)
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
@@ -229,10 +229,12 @@ def myApplication():
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
     RadioButtonsToggled()
-    #UpdateFlightsSourcesChoiceByStatesAndFlags()
+    RadioButtonsXQueryToggled()
+    UpdateFlightsSourcesChoiceByStatesAndFlags()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
     myDialog.pushButton_Disconnect_RT.setEnabled(False)
     myDialog.pushButton_Disconnect_AC.setEnabled(False)
+    myDialog.pushButton_GetStarted.setEnabled(False)
     myDialog.label_execute.setEnabled(False)
 
     # Привязки обработчиков todo без lambda не работает

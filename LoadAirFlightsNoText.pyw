@@ -172,6 +172,7 @@ def myApplication():
         if S.Connected_AC_XML or S.Connected_ACFN:
             # Переключаем в рабочее состояние
             myDialog.groupBox.setEnabled(False)
+            myDialog.groupBox_2.setEnabled(False)
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
@@ -186,6 +187,7 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
+            myDialog.groupBox_2.setEnabled(True)
             if S.useAirCraftsDSN:
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)

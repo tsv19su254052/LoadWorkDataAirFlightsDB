@@ -928,9 +928,9 @@ def myApplication():
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
         if S.useXQuery:
-            OutputString += " Используется хранимая процедура со вставками на xQuery \n"
+            OutputString += " Используется xQuery (SAX) \n"
         else:
-            OutputString += " Используется xml.etree.ElementTree \n"
+            OutputString += " Используется xml.etree.ElementTree (DOM) \n"
         if S.useAirCraftsDSN:
             OutputString += " Сервер СУБД = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
             OutputString += " Драйвер = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"

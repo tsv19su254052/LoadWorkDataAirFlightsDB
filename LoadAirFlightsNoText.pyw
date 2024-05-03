@@ -216,6 +216,12 @@ def myApplication():
                 S.useAirFlightsDB = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
 
+    def RadioButtonsXQueryToggled():
+        if myDialog.radioButton_DSN_AirCrafts_DOM.isChecked():
+            S.useXQuery = False
+        if myDialog.radioButton_DSN_AirCrafts_SAX.isChecked():
+            S.useXQuery = True
+
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
     RadioButtonsToggled()
@@ -230,6 +236,8 @@ def myApplication():
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DSN_AirCrafts_DOM.toggled.connect(lambda: RadioButtonsXQueryToggled())
+    myDialog.radioButton_DSN_AirCrafts_SAX.toggled.connect(lambda: RadioButtonsXQueryToggled())
     #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует
     myDialog.pushButton_Connect_AL.clicked.connect(lambda: PushButtonConnect_AL())  # Подключиться к базе данных
     myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных

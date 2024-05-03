@@ -117,6 +117,7 @@ def myApplication():
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
+    myDialog.radioButton_DB_AirFlights.setEnabled(True)
     myDialog.pushButton_GetStarted.setEnabled(False)
 
     def PrepareForInputData(Key):
@@ -171,12 +172,12 @@ def myApplication():
         # Состояния + Флаги -> Графическая оболочка
         if S.Connected_AC_XML or S.Connected_ACFN:
             # Переключаем в рабочее состояние
-            myDialog.groupBox.setEnabled(False)
-            #myDialog.groupBox_2.setEnabled(False)
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(False)
+            myDialog.groupBox.setEnabled(False)
+            myDialog.groupBox_2.setEnabled(False)
             if S.Connected_AL and S.Connected_RT:
                 PrepareForInputData(True)
         else:
@@ -187,14 +188,15 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
-            #myDialog.groupBox_2.setEnabled(True)
             if S.useAirCraftsDSN:
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(False)
                 myDialog.comboBox_DSN_AC.setEnabled(True)
+                myDialog.groupBox_2.setEnabled(True)
             else:
                 myDialog.comboBox_DSN_AC.setEnabled(False)
+                myDialog.groupBox_2.setEnabled(False)
                 if S.useAirFlightsDB:
                     myDialog.comboBox_DB_FN.setEnabled(True)
                     myDialog.comboBox_Driver_FN.setEnabled(True)
@@ -210,10 +212,8 @@ def myApplication():
         # Переключатели -> Флаги
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
             S.useAirCraftsDSN = True
-            myDialog.groupBox_2.setEnabled(True)
         else:
             S.useAirCraftsDSN = False
-            myDialog.groupBox_2.setEnabled(False)
             if myDialog.radioButton_DB_AirFlights.isChecked():
                 S.useAirFlightsDB = True
             if myDialog.radioButton_DSN_AirFlights.isChecked():

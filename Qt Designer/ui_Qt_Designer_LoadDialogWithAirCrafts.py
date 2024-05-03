@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Qt_Designer_LoadDialogWithAirCraftsrrvWpZ.ui'
+## Form generated from reading UI file 'Qt_Designer_LoadDialogWithAirCraftsHOzYsW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -99,10 +99,6 @@ class Ui_Dialog(object):
         self.pushButton_Connect_RT = QPushButton(Dialog)
         self.pushButton_Connect_RT.setObjectName(u"pushButton_Connect_RT")
         self.pushButton_Connect_RT.setGeometry(QRect(420, 170, 91, 23))
-        self.label_25 = QLabel(Dialog)
-        self.label_25.setObjectName(u"label_25")
-        self.label_25.setGeometry(QRect(10, 10, 121, 121))
-        self.label_25.setPixmap(QPixmap(u"../\u0417\u043d\u0430\u0447\u043a\u0438 (\u0418\u043a\u043e\u043d\u043a\u0438)/2059278.png"))
         self.lineEdit_Schema_AL = QLineEdit(Dialog)
         self.lineEdit_Schema_AL.setObjectName(u"lineEdit_Schema_AL")
         self.lineEdit_Schema_AL.setGeometry(QRect(140, 290, 171, 20))
@@ -141,7 +137,7 @@ class Ui_Dialog(object):
         self.checkBox_SetInputDate.setGeometry(QRect(730, 320, 201, 18))
         self.label_Version = QLabel(Dialog)
         self.label_Version.setObjectName(u"label_Version")
-        self.label_Version.setGeometry(QRect(730, 230, 201, 20))
+        self.label_Version.setGeometry(QRect(10, 170, 201, 20))
         self.label_Version.setLayoutDirection(Qt.LeftToRight)
         self.pushButton_Disconnect_AC = QPushButton(Dialog)
         self.pushButton_Disconnect_AC.setObjectName(u"pushButton_Disconnect_AC")
@@ -199,7 +195,7 @@ class Ui_Dialog(object):
         self.label_22.setGeometry(QRect(610, 350, 51, 20))
         self.label_31 = QLabel(Dialog)
         self.label_31.setObjectName(u"label_31")
-        self.label_31.setGeometry(QRect(730, 100, 128, 128))
+        self.label_31.setGeometry(QRect(10, 10, 128, 128))
         self.label_31.setPixmap(QPixmap(u"../\u0417\u043d\u0430\u0447\u043a\u0438 (\u0418\u043a\u043e\u043d\u043a\u0438)/research.ico"))
         self.label_23 = QLabel(Dialog)
         self.label_23.setObjectName(u"label_23")
@@ -208,6 +204,15 @@ class Ui_Dialog(object):
         self.label_BeginDate.setObjectName(u"label_BeginDate")
         self.label_BeginDate.setGeometry(QRect(730, 270, 201, 20))
         self.label_BeginDate.setLayoutDirection(Qt.LeftToRight)
+        self.groupBox_2 = QGroupBox(Dialog)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.groupBox_2.setGeometry(QRect(730, 100, 131, 51))
+        self.radioButton_DSN_AirCrafts_DOM = QRadioButton(self.groupBox_2)
+        self.radioButton_DSN_AirCrafts_DOM.setObjectName(u"radioButton_DSN_AirCrafts_DOM")
+        self.radioButton_DSN_AirCrafts_DOM.setGeometry(QRect(10, 20, 51, 20))
+        self.radioButton_DSN_AirCrafts_SAX = QRadioButton(self.groupBox_2)
+        self.radioButton_DSN_AirCrafts_SAX.setObjectName(u"radioButton_DSN_AirCrafts_SAX")
+        self.radioButton_DSN_AirCrafts_SAX.setGeometry(QRect(70, 20, 51, 18))
 
         self.retranslateUi(Dialog)
 
@@ -230,7 +235,6 @@ class Ui_Dialog(object):
         self.label_19.setText(QCoreApplication.translate("Dialog", u"\u0414\u0440\u0430\u0439\u0432\u0435\u0440 \u0421\u0423\u0411\u0414", None))
         self.pushButton_Disconnect_RT.setText(QCoreApplication.translate("Dialog", u"\u041e\u0442\u043a\u043b\u044e\u0447\u0438\u0442\u044c\u0441\u044f", None))
         self.pushButton_Connect_RT.setText(QCoreApplication.translate("Dialog", u"\u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u044c\u0441\u044f", None))
-        self.label_25.setText("")
         self.label_20.setText(QCoreApplication.translate("Dialog", u"\u0414\u0440\u0430\u0439\u0432\u0435\u0440 \u0421\u0423\u0411\u0414", None))
         self.pushButton_Disconnect_AL.setText(QCoreApplication.translate("Dialog", u"\u041e\u0442\u043a\u043b\u044e\u0447\u0438\u0442\u044c\u0441\u044f", None))
         self.pushButton_Connect_AL.setText(QCoreApplication.translate("Dialog", u"\u041f\u043e\u0434\u043a\u043b\u044e\u0447\u0438\u0442\u044c\u0441\u044f", None))
@@ -250,5 +254,8 @@ class Ui_Dialog(object):
         self.label_31.setText("")
         self.label_23.setText(QCoreApplication.translate("Dialog", u"\u0421\u0438\u0441\u0442\u0435\u043c\u043d\u044b\u0439 DSN", None))
         self.label_BeginDate.setText(QCoreApplication.translate("Dialog", u"\u0414\u0430\u0442\u0430 \u043d\u0430\u0447\u0430\u043b\u0430 \u043f\u0435\u0440\u0438\u043e\u0434\u0430 \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("Dialog", u"\u041f\u0430\u0440\u0441\u0438\u0442\u044c \u0411\u0414 \u043a\u0430\u043a:", None))
+        self.radioButton_DSN_AirCrafts_DOM.setText(QCoreApplication.translate("Dialog", u"DOM", None))
+        self.radioButton_DSN_AirCrafts_SAX.setText(QCoreApplication.translate("Dialog", u"SAX", None))
     # retranslateUi
 

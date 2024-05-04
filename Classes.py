@@ -1,6 +1,5 @@
 #  Interpreter 3.7 -> 3.10
-
-
+import pyodbc
 from PyQt5 import QtWidgets, QtCore, QtGui  # оставили 5-ую версию, потому что много наработок еще завязаны на нее
 # todo ветка библиотек Qt - QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner, QtXml
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
@@ -993,7 +992,8 @@ class Servers:
                             self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
-                            Data = self.seekAC_XML.fetchone()
+                            Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            print("Data = " + str(Data))
                             if Data:
                                 Results.Result = Data[0]
                             else:
@@ -1003,7 +1003,10 @@ class Servers:
                             #Status = self.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
                             self.cnxnAC_XML.commit()
-                        except Exception:
+                        except pyodbc.Error as error:
+                            sqlstate0 = error.args[0]
+                            sqlstate1 = error.args[1]
+                            print(" pyodbcError = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
                             self.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:

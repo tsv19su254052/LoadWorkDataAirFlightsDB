@@ -1009,6 +1009,9 @@ class Servers:
                             #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
+                            addedFlight = False
+                            addedRoute = False
+                            addedStep = False
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
                             # fixme в данных наблюдаются по несколько номеров FlightNumberString и по несколько марщрутов
                             for nodeFlight in SearchFlight:
@@ -1021,20 +1024,23 @@ class Servers:
                                                 if nodeStep.attrib['FlightDate'] == str(flightdate):
                                                     QuantitytCounted = int(nodeStep.text) + 1
                                                     nodeStep.text = str(QuantitytCounted)
+                                                    addedStep = True
                                                     Results.Result = 2
-                                                    break
-                                            else:
+                                                    #break
+                                            if not addedStep:
                                                 step.text = str(QuantitytCounted)
                                                 nodeRoute.append(step)
+                                                addedRoute = True
                                                 Results.Result = 1
-                                                break
-                                    else:
+                                                #break
+                                    if not addedRoute and not addedStep:
                                         step.text = str(QuantitytCounted)
                                         Route.append(step)
                                         nodeFlight.append(Route)
+                                        addedFlight = True
                                         Results.Result = 1
-                                        break
-                            else:
+                                        #break
+                            if not addedFlight and not addedRoute and not addedStep:
                                 step.text = str(QuantitytCounted)
                                 Route.append(step)
                                 Flight.append(Route)

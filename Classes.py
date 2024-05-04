@@ -984,77 +984,93 @@ class Servers:
             db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
                 if useAirCrafts:
-                    # fixme на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных (модель восстановления БД - ПОЛНАЯ)
-                    try:
-                        SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        self.seekAC_XML.execute(SQLQuery)
-                        XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                        self.seekAC_XML.execute(XMLQuery)
-                        ResultXML = self.seekAC_XML.fetchone()
-                        QuantityCounted = 1  # количество таких авиаперелетов за этот день
-                        QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
-                        QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
-                        QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
-                        step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                        Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                        Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
-                        root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
-                        paddedStep = False
-                        addedStep = False
-                        addedRoute = False
-                        addedFlight = False
-                        if ResultXML[0] is None:
-                            step.text = str(QuantityCounted)
-                            Route.append(step)
-                            #Flight.text = str(1)
-                            Flight.append(Route)
-                            #root_tag_FlightsByRoutes.text = str(1)
-                            root_tag_FlightsByRoutes.append(Flight)
-                            #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
-                            addedStep = True
-                            addedRoute = True
-                            addedFlight = True
-                        else:
-                            root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
-                            SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                            # fixme в БД наблюдаются дубликаты FlightNumberString, Route , step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил else на if not added...
-                            for nodeFlight in SearchFlight:
-                                if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
-                                    SearchRoute = nodeFlight.findall(".//Route")
-                                    for nodeRoute in SearchRoute:
-                                        if nodeRoute.attrib['RouteFK'] == str(db_air_route):
-                                            SearchStep = nodeRoute.findall(".//step")
-                                            for nodeStep in SearchStep:
-                                                if nodeStep.attrib['FlightDate'] == str(flightdate) and not paddedStep:
-                                                    QuantityCounted = int(nodeStep.text) + 1
-                                                    nodeStep.text = str(QuantityCounted)
-                                                    paddedStep = True
-                                                    Results.Result = 2
-                                            if not paddedStep:
-                                                step.text = str(QuantityCounted)
-                                                nodeRoute.append(step)
-                                                addedStep = True
-                                                Results.Result = 1
-                                    if not paddedStep and not addedStep:
-                                        step.text = str(QuantityCounted)
-                                        Route.append(step)
-                                        nodeFlight.append(Route)
-                                        addedRoute = True
-                                        Results.Result = 1
-                            if not paddedStep and not addedStep and not addedRoute:
+                    if useXQuery:
+                        try:
+                            SQLQuery = "DECLARE @ReturnData INT"
+                            #SQLQuery += "SET @ReturnData = 5"
+                            self.seekAC_XML.execute(SQLQuery)
+                            SQLQuery = "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            self.seekAC_XML.execute(SQLQuery)
+                            SQLQuery = "SELECT @ReturnData"
+                            self.seekAC_XML.execute(SQLQuery)
+                            self.cnxnAC_XML.commit()
+                            Results.Result = self.seekAC_XML.fetchone()
+                            print(" Результат хранимой процедуры = " + str(Results.Result))
+                        except Exception:
+                            self.cnxnAC_XML.rollback()
+                            Results.Result = 0
+                    else:
+                        # fixme на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных (модель восстановления БД - ПОЛНАЯ) -> сделал ПРОСТАЯ
+                        try:
+                            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+                            self.seekAC_XML.execute(SQLQuery)
+                            XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
+                            self.seekAC_XML.execute(XMLQuery)
+                            ResultXML = self.seekAC_XML.fetchone()
+                            QuantityCounted = 1  # количество таких авиаперелетов за этот день
+                            QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
+                            QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
+                            QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
+                            step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
+                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
+                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
+                            root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
+                            paddedStep = False
+                            addedStep = False
+                            addedRoute = False
+                            addedFlight = False
+                            if ResultXML[0] is None:
                                 step.text = str(QuantityCounted)
                                 Route.append(step)
+                                #Flight.text = str(1)
                                 Flight.append(Route)
+                                #root_tag_FlightsByRoutes.text = str(1)
                                 root_tag_FlightsByRoutes.append(Flight)
+                                #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
+                                addedStep = True
+                                addedRoute = True
                                 addedFlight = True
-                                Results.Result = 1
-                        xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
-                        XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                        self.seekAC_XML.execute(XMLQuery)
-                        self.cnxnAC_XML.commit()
-                    except Exception:
-                        self.cnxnAC_XML.rollback()
-                        Results.Result = 0
+                            else:
+                                root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
+                                SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
+                                # fixme в БД наблюдаются дубликаты FlightNumberString, Route, step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил else на if not added...
+                                for nodeFlight in SearchFlight:
+                                    if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
+                                        SearchRoute = nodeFlight.findall(".//Route")
+                                        for nodeRoute in SearchRoute:
+                                            if nodeRoute.attrib['RouteFK'] == str(db_air_route):
+                                                SearchStep = nodeRoute.findall(".//step")
+                                                for nodeStep in SearchStep:
+                                                    if nodeStep.attrib['FlightDate'] == str(flightdate) and not paddedStep:
+                                                        QuantityCounted = int(nodeStep.text) + 1
+                                                        nodeStep.text = str(QuantityCounted)
+                                                        paddedStep = True
+                                                        Results.Result = 2
+                                                if not paddedStep:
+                                                    step.text = str(QuantityCounted)
+                                                    nodeRoute.append(step)
+                                                    addedStep = True
+                                                    Results.Result = 1
+                                        if not paddedStep and not addedStep:
+                                            step.text = str(QuantityCounted)
+                                            Route.append(step)
+                                            nodeFlight.append(Route)
+                                            addedRoute = True
+                                            Results.Result = 1
+                                if not paddedStep and not addedStep and not addedRoute:
+                                    step.text = str(QuantityCounted)
+                                    Route.append(step)
+                                    Flight.append(Route)
+                                    root_tag_FlightsByRoutes.append(Flight)
+                                    addedFlight = True
+                                    Results.Result = 1
+                            xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
+                            XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
+                            self.seekAC_XML.execute(XMLQuery)
+                            self.cnxnAC_XML.commit()
+                        except Exception:
+                            self.cnxnAC_XML.rollback()
+                            Results.Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

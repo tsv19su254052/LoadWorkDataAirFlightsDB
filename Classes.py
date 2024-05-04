@@ -993,9 +993,9 @@ class Servers:
                             self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "SELECT @ReturnData"
                             self.seekAC_XML.execute(SQLQuery)
-                            self.cnxnAC_XML.commit()
                             Results.Result = self.seekAC_XML.fetchone()
                             print(" Результат хранимой процедуры = " + str(Results.Result))
+                            self.cnxnAC_XML.commit()
                         except Exception:
                             self.cnxnAC_XML.rollback()
                             Results.Result = 0

@@ -986,12 +986,12 @@ class Servers:
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            SQLQuery = "DECLARE @ReturnData INT"
-                            SQLQuery += "SET @ReturnData = 5"
+                            SQLQuery = "DECLARE @ReturnData INT "
+                            SQLQuery += "SET @ReturnData = 5 "
                             self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "' "
                             self.seekAC_XML.execute(SQLQuery)
-                            SQLQuery = "SELECT @ReturnData"
+                            SQLQuery = "SELECT @ReturnData "
                             self.seekAC_XML.execute(SQLQuery)
                             Data = self.seekAC_XML.fetchone()
                             Results.Result = Data[0]

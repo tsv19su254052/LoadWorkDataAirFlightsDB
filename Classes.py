@@ -1009,6 +1009,10 @@ class Servers:
                             print(" pyodbcError = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
                             self.cnxnAC_XML.rollback()
                             Results.Result = 0
+                        except Exception as exception:
+                            print(" exception = " + str(exception))
+                            self.cnxnAC_XML.rollback()
+                            Results.Result = 0
                     else:
                         # fixme на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных (модель восстановления БД - ПОЛНАЯ) -> сделал ПРОСТАЯ
                         try:

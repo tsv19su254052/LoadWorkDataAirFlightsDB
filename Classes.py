@@ -1013,7 +1013,7 @@ class Servers:
                             addedRoute = False
                             addedStep = False
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                            # fixme в данных наблюдаются по несколько номеров FlightNumberString и по несколько марщрутов (дубликаты, цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил блоки циклов else на if not added...
+                            # fixme в БД наблюдаются дубликаты FlightNumberString, Route , step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил блоки циклов else на if not added...
                             for nodeFlight in SearchFlight:
                                 if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
                                     SearchRoute = nodeFlight.findall(".//Route")

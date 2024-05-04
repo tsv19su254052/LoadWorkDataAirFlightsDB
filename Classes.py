@@ -991,7 +991,7 @@ class Servers:
                         XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
                         self.seekAC_XML.execute(XMLQuery)
                         ResultXML = self.seekAC_XML.fetchone()
-                        QuantitytCounted = 1  # количество таких авиаперелетов за этот день
+                        QuantityCounted = 1  # количество таких авиаперелетов за этот день
                         QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                         QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
                         QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
@@ -999,21 +999,25 @@ class Servers:
                         Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
                         Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
                         root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
+                        paddedStep = False
+                        addedStep = False
+                        addedRoute = False
+                        addedFlight = False
                         if ResultXML[0] is None:
-                            step.text = str(QuantitytCounted)
+                            step.text = str(QuantityCounted)
                             Route.append(step)
                             #Flight.text = str(1)
                             Flight.append(Route)
                             #root_tag_FlightsByRoutes.text = str(1)
                             root_tag_FlightsByRoutes.append(Flight)
                             #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
+                            addedStep = True
+                            addedRoute = True
+                            addedFlight = True
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
-                            addedFlight = False
-                            addedRoute = False
-                            addedStep = False
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                            # fixme в БД наблюдаются дубликаты FlightNumberString, Route , step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил блоки циклов else на if not added...
+                            # fixme в БД наблюдаются дубликаты FlightNumberString, Route , step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил else на if not added...
                             for nodeFlight in SearchFlight:
                                 if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
                                     SearchRoute = nodeFlight.findall(".//Route")
@@ -1021,30 +1025,28 @@ class Servers:
                                         if nodeRoute.attrib['RouteFK'] == str(db_air_route):
                                             SearchStep = nodeRoute.findall(".//step")
                                             for nodeStep in SearchStep:
-                                                if nodeStep.attrib['FlightDate'] == str(flightdate):
-                                                    QuantitytCounted = int(nodeStep.text) + 1
-                                                    nodeStep.text = str(QuantitytCounted)
-                                                    addedStep = True
+                                                if nodeStep.attrib['FlightDate'] == str(flightdate) and not paddedStep:
+                                                    QuantityCounted = int(nodeStep.text) + 1
+                                                    nodeStep.text = str(QuantityCounted)
+                                                    paddedStep = True
                                                     Results.Result = 2
-                                                    #break
-                                            if not addedStep:
-                                                step.text = str(QuantitytCounted)
+                                            if not paddedStep:
+                                                step.text = str(QuantityCounted)
                                                 nodeRoute.append(step)
-                                                addedRoute = True
+                                                addedStep = True
                                                 Results.Result = 1
-                                                #break
-                                    if not addedRoute and not addedStep:
-                                        step.text = str(QuantitytCounted)
+                                    if not paddedStep and not addedStep:
+                                        step.text = str(QuantityCounted)
                                         Route.append(step)
                                         nodeFlight.append(Route)
-                                        addedFlight = True
+                                        addedRoute = True
                                         Results.Result = 1
-                                        #break
-                            if not addedFlight and not addedRoute and not addedStep:
-                                step.text = str(QuantitytCounted)
+                            if not paddedStep and not addedStep and not addedRoute:
+                                step.text = str(QuantityCounted)
                                 Route.append(step)
                                 Flight.append(Route)
                                 root_tag_FlightsByRoutes.append(Flight)
+                                addedFlight = True
                                 Results.Result = 1
                         xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                         XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "

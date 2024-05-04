@@ -990,11 +990,15 @@ class Servers:
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "DECLARE @ReturnData INT = 5 EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            self.seekAC_XML.execute(SQLQuery)
+                            #self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "SELECT @ReturnData "
-                            self.seekAC_XML.execute(SQLQuery)
-                            Data = self.seekAC_XML.fetchone()
-                            Results.Result = Data[0]
+                            #self.seekAC_XML.execute(SQLQuery)
+                            #Data = self.seekAC_XML.fetchone()
+                            #Results.Result = Data[0]
+                            self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
+                            Status = self.seekAC_XML.proc_status
+                            print(" Status = " + str(Status))
+                            Results.Result = 1
                             print(" Результат хранимой процедуры = " + str(Results.Result))
                             self.cnxnAC_XML.commit()
                         except Exception:

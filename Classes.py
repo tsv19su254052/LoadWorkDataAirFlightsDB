@@ -995,7 +995,7 @@ class Servers:
                             #self.seekAC_XML.execute(SQLQuery)
                             #Data = self.seekAC_XML.fetchone()
                             #Results.Result = Data[0]
-                            self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
+                            self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, (al + fn), db_air_route, flightdate, begindate))
                             Status = self.seekAC_XML.proc_status
                             print(" Status = " + str(Status))
                             Results.Result = 1

@@ -989,7 +989,7 @@ class Servers:
                             SQLQuery = "DECLARE @ReturnData INT = 5 "
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
-                            SQLQuery = "DECLARE @ReturnData INT = 5 EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            SQLQuery = "DECLARE @ReturnData INT = 5 EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "SELECT @ReturnData "
                             self.seekAC_XML.execute(SQLQuery)

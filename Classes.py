@@ -1010,7 +1010,7 @@ class Servers:
                         else:
                             root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
                             SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                            # fixme в данных наблюдаются по несколько номеров авиарейсов и марщрутов
+                            # fixme в данных наблюдаются по несколько номеров FlightNumberString и по несколько марщрутов
                             for nodeFlight in SearchFlight:
                                 if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
                                     SearchRoute = nodeFlight.findall(".//Route")

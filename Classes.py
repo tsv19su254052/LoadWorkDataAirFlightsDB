@@ -757,7 +757,7 @@ class Servers:
                 root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
                 Search = root_tag.findall(".//User")
                 print(" Search = " + str(Search))
-                #added = False
+                added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
@@ -768,9 +768,9 @@ class Servers:
                         # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         node.append(DateTime)
                         #root_tag.append(User)
-                        #added = True
-                        break
-                else:
+                        added = True
+                        #break
+                if not added:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     #User.append(DateTime)
                     root_tag.append(User)
@@ -848,14 +848,14 @@ class Servers:
                 Count += ResultSQL[0]
                 root_tag = ElementTree.fromstring(ResultXML[0])
                 Search = root_tag.findall(".//User")
-                #added = False
+                added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
                         print(colorama.Fore.LIGHTYELLOW_EX + "Добавляем в ветку с " + str(user) + " еще одну подветку с " + str(host) + " и с отметкой времени")
                         node.append(DateTime)
-                        #added = True
-                        break
-                else:
+                        added = True
+                        #break
+                if not added:
                     print(colorama.Fore.LIGHTCYAN_EX + "Вставляем новую ветку с " + str(user) + ", подветку с " + str(host) + " и с отметкой времени")
                     root_tag.append(User)
             print("LogCountChanged = " + str(Count))

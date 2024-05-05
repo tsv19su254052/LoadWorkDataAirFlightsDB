@@ -1,5 +1,5 @@
 #  Interpreter 3.7 -> 3.10
-from PyQt5 import QtWidgets, QtCore, QtGui  # оставили 5-ую версию, потому что много наработок еще завязаны на нее
+from PyQt5 import QtWidgets, QtCore, QtGui  # оставил 5-ую версию, потому что много наработок еще завязаны на нее
 # todo ветка библиотек Qt - QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner, QtXml
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
 

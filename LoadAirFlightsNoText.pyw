@@ -1,7 +1,8 @@
 #  Interpreter 3.7 -> 3.10
 
 
-import pyodbc  # pymssql работает тяжелее, пробуем также SQLAlchemy
+import pyodbc  # pymssql работает тяжелее
+from sqlalchemy import create_engine
 import pandas
 import itertools
 import datetime
@@ -11,16 +12,14 @@ import sys
 import socket
 import threading
 from xml.etree import ElementTree
-# оставили 5-ую версию, потому что много наработок еще завязаны на нее
+
 # QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner - запускаем в командной строке, QtXml (устарел) -> замена QXmlStreamReader, QXmlStreamWriter
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
 import pathlib
-#import stringcolor  # fixme в IDLE и в pyCharm раскраска не работает, в командной строке сразу слетает
 import colorama
 import termcolor
-#import tqdm  # fixme tqdm нужен свой цикл -> сюда не подходит
 
-# Импорт пользовательской библиотеки (файла *.py в этой же папке)
+# Импорт пользовательской библиотеки
 from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, ServerNames, FileNames, Flags, States
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала

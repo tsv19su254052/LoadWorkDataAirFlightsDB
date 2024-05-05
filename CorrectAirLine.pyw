@@ -448,13 +448,30 @@ def myApplication():
                 myDialog.pushButton_Previous.setEnabled(True)
             SetFields()
 
+    def QueryAirLineByICAO(icao):
+        # Возвращает строку авиакомпании по ее коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeICAO = '" + str(icao) + "' "
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchone()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonSearchByICAO():
         # Кнопка "Поиск"
         LineCodeICAO, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
         if ok:
             myDialog.lineEditCodeICAO.setText(str(LineCodeICAO))
             Code = myDialog.lineEditCodeICAO.text()
-            DBAirLine = S.QueryAirLineByICAO(Code)
+            DBAirLine = QueryAirLineByICAO(Code)
             if DBAirLine is not None:
                 A.Position = DBAirLine.AirLineUniqueNumber
                 A.AirLine_ID = DBAirLine.AirLine_ID
@@ -628,8 +645,25 @@ def myApplication():
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
 
+    def QueryAirLineByPK(pk):
+        # Возвращает строку авиакомпании по первичному ключу
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchone()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def CommonPart():
-        DBAirLine = S.QueryAirLineByPK(A.Position)
+        DBAirLine = QueryAirLineByPK(A.Position)
         if DBAirLine is not None:
             A.AirLine_ID = DBAirLine.AirLine_ID
             A.AirLineName = DBAirLine.AirLineName

@@ -22,15 +22,12 @@ class AirLineWork(AirLine):
             self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT AllianceUniqueNumber, AllianceName FROM dbo.AlliancesTable"  # Убрал  ORDER BY AlianceName
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchall()
+            ResultSQL = self.seekAL.fetchall()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
@@ -39,15 +36,12 @@ class AirLineWork(AirLine):
             self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
+            ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def QueryAirLineByICAO(self, icao):
         # Возвращает строку авиакомпании по ее коду ICAO
@@ -56,15 +50,12 @@ class AirLineWork(AirLine):
             self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
+            ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def QueryAirLineByIATAandICAO(self, iata, icao):
         # Возвращает строку авиакомпании по ее кодам IATA и ICAO
@@ -80,15 +71,12 @@ class AirLineWork(AirLine):
             else:
                 SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
+            ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def InsertAirLineByIATAandICAO(self, iata, icao):
         # Вставляем авиакомпанию с кодами IATA и ICAO, альянсом по умолчанию
@@ -116,10 +104,7 @@ class AirLineWork(AirLine):
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def UpdateAirLineByIATAandICAO(self, id, name, alias, iata, icao, callsign, city, country, status, date, description, aliance):
         # Обновляет данные авиакомпании в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
@@ -148,10 +133,7 @@ class AirLineWork(AirLine):
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def QueryAirLineByPK(self, pk):
         # Возвращает строку авиакомпании по первичному ключу
@@ -160,15 +142,12 @@ class AirLineWork(AirLine):
             self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
+            ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
     def QueryAlliancePKByName(self, name):
         try:
@@ -176,15 +155,12 @@ class AirLineWork(AirLine):
             self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
             self.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
+            ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+        return ResultSQL
 
 
 S = ServerNames()

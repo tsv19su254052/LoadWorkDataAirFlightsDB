@@ -797,20 +797,19 @@ def myApplication():
                             SQLQuery = "DECLARE @ReturnData INT = 5 "
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
-                            # todo После отладки убрать из строки ниже "Test" ...
+                            # todo При отладке вставлять тестовый файлик. После отладки убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             C.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "SELECT @ReturnData "
                             C.seekAC_XML.execute(SQLQuery)
-                            RV = C.seekAC_XML.fetchone()
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
-                            #Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            #print("Data = " + str(Data))
-                            Results.Result = 1
-                            print(" Результат хранимой процедуры = " + str(RV))
+                            Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            #print(" Результат хранимой процедуры = " + str(RV))
                             C.cnxnAC_XML.commit()
+                            print("Data = " + str(Data))
+                            Results.Result = 1
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]

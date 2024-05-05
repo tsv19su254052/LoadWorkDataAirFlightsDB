@@ -61,11 +61,13 @@ class ServerNames:
     ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
     ServerName = "localhost\mssqlserver15"  # указал инстанс
     #ServerName = "localhost\sqldeveloper"  # указал инстанс
+    # Подключения
     cnxnAL = ' '
     cnxnRT = ' '
     cnxnAC_XML = ' '
     cnxnAC = ' '
     cnxnFN = ' '
+    # Курсоры
     seekAL = ' '
     seekRT = ' '
     seekAC_XML = ' '

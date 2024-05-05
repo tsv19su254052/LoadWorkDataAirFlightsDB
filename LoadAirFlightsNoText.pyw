@@ -800,8 +800,8 @@ def myApplication():
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             C.seekAC_XML.execute(SQLQuery)
-                            SQLQuery = "SELECT @ReturnData "
-                            C.seekAC_XML.execute(SQLQuery)
+                            #SQLQuery = "SELECT @ReturnData "
+                            #C.seekAC_XML.execute(SQLQuery)
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))

@@ -256,22 +256,13 @@ def myApplication():
 
     def PushButtonDisconnect():
         # кнопка "Отключиться от базы данных"
-        if S.Connected_AL:
+        if St.Connected_AL:
             # Снимаем курсоры
             S.seekAL.close()
-            S.seekAC.close()
-            S.seekRT.close()
-            S.seekFN.close()
             # Отключаемся от базы данных
             S.cnxnAL.close()
-            S.cnxnAC.close()
-            S.cnxnRT.close()
-            S.cnxnFN.close()
             # Снимаем флаги
-            S.Connected_AL = False
-            S.Connected_AC = False
-            S.Connected_RT = False
-            S.Connected_FN = False
+            St.Connected_AL = False
             # Переключаем в исходное состояние
             myDialog.comboBox_DB.setEnabled(True)
             myDialog.comboBox_Driver.setEnabled(True)
@@ -822,8 +813,6 @@ def myApplication():
             elif iata is None and icao is None:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery += " WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
-                #print("raise Exception")
-                #raise Exception
             else:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "

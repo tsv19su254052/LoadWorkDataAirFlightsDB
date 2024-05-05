@@ -1045,7 +1045,7 @@ def myApplication():
         Now = time.time()
         DateTime = time.ctime(Now)
         # Отметка времени начала загрузки
-        __StartTime__ = datetime.datetime.now()
+        StartTime = datetime.datetime.now()
         #myDialog.label_execute.setText("Загрузка начата")  # оболочка зависает и слетает
         print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
         # Сигнал на обновление полоски выполнения
@@ -1100,7 +1100,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if S.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
+                        if InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -1277,7 +1277,7 @@ def myApplication():
             # todo Сделать полосу выполнения все время внизу со всеми параметрами например с помощью tqdm - Не работает в цикле
             print(colorama.Fore.CYAN + "Выполнение =", str(Execute), "%")
         # Отметка времени окончания загрузки
-        __EndTime__ = datetime.datetime.now()
+        EndTime = datetime.datetime.now()
         # Убираем с конца столбцы с нулями
         for Index in reversed(range(attemptRetryCount)):
             if DistributionDensityAirLines[Index] == 0 and DistributionDensityAirCrafts[Index] == 0 and DistributionDensityAirRoutes[Index] == 0 and DistributionDensityAirFlights[Index] == 0:
@@ -1320,7 +1320,7 @@ def myApplication():
             OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
             OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
             OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
-        OutputString += " Длительность загрузки = " + str(__EndTime__ - __StartTime__) + " \n"
+        OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"
         # Формируем итоги

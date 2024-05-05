@@ -30,11 +30,11 @@ import Classes
 
 
 # Версия обработки с цветным выводом
-__myOwnDevelopingVersion__ = 8.7
+myOwnDevelopingVersion = 8.7
 # todo Версия задается тут. Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны. Выпуск релизов пока не имеет практической пользы, как указано в ReadME.md
 
 colorama.init(autoreset=False)  # используем Colorama, чтобы сделать работу Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
-print(termcolor.colored("Обработка v" + str(__myOwnDevelopingVersion__) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
+print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
 #print("Разработал " + stringcolor.bold("Тарасов Сергей").cs("red", "gold") + " tsv19su@yandex.ru")
 print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
@@ -86,6 +86,7 @@ class Flags:
     useAirCraftsDSN = False
     useXQuery = False
     SetInputDate = False
+    BeginDate = ' '
 
 
 # Состояния
@@ -106,7 +107,7 @@ def myApplication():
     myDialog.setWindowTitle('Загрузка рабочих данных')
     # Дополняем функционал экземпляра главного диалога
     # Переводим в исходное состояние
-    myDialog.label_Version.setText("Версия обработки " + str(__myOwnDevelopingVersion__))
+    myDialog.label_Version.setText("Версия обработки " + str(myOwnDevelopingVersion))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
     ServerNames.DSNs = pyodbc.dataSources()  # добавленные системные DSN-ы
@@ -1312,31 +1313,31 @@ def myApplication():
                                                         index=[" - авиакомпании", " - самолеты", " - маршруты", " - авиарейсы"])
         DataFrameDistributionDensity.index.name = "Базы данных:"
         OutputString = " \n \n"
-        OutputString += "Загрузка рабочих данных (версия обработки - " + str(__myOwnDevelopingVersion__) + ") начата " + str(DateTime) + " \n"
+        OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
         OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
         OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-        OutputString += " Источник входных данных = " + str(S.filenameCSV) + " \n"
-        OutputString += " Входные данные внесены за " + str(S.BeginDate) + " \n"
-        if SetInputDate:
+        OutputString += " Источник входных данных = " + str(FileNames.InputFileCSV) + " \n"
+        OutputString += " Входные данные внесены за " + str(Flags.BeginDate) + " \n"
+        if Flags.SetInputDate:
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        if useXQuery:
+        if Flags.useXQuery:
             OutputString += " Используется xQuery (SAX) \n"
         else:
             OutputString += " Используется xml.etree.ElementTree (DOM) \n"
-        if useAirCraftsDSN:
-            OutputString += " Сервер СУБД = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-            OutputString += " Драйвер = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-            OutputString += " Версия ODBC = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-            OutputString += " DSN = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-            OutputString += " Схема = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+        if Flags.useAirCraftsDSN:
+            OutputString += " Сервер СУБД = " + str(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
+            OutputString += " Драйвер = " + str(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
+            OutputString += " Версия ODBC = " + str(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
+            OutputString += " DSN = " + str(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
+            OutputString += " Схема = " + str(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
         else:
-            OutputString += " Сервер СУБД = " + str(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-            OutputString += " Драйвер = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-            OutputString += " Версия ODBC = " + str(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-            OutputString += " DSN = " + str(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-            OutputString += " Схема = " + str(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+            OutputString += " Сервер СУБД = " + str(ServerNames.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
+            OutputString += " Драйвер = " + str(ServerNames.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
+            OutputString += " Версия ODBC = " + str(ServerNames.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
+            OutputString += " DSN = " + str(ServerNames.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
+            OutputString += " Схема = " + str(ServerNames.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
         OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"
@@ -1389,13 +1390,13 @@ def myApplication():
             # LogFile.write('Вывод обычным способом\n')
         except IOError:
             try:
-                LogError = open(ErrorFileTXT, 'a')
-                LogError.write("Ошибка дозаписи результатов по " + str(S.filenameCSV) + " в " + str(S.filenameTXT) + " \n")
+                LogError = open(FileNames.ErrorFileTXT, 'a')
+                LogError.write("Ошибка дозаписи результатов по " + str(FileNames.InputFileCSV) + " в " + str(FileNames.InputFileCSV) + " \n")
             except IOError:
                 print("Ошибка дозаписи в файл журнала")
             finally:
                 LogError.close()
-            print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(S.filenameTXT))
+            print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(FileNames.LogFileTXT))
         finally:
             LogFile.close()
         # Дописываем в журнал (с помощью менеджера контекста)
@@ -1406,25 +1407,25 @@ def myApplication():
         myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
         # Снимаем курсоры
-        S.seekAL.close()
-        S.seekRT.close()
-        if useAirCraftsDSN:
-            S.seekAC_XML.close()
+        ServerNames.seekAL.close()
+        ServerNames.seekRT.close()
+        if Flags.useAirCraftsDSN:
+            ServerNames.seekAC_XML.close()
         else:
-            S.seekAC.close()
-            S.seekFN.close()
+            ServerNames.seekAC.close()
+            ServerNames.seekFN.close()
         # Отключаемся от баз данных
-        S.cnxnAL.close()
-        S.cnxnRT.close()
-        if useAirCraftsDSN:
-            S.cnxnAC_XML.close()
+        ServerNames.cnxnAL.close()
+        ServerNames.cnxnRT.close()
+        if Flags.useAirCraftsDSN:
+            ServerNames.cnxnAC_XML.close()
         else:
-            S.cnxnAC.close()
-            S.cnxnFN.close()
+            ServerNames.cnxnAC.close()
+            ServerNames.cnxnFN.close()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)
-        S.BeginDate = myDialog.dateEdit_BeginDate.date().toString('yyyy-MM-dd')
+        Flags.BeginDate = myDialog.dateEdit_BeginDate.date().toString('yyyy-MM-dd')
         if myDialog.checkBox_SetInputDate.isChecked():
             S.SetInputDate = True
         else:
@@ -1438,7 +1439,7 @@ def myApplication():
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         myDialog.label_execute.setEnabled(True)
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
-        threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(S.InputFileCSV, S.LogFileTXT, ))  # поток не сам по себе
+        threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(FileNames.InputFileCSV, FileNames.LogFileTXT, ))  # поток не сам по себе
         threadLoad.start()
         # fixme с ... .join() кнопки не гаснут, графическая оболочка зависает -> убрал ... .join()
         #threadLoad.join(1)  # ждем поток в основном потоке (графическая оболочка зависает), секунд

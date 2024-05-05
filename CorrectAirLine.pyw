@@ -389,13 +389,30 @@ def myApplication():
         myDialog.textEdit_AirLineDescription.append(str(A.AirLineDescription))
         print("Поля ввода заполнены\n")
 
+    def QueryAirLineByIATA(iata):
+        # Возвращает строку авиакомпании по ее коду IATA
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchone()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonSearchByIATA():
         # Кнопка "Поиск"
         LineCodeIATA, ok = QtWidgets.QInputDialog.getText(myDialog, "Код IATA", "Введите код IATA")
         if ok:
             myDialog.lineEditCodeIATA.setText(str(LineCodeIATA))
             Code = myDialog.lineEditCodeIATA.text()
-            DBAirLine = S.QueryAirLineByIATA(Code)
+            DBAirLine = QueryAirLineByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
             if DBAirLine is not None:

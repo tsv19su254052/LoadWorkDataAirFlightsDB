@@ -973,7 +973,6 @@ class Servers:
         finally:
             return ResultSQL
 
-    """
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results():
@@ -1125,7 +1124,6 @@ class Servers:
         else:
             Results.Result = 0
         return Results.Result
-    """
 
 
     def QueryCount(self):

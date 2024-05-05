@@ -479,11 +479,30 @@ def myApplication():
         message.setIcon(QtWidgets.QMessageBox.Information)
         message.exec_()
 
+
+    def QueryAirPortByIATA(iata):
+        # Возвращает строку аэропорта по коду IATA
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+
     def PushButtonSearchByIATA():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код IATA", "Введите код IATA")
         if ok:
-            DBAirPort = S.QueryAirPortByIATA(Code)
+            DBAirPort = QueryAirPortByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
             if DBAirPort is None:
@@ -496,11 +515,28 @@ def myApplication():
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
 
+    def QueryAirPortByICAO(icao):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeICAO = '" + str(icao) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonSearchByICAO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
         if ok:
-            DBAirPort = S.QueryAirPortByICAO(Code)
+            DBAirPort = QueryAirPortByICAO(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -510,12 +546,29 @@ def myApplication():
                 ReadingQuery(DBAirPort)
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
+
+    def QueryAirPortByFAA_LID(faa_lid):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
 
     def PushButtonSearchByFAA_LID():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код FAA LID", "Введите код FAA LID")
         if ok:
-            DBAirPort = S.QueryAirPortByFAA_LID(Code)
+            DBAirPort = QueryAirPortByFAA_LID(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -526,11 +579,28 @@ def myApplication():
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
 
+    def QueryAirPortByWMO(wmo):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonSearchByWMO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
         if ok:
-            DBAirPort = S.QueryAirPortByWMO(Code)
+            DBAirPort = QueryAirPortByWMO(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")

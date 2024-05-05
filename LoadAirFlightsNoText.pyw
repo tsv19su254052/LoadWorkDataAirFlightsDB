@@ -1,7 +1,8 @@
 #  Interpreter 3.7 -> 3.10
 
 
-import pyodbc  # pymssql работает тяжелее
+import pyodbc
+import pymssql  # работает тяжелее
 from sqlalchemy import create_engine
 import pandas
 import itertools
@@ -24,28 +25,17 @@ from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, AirLi
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
 #       - Результат импорта -> на github-е - синяя неактивная ссылка, по которой никуда не перейдешь, внутри pyCharm-а - дубликат репозитория подмодуля в локальную ветку
-# fixme Есть проблемка при импорте пользовательских библиотек из внешних файлов по другим путям из других папок
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
 # Версия обработки с цветным выводом
+# todo Версия задается тут. Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 myOwnDevelopingVersion = 8.7
-# todo Версия задается тут. Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны. Выпуск релизов пока не имеет практической пользы, как указано в ReadME.md
 
 colorama.init(autoreset=False)  # используем Colorama, чтобы сделать работу Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
-#print("Разработал " + stringcolor.bold("Тарасов Сергей").cs("red", "gold") + " tsv19su@yandex.ru")
 print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
-
-# fixme Вывести в файл requirements.txt список пакетов с версиями - пока не требуется
-# pip freeze > requirements.txt
-
-# fixme Установить пакеты с определенными версиями - пока не требуется
-# pip install -r requirements.txt
-
-# fixme Установить пакет из папки, как пример
-# pip install SomePackage-1.0-py2.py3-none-any.whl
 
 # Делаем свои рабочие экземпляры
 class AirLineWork(AirLine):
@@ -226,7 +216,6 @@ class AirPortWork(AirPort):
         return ResultSQL
 
     def InsertAirPortByIATA(self, iata):
-        # fixme дописать функционал, когда код пустой
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
@@ -427,7 +416,6 @@ def myApplication():
     myDialog.label_execute.setEnabled(False)
 
     # Привязки обработчиков todo без lambda не работает
-    # todo Объединить radioButton, как на tkBuilder, и переделать на triggered
     myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
     myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
@@ -458,7 +446,6 @@ def myApplication():
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                # todo Сделать сообщение с зелеными галочками по пунктам подключения
                 A.cnxnAL = pyodbc.connect(driver=S.DriverODBC_AL, server=S.ServerNameOriginal, database=S.DataBase_AL)
                 print("  БД = ", S.DataBase_AL, "подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE

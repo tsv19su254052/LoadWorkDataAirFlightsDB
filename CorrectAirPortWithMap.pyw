@@ -1,6 +1,7 @@
 #  Interpreter 3.7 -> 3.10
+
+
 import datetime
-# QtSQL медленнее, чем pyodbc
 import sys, io, os, socket, json
 from xml.etree import ElementTree
 import pyodbc
@@ -10,7 +11,6 @@ from folium.plugins.draw import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-#import Classes
 from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogInputIATAandICAO, AirPort, ServerNames, FileNames, Flags, States
 
 
@@ -18,7 +18,6 @@ from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogI
 A = AirPort()
 A.LogCountViewed = 0
 A.LogCountChanged = 0
-#S = Classes.Servers()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
@@ -404,7 +403,7 @@ def myApplication():
             myDialog.verticalLayout_Map.addWidget(webView)
 
     def PushButtonConnectDB():
-        if not S.Connected_RT:
+        if not St.Connected_RT:
             # Переводим в неактивное состояние
             myDialog.pushButton_ConnectDB.setEnabled(False)
             # Подключаемся к базе данных по выбранному источнику
@@ -470,7 +469,7 @@ def myApplication():
 
     def PushButtonDisconnect():
         # кнопка 'Отключиться от базы данных' нажата
-        if S.Connected_RT:
+        if St.Connected_RT:
             # Переводим в неактивное состояние
             myDialog.pushButton_DisconnectDB.setEnabled(False)
             # Снимаем курсоры
@@ -478,7 +477,7 @@ def myApplication():
             # Отключаемся от базы данных
             S.cnxnRT.close()
             # Снимаем флаги
-            S.Connected_RT = False
+            St.Connected_RT = False
             # Переводим в рабочее состояние (продолжение)
             SwitchingGUI(False)
             myDialog.pushButton_UpdateDB.setEnabled(False)  # возможно пока не тут
@@ -853,7 +852,6 @@ def myApplication():
                     if node.attrib['Name'] == str(user):
                         node.append(DateTime)
                         added = True
-                        #break
                 if not added:
                     root_tag.append(User)
             print("LogCountChanged = " + str(Count))

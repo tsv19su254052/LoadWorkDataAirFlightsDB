@@ -663,7 +663,7 @@ def myApplication():
             message.exec_()
         elif DBAirLine is None:
             # Вставка новой строки
-            ResultInsert = AirLineWork.InsertAirLineByIATAandICAO(Code_IATA, Code_ICAO)
+            ResultInsert = AirLineWork.InsertAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
             if ResultInsert:
                 DBAirLine = AirLineWork.QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirLine is not None:

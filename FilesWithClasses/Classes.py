@@ -20,9 +20,8 @@ class AirLine:
     # fixme правильно писать конструктор
     # todo Объявления внутри класса с конструктором и без
     # todo Пакет библиотек с __init.py__ и без
-    # Подключение
-    cnxnAL = ' '
-    seekAL = ' '
+    cnxnAL = ' '  # подключение
+    seekAL = ' '  # курсор
 
     def __init__(self):
         self.AirLine_ID = 1
@@ -43,6 +42,15 @@ class AirLine:
 # Делаем предка
 class AirCraft:
     # fixme правильно писать конструктор
+    # Подключения
+    cnxnAC_XML = ' '
+    cnxnAC = ' '
+    cnxnFN = ' '
+    # Курсоры
+    seekAC_XML = ' '
+    seekAC = ' '
+    seekFN = ' '
+
     def __init__(self):
         self.AirCraftModel = 387  # Unknown Model
         self.BuildDate = '1920-01-01'
@@ -60,8 +68,8 @@ class AirCraft:
 # Делаем предка
 class AirPort:
     # fixme правильно писать конструктор
-    cnxnRT = ' '
-    seekRT = ' '
+    cnxnRT = ' '  # подключение
+    seekRT = ' '  # курсор
 
     def __init__(self):
         self.HyperLinkToWikiPedia = " "
@@ -95,16 +103,6 @@ class ServerNames:
     ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
     ServerName = "localhost\mssqlserver15"  # указал инстанс
     #ServerName = "localhost\sqldeveloper"  # указал инстанс
-
-    # Подключения
-    cnxnAC_XML = ' '
-    cnxnAC = ' '
-    cnxnFN = ' '
-
-    # Курсоры
-    seekAC_XML = ' '
-    seekAC = ' '
-    seekFN = ' '
 
 
 # Имена читаемых и записываемых файлов

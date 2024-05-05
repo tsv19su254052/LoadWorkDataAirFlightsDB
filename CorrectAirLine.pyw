@@ -7,21 +7,15 @@ import sys
 from PyQt5 import QtWidgets, QtCore
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-import Classes
+from FilesWithClasses.Classes import Ui_DialogCorrectAirLine, Ui_DialogInputIATAandICAO, AirLine, ServerNames, Flags, States
 
 
 # Делаем экземпляры
 # fixme При наследовании с композицией непонятно - где и в каких местах участвуют части предков
-A = Classes.AirLine()
-S = Classes.Servers()
-# Добавляем аттрибуты
-#S.ServerName = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
-#S.ServerName = "TERMINALSERVER\mssqlserver15"  # указал инстанс
-S.ServerName = "localhost\mssqlserver15"  # указал инстанс
-S.Connected_AL = False
-S.Connected_AC = False
-S.Connected_RT = False
-S.Connected_FN = False
+A = AirLine()
+S = ServerNames()
+Fl = Flags()
+St = States()
 
 
 # Основная функция
@@ -31,11 +25,11 @@ def myApplication():
     myApp = QtWidgets.QApplication(sys.argv)
     # fixme Правильно делать экземпляр с композицией
     # Делаем экземпляры
-    myDialog = Classes.Ui_DialogCorrectAirLine()
+    myDialog = Ui_DialogCorrectAirLine()
     myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
     myDialog.setFixedSize(862, 830)
     myDialog.setWindowTitle('АвиаКомпании')
-    myDialogInputIATAandICAO = Classes.Ui_DialogInputIATAandICAO()
+    myDialogInputIATAandICAO = Ui_DialogInputIATAandICAO()
     myDialogInputIATAandICAO.setupUi(Dialog=myDialogInputIATAandICAO)
     myDialogInputIATAandICAO.setFixedSize(240, 245)
     # Переводим в исходное состояние
@@ -189,7 +183,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
     def PushButtonSelectDB():
-        if not S.Connected_AL:
+        if not St.Connected_AL:
             # Переводим в неактивное состояние
             myDialog.pushButton_SelectDB.setEnabled(False)
             # Подключаемся к базе данных по выбранному источнику
@@ -202,19 +196,10 @@ def myApplication():
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
                 S.cnxnAL = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
-                S.cnxnAC = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
-                S.cnxnRT = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
-                S.cnxnFN = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
                 print("  База данных ", S.DataBase, " подключена")
-                S.Connected_AL = True
-                S.Connected_AC = True
-                S.Connected_RT = True
-                S.Connected_FN = True
+                St.Connected_AL = True
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
                 S.cnxnAL.autocommit = False
-                S.cnxnAC.autocommit = False
-                S.cnxnRT.autocommit = False
-                S.cnxnFN.autocommit = False
                 print("autocommit is disabled")
                 # Ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -235,9 +220,6 @@ def myApplication():
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
                 S.seekAL = S.cnxnAL.cursor()
-                S.seekAC = S.cnxnAC.cursor()
-                S.seekRT = S.cnxnRT.cursor()
-                S.seekFN = S.cnxnFN.cursor()
                 print("seeks is on")
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB.setEnabled(False)

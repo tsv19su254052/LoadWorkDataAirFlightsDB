@@ -16,12 +16,323 @@ from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogI
 
 # Делаем экземпляры
 class AirPortWork(AirPort):
-    def __int__(self):
-        pass
-
     LogCountViewed = 0
     LogCountChanged = 0
 
+    def __int__(self):
+        pass
+
+    def QueryAirPortByIATA(self, iata):
+        # Возвращает строку аэропорта по коду IATA
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def QueryAirPortByICAO(self, icao):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def QueryAirPortByIATAandICAO(self, iata, icao):
+        # Возвращает строку аэропорта по кодам IATA и ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable "
+            if iata is None:
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def QueryAirPortByFAA_LID(self, faa_lid):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def QueryAirPortByWMO(self, wmo):
+        # Возвращает строку аэропорта по коду ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def InsertAirPortByIATAandICAO(self, iata, icao):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ("
+            if iata is None:
+                SQLQuery += " NULL, '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " '" + str(iata) + "', NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " NULL, NULL "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
+            SQLQuery += ") "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+
+    def UpdateAirPortByIATAandICAO(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "UPDATE dbo.AirPortsTable SET SourceCSVFile = '" + str(csv) + "', HyperLinkToWikiPedia = '" + str(hyperlinkWiki) + "', HyperLinkToAirPortSite = '" + str(hyperlinkAirPort) + "', HyperLinkToOperatorSite = '" + str(hyperlinkOperator)
+            SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
+            SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
+            SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
+            SQLQuery += ", AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
+            SQLGeoQuery = ' '
+            # todo И надо пересчитать длины маршрутов, завязанных на этот аэропорт
+            if lat is not None and long is not None:
+                SQLGeoQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(long) + ", ' ', " + str(lat) + ", ') '), 4326) "
+            else:
+                SQLQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(0) + ", ' ', " + str(0) + ", ') '), 4326) "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+                #print("raise Exception")
+                #raise Exception
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            self.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLGeoQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def IncrementLogCountViewedAirPort(self, iata, icao, host, user, dtn):
+        try:
+            Query = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(Query)
+            SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT.execute(XMLQuery)
+            ResultXML = self.seekRT.fetchone()
+            Count = 1
+            #host = 'WorkCompTest1'
+            #user = 'ArtemTest20'
+            print(" ResultXML = " + str(ResultXML[0]))
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
+            User = ElementTree.Element('User', Name=str(user))
+            User.append(DateTime)
+            if ResultXML[0] is None:
+                root_tag = ElementTree.Element('Viewed')
+                root_tag.append(User)
+            else:
+                Count += ResultSQL[0]
+                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
+                Search = root_tag.findall(".//User")
+                print(" Search = " + str(Search))
+                added = False
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        #newDateTime = ElementTree.SubElement(node, 'DateTime')
+                        #newDateTime.attrib['From'] = str(host)
+                        #newDateTime.text = str(dtn)
+                        #User.append(newDateTime)  # fixme добавляет еще раз
+                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                        node.append(DateTime)
+                        #root_tag.append(User)
+                        added = True
+                        #break
+                if not added:
+                    #User.append(DateTime)
+                    root_tag.append(User)
+                xQuery = ".//User[@Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
+            print("LogCountViewed = " + str(Count))
+            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            self.seekRT.execute(SQLQuery)
+            self.seekRT.execute(XMLQuery)
+            self.cnxnRT.commit()
+            Result = True
+        except Exception:
+            Result = False
+            self.cnxnRT.rollback()
+        return Result
+
+
+    def IncrementLogCountChangedAirPort(self, iata, icao, host, user, dtn):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeChanged FROM dbo.AirPortsTable"
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT.execute(XMLQuery)
+            ResultXML = self.seekRT.fetchone()
+            Count = 1
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
+            User = ElementTree.Element('User', Name=str(user))
+            User.append(DateTime)
+            if ResultXML[0] is None:
+                root_tag = ElementTree.Element('Changed')
+                root_tag.append(User)
+            else:
+                Count += ResultSQL[0]
+                root_tag = ElementTree.fromstring(ResultXML[0])
+                Search = root_tag.findall(".//User")
+                added = False
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        node.append(DateTime)
+                        added = True
+                if not added:
+                    root_tag.append(User)
+            print("LogCountChanged = " + str(Count))
+            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
+            print(" xml_to_String = " + str(xml_to_String))
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = '" + str(xml_to_String) + "' "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            self.seekRT.execute(SQLQuery)
+            self.seekRT.execute(XMLQuery)
+            self.cnxnRT.commit()
+            Result = True
+        except Exception:
+            Result = False
+            self.cnxnRT.rollback()
+        return Result
+
+
+P = AirPortWork()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
@@ -187,119 +498,29 @@ def myApplication():
         ClearMap()
         myDialog.verticalLayout_Map.setEnabled(Key)
 
-    def IncrementLogCountViewedAirPort(iata, icao, host, user, dtn):
-        try:
-            Query = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            S.seekRT.execute(Query)
-            SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
-            XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
-            if iata is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif icao is None:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif iata is None and icao is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            else:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            S.seekRT.execute(XMLQuery)
-            ResultXML = S.seekRT.fetchone()
-            Count = 1
-            #host = 'WorkCompTest1'
-            #user = 'ArtemTest20'
-            print(" ResultXML = " + str(ResultXML[0]))
-            DateTime = ElementTree.Element('DateTime', From=str(host))
-            DateTime.text = str(dtn)
-            User = ElementTree.Element('User', Name=str(user))
-            User.append(DateTime)
-            if ResultXML[0] is None:
-                root_tag = ElementTree.Element('Viewed')
-                root_tag.append(User)
-            else:
-                Count += ResultSQL[0]
-                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
-                Search = root_tag.findall(".//User")
-                print(" Search = " + str(Search))
-                added = False
-                for node in Search:
-                    if node.attrib['Name'] == str(user):
-                        #newDateTime = ElementTree.SubElement(node, 'DateTime')
-                        #newDateTime.attrib['From'] = str(host)
-                        #newDateTime.text = str(dtn)
-                        #User.append(newDateTime)  # fixme добавляет еще раз
-                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
-                        node.append(DateTime)
-                        #root_tag.append(User)
-                        added = True
-                        #break
-                if not added:
-                    #User.append(DateTime)
-                    root_tag.append(User)
-                xQuery = ".//User[@Name='" + str(user) + "'] "
-                print(" xQuery = " + str(xQuery))
-            print("LogCountViewed = " + str(Count))
-            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
-            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
-            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
-            if iata is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif icao is None:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif iata is None and icao is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            else:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            S.seekRT.execute(SQLQuery)
-            S.seekRT.execute(XMLQuery)
-            S.cnxnRT.commit()
-            Result = True
-        except Exception:
-            Result = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return Result
 
     def ReadingQuery(ResultQuery):
-        AirPortWork.SourceCSVFile = ResultQuery.SourceCSVFile
-        AirPortWork.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
-        AirPortWork.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
-        AirPortWork.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
-        AirPortWork.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
-        AirPortWork.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
-        AirPortWork.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
-        AirPortWork.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
-        AirPortWork.AirPortName = ResultQuery.AirPortName
-        AirPortWork.AirPortCity = ResultQuery.AirPortCity
-        AirPortWork.AirPortCounty = ResultQuery.AirPortCounty
-        AirPortWork.AirPortCountry = ResultQuery.AirPortCountry
-        AirPortWork.AirPortLatitude = ResultQuery.AirPortLatitude
-        AirPortWork.AirPortLongitude = ResultQuery.AirPortLongitude
-        AirPortWork.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
-        AirPortWork.AirPortDescription = ResultQuery.AirPortDescription
-        AirPortWork.AirPortFacilities = ResultQuery.AirPortFacilities
-        AirPortWork.AirPortIncidents = ResultQuery.AirPortIncidents
-        AirPortWork.LogCountViewed = ResultQuery.LogCountViewed
-        AirPortWork.LogCountChanged = ResultQuery.LogCountChanged
-        IncrementLogCountViewedAirPort(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+        P.SourceCSVFile = ResultQuery.SourceCSVFile
+        P.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
+        P.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
+        P.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
+        P.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
+        P.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
+        P.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
+        P.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
+        P.AirPortName = ResultQuery.AirPortName
+        P.AirPortCity = ResultQuery.AirPortCity
+        P.AirPortCounty = ResultQuery.AirPortCounty
+        P.AirPortCountry = ResultQuery.AirPortCountry
+        P.AirPortLatitude = ResultQuery.AirPortLatitude
+        P.AirPortLongitude = ResultQuery.AirPortLongitude
+        P.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
+        P.AirPortDescription = ResultQuery.AirPortDescription
+        P.AirPortFacilities = ResultQuery.AirPortFacilities
+        P.AirPortIncidents = ResultQuery.AirPortIncidents
+        P.LogCountViewed = ResultQuery.LogCountViewed
+        P.LogCountChanged = ResultQuery.LogCountChanged
+        P.IncrementLogCountViewedAirPort(P.AirPortCodeIATA, P.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
 
     @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
@@ -313,50 +534,50 @@ def myApplication():
     def SetFields():
         # Выводим записи
         myDialog.textEdit_SourceCSVFile.clear()
-        myDialog.textEdit_SourceCSVFile.append(str(AirPortWork.SourceCSVFile))
-        myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(AirPortWork.HyperLinkToWikiPedia) + ">Wikipedia</a>")
-        myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(AirPortWork.HyperLinkToWikiPedia))
+        myDialog.textEdit_SourceCSVFile.append(str(P.SourceCSVFile))
+        myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(P.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+        myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(P.HyperLinkToWikiPedia))
         myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
-        myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(AirPortWork.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
-        myDialog.label_HyperLink_to_AirPort.setToolTip(str(AirPortWork.HyperLinkToAirPortSite))
+        myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(P.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+        myDialog.label_HyperLink_to_AirPort.setToolTip(str(P.HyperLinkToAirPortSite))
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
-        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(AirPortWork.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
-        myDialog.label_HyperLink_to_Operator.setToolTip(str(AirPortWork.HyperLinkToOperatorSite))
+        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(P.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+        myDialog.label_HyperLink_to_Operator.setToolTip(str(P.HyperLinkToOperatorSite))
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        if AirPortWork.AirPortCodeIATA is None:
+        if P.AirPortCodeIATA is None:
             myDialog.label_CodeIATA.setText(" ")
         else:
-            myDialog.label_CodeIATA.setText(str(AirPortWork.AirPortCodeIATA))
-        if AirPortWork.AirPortCodeICAO is None:
+            myDialog.label_CodeIATA.setText(str(P.AirPortCodeIATA))
+        if P.AirPortCodeICAO is None:
             myDialog.label_CodeICAO.setText(" ")
         else:
-            myDialog.label_CodeICAO.setText(AirPortWork.AirPortCodeICAO)
-        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(AirPortWork.AirPortCodeFAA_LID))
-        myDialog.lineEdit_AirPortCodeWMO.setText(str(AirPortWork.AirPortCodeWMO))
+            myDialog.label_CodeICAO.setText(P.AirPortCodeICAO)
+        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(P.AirPortCodeFAA_LID))
+        myDialog.lineEdit_AirPortCodeWMO.setText(str(P.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()
-        myDialog.textEdit_AirPortName.append(str(AirPortWork.AirPortName))
+        myDialog.textEdit_AirPortName.append(str(P.AirPortName))
         myDialog.textEdit_AirPortCity.clear()
-        myDialog.textEdit_AirPortCity.append(str(AirPortWork.AirPortCity))
+        myDialog.textEdit_AirPortCity.append(str(P.AirPortCity))
         myDialog.textEdit_AirPortCounty.clear()
-        myDialog.textEdit_AirPortCounty.append(str(AirPortWork.AirPortCounty))
+        myDialog.textEdit_AirPortCounty.append(str(P.AirPortCounty))
         myDialog.textEdit_AirPortCountry.clear()
-        myDialog.textEdit_AirPortCountry.append(str(AirPortWork.AirPortCountry))
-        myDialog.lineEdit_AirPortLatitude.setText(str(AirPortWork.AirPortLatitude))
-        myDialog.lineEdit_AirPortLongitude.setText(str(AirPortWork.AirPortLongitude))
-        myDialog.lineEdit_HeightAboveSeaLevel.setText(str(AirPortWork.HeightAboveSeaLevel))
+        myDialog.textEdit_AirPortCountry.append(str(P.AirPortCountry))
+        myDialog.lineEdit_AirPortLatitude.setText(str(P.AirPortLatitude))
+        myDialog.lineEdit_AirPortLongitude.setText(str(P.AirPortLongitude))
+        myDialog.lineEdit_HeightAboveSeaLevel.setText(str(P.HeightAboveSeaLevel))
         myDialog.textBrowser_HyperLinks.clear()
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Wikipedia</a>")
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Сайт аэропорта или аэродрома</a>")
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Сайт оператора аэропорта</a>")
         myDialog.textEdit_AirPortDescription.clear()
-        myDialog.textEdit_AirPortDescription.append(str(AirPortWork.AirPortDescription))
+        myDialog.textEdit_AirPortDescription.append(str(P.AirPortDescription))
         myDialog.textEdit_AirPortFacilities.clear()
-        myDialog.textEdit_AirPortFacilities.append(AirPortWork.AirPortFacilities)
+        myDialog.textEdit_AirPortFacilities.append(P.AirPortFacilities)
         myDialog.textEdit_Incidents.clear()
-        myDialog.textEdit_Incidents.append(AirPortWork.AirPortIncidents)
+        myDialog.textEdit_Incidents.append(P.AirPortIncidents)
         ClearMap()
-        if AirPortWork.AirPortLatitude is not None and AirPortWork.AirPortLongitude is not None:
-            coordinates = (AirPortWork.AirPortLatitude, AirPortWork.AirPortLongitude)
+        if P.AirPortLatitude is not None and P.AirPortLongitude is not None:
+            coordinates = (P.AirPortLatitude, P.AirPortLongitude)
             # Варианты карт:
             #  - OpenStreetMap (подробная цветная),
             #  - CartoDB Positron (серенькая),
@@ -419,10 +640,10 @@ def myApplication():
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                S.cnxnRT = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
+                P.cnxnRT = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
                 print("  База данных ", S.DataBase, " подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                S.cnxnRT.autocommit = False
+                P.cnxnRT.autocommit = False
                 print("autocommit is disabled")
                 # Ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -442,20 +663,20 @@ def myApplication():
                 #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                S.seekRT = S.cnxnRT.cursor()
+                P.seekRT = P.cnxnRT.cursor()
                 print("seeks is on")
                 St.Connected_RT = True
                 # SQL Server
-                myDialog.lineEdit_Server.setText(S.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(P.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
                 # Драйвер
-                myDialog.lineEdit_Driver.setText(S.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver.setText(P.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion.setText(S.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion.setText(P.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
                 # Источник данных
-                myDialog.lineEdit_DSN.setText(S.cnxnRT.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                myDialog.lineEdit_DSN.setText(P.cnxnRT.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 # todo Схема по умолчанию - dbo
-                myDialog.lineEdit_Schema.setText(S.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema.setText(P.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
                 # Переводим в рабочее состояние (продолжение)
                 SwitchingGUI(True)
                 myDialog.pushButton_DisconnectDB.setEnabled(True)
@@ -477,9 +698,9 @@ def myApplication():
             # Переводим в неактивное состояние
             myDialog.pushButton_DisconnectDB.setEnabled(False)
             # Снимаем курсоры
-            S.seekRT.close()
+            P.seekRT.close()
             # Отключаемся от базы данных
-            S.cnxnRT.close()
+            P.cnxnRT.close()
             # Снимаем флаги
             St.Connected_RT = False
             # Переводим в рабочее состояние (продолжение)
@@ -487,93 +708,49 @@ def myApplication():
             myDialog.pushButton_UpdateDB.setEnabled(False)  # возможно пока не тут
             myDialog.pushButton_ConnectDB.setEnabled(True)
 
-    def UpdateAirPortByIATAandICAO(csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "UPDATE dbo.AirPortsTable SET SourceCSVFile = '" + str(csv) + "', HyperLinkToWikiPedia = '" + str(hyperlinkWiki) + "', HyperLinkToAirPortSite = '" + str(hyperlinkAirPort) + "', HyperLinkToOperatorSite = '" + str(hyperlinkOperator)
-            SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
-            SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
-            SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
-            SQLQuery += ", AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
-            # todo И надо пересчитать длины маршрутов, завязанных на этот аэропорт
-            if lat is not None and long is not None:
-                SQLGeoQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(long) + ", ' ', " + str(lat) + ", ') '), 4326) "
-            else:
-                SQLQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(0) + ", ' ', " + str(0) + ", ') '), 4326) "
-            if iata is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                SQLGeoQuery += Append
-            elif icao is None:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                SQLGeoQuery += Append
-            elif iata is None and icao is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                SQLGeoQuery += Append
-                #print("raise Exception")
-                #raise Exception
-            else:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                SQLGeoQuery += Append
-            S.seekRT.execute(SQLQuery)
-            S.seekRT.execute(SQLGeoQuery)
-            ResultSQL = True
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
     def PushButtonUpdateDB():
-        AirPortWork.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
+        P.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
         #A.AirPortCodeIATA = myDialog.lineEdit_AirPortCodeIATA.text()
         #A.AirPortCodeICAO = myDialog.lineEdit_AirPortCodeICAO.text()
-        AirPortWork.AirPortCodeFAA_LID = myDialog.lineEdit_AirPortCodeFAA_LID.text()
-        AirPortWork.AirPortCodeWMO = myDialog.lineEdit_AirPortCodeWMO.text()
-        AirPortWork.AirPortName = myDialog.textEdit_AirPortName.toPlainText()
-        AirPortWork.AirPortCity = myDialog.textEdit_AirPortCity.toPlainText()
-        AirPortWork.AirPortCounty = myDialog.textEdit_AirPortCounty.toPlainText()
-        AirPortWork.AirPortCountry = myDialog.textEdit_AirPortCountry.toPlainText()
-        AirPortWork.AirPortLatitude = myDialog.lineEdit_AirPortLatitude.text()
-        AirPortWork.AirPortLongitude = myDialog.lineEdit_AirPortLongitude.text()
-        AirPortWork.HeightAboveSeaLevel = myDialog.lineEdit_HeightAboveSeaLevel.text()
-        AirPortWork.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
-        AirPortWork.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
-        AirPortWork.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
-        DBAirPort = QueryAirPortByIATAandICAO(iata=AirPortWork.AirPortCodeIATA, icao=AirPortWork.AirPortCodeICAO)
+        P.AirPortCodeFAA_LID = myDialog.lineEdit_AirPortCodeFAA_LID.text()
+        P.AirPortCodeWMO = myDialog.lineEdit_AirPortCodeWMO.text()
+        P.AirPortName = myDialog.textEdit_AirPortName.toPlainText()
+        P.AirPortCity = myDialog.textEdit_AirPortCity.toPlainText()
+        P.AirPortCounty = myDialog.textEdit_AirPortCounty.toPlainText()
+        P.AirPortCountry = myDialog.textEdit_AirPortCountry.toPlainText()
+        P.AirPortLatitude = myDialog.lineEdit_AirPortLatitude.text()
+        P.AirPortLongitude = myDialog.lineEdit_AirPortLongitude.text()
+        P.HeightAboveSeaLevel = myDialog.lineEdit_HeightAboveSeaLevel.text()
+        P.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
+        P.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
+        P.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
+        DBAirPort = P.QueryAirPortByIATAandICAO(iata=P.AirPortCodeIATA, icao=P.AirPortCodeICAO)
         LogCountChangedCurrent = DBAirPort.LogCountChanged
-        if LogCountChangedCurrent is None or (AirPortWork.LogCountChanged is not None and LogCountChangedCurrent is not None and AirPortWork.LogCountChanged == LogCountChangedCurrent):
+        if LogCountChangedCurrent is None or (P.LogCountChanged is not None and LogCountChangedCurrent is not None and P.LogCountChanged == LogCountChangedCurrent):
             # Вносим изменение
-            ResultUpdate = UpdateAirPortByIATAandICAO(AirPortWork.SourceCSVFile,
-                                                      AirPortWork.HyperLinkToWikiPedia,
-                                                      AirPortWork.HyperLinkToAirPortSite,
-                                                      AirPortWork.HyperLinkToOperatorSite,
-                                                      AirPortWork.AirPortCodeIATA,
-                                                      AirPortWork.AirPortCodeICAO,
-                                                      AirPortWork.AirPortCodeFAA_LID,
-                                                      AirPortWork.AirPortCodeWMO,
-                                                      AirPortWork.AirPortName,
-                                                      AirPortWork.AirPortCity,
-                                                      AirPortWork.AirPortCounty,
-                                                      AirPortWork.AirPortCountry,
-                                                      AirPortWork.AirPortLatitude,
-                                                      AirPortWork.AirPortLongitude,
-                                                      AirPortWork.HeightAboveSeaLevel,
-                                                      AirPortWork.AirPortDescription,
-                                                      AirPortWork.AirPortFacilities,
-                                                      AirPortWork.AirPortIncidents)
+            ResultUpdate = P.UpdateAirPortByIATAandICAO(P.SourceCSVFile,
+                                                      P.HyperLinkToWikiPedia,
+                                                      P.HyperLinkToAirPortSite,
+                                                      P.HyperLinkToOperatorSite,
+                                                      P.AirPortCodeIATA,
+                                                      P.AirPortCodeICAO,
+                                                      P.AirPortCodeFAA_LID,
+                                                      P.AirPortCodeWMO,
+                                                      P.AirPortName,
+                                                      P.AirPortCity,
+                                                      P.AirPortCounty,
+                                                      P.AirPortCountry,
+                                                      P.AirPortLatitude,
+                                                      P.AirPortLongitude,
+                                                      P.HeightAboveSeaLevel,
+                                                      P.AirPortDescription,
+                                                      P.AirPortFacilities,
+                                                      P.AirPortIncidents)
             if ResultUpdate:
                 # fixme Пользователи без права на изменение не фиксируются
-                IncrementLogCountChangedAirPort(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                DBAirPort = QueryAirPortByIATAandICAO(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO)
-                AirPortWork.LogCountChanged = DBAirPort.LogCountChanged
+                P.IncrementLogCountChangedAirPort(P.AirPortCodeIATA, P.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                DBAirPort = P.QueryAirPortByIATAandICAO(P.AirPortCodeIATA, P.AirPortCodeICAO)
+                P.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не переписалась")
@@ -588,28 +765,28 @@ def myApplication():
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            AirPortWork.HyperLinkToWikiPedia = Link
+            P.HyperLinkToWikiPedia = Link
             print(str(Link))
-            myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(AirPortWork.HyperLinkToWikiPedia) + ">Wikipedia</a>")
-            myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(AirPortWork.HyperLinkToWikiPedia))
+            myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(P.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+            myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(P.HyperLinkToWikiPedia))
             myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkAirPort():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            AirPortWork.HyperLinkToAirPortSite = Link
+            P.HyperLinkToAirPortSite = Link
             print(str(Link))
-            myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(AirPortWork.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
-            myDialog.label_HyperLink_to_AirPort.setToolTip(str(AirPortWork.HyperLinkToAirPortSite))
+            myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(P.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+            myDialog.label_HyperLink_to_AirPort.setToolTip(str(P.HyperLinkToAirPortSite))
             myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkOperator():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            AirPortWork.HyperLinkToOperatorSite = Link
+            P.HyperLinkToOperatorSite = Link
             print(str(Link))
-            myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(AirPortWork.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
-            myDialog.label_HyperLink_to_Operator.setToolTip(str(AirPortWork.HyperLinkToOperatorSite))
+            myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(P.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+            myDialog.label_HyperLink_to_Operator.setToolTip(str(P.HyperLinkToOperatorSite))
             myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinks():
@@ -618,28 +795,11 @@ def myApplication():
         message.setIcon(QtWidgets.QMessageBox.Information)
         message.exec_()
 
-    def QueryAirPortByIATA(iata):
-        # Возвращает строку аэропорта по коду IATA
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
     def PushButtonSearchByIATA():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код IATA", "Введите код IATA")
         if ok:
-            DBAirPort = QueryAirPortByIATA(Code)
+            DBAirPort = P.QueryAirPortByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
             if DBAirPort is None:
@@ -652,28 +812,11 @@ def myApplication():
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
 
-    def QueryAirPortByICAO(icao):
-        # Возвращает строку аэропорта по коду ICAO
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeICAO = '" + str(icao) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
     def PushButtonSearchByICAO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код ICAO", "Введите код ICAO")
         if ok:
-            DBAirPort = QueryAirPortByICAO(Code)
+            DBAirPort = P.QueryAirPortByICAO(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -683,29 +826,12 @@ def myApplication():
                 ReadingQuery(DBAirPort)
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
-
-    def QueryAirPortByFAA_LID(faa_lid):
-        # Возвращает строку аэропорта по коду ICAO
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
 
     def PushButtonSearchByFAA_LID():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код FAA LID", "Введите код FAA LID")
         if ok:
-            DBAirPort = QueryAirPortByFAA_LID(Code)
+            DBAirPort = P.QueryAirPortByFAA_LID(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -716,28 +842,11 @@ def myApplication():
                 SetFields()
                 myDialog.pushButton_UpdateDB.setEnabled(True)
 
-    def QueryAirPortByWMO(wmo):
-        # Возвращает строку аэропорта по коду ICAO
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
     def PushButtonSearchByWMO():
         # Кнопка "Поиск" нажата
         Code, ok = QtWidgets.QInputDialog.getText(myDialog, "Код WMO", "Введите код WMO")
         if ok:
-            DBAirPort = QueryAirPortByWMO(Code)
+            DBAirPort = P.QueryAirPortByWMO(Code)
             if DBAirPort is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -760,137 +869,6 @@ def myApplication():
         else:
             myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(True)
 
-    def InsertAirPortByIATAandICAO(iata, icao):
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ("
-            if iata is None:
-                SQLQuery += " NULL, '" + str(icao) + "' "
-            elif icao is None:
-                SQLQuery += " '" + str(iata) + "', NULL "
-            elif iata is None and icao is None:
-                SQLQuery += " NULL, NULL "
-                #print("raise Exception")
-                #raise Exception
-            else:
-                SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
-            SQLQuery += ") "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = True
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
-    def QueryAirPortByIATAandICAO(iata, icao):
-        # Возвращает строку аэропорта по кодам IATA и ICAO
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirPortsTable "
-            if iata is None:
-                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-            elif icao is None:
-                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-            elif iata is None and icao is None:
-                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-            else:
-                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            S.cnxnRT.commit()
-        except Exception:
-            ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
-
-
-    def IncrementLogCountChangedAirPort(iata, icao, host, user, dtn):
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            S.seekRT.execute(SQLQuery)
-            SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
-            XMLQuery = "SELECT LogDateAndTimeChanged FROM dbo.AirPortsTable"
-            if iata is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif icao is None:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif iata is None and icao is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            else:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            S.seekRT.execute(XMLQuery)
-            ResultXML = S.seekRT.fetchone()
-            Count = 1
-            DateTime = ElementTree.Element('DateTime', From=str(host))
-            DateTime.text = str(dtn)
-            User = ElementTree.Element('User', Name=str(user))
-            User.append(DateTime)
-            if ResultXML[0] is None:
-                root_tag = ElementTree.Element('Changed')
-                root_tag.append(User)
-            else:
-                Count += ResultSQL[0]
-                root_tag = ElementTree.fromstring(ResultXML[0])
-                Search = root_tag.findall(".//User")
-                added = False
-                for node in Search:
-                    if node.attrib['Name'] == str(user):
-                        node.append(DateTime)
-                        added = True
-                if not added:
-                    root_tag.append(User)
-            print("LogCountChanged = " + str(Count))
-            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
-            print(" xml_to_String = " + str(xml_to_String))
-            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
-            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = '" + str(xml_to_String) + "' "
-            if iata is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif icao is None:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            elif iata is None and icao is None:
-                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
-                SQLQuery += Append
-                XMLQuery += Append
-            else:
-                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-                SQLQuery += Append
-                XMLQuery += Append
-            S.seekRT.execute(SQLQuery)
-            S.seekRT.execute(XMLQuery)
-            S.cnxnRT.commit()
-            Result = True
-        except Exception:
-            Result = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return Result
-
     def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
@@ -900,14 +878,14 @@ def myApplication():
             Code_ICAO = None
         else:
             Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
-        DBAirPort = QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+        DBAirPort = P.QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
         if DBAirPort is None:
             # Вставляем новую запись fixme вставилась запись с Code_IATA = NULL и Code_ICAO = "None"
-            ResultInsert = InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
+            ResultInsert = P.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
-                DBAirPort = QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
+                DBAirPort = P.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirPort is None:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")
@@ -917,9 +895,9 @@ def myApplication():
                     ReadingQuery(DBAirPort)
                     SetFields()
                     # fixme Пользователи без права на изменение не фиксируются
-                    IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                    DBAirPort = QueryAirPortByIATAandICAO(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO)
-                    AirPortWork.LogCountChanged = DBAirPort.LogCountChanged
+                    P.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                    DBAirPort = P.QueryAirPortByIATAandICAO(P.AirPortCodeIATA, P.AirPortCodeICAO)
+                    P.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не вставилась")

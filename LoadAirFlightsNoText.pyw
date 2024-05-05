@@ -255,6 +255,9 @@ class AirPortWork(AirPort):
         return ResultSQL
 
 
+A = AirLineWork()
+C = AirCraftWork()
+P = AirPortWork()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()

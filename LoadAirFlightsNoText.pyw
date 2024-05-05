@@ -1239,12 +1239,12 @@ def myApplication():
                 deadlockCount = attemptNumber
                 DBAirLine = QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = QueryAirCraftByRegistration(AC, useAirCraftsDSN)
+                    DBAirCraft = QueryAirCraftByRegistration(AC, Flags.useAirCraftsDSN)
                     if DBAirCraft is not None:
                         DBAirRoute = QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, S.BeginDate, useAirCraftsDSN, useXQuery)
+                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Flags.BeginDate, Flags.useAirCraftsDSN, Flags.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

@@ -2,6 +2,7 @@
 import datetime
 # QtSQL медленнее, чем pyodbc
 import sys, io, os, socket, json
+from xml.etree import ElementTree
 import pyodbc
 from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
 import folium
@@ -408,7 +409,7 @@ def myApplication():
         A.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
         A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
         A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
-        DBAirPort = S.QueryAirPortByIATAandICAO(iata=A.AirPortCodeIATA, icao=A.AirPortCodeICAO)
+        DBAirPort = QueryAirPortByIATAandICAO(iata=A.AirPortCodeIATA, icao=A.AirPortCodeICAO)
         LogCountChangedCurrent = DBAirPort.LogCountChanged
         if LogCountChangedCurrent is None or (A.LogCountChanged is not None and LogCountChangedCurrent is not None and A.LogCountChanged == LogCountChangedCurrent):
             # Вносим изменение
@@ -432,8 +433,8 @@ def myApplication():
                                                         A.AirPortIncidents)
             if ResultUpdate:
                 # fixme Пользователи без права на изменение не фиксируются
-                S.IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+                IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                DBAirPort = QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
                 A.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
@@ -479,7 +480,6 @@ def myApplication():
         message.setIcon(QtWidgets.QMessageBox.Information)
         message.exec_()
 
-
     def QueryAirPortByIATA(iata):
         # Возвращает строку аэропорта по коду IATA
         try:
@@ -496,7 +496,6 @@ def myApplication():
             pass
         finally:
             return ResultSQL
-
 
     def PushButtonSearchByIATA():
         # Кнопка "Поиск" нажата
@@ -623,6 +622,138 @@ def myApplication():
         else:
             myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(True)
 
+    def InsertAirPortByIATAandICAO(iata, icao):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ("
+            if iata is None:
+                SQLQuery += " NULL, '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += " '" + str(iata) + "', NULL "
+            elif iata is None and icao is None:
+                SQLQuery += " NULL, NULL "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
+            SQLQuery += ") "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def QueryAirPortByIATAandICAO(iata, icao):
+        # Возвращает строку аэропорта по кодам IATA и ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable "
+            if iata is None:
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+            else:
+                SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+
+    def IncrementLogCountChangedAirPort(iata, icao, host, user, dtn):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeChanged FROM dbo.AirPortsTable"
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            S.seekRT.execute(XMLQuery)
+            ResultXML = S.seekRT.fetchone()
+            Count = 1
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
+            User = ElementTree.Element('User', Name=str(user))
+            User.append(DateTime)
+            if ResultXML[0] is None:
+                root_tag = ElementTree.Element('Changed')
+                root_tag.append(User)
+            else:
+                Count += ResultSQL[0]
+                root_tag = ElementTree.fromstring(ResultXML[0])
+                Search = root_tag.findall(".//User")
+                added = False
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        node.append(DateTime)
+                        added = True
+                        #break
+                if not added:
+                    root_tag.append(User)
+            print("LogCountChanged = " + str(Count))
+            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")
+            print(" xml_to_String = " + str(xml_to_String))
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountChanged = " + str(Count)
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeChanged = '" + str(xml_to_String) + "' "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            S.seekRT.execute(SQLQuery)
+            S.seekRT.execute(XMLQuery)
+            S.cnxnRT.commit()
+            Result = True
+        except Exception:
+            Result = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return Result
+
     def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
@@ -632,14 +763,14 @@ def myApplication():
             Code_ICAO = None
         else:
             Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
-        DBAirPort = S.QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+        DBAirPort = QueryAirPortByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
         if DBAirPort is None:
             # Вставляем новую запись fixme вставилась запись с Code_IATA = NULL и Code_ICAO = "None"
-            ResultInsert = S.InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
+            ResultInsert = InsertAirPortByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
-                DBAirPort = S.QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
+                DBAirPort = QueryAirPortByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirPort is None:
                     message = QtWidgets.QMessageBox()
                     message.setText("Запись не прочиталась. Попробуйте прочитать ее через поиск")
@@ -649,8 +780,8 @@ def myApplication():
                     ReadingQuery(DBAirPort)
                     SetFields()
                     # fixme Пользователи без права на изменение не фиксируются
-                    S.IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                    DBAirPort = S.QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
+                    IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                    DBAirPort = QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
                     A.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
@@ -665,7 +796,6 @@ def myApplication():
             message.setText("Такая запись есть")
             message.setIcon(QtWidgets.QMessageBox.Information)
             message.exec_()
-
 
     def PushButtonInsertByIATAandICAO():
         # кнопка "Поиск и Вставка"

@@ -913,6 +913,23 @@ def myApplication():
             Results.Result = 0
         return Results.Result
 
+    def QueryAirPortByIATA(iata):
+        # Возвращает строку аэропорта по коду IATA
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def LoadThread(Csv, Log):
         """
         Читаем входной файл и перепаковываем его в DataFrame (кодировка UTF-8, шапка таблицы на столбцы, разделитель - ,)
@@ -1093,9 +1110,9 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirPortDep = S.QueryAirPortByIATA(Dep)
+                DBAirPortDep = QueryAirPortByIATA(Dep)
                 if DBAirPortDep is not None:
-                    DBAirPortArr = S.QueryAirPortByIATA(Arr)
+                    DBAirPortArr = QueryAirPortByIATA(Arr)
                     if DBAirPortArr is not None:
                         DBAirRoute = QueryAirRoute(Dep, Arr)
                         if DBAirRoute is None:

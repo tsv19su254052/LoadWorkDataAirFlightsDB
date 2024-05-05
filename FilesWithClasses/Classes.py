@@ -79,6 +79,53 @@ class AirPort:
         self.AirPortIncidents = " "
 
 
+# Имена серверов
+class ServerNames:
+    #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
+    ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+    #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
+    # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
+    ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
+    ServerName = "localhost\mssqlserver15"  # указал инстанс
+    #ServerName = "localhost\sqldeveloper"  # указал инстанс
+
+    # Подключения
+    cnxnAL = ' '
+    cnxnRT = ' '
+    cnxnAC_XML = ' '
+    cnxnAC = ' '
+    cnxnFN = ' '
+
+    # Курсоры
+    seekAL = ' '
+    seekRT = ' '
+    seekAC_XML = ' '
+    seekAC = ' '
+    seekFN = ' '
+
+
+# Имена читаемых и записываемых файлов
+class FileNames:
+    InputFileCSV = ' '
+    LogFileTXT = ' '
+    ErrorFileTXT = 'LogReport_Errors.txt'
+
+
+# Флаги
+class Flags:
+    useAirFlightsDB = True
+    useAirCraftsDSN = False
+    useXQuery = False
+    SetInputDate = False
+    BeginDate = ' '
+
+
+# Состояния
+class States:
+    Connected_AL = False
+    Connected_RT = False
+    Connected_ACFN = False
+    Connected_AC_XML = False
 
 
 # Конвертация ресурсного файла *.ui -> *.py в терминале командой (командной строке)

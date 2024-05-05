@@ -10,19 +10,19 @@ from folium.plugins.draw import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-import Classes
+#import Classes
+from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogInputIATAandICAO, AirPort, ServerNames, FileNames, Flags, States
 
 
 # Делаем экземпляры
-A = Classes.AirPort()
+A = AirPort()
 A.LogCountViewed = 0
 A.LogCountChanged = 0
-S = Classes.Servers()
-# Добавляем аттрибуты
-#S.ServerName = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
-S.ServerName = "localhost\mssqlserver15"  # указал инстанс
-#S.ServerName = "localhost\sqldeveloper"  # указал инстанс
-S.Connected_RT = False
+#S = Classes.Servers()
+S = ServerNames()
+F = FileNames()
+Fl = Flags()
+St = States()
 
 
 # Основная функция
@@ -33,11 +33,11 @@ def myApplication():
     myApp = QtWidgets.QApplication(sys.argv)
     # Делаем экземпляры
     # fixme Правильно сделать экземпляр с композицией
-    myDialog = Classes.Ui_DialogCorrectAirPortsWithMap()
+    myDialog = Ui_DialogCorrectAirPortsWithMap()
     myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
     myDialog.setFixedSize(920, 780)
     myDialog.setWindowTitle('АэроПорты')
-    myDialogInputIATAandICAO = Classes.Ui_DialogInputIATAandICAO()
+    myDialogInputIATAandICAO = Ui_DialogInputIATAandICAO()
     myDialogInputIATAandICAO.setupUi(Dialog=myDialogInputIATAandICAO)
     myDialogInputIATAandICAO.setFixedSize(240, 245)
     # Дополняем функционал экземпляра главного диалога

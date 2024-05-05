@@ -799,15 +799,16 @@ def myApplication():
                             #self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             C.seekAC_XML.execute(SQLQuery)
-                            #SQLQuery = "SELECT @ReturnData "
-                            #self.seekAC_XML.execute(SQLQuery)
+                            SQLQuery = "SELECT @ReturnData "
+                            C.seekAC_XML.execute(SQLQuery)
+                            RV = C.seekAC_XML.fetchone()
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
-                            Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            print("Data = " + str(Data))
+                            #Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            #print("Data = " + str(Data))
                             Results.Result = 1
-                            print(" Результат хранимой процедуры = " + str(Results.Result))
+                            print(" Результат хранимой процедуры = " + str(RV))
                             C.cnxnAC_XML.commit()
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]

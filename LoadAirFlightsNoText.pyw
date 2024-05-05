@@ -557,7 +557,7 @@ def myApplication():
                     # Добавляем атрибуты seek...
                     ServerNames.seekAC = ServerNames.cnxnAC.cursor()
                     ServerNames.seekFN = ServerNames.cnxnFN.cursor()
-                    ServerNames.Connected_ACFN = True
+                    States.Connected_ACFN = True
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
@@ -604,41 +604,41 @@ def myApplication():
             ServerNames.seekAC.close()
             # Отключаемся от базы данных
             ServerNames.cnxnAC.close()
-            ServerNames.Connected_AC = False
+            States.Connected_AC = False
             # Снимаем курсор
             ServerNames.seekFN.close()
             # Отключаемся от базы данных
             ServerNames.cnxnFN.close()
-            ServerNames.Connected_ACFN = False
+            States.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
 
 
     def PushButtonChooseCSVFile():
         filter = "Data files (*.csv)"
-        S.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
-        S.urnCSV = S.InputFileCSV.rstrip(os.sep)  # не сработало
-        S.filenameCSV = pathlib.Path(S.InputFileCSV).name  # сработало
-        myDialog.lineEdit_CSVFile.setText(S.filenameCSV)
+        FileNames.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
+        urnCSV = FileNames.InputFileCSV.rstrip(os.sep)  # не сработало
+        filenameCSV = pathlib.Path(FileNames.InputFileCSV).name  # сработало
+        myDialog.lineEdit_CSVFile.setText(filenameCSV)
 
     def PushButtonChooseTXTFile():
         filter = "Log Files (*.txt *.text)"
-        S.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
-        S.filenameTXT = pathlib.Path(S.LogFileTXT).name
-        myDialog.lineEdit_TXTFile.setText(S.filenameTXT)
+        FileNames.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
+        filenameTXT = pathlib.Path(FileNames.LogFileTXT).name
+        myDialog.lineEdit_TXTFile.setText(filenameTXT)
 
     def QueryAirLineByIATA(iata):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekAL.execute(SQLQuery)
+            ServerNames.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
-            S.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
-            S.cnxnAL.commit()
+            ServerNames.seekAL.execute(SQLQuery)
+            ResultSQL = ServerNames.seekAL.fetchone()
+            ServerNames.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()
+            ServerNames.cnxnAL.rollback()
         else:
             pass
         finally:
@@ -649,45 +649,45 @@ def myApplication():
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                S.seekAC_XML.execute(SQLQuery)
+                ServerNames.seekAC_XML.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC_XML.execute(SQLQuery)
-                ResultSQL = S.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                S.cnxnAC_XML.commit()
+                ServerNames.seekAC_XML.execute(SQLQuery)
+                ResultSQL = ServerNames.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                ServerNames.cnxnAC_XML.commit()
             except Exception:
                 ResultSQL = False
-                S.cnxnAC_XML.rollback()
+                ServerNames.cnxnAC_XML.rollback()
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                S.seekAC.execute(SQLQuery)
+                ServerNames.seekAC.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC.execute(SQLQuery)
-                ResultSQL = S.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                S.cnxnAC.commit()
+                ServerNames.seekAC.execute(SQLQuery)
+                ResultSQL = ServerNames.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                ServerNames.cnxnAC.commit()
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()
+                ServerNames.cnxnAC.rollback()
         return ResultSQL
 
     def InsertAirCraftByRegistration(Registration, ALPK, useAirCrafts):
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                S.seekAC_XML.execute(SQLQuery)
+                ServerNames.seekAC_XML.execute(SQLQuery)
                 SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
                 SQLQuery += str(Registration) + "') "
-                S.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
+                ServerNames.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
                 # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
-                S.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                S.seekAC.execute(SQLQuery)
+                ServerNames.seekAC.execute(SQLQuery)
                 if ALPK is None:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
                     SQLQuery += str(Registration) + "') "
@@ -695,26 +695,26 @@ def myApplication():
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
                     SQLQuery += str(Registration) + "', "
                     SQLQuery += str(ALPK) + ") "
-                S.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                ServerNames.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                S.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     def QueryAirLineByPK(pk):
         # Возвращает строку авиакомпании по первичному ключу
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekAL.execute(SQLQuery)
+            ServerNames.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
-            S.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
-            S.cnxnAL.commit()
+            ServerNames.seekAL.execute(SQLQuery)
+            ResultSQL = ServerNames.seekAL.fetchone()
+            ServerNames.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()
+            ServerNames.cnxnAL.rollback()
         else:
             pass
         finally:
@@ -726,14 +726,14 @@ def myApplication():
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-                S.seekAC.execute(SQLQuery)
+                ServerNames.seekAC.execute(SQLQuery)
                 SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                ServerNames.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                S.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                ServerNames.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
             else:
                 pass
             finally:
@@ -743,18 +743,18 @@ def myApplication():
         # Возвращает строку маршрута по кодам IATA аэропортов
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             SQLQuery = """SELECT dbo.AirRoutesTable.AirRouteUniqueNumber                                 
                        FROM dbo.AirRoutesTable INNER JOIN
                        dbo.AirPortsTable ON dbo.AirRoutesTable.AirPortDeparture = dbo.AirPortsTable.AirPortUniqueNumber INNER JOIN
                        dbo.AirPortsTable AS AirPortsTable_1 ON dbo.AirRoutesTable.AirPortArrival = AirPortsTable_1.AirPortUniqueNumber
                        WHERE (dbo.AirPortsTable.AirPortCodeIATA = '""" + str(IATADeparture) + "') AND (AirPortsTable_1.AirPortCodeIATA = '" + str(IATAArrival) + "') "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
+            ServerNames.seekRT.execute(SQLQuery)
+            ResultSQL = ServerNames.seekRT.fetchone()
+            ServerNames.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
+            ServerNames.cnxnRT.rollback()
         else:
             pass
         finally:
@@ -763,16 +763,16 @@ def myApplication():
     def InsertAirRoute(IATADeparture, IATAArrival):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirRoutesTable (AirPortDeparture, AirPortArrival) VALUES ("
             SQLQuery += str(IATADeparture) + ", "  # bigint
             SQLQuery += str(IATAArrival) + ") "  # bigint
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             ResultSQL = True
-            S.cnxnRT.commit()
+            ServerNames.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
+            ServerNames.cnxnRT.rollback()
         else:
             pass
         finally:
@@ -782,14 +782,14 @@ def myApplication():
         # fixme дописать функционал, когда код пустой
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA) VALUES ('" + str(iata) + "') "
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             ResultSQL = True
-            S.cnxnRT.commit()
+            ServerNames.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
+            ServerNames.cnxnRT.rollback()
         else:
             pass
         finally:
@@ -811,10 +811,10 @@ def myApplication():
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            S.seekAC_XML.execute(SQLQuery)
+                            ServerNames.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
-                            Data = S.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            Data = ServerNames.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             print("Data = " + str(Data))
                             if Data:
                                 Results.Result = Data[0]
@@ -824,25 +824,25 @@ def myApplication():
                             #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
                             #Status = self.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
-                            S.cnxnAC_XML.commit()
+                            ServerNames.cnxnAC_XML.commit()
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]
                             print(" pyodbcError = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
-                            S.cnxnAC_XML.rollback()
+                            ServerNames.cnxnAC_XML.rollback()
                             Results.Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            S.cnxnAC_XML.rollback()
+                            ServerNames.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:
                         # fixme на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных (модель восстановления БД - ПОЛНАЯ) -> сделал ПРОСТАЯ
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                            S.seekAC_XML.execute(SQLQuery)
+                            ServerNames.seekAC_XML.execute(SQLQuery)
                             XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            S.seekAC_XML.execute(XMLQuery)
-                            ResultXML = S.seekAC_XML.fetchone()
+                            ServerNames.seekAC_XML.execute(XMLQuery)
+                            ResultXML = ServerNames.seekAC_XML.fetchone()
                             QuantityCounted = 1  # количество таких авиаперелетов за этот день
                             QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                             QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
@@ -902,19 +902,19 @@ def myApplication():
                                     Results.Result = 1
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            S.seekAC_XML.execute(XMLQuery)
-                            S.cnxnAC_XML.commit()
+                            ServerNames.seekAC_XML.execute(XMLQuery)
+                            ServerNames.cnxnAC_XML.commit()
                         except Exception:
-                            S.cnxnAC_XML.rollback()
+                            ServerNames.cnxnAC_XML.rollback()
                             Results.Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        S.seekFN.execute(SQLQuery)
+                        ServerNames.seekFN.execute(SQLQuery)
                         SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
                         SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        S.seekFN.execute(SQLQuery)
-                        ResultQuery = S.seekFN.fetchone()
+                        ServerNames.seekFN.execute(SQLQuery)
+                        ResultQuery = ServerNames.seekFN.fetchone()
                         if ResultQuery is None:
                             SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
                             SQLQuery += str(db_air_route) + ", "  # bigint
@@ -930,10 +930,10 @@ def myApplication():
                             Results.Result = 2
                         else:
                             pass
-                        S.seekFN.execute(SQLQuery)
-                        S.cnxnFN.commit()
+                        ServerNames.seekFN.execute(SQLQuery)
+                        ServerNames.cnxnFN.commit()
                     except Exception:
-                        S.cnxnFN.rollback()
+                        ServerNames.cnxnFN.rollback()
                         Results.Result = 0
                     finally:
                         pass
@@ -951,14 +951,14 @@ def myApplication():
         # Возвращает строку аэропорта по коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
+            ServerNames.seekRT.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
+            ServerNames.seekRT.execute(SQLQuery)
+            ResultSQL = ServerNames.seekRT.fetchone()
+            ServerNames.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
+            ServerNames.cnxnRT.rollback()
         else:
             pass
         finally:
@@ -969,7 +969,7 @@ def myApplication():
         # fixme Потом подправить Альанс авиакомпании
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekAL.execute(SQLQuery)
+            ServerNames.seekAL.execute(SQLQuery)
             if iata is None:
                 print(" ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeICAO) VALUES ('" + str(icao) + "') "
@@ -984,12 +984,12 @@ def myApplication():
             else:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
-            S.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
+            ServerNames.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
             ResultSQL = True
-            S.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            ServerNames.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+            ServerNames.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             pass
         finally:
@@ -1026,7 +1026,7 @@ def myApplication():
             #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))
             ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d' % ListMonth[attemptNumber] + "-" + '%02d' % ListDay[attemptNumber])
         #myDialog.label_execute.setText("Исходные данные перепакованы")  # оболочка зависает и слетает
-        if SetInputDate:
+        if Flags.SetInputDate:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")
         else:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: blue")
@@ -1101,12 +1101,12 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = QueryAirCraftByRegistration(AC, useAirCraftsDSN)
+                DBAirCraft = QueryAirCraftByRegistration(AC, Flags.useAirCraftsDSN)
                 if DBAirCraft is None:
                     DBAirLine = QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=useAirCraftsDSN):
+                        if InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Flags.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -1117,7 +1117,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=useAirCraftsDSN):
+                        if InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Flags.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -1131,7 +1131,7 @@ def myApplication():
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirCraft is not None:
-                    if useAirCraftsDSN:
+                    if Flags.useAirCraftsDSN:
                         break
                     else:
                         DBAirLinePK = QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
@@ -1143,7 +1143,7 @@ def myApplication():
                             if DBAirLine is None:
                                 break
                             elif DBAirLine is not None:
-                                if UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=useAirCraftsDSN):
+                                if UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Flags.useAirCraftsDSN):
                                     ListAirCraftsUpdated.append(AC)
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                     print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
@@ -1231,8 +1231,8 @@ def myApplication():
             DistributionDensityAirRoutes[deadlockCount] += 1
             print(colorama.Fore.BLUE + " Авиарейс", str(AL) + str(FN), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
-            if not SetInputDate:
-                FD = S.BeginDate
+            if not Flags.SetInputDate:
+                FD = Flags.BeginDate
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber

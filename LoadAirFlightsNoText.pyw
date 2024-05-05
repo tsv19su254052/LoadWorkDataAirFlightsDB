@@ -574,15 +574,15 @@ def myApplication():
 
     def PushButtonChooseCSVFile():
         filter = "Data files (*.csv)"
-        Fl.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
-        urnCSV = Fl.InputFileCSV.rstrip(os.sep)  # не сработало
-        filenameCSV = pathlib.Path(Fl.InputFileCSV).name
+        F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
+        urnCSV = F.InputFileCSV.rstrip(os.sep)  # не сработало
+        filenameCSV = pathlib.Path(F.InputFileCSV).name
         myDialog.lineEdit_CSVFile.setText(filenameCSV)
 
     def PushButtonChooseTXTFile():
         filter = "Log Files (*.txt *.text)"
-        Fl.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
-        filenameTXT = pathlib.Path(Fl.LogFileTXT).name
+        F.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
+        filenameTXT = pathlib.Path(F.LogFileTXT).name
         myDialog.lineEdit_TXTFile.setText(filenameTXT)
 
     def QueryAirLineByIATA(iata):
@@ -1273,7 +1273,7 @@ def myApplication():
         OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
         OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
         OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-        OutputString += " Источник входных данных = " + str(Fl.InputFileCSV) + " \n"
+        OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
         OutputString += " Входные данные внесены за " + str(Fl.BeginDate) + " \n"
         if Fl.SetInputDate:
             OutputString += " Дата авиарейса проставлена из входного файла\n"

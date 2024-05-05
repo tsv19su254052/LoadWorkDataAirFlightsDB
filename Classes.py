@@ -975,7 +975,7 @@ class Servers:
 
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
-        class Results():
+        class Results:
             Result = False  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber

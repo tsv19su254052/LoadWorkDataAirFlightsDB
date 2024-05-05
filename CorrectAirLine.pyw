@@ -163,6 +163,7 @@ class AirLineWork(AirLine):
         return ResultSQL[0]
 
 
+A = AirLineWork()
 S = ServerNames()
 Fl = Flags()
 St = States()
@@ -345,11 +346,11 @@ def myApplication():
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                AirLineWork.cnxnAL = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
+                A.cnxnAL = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
                 print("  База данных ", S.DataBase, " подключена")
                 St.Connected_AL = True
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                AirLineWork.cnxnAL.autocommit = False
+                A.cnxnAL.autocommit = False
                 print("autocommit is disabled")
                 # Ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -369,7 +370,7 @@ def myApplication():
                 #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                AirLineWork.seekAL = AirLineWork.cnxnAL.cursor()
+                A.seekAL = A.cnxnAL.cursor()
                 print("seeks is on")
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB.setEnabled(False)
@@ -377,20 +378,20 @@ def myApplication():
                 myDialog.pushButton_Disconnect.setEnabled(True)
                 myDialog.pushButton_Begin.setEnabled(True)  # кнопка "Начало"
                 # SQL Server
-                myDialog.lineEdit_Server.setText(AirLineWork.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(A.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver.setText(AirLineWork.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver.setText(A.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
                 myDialog.lineEdit_Driver.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion.setText(AirLineWork.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion.setText(A.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
                 myDialog.lineEdit_ODBCversion.setEnabled(True)
                 # Источник данных
-                myDialog.lineEdit_DSN.setText(AirLineWork.cnxnAL.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                myDialog.lineEdit_DSN.setText(A.cnxnAL.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                 myDialog.lineEdit_DSN.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 # todo Схема по умолчанию - dbo
-                myDialog.lineEdit_Schema.setText(AirLineWork.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema.setText(A.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
                 myDialog.lineEdit_Schema.setEnabled(True)
             except Exception:
                 # Переводим в рабочее состояние
@@ -408,9 +409,9 @@ def myApplication():
         # кнопка "Отключиться от базы данных"
         if St.Connected_AL:
             # Снимаем курсоры
-            AirLineWork.seekAL.close()
+            A.seekAL.close()
             # Отключаемся от базы данных
-            AirLineWork.cnxnAL.close()
+            A.cnxnAL.close()
             # Снимаем флаги
             St.Connected_AL = False
             # Переключаем в исходное состояние
@@ -454,34 +455,34 @@ def myApplication():
 
     def SetFields():
         # Выводим запись
-        if AirLineWork.AirLineCodeIATA is None:
+        if A.AirLineCodeIATA is None:
             myDialog.lineEdit_AirLineCodeIATA.clear()
             myDialog.lineEdit_AirLineCodeIATA.setEnabled(False)
         else:
             myDialog.lineEdit_AirLineCodeIATA.setEnabled(True)
-            myDialog.lineEdit_AirLineCodeIATA.setText(str(AirLineWork.AirLineCodeIATA))
-        if AirLineWork.AirLineCodeICAO is None:
+            myDialog.lineEdit_AirLineCodeIATA.setText(str(A.AirLineCodeIATA))
+        if A.AirLineCodeICAO is None:
             myDialog.lineEdit_AirLineCodeICAO.clear()
             myDialog.lineEdit_AirLineCodeICAO.setEnabled(False)
         else:
             myDialog.lineEdit_AirLineCodeICAO.setEnabled(True)
-            myDialog.lineEdit_AirLineCodeICAO.setText(str(AirLineWork.AirLineCodeICAO))
-        myDialog.lineEdit_CallSign.setText(AirLineWork.AirLineCallSighn)
-        myDialog.checkBox_Status.setChecked(AirLineWork.AirLineStatus)
+            myDialog.lineEdit_AirLineCodeICAO.setText(str(A.AirLineCodeICAO))
+        myDialog.lineEdit_CallSign.setText(A.AirLineCallSighn)
+        myDialog.checkBox_Status.setChecked(A.AirLineStatus)
         myDialog.textEdit_AirLineName.clear()
-        myDialog.textEdit_AirLineName.append(str(AirLineWork.AirLineName))
+        myDialog.textEdit_AirLineName.append(str(A.AirLineName))
         myDialog.textEdit_AirLineCity.clear()
-        myDialog.textEdit_AirLineCity.append(str(AirLineWork.AirLineCity))
+        myDialog.textEdit_AirLineCity.append(str(A.AirLineCity))
         #myDialog.dateEdit_CreateDate.dateTimeFromText(A.CreationDate)
         # fixme Замечены случаи, что не читает дату из базы и оставляет предыдущую - ПРОВЕРЯЕМ ДАТУ ПЕРЕД ЗАПИСЬЮ
-        if AirLineWork.CreationDate:
-            myDialog.dateEdit_CreateDate.setDate(QtCore.QDate.fromString(str(AirLineWork.CreationDate), "yyyy-MM-dd"))
+        if A.CreationDate:
+            myDialog.dateEdit_CreateDate.setDate(QtCore.QDate.fromString(str(A.CreationDate), "yyyy-MM-dd"))
         else:
             myDialog.dateEdit_CreateDate.clear()
         myDialog.textEdit_AirLineCountry.clear()
-        myDialog.textEdit_AirLineCountry.append(str(AirLineWork.AirLineCountry))
+        myDialog.textEdit_AirLineCountry.append(str(A.AirLineCountry))
         # Перезапрашиваем список алиансов и заполняем combobox каждый раз
-        Alliances = AirLineWork.QueryAlliances()
+        Alliances = A.QueryAlliances()
         print("Alliances = " + str(Alliances))
         myDialog.comboBox_Alliance.clear()
         if Alliances:
@@ -494,22 +495,22 @@ def myApplication():
                 PKs.append(PK[0])
             print("PKs = " + str(PKs))
             quantity = myDialog.comboBox_Alliance.count()
-            index = PKs.index(AirLineWork.Alliance)  # нумеруется с 0
+            index = PKs.index(A.Alliance)  # нумеруется с 0
             print("index = " + str(index))
             # todo - Адаптированное решение по подсказке с https://stackoverflow.com/questions/75496493/search-position-in-two-dimensional-list?noredirect=1#comment133202629_75496493 - РАБОТАЕТ
-            index_improved = next((i for i, x in enumerate(Alliances) if x[0] == AirLineWork.Alliance), None)
+            index_improved = next((i for i, x in enumerate(Alliances) if x[0] == A.Alliance), None)
             if index_improved is None:
                 index_improved = 3  # Unknown Alliance
                 print("Альянс не найден в списке")
             else:
                 print("Альянс = " + str(index_improved))
             myDialog.comboBox_Alliance.setCurrentIndex(index_improved)
-        myDialog.lineEdit_AirLineID.setText(str(AirLineWork.AirLine_ID))
-        myDialog.lineEdit_AirLineAlias.setText(str(AirLineWork.AirLineAlias))
+        myDialog.lineEdit_AirLineID.setText(str(A.AirLine_ID))
+        myDialog.lineEdit_AirLineAlias.setText(str(A.AirLineAlias))
         # Выводим позицию
-        myDialog.lineEdit_Position.setText(str(AirLineWork.Position))
+        myDialog.lineEdit_Position.setText(str(A.Position))
         myDialog.textEdit_AirLineDescription.clear()
-        myDialog.textEdit_AirLineDescription.append(str(AirLineWork.AirLineDescription))
+        myDialog.textEdit_AirLineDescription.append(str(A.AirLineDescription))
         print("Поля ввода заполнены\n")
 
     def PushButtonSearchByIATA():
@@ -518,27 +519,27 @@ def myApplication():
         if ok:
             myDialog.lineEditCodeIATA.setText(str(LineCodeIATA))
             Code = myDialog.lineEditCodeIATA.text()
-            DBAirLine = AirLineWork.QueryAirLineByIATA(Code)
+            DBAirLine = A.QueryAirLineByIATA(Code)
             # fixme Решение 3 - не перезаписывать код IATA (Недостаток - можно сделать дубликат по коду ICAO, их много, возможно это НОРМА, исправлять только вручную)
             # fixme Решение 4 - код IATA всегда неактивный, он вводится только при вставке
             if DBAirLine is not None:
-                AirLineWork.Position = DBAirLine.AirLineUniqueNumber
-                AirLineWork.AirLine_ID = DBAirLine.AirLine_ID
-                AirLineWork.AirLineName = DBAirLine.AirLineName
-                AirLineWork.AirLineAlias = DBAirLine.AirLineAlias
-                AirLineWork.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
-                AirLineWork.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
-                AirLineWork.AirLineCallSighn = DBAirLine.AirLineCallSighn
-                AirLineWork.AirLineCity = DBAirLine.AirLineCity
-                AirLineWork.AirLineCountry = DBAirLine.AirLineCountry
+                A.Position = DBAirLine.AirLineUniqueNumber
+                A.AirLine_ID = DBAirLine.AirLine_ID
+                A.AirLineName = DBAirLine.AirLineName
+                A.AirLineAlias = DBAirLine.AirLineAlias
+                A.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
+                A.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
+                A.AirLineCallSighn = DBAirLine.AirLineCallSighn
+                A.AirLineCity = DBAirLine.AirLineCity
+                A.AirLineCountry = DBAirLine.AirLineCountry
                 if DBAirLine.AirLineStatus is not None:
-                    AirLineWork.AirLineStatus = DBAirLine.AirLineStatus
+                    A.AirLineStatus = DBAirLine.AirLineStatus
                 else:
-                    AirLineWork.AirLineStatus = False
+                    A.AirLineStatus = False
                 if DBAirLine.CreationDate:
-                    AirLineWork.CreationDate = DBAirLine.CreationDate
-                AirLineWork.AirLineDescription = DBAirLine.AirLineDescription
-                AirLineWork.Alliance = DBAirLine.Alliance
+                    A.CreationDate = DBAirLine.CreationDate
+                A.AirLineDescription = DBAirLine.AirLineDescription
+                A.Alliance = DBAirLine.Alliance
             elif DBAirLine is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -546,10 +547,10 @@ def myApplication():
                 message.exec_()
             else:
                 pass
-            if AirLineWork.Position == 1:
+            if A.Position == 1:
                 myDialog.pushButton_Begin.setEnabled(False)
                 myDialog.pushButton_Previous.setEnabled(False)
-            if AirLineWork.Position >= 2:
+            if A.Position >= 2:
                 myDialog.pushButton_Begin.setEnabled(True)
                 myDialog.pushButton_Previous.setEnabled(True)
             SetFields()
@@ -560,25 +561,25 @@ def myApplication():
         if ok:
             myDialog.lineEditCodeICAO.setText(str(LineCodeICAO))
             Code = myDialog.lineEditCodeICAO.text()
-            DBAirLine = AirLineWork.QueryAirLineByICAO(Code)
+            DBAirLine = A.QueryAirLineByICAO(Code)
             if DBAirLine is not None:
-                AirLineWork.Position = DBAirLine.AirLineUniqueNumber
-                AirLineWork.AirLine_ID = DBAirLine.AirLine_ID
-                AirLineWork.AirLineName = DBAirLine.AirLineName
-                AirLineWork.AirLineAlias = DBAirLine.AirLineAlias
-                AirLineWork.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
-                AirLineWork.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
-                AirLineWork.AirLineCallSighn = DBAirLine.AirLineCallSighn
-                AirLineWork.AirLineCity = DBAirLine.AirLineCity
-                AirLineWork.AirLineCountry = DBAirLine.AirLineCountry
+                A.Position = DBAirLine.AirLineUniqueNumber
+                A.AirLine_ID = DBAirLine.AirLine_ID
+                A.AirLineName = DBAirLine.AirLineName
+                A.AirLineAlias = DBAirLine.AirLineAlias
+                A.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
+                A.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
+                A.AirLineCallSighn = DBAirLine.AirLineCallSighn
+                A.AirLineCity = DBAirLine.AirLineCity
+                A.AirLineCountry = DBAirLine.AirLineCountry
                 if DBAirLine.AirLineStatus is not None:
-                    AirLineWork.AirLineStatus = DBAirLine.AirLineStatus
+                    A.AirLineStatus = DBAirLine.AirLineStatus
                 else:
-                    AirLineWork.AirLineStatus = False
+                    A.AirLineStatus = False
                 if DBAirLine.CreationDate:
-                    AirLineWork.CreationDate = DBAirLine.CreationDate
-                AirLineWork.AirLineDescription = DBAirLine.AirLineDescription
-                AirLineWork.Alliance = DBAirLine.Alliance
+                    A.CreationDate = DBAirLine.CreationDate
+                A.AirLineDescription = DBAirLine.AirLineDescription
+                A.Alliance = DBAirLine.Alliance
             elif DBAirLine is None:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не найдена")
@@ -586,10 +587,10 @@ def myApplication():
                 message.exec_()
             else:
                 pass
-            if AirLineWork.Position == 1:
+            if A.Position == 1:
                 myDialog.pushButton_Begin.setEnabled(False)
                 myDialog.pushButton_Previous.setEnabled(False)
-            if AirLineWork.Position >= 2:
+            if A.Position >= 2:
                 myDialog.pushButton_Begin.setEnabled(True)
                 myDialog.pushButton_Previous.setEnabled(True)
             SetFields()
@@ -622,34 +623,34 @@ def myApplication():
             Code_ICAO = None
         else:
             Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
-        DBAirLine = AirLineWork.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+        DBAirLine = A.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
         def Transfer():
-            AirLineWork.Position = DBAirLine.AirLineUniqueNumber
-            AirLineWork.AirLine_ID = DBAirLine.AirLine_ID
-            AirLineWork.AirLineName = DBAirLine.AirLineName
-            AirLineWork.AirLineAlias = DBAirLine.AirLineAlias
-            AirLineWork.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
-            AirLineWork.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
-            AirLineWork.AirLineCallSighn = DBAirLine.AirLineCallSighn
-            AirLineWork.AirLineCity = DBAirLine.AirLineCity
-            AirLineWork.AirLineCountry = DBAirLine.AirLineCountry
+            A.Position = DBAirLine.AirLineUniqueNumber
+            A.AirLine_ID = DBAirLine.AirLine_ID
+            A.AirLineName = DBAirLine.AirLineName
+            A.AirLineAlias = DBAirLine.AirLineAlias
+            A.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
+            A.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
+            A.AirLineCallSighn = DBAirLine.AirLineCallSighn
+            A.AirLineCity = DBAirLine.AirLineCity
+            A.AirLineCountry = DBAirLine.AirLineCountry
             if DBAirLine.AirLineStatus is not None:
-                AirLineWork.AirLineStatus = DBAirLine.AirLineStatus
+                A.AirLineStatus = DBAirLine.AirLineStatus
             else:
-                AirLineWork.AirLineStatus = False
+                A.AirLineStatus = False
             if DBAirLine.CreationDate:
-                AirLineWork.CreationDate = DBAirLine.CreationDate
-            AirLineWork.AirLineDescription = DBAirLine.AirLineDescription
+                A.CreationDate = DBAirLine.CreationDate
+            A.AirLineDescription = DBAirLine.AirLineDescription
             if DBAirLine.Alliance:
-                AirLineWork.Alliance = DBAirLine.Alliance
+                A.Alliance = DBAirLine.Alliance
             else:
-                AirLineWork.Alliance = 4
-            if AirLineWork.Position == 1:
+                A.Alliance = 4
+            if A.Position == 1:
                 myDialog.pushButton_Begin.setEnabled(False)
                 myDialog.pushButton_Previous.setEnabled(False)
-            if AirLineWork.Position >= 2:
+            if A.Position >= 2:
                 myDialog.pushButton_Begin.setEnabled(True)
                 myDialog.pushButton_Previous.setEnabled(True)
             SetFields()
@@ -663,9 +664,9 @@ def myApplication():
             message.exec_()
         elif DBAirLine is None:
             # Вставка новой строки
-            ResultInsert = AirLineWork.InsertAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+            ResultInsert = A.InsertAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
             if ResultInsert:
-                DBAirLine = AirLineWork.QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
+                DBAirLine = A.QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirLine is not None:
                     Transfer()
                 else:
@@ -680,27 +681,27 @@ def myApplication():
                 message.exec_()
 
     def CommonPart():
-        DBAirLine = AirLineWork.QueryAirLineByPK(AirLineWork.Position)
+        DBAirLine = A.QueryAirLineByPK(A.Position)
         if DBAirLine is not None:
-            AirLineWork.AirLine_ID = DBAirLine.AirLine_ID
-            AirLineWork.AirLineName = DBAirLine.AirLineName
-            AirLineWork.AirLineAlias = DBAirLine.AirLineAlias
-            AirLineWork.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
-            AirLineWork.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
-            AirLineWork.AirLineCallSighn = DBAirLine.AirLineCallSighn
-            AirLineWork.AirLineCity = DBAirLine.AirLineCity
-            AirLineWork.AirLineCountry = DBAirLine.AirLineCountry
+            A.AirLine_ID = DBAirLine.AirLine_ID
+            A.AirLineName = DBAirLine.AirLineName
+            A.AirLineAlias = DBAirLine.AirLineAlias
+            A.AirLineCodeIATA = DBAirLine.AirLineCodeIATA
+            A.AirLineCodeICAO = DBAirLine.AirLineCodeICAO
+            A.AirLineCallSighn = DBAirLine.AirLineCallSighn
+            A.AirLineCity = DBAirLine.AirLineCity
+            A.AirLineCountry = DBAirLine.AirLineCountry
             if DBAirLine.AirLineStatus is not None:
-                AirLineWork.AirLineStatus = DBAirLine.AirLineStatus
+                A.AirLineStatus = DBAirLine.AirLineStatus
             else:
-                AirLineWork.AirLineStatus = False
+                A.AirLineStatus = False
             if DBAirLine.CreationDate:
-                AirLineWork.CreationDate = DBAirLine.CreationDate
-            AirLineWork.AirLineDescription = DBAirLine.AirLineDescription
+                A.CreationDate = DBAirLine.CreationDate
+            A.AirLineDescription = DBAirLine.AirLineDescription
             if DBAirLine.Alliance:
-                AirLineWork.Alliance = DBAirLine.Alliance
+                A.Alliance = DBAirLine.Alliance
             else:
-                AirLineWork.Alliance = 4
+                A.Alliance = 4
             SetFields()
             return True
         elif DBAirLine is None:
@@ -794,15 +795,15 @@ def myApplication():
 
     def PushButtonPrevious():
         # кнопка "Предыдущий"
-        AirLineWork.Position -= 1
+        A.Position -= 1
         CommonPart()
-        if AirLineWork.Position == 1:
+        if A.Position == 1:
             myDialog.pushButton_Begin.setEnabled(False)
             myDialog.pushButton_Previous.setEnabled(False)
 
     def PushButtonNext():
         # кнопка "Следующий"
-        AirLineWork.Position += 1
+        A.Position += 1
         CommonPart()
         myDialog.pushButton_Begin.setEnabled(True)
         myDialog.pushButton_Previous.setEnabled(True)
@@ -810,36 +811,36 @@ def myApplication():
     def PushButtonUpdate():
         # Кнопка "Записать"
         # todo Вставить диалог выбора и проверки сертификата (ЭЦП) и условный переход с проверкой
-        AirLineWork.AirLine_ID = myDialog.lineEdit_AirLineID.text()
-        AirLineWork.AirLineName = myDialog.textEdit_AirLineName.toPlainText()
-        AirLineWork.AirLineAlias = myDialog.lineEdit_AirLineAlias.text()
-        AirLineWork.AirLineCallSighn = myDialog.lineEdit_CallSign.text()
-        AirLineWork.AirLineCity = myDialog.textEdit_AirLineCity.toPlainText()
-        AirLineWork.AirLineCountry = myDialog.textEdit_AirLineCountry.toPlainText()
+        A.AirLine_ID = myDialog.lineEdit_AirLineID.text()
+        A.AirLineName = myDialog.textEdit_AirLineName.toPlainText()
+        A.AirLineAlias = myDialog.lineEdit_AirLineAlias.text()
+        A.AirLineCallSighn = myDialog.lineEdit_CallSign.text()
+        A.AirLineCity = myDialog.textEdit_AirLineCity.toPlainText()
+        A.AirLineCountry = myDialog.textEdit_AirLineCountry.toPlainText()
         if myDialog.checkBox_Status.isChecked():
-            AirLineWork.AirLineStatus = 1  # True в Python-е -> 1 в SQL(bit)
+            A.AirLineStatus = 1  # True в Python-е -> 1 в SQL(bit)
         else:
-            AirLineWork.AirLineStatus = 0  # False в Python-е -> 0 в SQL(bit)
-        AirLineWork.CreationDate = myDialog.dateEdit_CreateDate.date().toString('yyyy-MM-dd')
-        AirLineWork.AirLineDescription = myDialog.textEdit_AirLineDescription.toPlainText()
+            A.AirLineStatus = 0  # False в Python-е -> 0 в SQL(bit)
+        A.CreationDate = myDialog.dateEdit_CreateDate.date().toString('yyyy-MM-dd')
+        A.AirLineDescription = myDialog.textEdit_AirLineDescription.toPlainText()
         index = myDialog.comboBox_Alliance.currentIndex()
-        AirLineWork.Alliance = index + 1  # первичный ключ альянса
-        print("old AlliancePK for update =" + str(AirLineWork.Alliance))
-        AirLineWork.Alliance = AirLineWork.QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())
-        print("AlliancePK for update =" + str(AirLineWork.Alliance))
+        A.Alliance = index + 1  # первичный ключ альянса
+        print("old AlliancePK for update =" + str(A.Alliance))
+        A.Alliance = A.QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())
+        print("AlliancePK for update =" + str(A.Alliance))
         # Вносим изменение
-        ResultUpdate = AirLineWork.UpdateAirLineByIATAandICAO(AirLineWork.AirLine_ID,
-                                                  AirLineWork.AirLineName,
-                                                  AirLineWork.AirLineAlias,
-                                                  AirLineWork.AirLineCodeIATA,
-                                                  AirLineWork.AirLineCodeICAO,
-                                                  AirLineWork.AirLineCallSighn,
-                                                  AirLineWork.AirLineCity,
-                                                  AirLineWork.AirLineCountry,
-                                                  AirLineWork.AirLineStatus,
-                                                  AirLineWork.CreationDate,
-                                                  AirLineWork.AirLineDescription,
-                                                  AirLineWork.Alliance)
+        ResultUpdate = A.UpdateAirLineByIATAandICAO(A.AirLine_ID,
+                                                  A.AirLineName,
+                                                  A.AirLineAlias,
+                                                  A.AirLineCodeIATA,
+                                                  A.AirLineCodeICAO,
+                                                  A.AirLineCallSighn,
+                                                  A.AirLineCity,
+                                                  A.AirLineCountry,
+                                                  A.AirLineStatus,
+                                                  A.CreationDate,
+                                                  A.AirLineDescription,
+                                                  A.Alliance)
         if not ResultUpdate:
             message = QtWidgets.QMessageBox()
             message.setText("Запись не переписалась")

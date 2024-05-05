@@ -15,9 +15,9 @@ from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogI
 
 
 # Делаем экземпляры
-A = AirPort()
-A.LogCountViewed = 0
-A.LogCountChanged = 0
+AirPortWork = AirPort()
+AirPortWork.LogCountViewed = 0
+AirPortWork.LogCountChanged = 0
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
@@ -275,27 +275,27 @@ def myApplication():
             return Result
 
     def ReadingQuery(ResultQuery):
-        A.SourceCSVFile = ResultQuery.SourceCSVFile
-        A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
-        A.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
-        A.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
-        A.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
-        A.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
-        A.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
-        A.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
-        A.AirPortName = ResultQuery.AirPortName
-        A.AirPortCity = ResultQuery.AirPortCity
-        A.AirPortCounty = ResultQuery.AirPortCounty
-        A.AirPortCountry = ResultQuery.AirPortCountry
-        A.AirPortLatitude = ResultQuery.AirPortLatitude
-        A.AirPortLongitude = ResultQuery.AirPortLongitude
-        A.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
-        A.AirPortDescription = ResultQuery.AirPortDescription
-        A.AirPortFacilities = ResultQuery.AirPortFacilities
-        A.AirPortIncidents = ResultQuery.AirPortIncidents
-        A.LogCountViewed = ResultQuery.LogCountViewed
-        A.LogCountChanged = ResultQuery.LogCountChanged
-        IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+        AirPortWork.SourceCSVFile = ResultQuery.SourceCSVFile
+        AirPortWork.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
+        AirPortWork.HyperLinkToAirPortSite = ResultQuery.HyperLinkToAirPortSite
+        AirPortWork.HyperLinkToOperatorSite = ResultQuery.HyperLinkToOperatorSite
+        AirPortWork.AirPortCodeIATA = ResultQuery.AirPortCodeIATA
+        AirPortWork.AirPortCodeICAO = ResultQuery.AirPortCodeICAO
+        AirPortWork.AirPortCodeFAA_LID = ResultQuery.AirPortCodeFAA_LID
+        AirPortWork.AirPortCodeWMO = ResultQuery.AirPortCodeWMO
+        AirPortWork.AirPortName = ResultQuery.AirPortName
+        AirPortWork.AirPortCity = ResultQuery.AirPortCity
+        AirPortWork.AirPortCounty = ResultQuery.AirPortCounty
+        AirPortWork.AirPortCountry = ResultQuery.AirPortCountry
+        AirPortWork.AirPortLatitude = ResultQuery.AirPortLatitude
+        AirPortWork.AirPortLongitude = ResultQuery.AirPortLongitude
+        AirPortWork.HeightAboveSeaLevel = ResultQuery.HeightAboveSeaLevel
+        AirPortWork.AirPortDescription = ResultQuery.AirPortDescription
+        AirPortWork.AirPortFacilities = ResultQuery.AirPortFacilities
+        AirPortWork.AirPortIncidents = ResultQuery.AirPortIncidents
+        AirPortWork.LogCountViewed = ResultQuery.LogCountViewed
+        AirPortWork.LogCountChanged = ResultQuery.LogCountChanged
+        IncrementLogCountViewedAirPort(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
 
     @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
@@ -309,50 +309,50 @@ def myApplication():
     def SetFields():
         # Выводим записи
         myDialog.textEdit_SourceCSVFile.clear()
-        myDialog.textEdit_SourceCSVFile.append(str(A.SourceCSVFile))
-        myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(A.HyperLinkToWikiPedia) + ">Wikipedia</a>")
-        myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(A.HyperLinkToWikiPedia))
+        myDialog.textEdit_SourceCSVFile.append(str(AirPortWork.SourceCSVFile))
+        myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(AirPortWork.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+        myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(AirPortWork.HyperLinkToWikiPedia))
         myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
-        myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
-        myDialog.label_HyperLink_to_AirPort.setToolTip(str(A.HyperLinkToAirPortSite))
+        myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(AirPortWork.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+        myDialog.label_HyperLink_to_AirPort.setToolTip(str(AirPortWork.HyperLinkToAirPortSite))
         myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
-        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
-        myDialog.label_HyperLink_to_Operator.setToolTip(str(A.HyperLinkToOperatorSite))
+        myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(AirPortWork.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+        myDialog.label_HyperLink_to_Operator.setToolTip(str(AirPortWork.HyperLinkToOperatorSite))
         myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
-        if A.AirPortCodeIATA is None:
+        if AirPortWork.AirPortCodeIATA is None:
             myDialog.label_CodeIATA.setText(" ")
         else:
-            myDialog.label_CodeIATA.setText(str(A.AirPortCodeIATA))
-        if A.AirPortCodeICAO is None:
+            myDialog.label_CodeIATA.setText(str(AirPortWork.AirPortCodeIATA))
+        if AirPortWork.AirPortCodeICAO is None:
             myDialog.label_CodeICAO.setText(" ")
         else:
-            myDialog.label_CodeICAO.setText(A.AirPortCodeICAO)
-        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(A.AirPortCodeFAA_LID))
-        myDialog.lineEdit_AirPortCodeWMO.setText(str(A.AirPortCodeWMO))
+            myDialog.label_CodeICAO.setText(AirPortWork.AirPortCodeICAO)
+        myDialog.lineEdit_AirPortCodeFAA_LID.setText(str(AirPortWork.AirPortCodeFAA_LID))
+        myDialog.lineEdit_AirPortCodeWMO.setText(str(AirPortWork.AirPortCodeWMO))
         myDialog.textEdit_AirPortName.clear()
-        myDialog.textEdit_AirPortName.append(str(A.AirPortName))
+        myDialog.textEdit_AirPortName.append(str(AirPortWork.AirPortName))
         myDialog.textEdit_AirPortCity.clear()
-        myDialog.textEdit_AirPortCity.append(str(A.AirPortCity))
+        myDialog.textEdit_AirPortCity.append(str(AirPortWork.AirPortCity))
         myDialog.textEdit_AirPortCounty.clear()
-        myDialog.textEdit_AirPortCounty.append(str(A.AirPortCounty))
+        myDialog.textEdit_AirPortCounty.append(str(AirPortWork.AirPortCounty))
         myDialog.textEdit_AirPortCountry.clear()
-        myDialog.textEdit_AirPortCountry.append(str(A.AirPortCountry))
-        myDialog.lineEdit_AirPortLatitude.setText(str(A.AirPortLatitude))
-        myDialog.lineEdit_AirPortLongitude.setText(str(A.AirPortLongitude))
-        myDialog.lineEdit_HeightAboveSeaLevel.setText(str(A.HeightAboveSeaLevel))
+        myDialog.textEdit_AirPortCountry.append(str(AirPortWork.AirPortCountry))
+        myDialog.lineEdit_AirPortLatitude.setText(str(AirPortWork.AirPortLatitude))
+        myDialog.lineEdit_AirPortLongitude.setText(str(AirPortWork.AirPortLongitude))
+        myDialog.lineEdit_HeightAboveSeaLevel.setText(str(AirPortWork.HeightAboveSeaLevel))
         myDialog.textBrowser_HyperLinks.clear()
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Wikipedia</a>")
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Сайт аэропорта или аэродрома</a>")
         #myDialog.textBrowser_HyperLinks.append("<a href=" + str(A.SourceCSVFile) + ">Сайт оператора аэропорта</a>")
         myDialog.textEdit_AirPortDescription.clear()
-        myDialog.textEdit_AirPortDescription.append(str(A.AirPortDescription))
+        myDialog.textEdit_AirPortDescription.append(str(AirPortWork.AirPortDescription))
         myDialog.textEdit_AirPortFacilities.clear()
-        myDialog.textEdit_AirPortFacilities.append(A.AirPortFacilities)
+        myDialog.textEdit_AirPortFacilities.append(AirPortWork.AirPortFacilities)
         myDialog.textEdit_Incidents.clear()
-        myDialog.textEdit_Incidents.append(A.AirPortIncidents)
+        myDialog.textEdit_Incidents.append(AirPortWork.AirPortIncidents)
         ClearMap()
-        if A.AirPortLatitude is not None and A.AirPortLongitude is not None:
-            coordinates = (A.AirPortLatitude, A.AirPortLongitude)
+        if AirPortWork.AirPortLatitude is not None and AirPortWork.AirPortLongitude is not None:
+            coordinates = (AirPortWork.AirPortLatitude, AirPortWork.AirPortLongitude)
             # Варианты карт:
             #  - OpenStreetMap (подробная цветная),
             #  - CartoDB Positron (серенькая),
@@ -528,48 +528,48 @@ def myApplication():
             return ResultSQL
 
     def PushButtonUpdateDB():
-        A.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
+        AirPortWork.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
         #A.AirPortCodeIATA = myDialog.lineEdit_AirPortCodeIATA.text()
         #A.AirPortCodeICAO = myDialog.lineEdit_AirPortCodeICAO.text()
-        A.AirPortCodeFAA_LID = myDialog.lineEdit_AirPortCodeFAA_LID.text()
-        A.AirPortCodeWMO = myDialog.lineEdit_AirPortCodeWMO.text()
-        A.AirPortName = myDialog.textEdit_AirPortName.toPlainText()
-        A.AirPortCity = myDialog.textEdit_AirPortCity.toPlainText()
-        A.AirPortCounty = myDialog.textEdit_AirPortCounty.toPlainText()
-        A.AirPortCountry = myDialog.textEdit_AirPortCountry.toPlainText()
-        A.AirPortLatitude = myDialog.lineEdit_AirPortLatitude.text()
-        A.AirPortLongitude = myDialog.lineEdit_AirPortLongitude.text()
-        A.HeightAboveSeaLevel = myDialog.lineEdit_HeightAboveSeaLevel.text()
-        A.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
-        A.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
-        A.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
-        DBAirPort = QueryAirPortByIATAandICAO(iata=A.AirPortCodeIATA, icao=A.AirPortCodeICAO)
+        AirPortWork.AirPortCodeFAA_LID = myDialog.lineEdit_AirPortCodeFAA_LID.text()
+        AirPortWork.AirPortCodeWMO = myDialog.lineEdit_AirPortCodeWMO.text()
+        AirPortWork.AirPortName = myDialog.textEdit_AirPortName.toPlainText()
+        AirPortWork.AirPortCity = myDialog.textEdit_AirPortCity.toPlainText()
+        AirPortWork.AirPortCounty = myDialog.textEdit_AirPortCounty.toPlainText()
+        AirPortWork.AirPortCountry = myDialog.textEdit_AirPortCountry.toPlainText()
+        AirPortWork.AirPortLatitude = myDialog.lineEdit_AirPortLatitude.text()
+        AirPortWork.AirPortLongitude = myDialog.lineEdit_AirPortLongitude.text()
+        AirPortWork.HeightAboveSeaLevel = myDialog.lineEdit_HeightAboveSeaLevel.text()
+        AirPortWork.AirPortDescription = myDialog.textEdit_AirPortDescription.toPlainText()
+        AirPortWork.AirPortFacilities = myDialog.textEdit_AirPortFacilities.toPlainText()
+        AirPortWork.AirPortIncidents = myDialog.textEdit_Incidents.toPlainText()
+        DBAirPort = QueryAirPortByIATAandICAO(iata=AirPortWork.AirPortCodeIATA, icao=AirPortWork.AirPortCodeICAO)
         LogCountChangedCurrent = DBAirPort.LogCountChanged
-        if LogCountChangedCurrent is None or (A.LogCountChanged is not None and LogCountChangedCurrent is not None and A.LogCountChanged == LogCountChangedCurrent):
+        if LogCountChangedCurrent is None or (AirPortWork.LogCountChanged is not None and LogCountChangedCurrent is not None and AirPortWork.LogCountChanged == LogCountChangedCurrent):
             # Вносим изменение
-            ResultUpdate = UpdateAirPortByIATAandICAO(A.SourceCSVFile,
-                                                        A.HyperLinkToWikiPedia,
-                                                        A.HyperLinkToAirPortSite,
-                                                        A.HyperLinkToOperatorSite,
-                                                        A.AirPortCodeIATA,
-                                                        A.AirPortCodeICAO,
-                                                        A.AirPortCodeFAA_LID,
-                                                        A.AirPortCodeWMO,
-                                                        A.AirPortName,
-                                                        A.AirPortCity,
-                                                        A.AirPortCounty,
-                                                        A.AirPortCountry,
-                                                        A.AirPortLatitude,
-                                                        A.AirPortLongitude,
-                                                        A.HeightAboveSeaLevel,
-                                                        A.AirPortDescription,
-                                                        A.AirPortFacilities,
-                                                        A.AirPortIncidents)
+            ResultUpdate = UpdateAirPortByIATAandICAO(AirPortWork.SourceCSVFile,
+                                                      AirPortWork.HyperLinkToWikiPedia,
+                                                      AirPortWork.HyperLinkToAirPortSite,
+                                                      AirPortWork.HyperLinkToOperatorSite,
+                                                      AirPortWork.AirPortCodeIATA,
+                                                      AirPortWork.AirPortCodeICAO,
+                                                      AirPortWork.AirPortCodeFAA_LID,
+                                                      AirPortWork.AirPortCodeWMO,
+                                                      AirPortWork.AirPortName,
+                                                      AirPortWork.AirPortCity,
+                                                      AirPortWork.AirPortCounty,
+                                                      AirPortWork.AirPortCountry,
+                                                      AirPortWork.AirPortLatitude,
+                                                      AirPortWork.AirPortLongitude,
+                                                      AirPortWork.HeightAboveSeaLevel,
+                                                      AirPortWork.AirPortDescription,
+                                                      AirPortWork.AirPortFacilities,
+                                                      AirPortWork.AirPortIncidents)
             if ResultUpdate:
                 # fixme Пользователи без права на изменение не фиксируются
-                IncrementLogCountChangedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                DBAirPort = QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
-                A.LogCountChanged = DBAirPort.LogCountChanged
+                IncrementLogCountChangedAirPort(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+                DBAirPort = QueryAirPortByIATAandICAO(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO)
+                AirPortWork.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не переписалась")
@@ -584,28 +584,28 @@ def myApplication():
     def PushButtonChangeHyperLinkWikiPedia():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            A.HyperLinkToWikiPedia = Link
+            AirPortWork.HyperLinkToWikiPedia = Link
             print(str(Link))
-            myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(A.HyperLinkToWikiPedia) + ">Wikipedia</a>")
-            myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(A.HyperLinkToWikiPedia))
+            myDialog.label_hyperlink_to_WikiPedia.setText("<a href=" + str(AirPortWork.HyperLinkToWikiPedia) + ">Wikipedia</a>")
+            myDialog.label_hyperlink_to_WikiPedia.setToolTip(str(AirPortWork.HyperLinkToWikiPedia))
             myDialog.label_hyperlink_to_WikiPedia.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkAirPort():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            A.HyperLinkToAirPortSite = Link
+            AirPortWork.HyperLinkToAirPortSite = Link
             print(str(Link))
-            myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(A.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
-            myDialog.label_HyperLink_to_AirPort.setToolTip(str(A.HyperLinkToAirPortSite))
+            myDialog.label_HyperLink_to_AirPort.setText("<a href=" + str(AirPortWork.HyperLinkToAirPortSite) + ">Сайт аэропорта или аэродрома</a>")
+            myDialog.label_HyperLink_to_AirPort.setToolTip(str(AirPortWork.HyperLinkToAirPortSite))
             myDialog.label_HyperLink_to_AirPort.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinkOperator():
         Link, ok = QtWidgets.QInputDialog.getText(myDialog, "Ссылка", "Введите адрес сайта")
         if ok:
-            A.HyperLinkToOperatorSite = Link
+            AirPortWork.HyperLinkToOperatorSite = Link
             print(str(Link))
-            myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(A.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
-            myDialog.label_HyperLink_to_Operator.setToolTip(str(A.HyperLinkToOperatorSite))
+            myDialog.label_HyperLink_to_Operator.setText("<a href=" + str(AirPortWork.HyperLinkToOperatorSite) + ">Сайт оператора аэропорта</a>")
+            myDialog.label_HyperLink_to_Operator.setToolTip(str(AirPortWork.HyperLinkToOperatorSite))
             myDialog.label_HyperLink_to_Operator.setOpenExternalLinks(True)
 
     def PushButtonChangeHyperLinks():
@@ -914,8 +914,8 @@ def myApplication():
                     SetFields()
                     # fixme Пользователи без права на изменение не фиксируются
                     IncrementLogCountChangedAirPort(Code_IATA, Code_ICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
-                    DBAirPort = QueryAirPortByIATAandICAO(A.AirPortCodeIATA, A.AirPortCodeICAO)
-                    A.LogCountChanged = DBAirPort.LogCountChanged
+                    DBAirPort = QueryAirPortByIATAandICAO(AirPortWork.AirPortCodeIATA, AirPortWork.AirPortCodeICAO)
+                    AirPortWork.LogCountChanged = DBAirPort.LogCountChanged
             else:
                 message = QtWidgets.QMessageBox()
                 message.setText("Запись не вставилась")

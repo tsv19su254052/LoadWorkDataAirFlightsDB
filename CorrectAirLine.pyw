@@ -160,7 +160,7 @@ class AirLineWork(AirLine):
         except Exception:
             ResultSQL = False
             self.cnxnAL.rollback()
-        return ResultSQL
+        return ResultSQL[0]
 
 
 S = ServerNames()
@@ -825,7 +825,7 @@ def myApplication():
         index = myDialog.comboBox_Alliance.currentIndex()
         AirLineWork.Alliance = index + 1  # первичный ключ альянса
         print("old AlliancePK for update =" + str(AirLineWork.Alliance))
-        AirLineWork.Alliance = AirLineWork.QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())[0]
+        AirLineWork.Alliance = AirLineWork.QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())
         print("AlliancePK for update =" + str(AirLineWork.Alliance))
         # Вносим изменение
         ResultUpdate = AirLineWork.UpdateAirLineByIATAandICAO(AirLineWork.AirLine_ID,

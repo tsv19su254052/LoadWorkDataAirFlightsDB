@@ -20,6 +20,10 @@ class AirLine:
     # fixme правильно писать конструктор
     # todo Объявления внутри класса с конструктором и без
     # todo Пакет библиотек с __init.py__ и без
+    # Подключение
+    cnxnAL = ' '
+    seekAL = ' '
+
     def __init__(self):
         self.AirLine_ID = 1
         self.AirLineName = " "
@@ -56,6 +60,9 @@ class AirCraft:
 # Делаем предка
 class AirPort:
     # fixme правильно писать конструктор
+    cnxnRT = ' '
+    seekRT = ' '
+
     def __init__(self):
         self.HyperLinkToWikiPedia = " "
         self.HyperLinkToAirPortSite = " "
@@ -90,15 +97,11 @@ class ServerNames:
     #ServerName = "localhost\sqldeveloper"  # указал инстанс
 
     # Подключения
-    cnxnAL = ' '
-    cnxnRT = ' '
     cnxnAC_XML = ' '
     cnxnAC = ' '
     cnxnFN = ' '
 
     # Курсоры
-    seekAL = ' '
-    seekRT = ' '
     seekAC_XML = ' '
     seekAC = ' '
     seekFN = ' '

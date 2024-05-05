@@ -15,9 +15,13 @@ from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogI
 
 
 # Делаем экземпляры
-AirPortWork = AirPort()
-AirPortWork.LogCountViewed = 0
-AirPortWork.LogCountChanged = 0
+class AirPortWork(AirPort):
+    def __int__(self):
+        pass
+
+    LogCountViewed = 0
+    LogCountChanged = 0
+
 S = ServerNames()
 F = FileNames()
 Fl = Flags()

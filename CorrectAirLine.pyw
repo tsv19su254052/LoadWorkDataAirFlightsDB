@@ -393,7 +393,7 @@ def myApplication():
                 #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                AirLineWork.seekAL = S.cnxnAL.cursor()
+                AirLineWork.seekAL = AirLineWork.cnxnAL.cursor()
                 print("seeks is on")
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB.setEnabled(False)

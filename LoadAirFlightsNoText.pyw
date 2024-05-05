@@ -794,7 +794,7 @@ def myApplication():
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            SQLQuery = "DECLARE @ReturnData INT = 5 "
+                            #SQLQuery = "DECLARE @ReturnData INT = 5 "
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из строки ниже "Test" ...
@@ -808,7 +808,8 @@ def myApplication():
                             Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             #print(" Результат хранимой процедуры = " + str(RV))
                             C.cnxnAC_XML.commit()
-                            print("Data = " + str(Data))
+                            if Data:
+                                print("Data = " + str(Data))
                             Results.Result = 1
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]

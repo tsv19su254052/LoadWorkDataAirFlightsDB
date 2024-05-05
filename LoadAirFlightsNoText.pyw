@@ -785,7 +785,7 @@ def myApplication():
     def ModifyAirFlight(ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:
-            Result = False  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
+            Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
         db_air_route = P.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
@@ -801,16 +801,13 @@ def myApplication():
                             C.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
+                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
+                            #Status = C.seekAC_XML.proc_status
+                            #print(" Status = " + str(Status))
                             Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             print("Data = " + str(Data))
-                            if Data:
-                                Results.Result = Data[0]
-                            else:
-                                Results.Result = 1
+                            Results.Result = 1
                             print(" Результат хранимой процедуры = " + str(Results.Result))
-                            #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
-                            #Status = self.seekAC_XML.proc_status
-                            #print(" Status = " + str(Status))
                             C.cnxnAC_XML.commit()
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]

@@ -490,6 +490,61 @@ def myApplication():
         else:
             myDialogInputIATAandICAO.lineEdit_CodeICAO.setEnabled(True)
 
+    def QueryAirLineByIATAandICAO(iata, icao):
+        # Возвращает строку авиакомпании по ее кодам IATA и ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            if iata is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+            else:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchone()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def InsertAirLineByIATAandICAO(iata, icao):
+        # Вставляем авиакомпанию с кодами IATA и ICAO, альянсом по умолчанию
+        # fixme Потом подправить Альанс авиакомпании
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            S.seekAL.execute(SQLQuery)
+            if iata is None:
+                print(" ICAO=", str(icao))
+                SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeICAO) VALUES ('" + str(icao) + "') "
+            elif icao is None:
+                print(" IATA=", str(iata))
+                SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA) VALUES ('" + str(iata) + "') "
+            elif iata is None and icao is None:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES (NULL, NULL) "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
+            S.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
+            ResultSQL = True
+            S.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonInput():
         if myDialogInputIATAandICAO.checkBox_Status_IATA.isChecked():
             Code_IATA = None
@@ -499,7 +554,7 @@ def myApplication():
             Code_ICAO = None
         else:
             Code_ICAO = myDialogInputIATAandICAO.lineEdit_CodeICAO.text()
-        DBAirLine = S.QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
+        DBAirLine = QueryAirLineByIATAandICAO(iata=Code_IATA, icao=Code_ICAO)
         myDialogInputIATAandICAO.close()
 
         def Transfer():
@@ -540,9 +595,9 @@ def myApplication():
             message.exec_()
         elif DBAirLine is None:
             # Вставка новой строки
-            ResultInsert = S.InsertAirLineByIATAandICAO(Code_IATA, Code_ICAO)
+            ResultInsert = InsertAirLineByIATAandICAO(Code_IATA, Code_ICAO)
             if ResultInsert:
-                DBAirLine = S.QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
+                DBAirLine = QueryAirLineByIATAandICAO(Code_IATA, Code_ICAO)
                 if DBAirLine is not None:
                     Transfer()
                 else:
@@ -684,6 +739,56 @@ def myApplication():
         myDialog.pushButton_Begin.setEnabled(True)
         myDialog.pushButton_Previous.setEnabled(True)
 
+    def QueryAlliancePKByName(name):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchone()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
+    def UpdateAirLineByIATAandICAO(id, name, alias, iata, icao, callsign, city, country, status, date, description, aliance):
+        # Обновляет данные авиакомпании в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "UPDATE dbo.AirLinesTable SET AirLine_ID = " + str(id) + ", AirLineName = '" + str(name) + "', AirLineAlias = '" + str(alias)
+            SQLQuery += "', AirLineCallSighn = '" + str(callsign)
+            SQLQuery += "', AirLineCity = '" + str(city) + "', AirLineCountry = '" + str(country) + "', AirLineStatus = " + str(status)
+            SQLQuery += ", CreationDate = '" + str(date) + "', AirLineDescription = '" + str(description) + "', Alliance = " + str(aliance)
+            if iata is None:
+                print(" ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                print(" IATA=", str(iata))
+                SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+                #print("raise Exception")
+                #raise Exception
+            else:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = True
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonUpdate():
         # Кнопка "Записать"
         # todo Вставить диалог выбора и проверки сертификата (ЭЦП) и условный переход с проверкой
@@ -702,10 +807,10 @@ def myApplication():
         index = myDialog.comboBox_Alliance.currentIndex()
         A.Alliance = index + 1  # первичный ключ альянса
         print("old AlliancePK for update =" + str(A.Alliance))
-        A.Alliance = S.QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())[0]
+        A.Alliance = QueryAlliancePKByName(myDialog.comboBox_Alliance.currentText())[0]
         print("AlliancePK for update =" + str(A.Alliance))
         # Вносим изменение
-        ResultUpdate = S.UpdateAirLineByIATAandICAO(A.AirLine_ID,
+        ResultUpdate = UpdateAirLineByIATAandICAO(A.AirLine_ID,
                                                     A.AirLineName,
                                                     A.AirLineAlias,
                                                     A.AirLineCodeIATA,

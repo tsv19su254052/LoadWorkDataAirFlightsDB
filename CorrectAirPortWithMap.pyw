@@ -440,7 +440,7 @@ def myApplication():
                 # Добавляем атрибуты seek...
                 S.seekRT = S.cnxnRT.cursor()
                 print("seeks is on")
-                S.Connected_RT = True
+                St.Connected_RT = True
                 # SQL Server
                 myDialog.lineEdit_Server.setText(S.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
                 # Драйвер

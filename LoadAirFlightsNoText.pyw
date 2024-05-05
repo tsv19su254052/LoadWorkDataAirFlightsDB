@@ -56,42 +56,36 @@ class AirLineWork(AirLine):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekAL.execute(SQLQuery)
+            self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
-            S.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
-            S.cnxnAL.commit()
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnAL.rollback()
+        return ResultSQL
 
     def QueryAirLineByPK(self, pk):
         # Возвращает строку авиакомпании по первичному ключу
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekAL.execute(SQLQuery)
+            self.seekAL.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
-            S.seekAL.execute(SQLQuery)
-            ResultSQL = S.seekAL.fetchone()
-            S.cnxnAL.commit()
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnAL.rollback()
+        return ResultSQL
 
-    def InsertAirLineByIATAandICAO(iata, icao):
+    def InsertAirLineByIATAandICAO(self, iata, icao):
         # Вставляем авиакомпанию с кодами IATA и ICAO, альянсом по умолчанию
         # fixme Потом подправить Альанс авиакомпании
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekAL.execute(SQLQuery)
+            self.seekAL.execute(SQLQuery)
             if iata is None:
                 print(" ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeICAO) VALUES ('" + str(icao) + "') "
@@ -106,16 +100,13 @@ class AirLineWork(AirLine):
             else:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
-            S.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
+            self.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
             ResultSQL = True
-            S.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            self.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
         except Exception:
             ResultSQL = False
-            S.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+        return ResultSQL
 
 
 class AirCraftWork(AirCraft):
@@ -127,45 +118,45 @@ class AirCraftWork(AirCraft):
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                S.seekAC_XML.execute(SQLQuery)
+                self.seekAC_XML.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC_XML.execute(SQLQuery)
-                ResultSQL = S.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                S.cnxnAC_XML.commit()
+                self.seekAC_XML.execute(SQLQuery)
+                ResultSQL = self.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnAC_XML.commit()
             except Exception:
                 ResultSQL = False
-                S.cnxnAC_XML.rollback()
+                self.cnxnAC_XML.rollback()
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                S.seekAC.execute(SQLQuery)
+                self.seekAC.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC.execute(SQLQuery)
-                ResultSQL = S.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                S.cnxnAC.commit()
+                self.seekAC.execute(SQLQuery)
+                ResultSQL = self.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnAC.commit()
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()
+                self.cnxnAC.rollback()
         return ResultSQL
 
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                S.seekAC_XML.execute(SQLQuery)
+                self.seekAC_XML.execute(SQLQuery)
                 SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
                 SQLQuery += str(Registration) + "') "
-                S.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
                 # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
-                S.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                S.seekAC.execute(SQLQuery)
+                self.seekAC.execute(SQLQuery)
                 if ALPK is None:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
                     SQLQuery += str(Registration) + "') "
@@ -173,12 +164,12 @@ class AirCraftWork(AirCraft):
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
                     SQLQuery += str(Registration) + "', "
                     SQLQuery += str(ALPK) + ") "
-                S.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                S.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
@@ -187,18 +178,15 @@ class AirCraftWork(AirCraft):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-                S.seekAC.execute(SQLQuery)
+                self.seekAC.execute(SQLQuery)
                 SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                S.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                S.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                S.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
-            else:
-                pass
-            finally:
-                return ResultSQL
+                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+            return ResultSQL
 
 
 class AirPortWork(AirPort):
@@ -209,74 +197,62 @@ class AirPortWork(AirPort):
         # Возвращает строку аэропорта по коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnRT.rollback()
+        return ResultSQL
 
     def QueryAirRoute(self, IATADeparture, IATAArrival):
         # Возвращает строку маршрута по кодам IATA аэропортов
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             SQLQuery = """SELECT dbo.AirRoutesTable.AirRouteUniqueNumber                                 
                        FROM dbo.AirRoutesTable INNER JOIN
                        dbo.AirPortsTable ON dbo.AirRoutesTable.AirPortDeparture = dbo.AirPortsTable.AirPortUniqueNumber INNER JOIN
                        dbo.AirPortsTable AS AirPortsTable_1 ON dbo.AirRoutesTable.AirPortArrival = AirPortsTable_1.AirPortUniqueNumber
                        WHERE (dbo.AirPortsTable.AirPortCodeIATA = '""" + str(IATADeparture) + "') AND (AirPortsTable_1.AirPortCodeIATA = '" + str(IATAArrival) + "') "
-            S.seekRT.execute(SQLQuery)
-            ResultSQL = S.seekRT.fetchone()
-            S.cnxnRT.commit()
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnRT.rollback()
+        return ResultSQL
 
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA) VALUES ('" + str(iata) + "') "
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             ResultSQL = True
-            S.cnxnRT.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnRT.rollback()
+        return ResultSQL
 
     def InsertAirRoute(self, IATADeparture, IATAArrival):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirRoutesTable (AirPortDeparture, AirPortArrival) VALUES ("
             SQLQuery += str(IATADeparture) + ", "  # bigint
             SQLQuery += str(IATAArrival) + ") "  # bigint
-            S.seekRT.execute(SQLQuery)
+            self.seekRT.execute(SQLQuery)
             ResultSQL = True
-            S.cnxnRT.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            S.cnxnRT.rollback()
-        else:
-            pass
-        finally:
-            return ResultSQL
+            self.cnxnRT.rollback()
+        return ResultSQL
 
 
 S = ServerNames()

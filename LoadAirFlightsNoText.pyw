@@ -459,10 +459,10 @@ def myApplication():
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
                 # todo Сделать сообщение с зелеными галочками по пунктам подключения
-                S.cnxnAL = pyodbc.connect(driver=S.DriverODBC_AL, server=S.ServerNameOriginal, database=S.DataBase_AL)
+                A.cnxnAL = pyodbc.connect(driver=S.DriverODBC_AL, server=S.ServerNameOriginal, database=S.DataBase_AL)
                 print("  БД = ", S.DataBase_AL, "подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                S.cnxnAL.autocommit = False
+                A.cnxnAL.autocommit = False
                 print("autocommit is disabled")
                 # Делаем свой экземпляр и ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -485,22 +485,22 @@ def myApplication():
 
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                S.seekAL = S.cnxnAL.cursor()
+                A.seekAL = A.cnxnAL.cursor()
                 print("seeks is on")
                 St.Connected_AL = True
                 # Переключаем в рабочее состояние
                 # SQL Server
                 myDialog.lineEdit_Server.setEnabled(True)
-                myDialog.lineEdit_Server.setText(S.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(A.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
                 # Драйвер
                 myDialog.lineEdit_Driver_AL.setEnabled(True)
-                myDialog.lineEdit_Driver_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
                 # версия ODBC
                 myDialog.lineEdit_ODBCversion_AL.setEnabled(True)
-                myDialog.lineEdit_ODBCversion_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 myDialog.lineEdit_Schema_AL.setEnabled(True)
-                myDialog.lineEdit_Schema_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirLinesSourcesChoiceByStatesAndFlags()
                 myDialog.pushButton_Disconnect_AL.setEnabled(True)
@@ -520,9 +520,9 @@ def myApplication():
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
         if St.Connected_AL:
             # Снимаем курсор
-            S.seekAL.close()
+            A.seekAL.close()
             # Отключаемся от базы данных
-            S.cnxnAL.close()
+            A.cnxnAL.close()
             St.Connected_AL = False
         # Переключаем в исходное состояние
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
@@ -541,10 +541,10 @@ def myApplication():
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                S.cnxnRT = pyodbc.connect(driver=S.DriverODBC_RT, server=S.ServerNameOriginal, database=S.DataBase_RT)
+                P.cnxnRT = pyodbc.connect(driver=S.DriverODBC_RT, server=S.ServerNameOriginal, database=S.DataBase_RT)
                 print("  БД = ", S.DataBase_RT, "подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                S.cnxnRT.autocommit = False
+                P.cnxnRT.autocommit = False
                 print("autocommit is disabled")
                 # Делаем свой экземпляр и ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -567,21 +567,21 @@ def myApplication():
 
                 # Клиентские однопроходные, статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                S.seekRT = S.cnxnRT.cursor()
+                P.seekRT = P.cnxnRT.cursor()
                 print("seeks is on")
                 St.Connected_RT = True
                 # Переключаем в рабочее состояние
                 # SQL Server
-                myDialog.lineEdit_Server.setText(S.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(P.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
                 myDialog.lineEdit_Driver_RT.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
                 myDialog.lineEdit_ODBCversion_RT.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
-                myDialog.lineEdit_Schema_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
                 myDialog.lineEdit_Schema_RT.setEnabled(True)
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -602,9 +602,9 @@ def myApplication():
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         if St.Connected_RT:
             # Снимаем курсор
-            S.seekRT.close()
+            P.seekRT.close()
             # Отключаемся от базы данных
-            S.cnxnRT.close()
+            P.cnxnRT.close()
             St.Connected_RT = False
         # Переключаем в исходное состояние
         UpdateAirPortsSourcesChoiceByStatesAndFlags()

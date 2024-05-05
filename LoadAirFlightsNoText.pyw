@@ -797,6 +797,7 @@ def myApplication():
                             SQLQuery = "DECLARE @ReturnData INT = 5 "
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
+                            # todo После отладки убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             C.seekAC_XML.execute(SQLQuery)
                             SQLQuery = "SELECT @ReturnData "

@@ -51,31 +51,49 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 # Делаем экземпляр
 S = Classes.Servers()
 
+
 # Имена серверов
-#S.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-S.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
-#S.ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
-# fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
-S.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
-S.ServerName = "localhost\mssqlserver15"  # указал инстанс
-#S.ServerName = "localhost\sqldeveloper"  # указал инстанс
+class ServerNames:
+    #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
+    ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+    #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
+    # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
+    ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
+    ServerName = "localhost\mssqlserver15"  # указал инстанс
+    #ServerName = "localhost\sqldeveloper"  # указал инстанс
+    cnxnAL = ' '
+    cnxnRT = ' '
+    cnxnAC_XML = ' '
+    cnxnAC = ' '
+    cnxnFN = ' '
+    seekAL = ' '
+    seekRT = ' '
+    seekAC_XML = ' '
+    seekAC = ' '
+    seekFN = ' '
+
 
 # Имена читаемых и записываемых файлов
-S.InputFileCSV = ' '
-S.LogFileTXT = ' '
-S.ErrorFileTXT = 'LogReport_Errors.txt'
+class FileNames:
+    InputFileCSV = ' '
+    LogFileTXT = ' '
+    ErrorFileTXT = 'LogReport_Errors.txt'
+
 
 # Флаги
-S.useAirFlightsDB = True
-S.useAirCraftsDSN = False
-S.useXQuery = False
-S.SetInputDate = False
+class Flags:
+    useAirFlightsDB = True
+    useAirCraftsDSN = False
+    useXQuery = False
+    SetInputDate = False
+
 
 # Состояния
-S.Connected_AL = False
-S.Connected_RT = False
-S.Connected_ACFN = False
-S.Connected_AC_XML = False
+class States:
+    Connected_AL = False
+    Connected_RT = False
+    Connected_ACFN = False
+    Connected_AC_XML = False
 
 
 def myApplication():
@@ -91,18 +109,18 @@ def myApplication():
     myDialog.label_Version.setText("Версия обработки " + str(__myOwnDevelopingVersion__))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
-    S.DSNs = pyodbc.dataSources()  # добавленные системные DSN-ы
-    if S.DSNs:
-        for DSN in S.DSNs:
+    ServerNames.DSNs = pyodbc.dataSources()  # добавленные системные DSN-ы
+    if ServerNames.DSNs:
+        for DSN in ServerNames.DSNs:
             if not DSN:
                 break
             myDialog.comboBox_DSN_FN.addItem(str(DSN))
             myDialog.comboBox_DSN_AC.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = pyodbc.drivers()
-    if S.DriversODBC:
-        for DriverODBC in S.DriversODBC:
+    ServerNames.DriversODBC = pyodbc.drivers()
+    if ServerNames.DriversODBC:
+        for DriverODBC in ServerNames.DriversODBC:
             if not DriverODBC:
                 break
             myDialog.comboBox_Driver_AL.addItem(str(DriverODBC))
@@ -136,15 +154,15 @@ def myApplication():
         myDialog.pushButton_GetStarted.setEnabled(Key)
 
     def UpdateAirLinesSourcesChoiceByStatesAndFlags():
-        if S.Connected_AL:
+        if States.Connected_AL:
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_AL.setEnabled(False)
             myDialog.comboBox_Driver_AL.setEnabled(False)
-            if S.Connected_RT and (S.Connected_ACFN or S.Connected_AC_XML):
+            if States.Connected_RT and (States.Connected_ACFN or States.Connected_AC_XML):
                 PrepareForInputData(True)
         else:
             # Переключаем в исходное состояние
-            if not S.Connected_RT:
+            if not States.Connected_RT:
                 myDialog.lineEdit_Server.setEnabled(False)
             myDialog.lineEdit_Driver_AL.setEnabled(False)
             myDialog.lineEdit_ODBCversion_AL.setEnabled(False)
@@ -154,15 +172,15 @@ def myApplication():
             PrepareForInputData(False)
 
     def UpdateAirPortsSourcesChoiceByStatesAndFlags():
-        if S.Connected_RT:
+        if States.Connected_RT:
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_RT.setEnabled(False)
             myDialog.comboBox_Driver_RT.setEnabled(False)
-            if S.Connected_AL and (S.Connected_ACFN or S.Connected_AC_XML):
+            if States.Connected_AL and (States.Connected_ACFN or States.Connected_AC_XML):
                 PrepareForInputData(True)
         else:
             # Переключаем в исходное состояние
-            if not S.Connected_AL:
+            if not States.Connected_AL:
                 myDialog.lineEdit_Server.setEnabled(False)
             myDialog.lineEdit_Driver_RT.setEnabled(False)
             myDialog.lineEdit_ODBCversion_RT.setEnabled(False)
@@ -173,7 +191,7 @@ def myApplication():
 
     def UpdateFlightsSourcesChoiceByStatesAndFlags():
         # Состояния + Флаги -> Графическая оболочка
-        if S.Connected_AC_XML or S.Connected_ACFN:
+        if States.Connected_AC_XML or States.Connected_ACFN:
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_FN.setEnabled(False)
             myDialog.comboBox_Driver_FN.setEnabled(False)
@@ -181,7 +199,7 @@ def myApplication():
             myDialog.comboBox_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(False)
             myDialog.groupBox_2.setEnabled(False)
-            if S.Connected_AL and S.Connected_RT:
+            if States.Connected_AL and States.Connected_RT:
                 PrepareForInputData(True)
         else:
             # Переключаем в исходное состояние
@@ -191,7 +209,7 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
-            if S.useAirCraftsDSN:
+            if Flags.useAirCraftsDSN:
                 myDialog.comboBox_DB_FN.setEnabled(False)
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(False)
@@ -200,7 +218,7 @@ def myApplication():
             else:
                 myDialog.comboBox_DSN_AC.setEnabled(False)
                 myDialog.groupBox_2.setEnabled(False)
-                if S.useAirFlightsDB:
+                if Flags.useAirFlightsDB:
                     myDialog.comboBox_DB_FN.setEnabled(True)
                     myDialog.comboBox_Driver_FN.setEnabled(True)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
@@ -214,20 +232,20 @@ def myApplication():
     def RadioButtonsToggled():
         # Переключатели -> Флаги
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
-            S.useAirCraftsDSN = True
+            Flags.useAirCraftsDSN = True
         else:
-            S.useAirCraftsDSN = False
+            Flags.useAirCraftsDSN = False
             if myDialog.radioButton_DB_AirFlights.isChecked():
-                S.useAirFlightsDB = True
+                Flags.useAirFlightsDB = True
             if myDialog.radioButton_DSN_AirFlights.isChecked():
-                S.useAirFlightsDB = False
+                Flags.useAirFlightsDB = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
 
     def RadioButtonsXQueryToggled():
         if myDialog.radioButton_DSN_AirCrafts_DOM.isChecked():
-            S.useXQuery = False
+            Flags.useXQuery = False
         if myDialog.radioButton_DSN_AirCrafts_SAX.isChecked():
-            S.useXQuery = True
+            Flags.useXQuery = True
 
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -260,23 +278,23 @@ def myApplication():
 
     def PushButtonConnect_AL():
         myDialog.pushButton_Connect_AL.setEnabled(False)
-        if not S.Connected_AL:
+        if not States.Connected_AL:
             # Подключаемся к базе данных авиакомпаний
             # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
             # https://docs.microsoft.com/ru-ru/previous-versions/dotnet/framework/data/adonet/sql/ownership-and-user-schema-separation-in-sql-server
             ChoiceDB = myDialog.comboBox_DB_AL.currentText()
             ChoiceDriver = myDialog.comboBox_Driver_AL.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase_AL = str(ChoiceDB)
-            S.DriverODBC_AL = str(ChoiceDriver)
+            ServerNames.DataBase_AL = str(ChoiceDB)
+            ServerNames.DriverODBC_AL = str(ChoiceDriver)
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
                 # todo Сделать сообщение с зелеными галочками по пунктам подключения
-                S.cnxnAL = pyodbc.connect(driver=S.DriverODBC_AL, server=S.ServerNameOriginal, database=S.DataBase_AL)
-                print("  БД = ", S.DataBase_AL, "подключена")
+                ServerNames.cnxnAL = pyodbc.connect(driver=ServerNames.DriverODBC_AL, server=ServerNames.ServerNameOriginal, database=ServerNames.DataBase_AL)
+                print("  БД = ", ServerNames.DataBase_AL, "подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                S.cnxnAL.autocommit = False
+                ServerNames.cnxnAL.autocommit = False
                 print("autocommit is disabled")
                 # Делаем свой экземпляр и ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -299,22 +317,22 @@ def myApplication():
 
                 # Клиентские однопроходные , статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                S.seekAL = S.cnxnAL.cursor()
+                ServerNames.seekAL = ServerNames.cnxnAL.cursor()
                 print("seeks is on")
-                S.Connected_AL = True
+                States.Connected_AL = True
                 # Переключаем в рабочее состояние
                 # SQL Server
                 myDialog.lineEdit_Server.setEnabled(True)
-                myDialog.lineEdit_Server.setText(S.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(ServerNames.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
                 # Драйвер
                 myDialog.lineEdit_Driver_AL.setEnabled(True)
-                myDialog.lineEdit_Driver_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_AL.setText(ServerNames.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
                 # версия ODBC
                 myDialog.lineEdit_ODBCversion_AL.setEnabled(True)
-                myDialog.lineEdit_ODBCversion_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_AL.setText(ServerNames.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 myDialog.lineEdit_Schema_AL.setEnabled(True)
-                myDialog.lineEdit_Schema_AL.setText(S.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_AL.setText(ServerNames.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirLinesSourcesChoiceByStatesAndFlags()
                 myDialog.pushButton_Disconnect_AL.setEnabled(True)
@@ -332,33 +350,33 @@ def myApplication():
     def PushButtonDisconnect_AL():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
-        if S.Connected_AL:
+        if States.Connected_AL:
             # Снимаем курсор
-            S.seekAL.close()
+            ServerNames.seekAL.close()
             # Отключаемся от базы данных
-            S.cnxnAL.close()
-            S.Connected_AL = False
+            ServerNames.cnxnAL.close()
+            States.Connected_AL = False
         # Переключаем в исходное состояние
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AL.setEnabled(True)
 
     def PushButtonConnect_RT():
         myDialog.pushButton_Connect_RT.setEnabled(False)
-        if not S.Connected_RT:
+        if not States.Connected_RT:
             # Подключаемся к базе данных аэропортов и маршрутов
             # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
             ChoiceDB = myDialog.comboBox_DB_RT.currentText()
             ChoiceDriver = myDialog.comboBox_Driver_RT.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase_RT = str(ChoiceDB)
-            S.DriverODBC_RT = str(ChoiceDriver)
+            ServerNames.DataBase_RT = str(ChoiceDB)
+            ServerNames.DriverODBC_RT = str(ChoiceDriver)
             try:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                S.cnxnRT = pyodbc.connect(driver=S.DriverODBC_RT, server=S.ServerNameOriginal, database=S.DataBase_RT)
-                print("  БД = ", S.DataBase_RT, "подключена")
+                ServerNames.cnxnRT = pyodbc.connect(driver=ServerNames.DriverODBC_RT, server=ServerNames.ServerNameOriginal, database=ServerNames.DataBase_RT)
+                print("  БД = ", ServerNames.DataBase_RT, "подключена")
                 # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                S.cnxnRT.autocommit = False
+                ServerNames.cnxnRT.autocommit = False
                 print("autocommit is disabled")
                 # Делаем свой экземпляр и ставим набор курсоров
                 # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
@@ -381,21 +399,21 @@ def myApplication():
 
                 # Клиентские однопроходные, статические API-курсоры ODBC.
                 # Добавляем атрибуты seek...
-                S.seekRT = S.cnxnRT.cursor()
+                ServerNames.seekRT = ServerNames.cnxnRT.cursor()
                 print("seeks is on")
-                S.Connected_RT = True
+                States.Connected_RT = True
                 # Переключаем в рабочее состояние
                 # SQL Server
-                myDialog.lineEdit_Server.setText(S.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(ServerNames.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_RT.setText(ServerNames.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
                 myDialog.lineEdit_Driver_RT.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_RT.setText(ServerNames.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
                 myDialog.lineEdit_ODBCversion_RT.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
-                myDialog.lineEdit_Schema_RT.setText(S.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_RT.setText(ServerNames.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
                 myDialog.lineEdit_Schema_RT.setEnabled(True)
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -414,31 +432,30 @@ def myApplication():
     def PushButtonDisconnect_RT():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
-        if S.Connected_RT:
+        if States.Connected_RT:
             # Снимаем курсор
-            S.seekRT.close()
+            ServerNames.seekRT.close()
             # Отключаемся от базы данных
-            S.cnxnRT.close()
-            S.Connected_RT = False
+            ServerNames.cnxnRT.close()
+            States.Connected_RT = False
         # Переключаем в исходное состояние
         UpdateAirPortsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_RT.setEnabled(True)
 
     def PushButtonConnect_ACFN():
-        if S.useAirCraftsDSN:
+        if Flags.useAirCraftsDSN:
             myDialog.pushButton_Connect_AC.setEnabled(False)
-            if not S.Connected_AC_XML:
+            if not States.Connected_AC_XML:
                 # Подключаемся к базе данных самолетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
                 # Добавляем атрибут myDSN
-                S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
+                ServerNames.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 try:
-                    # Добавляем атрибут cnxn
                     # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-                    S.cnxnAC_XML = pyodbc.connect("DSN=" + S.myDSN_AC_XML)
+                    ServerNames.cnxnAC_XML = pyodbc.connect("DSN=" + ServerNames.myDSN_AC_XML)
                     # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                    S.cnxnAC_XML.autocommit = False
+                    ServerNames.cnxnAC_XML.autocommit = False
                     # Делаем свой экземпляр и ставим набор курсоров
                     # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
                     #
@@ -460,24 +477,24 @@ def myApplication():
 
                     # Клиентские однопроходные , статические API-курсоры ODBC.
                     # Добавляем атрибуты seek...
-                    S.seekAC_XML = S.cnxnAC_XML.cursor()
-                    S.Connected_AC_XML = True
+                    ServerNames.seekAC_XML = ServerNames.cnxnAC_XML.cursor()
+                    States.Connected_AC_XML = True
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    myDialog.lineEdit_Server_remote.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME))
+                    myDialog.lineEdit_Server_remote.setText(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME))
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    myDialog.lineEdit_Driver_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME))
+                    myDialog.lineEdit_Driver_AC.setText(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME))
                     # версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    myDialog.lineEdit_ODBCversion_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER))
+                    myDialog.lineEdit_ODBCversion_AC.setText(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER))
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    myDialog.lineEdit_Schema_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME))
+                    myDialog.lineEdit_Schema_AC.setText(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME))
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    myDialog.lineEdit_DSN_AC.setText(S.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                    myDialog.lineEdit_DSN_AC.setText(ServerNames.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
@@ -493,30 +510,30 @@ def myApplication():
                     pass
         else:
             myDialog.pushButton_Connect_AC.setEnabled(False)
-            if not S.Connected_ACFN:
+            if not States.Connected_ACFN:
                 # Подключаемся к базе данных авиаперелетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDB_ACFN = myDialog.comboBox_DB_FN.currentText()
                 ChoiceDriver_ACFN = myDialog.comboBox_Driver_FN.currentText()
                 # Добавляем атрибуты DataBase, DriverODBC
-                S.DataBase_ACFN = str(ChoiceDB_ACFN)
-                S.DriverODBC_ACFN = str(ChoiceDriver_ACFN)
+                ServerNames.DataBase_ACFN = str(ChoiceDB_ACFN)
+                ServerNames.DriverODBC_ACFN = str(ChoiceDriver_ACFN)
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 # Добавляем атрибут myDSN
-                S.myDSN_ACFN = str(ChoiceDSN_ACFN)
+                ServerNames.myDSN_ACFN = str(ChoiceDSN_ACFN)
                 try:
                     # Добавляем атрибут cnxn
-                    if S.useAirFlightsDB:
+                    if Flags.useAirFlightsDB:
                         # через драйвер СУБД + клиентский API-курсор
-                        S.cnxnAC = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
-                        S.cnxnFN = pyodbc.connect(driver=S.DriverODBC_ACFN, server=S.ServerNameFlights, database=S.DataBase_ACFN)
+                        ServerNames.cnxnAC = pyodbc.connect(driver=ServerNames.DriverODBC_ACFN, server=ServerNames.ServerNameFlights, database=ServerNames.DataBase_ACFN)
+                        ServerNames.cnxnFN = pyodbc.connect(driver=ServerNames.DriverODBC_ACFN, server=ServerNames.ServerNameFlights, database=ServerNames.DataBase_ACFN)
                     else:
                         # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-                        S.cnxnAC = pyodbc.connect("DSN=" + S.myDSN_ACFN)
-                        S.cnxnFN = pyodbc.connect("DSN=" + S.myDSN_ACFN)
+                        ServerNames.cnxnAC = pyodbc.connect("DSN=" + ServerNames.myDSN_ACFN)
+                        ServerNames.cnxnFN = pyodbc.connect("DSN=" + ServerNames.myDSN_ACFN)
                     # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                    S.cnxnAC.autocommit = False
-                    S.cnxnFN.autocommit = False
+                    ServerNames.cnxnAC.autocommit = False
+                    ServerNames.cnxnFN.autocommit = False
                     # Делаем свой экземпляр и ставим набор курсоров
                     # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
                     #
@@ -538,28 +555,28 @@ def myApplication():
 
                     # Клиентские однопроходные , статические API-курсоры ODBC.
                     # Добавляем атрибуты seek...
-                    S.seekAC = S.cnxnAC.cursor()
-                    S.seekFN = S.cnxnFN.cursor()
-                    S.Connected_ACFN = True
+                    ServerNames.seekAC = ServerNames.cnxnAC.cursor()
+                    ServerNames.seekFN = ServerNames.cnxnFN.cursor()
+                    ServerNames.Connected_ACFN = True
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    myDialog.lineEdit_Server_remote.setText(S.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME))
+                    myDialog.lineEdit_Server_remote.setText(ServerNames.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME))
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    myDialog.lineEdit_Driver_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME))
+                    myDialog.lineEdit_Driver_AC.setText(ServerNames.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME))
                     # Версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    myDialog.lineEdit_ODBCversion_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER))
+                    myDialog.lineEdit_ODBCversion_AC.setText(ServerNames.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER))
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    myDialog.lineEdit_Schema_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_USER_NAME))
+                    myDialog.lineEdit_Schema_AC.setText(ServerNames.cnxnFN.getinfo(pyodbc.SQL_USER_NAME))
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    myDialog.lineEdit_DSN_AC.setText(S.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                    myDialog.lineEdit_DSN_AC.setText(ServerNames.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
-                    if S.Connected_AL and S.Connected_RT:
+                    if States.Connected_AL and States.Connected_RT:
                         PrepareForInputData(True)
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
                 except Exception:
@@ -576,23 +593,23 @@ def myApplication():
     def PushButtonDisconnect_ACFN():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
-        if S.Connected_AC_XML:
+        if States.Connected_AC_XML:
             # Снимаем курсор
-            S.seekAC_XML.close()
+            ServerNames.seekAC_XML.close()
             # Отключаемся от базы данных
-            S.cnxnAC_XML.close()
-            S.Connected_AC_XML = False
-        if S.Connected_ACFN:
+            ServerNames.cnxnAC_XML.close()
+            States.Connected_AC_XML = False
+        if States.Connected_ACFN:
             # Снимаем курсор
-            S.seekAC.close()
+            ServerNames.seekAC.close()
             # Отключаемся от базы данных
-            S.cnxnAC.close()
-            S.Connected_AC = False
+            ServerNames.cnxnAC.close()
+            ServerNames.Connected_AC = False
             # Снимаем курсор
-            S.seekFN.close()
+            ServerNames.seekFN.close()
             # Отключаемся от базы данных
-            S.cnxnFN.close()
-            S.Connected_ACFN = False
+            ServerNames.cnxnFN.close()
+            ServerNames.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
 
@@ -1009,7 +1026,7 @@ def myApplication():
             #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))
             ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d' % ListMonth[attemptNumber] + "-" + '%02d' % ListDay[attemptNumber])
         #myDialog.label_execute.setText("Исходные данные перепакованы")  # оболочка зависает и слетает
-        if S.SetInputDate:
+        if SetInputDate:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")
         else:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: blue")
@@ -1084,12 +1101,12 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = QueryAirCraftByRegistration(AC, S.useAirCraftsDSN)
+                DBAirCraft = QueryAirCraftByRegistration(AC, useAirCraftsDSN)
                 if DBAirCraft is None:
                     DBAirLine = QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=S.useAirCraftsDSN):
+                        if InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -1100,7 +1117,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
+                        if InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -1114,7 +1131,7 @@ def myApplication():
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirCraft is not None:
-                    if S.useAirCraftsDSN:
+                    if useAirCraftsDSN:
                         break
                     else:
                         DBAirLinePK = QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
@@ -1126,7 +1143,7 @@ def myApplication():
                             if DBAirLine is None:
                                 break
                             elif DBAirLine is not None:
-                                if UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=S.useAirCraftsDSN):
+                                if UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=useAirCraftsDSN):
                                     ListAirCraftsUpdated.append(AC)
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                     print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
@@ -1214,19 +1231,19 @@ def myApplication():
             DistributionDensityAirRoutes[deadlockCount] += 1
             print(colorama.Fore.BLUE + " Авиарейс", str(AL) + str(FN), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
-            if not S.SetInputDate:
+            if not SetInputDate:
                 FD = S.BeginDate
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
                 DBAirLine = QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = QueryAirCraftByRegistration(AC, S.useAirCraftsDSN)
+                    DBAirCraft = QueryAirCraftByRegistration(AC, useAirCraftsDSN)
                     if DBAirCraft is not None:
                         DBAirRoute = QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, S.BeginDate, S.useAirCraftsDSN, S.useXQuery)
+                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, S.BeginDate, useAirCraftsDSN, useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -1300,15 +1317,15 @@ def myApplication():
         OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
         OutputString += " Источник входных данных = " + str(S.filenameCSV) + " \n"
         OutputString += " Входные данные внесены за " + str(S.BeginDate) + " \n"
-        if S.SetInputDate:
+        if SetInputDate:
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        if S.useXQuery:
+        if useXQuery:
             OutputString += " Используется xQuery (SAX) \n"
         else:
             OutputString += " Используется xml.etree.ElementTree (DOM) \n"
-        if S.useAirCraftsDSN:
+        if useAirCraftsDSN:
             OutputString += " Сервер СУБД = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
             OutputString += " Драйвер = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
             OutputString += " Версия ODBC = " + str(S.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
@@ -1372,7 +1389,7 @@ def myApplication():
             # LogFile.write('Вывод обычным способом\n')
         except IOError:
             try:
-                LogError = open(S.ErrorFileTXT, 'a')
+                LogError = open(ErrorFileTXT, 'a')
                 LogError.write("Ошибка дозаписи результатов по " + str(S.filenameCSV) + " в " + str(S.filenameTXT) + " \n")
             except IOError:
                 print("Ошибка дозаписи в файл журнала")
@@ -1391,7 +1408,7 @@ def myApplication():
         # Снимаем курсоры
         S.seekAL.close()
         S.seekRT.close()
-        if S.useAirCraftsDSN:
+        if useAirCraftsDSN:
             S.seekAC_XML.close()
         else:
             S.seekAC.close()
@@ -1399,7 +1416,7 @@ def myApplication():
         # Отключаемся от баз данных
         S.cnxnAL.close()
         S.cnxnRT.close()
-        if S.useAirCraftsDSN:
+        if useAirCraftsDSN:
             S.cnxnAC_XML.close()
         else:
             S.cnxnAC.close()

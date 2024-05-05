@@ -329,6 +329,22 @@ def myApplication():
             myDialog.pushButton_Next.setEnabled(False)
             myDialog.pushButton_Update.setEnabled(False)
 
+    def QueryAlliances():
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            S.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT AllianceUniqueNumber, AllianceName FROM dbo.AlliancesTable"  # Убрал  ORDER BY AlianceName
+            S.seekAL.execute(SQLQuery)
+            ResultSQL = S.seekAL.fetchall()
+            S.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnAL.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def SetFields():
         # Выводим запись
         if A.AirLineCodeIATA is None:
@@ -358,7 +374,7 @@ def myApplication():
         myDialog.textEdit_AirLineCountry.clear()
         myDialog.textEdit_AirLineCountry.append(str(A.AirLineCountry))
         # Перезапрашиваем список алиансов и заполняем combobox каждый раз
-        Alliances = S.QueryAlliances()
+        Alliances = QueryAlliances()
         print("Alliances = " + str(Alliances))
         myDialog.comboBox_Alliance.clear()
         if Alliances:

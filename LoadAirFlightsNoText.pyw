@@ -783,9 +783,9 @@ def myApplication():
         class Results:
             Result = False  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
-        db_air_route = S.QueryAirRoute(dep, arr).AirRouteUniqueNumber
+        db_air_route = QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
-            db_air_craft = S.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
+            db_air_craft = QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:

@@ -184,6 +184,97 @@ def myApplication():
         ClearMap()
         myDialog.verticalLayout_Map.setEnabled(Key)
 
+    def IncrementLogCountViewedAirPort(iata, icao, host, user, dtn):
+        try:
+            Query = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            S.seekRT.execute(Query)
+            SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
+            XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            S.seekRT.execute(SQLQuery)
+            ResultSQL = S.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
+            S.seekRT.execute(XMLQuery)
+            ResultXML = S.seekRT.fetchone()
+            Count = 1
+            #host = 'WorkCompTest1'
+            #user = 'ArtemTest20'
+            print(" ResultXML = " + str(ResultXML[0]))
+            DateTime = ElementTree.Element('DateTime', From=str(host))
+            DateTime.text = str(dtn)
+            User = ElementTree.Element('User', Name=str(user))
+            User.append(DateTime)
+            if ResultXML[0] is None:
+                root_tag = ElementTree.Element('Viewed')
+                root_tag.append(User)
+            else:
+                Count += ResultSQL[0]
+                root_tag = ElementTree.fromstring(ResultXML[0])  # указатель на XML-ную структуру - Element
+                Search = root_tag.findall(".//User")
+                print(" Search = " + str(Search))
+                added = False
+                for node in Search:
+                    if node.attrib['Name'] == str(user):
+                        #newDateTime = ElementTree.SubElement(node, 'DateTime')
+                        #newDateTime.attrib['From'] = str(host)
+                        #newDateTime.text = str(dtn)
+                        #User.append(newDateTime)  # fixme добавляет еще раз
+                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
+                        node.append(DateTime)
+                        #root_tag.append(User)
+                        added = True
+                        #break
+                if not added:
+                    #User.append(DateTime)
+                    root_tag.append(User)
+                xQuery = ".//User[@Name='" + str(user) + "'] "
+                print(" xQuery = " + str(xQuery))
+            print("LogCountViewed = " + str(Count))
+            xml_to_String = ElementTree.tostring(root_tag, method='xml').decode(encoding="utf-8")  # XML-ная строка
+            SQLQuery = "UPDATE dbo.AirPortsTable SET LogCountViewed = " + str(Count)
+            XMLQuery = "UPDATE dbo.AirPortsTable SET LogDateAndTimeViewed = '" + str(xml_to_String) + "' "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                XMLQuery += Append
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                XMLQuery += Append
+            S.seekRT.execute(SQLQuery)
+            S.seekRT.execute(XMLQuery)
+            S.cnxnRT.commit()
+            Result = True
+        except Exception:
+            Result = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return Result
+
     def ReadingQuery(ResultQuery):
         A.SourceCSVFile = ResultQuery.SourceCSVFile
         A.HyperLinkToWikiPedia = ResultQuery.HyperLinkToWikiPedia
@@ -205,7 +296,7 @@ def myApplication():
         A.AirPortIncidents = ResultQuery.AirPortIncidents
         A.LogCountViewed = ResultQuery.LogCountViewed
         A.LogCountChanged = ResultQuery.LogCountChanged
-        S.IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
+        IncrementLogCountViewedAirPort(A.AirPortCodeIATA, A.AirPortCodeICAO, socket.gethostname(), os.getlogin(), datetime.datetime.now())
 
     @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
@@ -393,6 +484,50 @@ def myApplication():
             myDialog.pushButton_UpdateDB.setEnabled(False)  # возможно пока не тут
             myDialog.pushButton_ConnectDB.setEnabled(True)
 
+    def UpdateAirPortByIATAandICAO(csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            S.seekRT.execute(SQLQuery)
+            SQLQuery = "UPDATE dbo.AirPortsTable SET SourceCSVFile = '" + str(csv) + "', HyperLinkToWikiPedia = '" + str(hyperlinkWiki) + "', HyperLinkToAirPortSite = '" + str(hyperlinkAirPort) + "', HyperLinkToOperatorSite = '" + str(hyperlinkOperator)
+            SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
+            SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
+            SQLQuery += ", AirPortLongitude = " + str(long) + ", HeightAboveSeaLevel = " + str(height)
+            SQLQuery += ", AirPortDescription = '" + str(desc) + "', AirPortFacilities = '" + str(facilities) + "', AirPortIncidents = '" + str(incidents) + "' "
+            # todo И надо пересчитать длины маршрутов, завязанных на этот аэропорт
+            if lat is not None and long is not None:
+                SQLGeoQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(long) + ", ' ', " + str(lat) + ", ') '), 4326) "
+            else:
+                SQLQuery = "UPDATE dbo.AirPortsTable SET AirPortGeo = geography::STPointFromText(CONCAT('POINT(', " + str(0) + ", ' ', " + str(0) + ", ') '), 4326) "
+            if iata is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            elif icao is None:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            elif iata is None and icao is None:
+                Append = " WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+                #print("raise Exception")
+                #raise Exception
+            else:
+                Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
+                SQLQuery += Append
+                SQLGeoQuery += Append
+            S.seekRT.execute(SQLQuery)
+            S.seekRT.execute(SQLGeoQuery)
+            ResultSQL = True
+            S.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            S.cnxnRT.rollback()
+        else:
+            pass
+        finally:
+            return ResultSQL
+
     def PushButtonUpdateDB():
         A.SourceCSVFile = myDialog.textEdit_SourceCSVFile.toPlainText()
         #A.AirPortCodeIATA = myDialog.lineEdit_AirPortCodeIATA.text()
@@ -413,7 +548,7 @@ def myApplication():
         LogCountChangedCurrent = DBAirPort.LogCountChanged
         if LogCountChangedCurrent is None or (A.LogCountChanged is not None and LogCountChangedCurrent is not None and A.LogCountChanged == LogCountChangedCurrent):
             # Вносим изменение
-            ResultUpdate = S.UpdateAirPortByIATAandICAO(A.SourceCSVFile,
+            ResultUpdate = UpdateAirPortByIATAandICAO(A.SourceCSVFile,
                                                         A.HyperLinkToWikiPedia,
                                                         A.HyperLinkToAirPortSite,
                                                         A.HyperLinkToOperatorSite,

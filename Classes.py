@@ -3153,6 +3153,7 @@ class Ui_DialogCorrectAirLine(QtWidgets.QDialog):
         else:
             event.ignore()
 
+
 # Конвертация ресурсного файла *.ui -> *.py в терминале командой (командной строке)
 # > pyuic5 Qt_Designer_CorrectDialogAirLinesInput.ui -o Qt_Designer_CorrectDialogAirLinesInput.py
 class Ui_DialogInputIATAandICAO(QtWidgets.QDialog):

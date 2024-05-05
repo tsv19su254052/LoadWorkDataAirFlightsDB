@@ -21,7 +21,7 @@ import termcolor
 #import tqdm  # fixme tqdm нужен свой цикл -> сюда не подходит
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-import Classes
+from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, Ui_DialogInputIATAandICAO
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
 #       - Результат импорта -> на github-е - синяя неактивная ссылка, по которой никуда не перейдешь, внутри pyCharm-а - дубликат репозитория подмодуля в локальную ветку
@@ -48,10 +48,6 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 # fixme Установить пакет из папки, как пример
 # pip install SomePackage-1.0-py2.py3-none-any.whl
 
-# Делаем экземпляр
-S = Classes.Servers()
-
-
 # Имена серверов
 class ServerNames:
     #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
@@ -61,12 +57,14 @@ class ServerNames:
     ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
     ServerName = "localhost\mssqlserver15"  # указал инстанс
     #ServerName = "localhost\sqldeveloper"  # указал инстанс
+
     # Подключения
     cnxnAL = ' '
     cnxnRT = ' '
     cnxnAC_XML = ' '
     cnxnAC = ' '
     cnxnFN = ' '
+
     # Курсоры
     seekAL = ' '
     seekRT = ' '
@@ -103,7 +101,7 @@ def myApplication():
     # Одно прикладное приложение
     myApp = QtWidgets.QApplication(sys.argv)
     # Делаем экземпляры
-    myDialog = Classes.Ui_DialogLoadAirFlightsWithAirCrafts()
+    myDialog = Ui_DialogLoadAirFlightsWithAirCrafts()
     myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
     myDialog.setFixedSize(940, 375)
     myDialog.setWindowTitle('Загрузка рабочих данных')
@@ -621,7 +619,7 @@ def myApplication():
         filter = "Data files (*.csv)"
         FileNames.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
         urnCSV = FileNames.InputFileCSV.rstrip(os.sep)  # не сработало
-        filenameCSV = pathlib.Path(FileNames.InputFileCSV).name  # сработало
+        filenameCSV = pathlib.Path(FileNames.InputFileCSV).name
         myDialog.lineEdit_CSVFile.setText(filenameCSV)
 
     def PushButtonChooseTXTFile():

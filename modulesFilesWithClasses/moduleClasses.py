@@ -53,8 +53,10 @@ class AirLine(SE):
             return False
 
     def disconnectAL(self):
-        SE.disconnect()
-        pass
+        # Снимаем курсор
+        self.seekAL.close()
+        # Отключаемся от базы данных
+        self.cnxnAL.close()
 
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
@@ -172,19 +174,22 @@ class AirCraft(ServerExchange):
             return False
 
     def disconnectAC(self):
-        # todo надо доработать
-        SE.disconnect()
-        pass
+        # Снимаем курсор
+        self.seekAC.close()
+        # Отключаемся от базы данных
+        self.cnxnAC.close()
 
     def disconnectFN(self):
-        # todo надо доработать
-        SE.disconnect()
-        pass
+        # Снимаем курсор
+        self.seekFN.close()
+        # Отключаемся от базы данных
+        self.cnxnFN.close()
 
     def disconnectAC_XML(self):
-        # todo надо доработать
-        SE.disconnect()
-        pass
+        # Снимаем курсор
+        self.seekAC_XML.close()
+        # Отключаемся от базы данных
+        self.cnxnAC_XML.close()
 
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации
@@ -308,8 +313,10 @@ class AirPort(ServerExchange):
             return False
 
     def disconnectRT(self):
-        SE.disconnect()
-        pass
+        # Снимаем курсор
+        self.seekRT.close()
+        # Отключаемся от базы данных
+        self.cnxnRT.close()
 
     def QueryAirPortByIATA(self, iata):
         # Возвращает строку аэропорта по коду IATA

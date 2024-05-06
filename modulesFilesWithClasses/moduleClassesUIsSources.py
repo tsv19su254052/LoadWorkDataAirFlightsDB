@@ -4,7 +4,6 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставил 5-ую версию
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
 
 # Пользовательская библиотека с классами
-from ClassServerExchange import ServerExchange
 # Задача создания пользовательских структур данных не расматривается -> Только функционал
 # Компилируется и кладется в папку __pycache__
 # Идея выноса каждого класса в этот отдельный файл, как на Java -> Удобство просмотра типов данных, не особо практично

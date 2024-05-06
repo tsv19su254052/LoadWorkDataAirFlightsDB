@@ -501,6 +501,20 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    def InsertAirPortByIATA(self, iata):
+        # fixme дописать функционал, когда код пустой
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA) VALUES ('" + str(iata) + "') "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
     def InsertAirPortByIATAandICAO(self, iata, icao):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -517,6 +531,39 @@ class AirPort(ServerExchange):
             else:
                 SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
             SQLQuery += ") "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def QueryAirRoute(self, IATADeparture, IATAArrival):
+        # Возвращает строку маршрута по кодам IATA аэропортов
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = """SELECT dbo.AirRoutesTable.AirRouteUniqueNumber                                 
+                       FROM dbo.AirRoutesTable INNER JOIN
+                       dbo.AirPortsTable ON dbo.AirRoutesTable.AirPortDeparture = dbo.AirPortsTable.AirPortUniqueNumber INNER JOIN
+                       dbo.AirPortsTable AS AirPortsTable_1 ON dbo.AirRoutesTable.AirPortArrival = AirPortsTable_1.AirPortUniqueNumber
+                       WHERE (dbo.AirPortsTable.AirPortCodeIATA = '""" + str(IATADeparture) + "') AND (AirPortsTable_1.AirPortCodeIATA = '" + str(IATAArrival) + "') "
+            self.seekRT.execute(SQLQuery)
+            ResultSQL = self.seekRT.fetchone()
+            self.cnxnRT.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnRT.rollback()
+        return ResultSQL
+
+    def InsertAirRoute(self, IATADeparture, IATAArrival):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
+            self.seekRT.execute(SQLQuery)
+            SQLQuery = "INSERT INTO dbo.AirRoutesTable (AirPortDeparture, AirPortArrival) VALUES ("
+            SQLQuery += str(IATADeparture) + ", "  # bigint
+            SQLQuery += str(IATAArrival) + ") "  # bigint
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
             self.cnxnRT.commit()

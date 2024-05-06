@@ -378,30 +378,29 @@ def myApplication():
                 # Добавляем атрибут cnxn
                 if Fl.useAirFlightsDB:
                     if C.connectDB_AC(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN) and C.connectDB_FN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
-                        Connected_ACFN = True
+                        St.Connected_ACFN = True
                 else:
                     if C.connectDSN_AC(S.myDSN_ACFN) and C.connectDSN_FN(S.myDSN_ACFN):
-                        Connected_ACFN = True
-                if Connected_ACFN:
+                        St.Connected_ACFN = True
+                if St.Connected_ACFN:
                     Data = C.getSQLData()
                     print(" Data = " + str(Data))
-                    St.Connected_ACFN = True
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    myDialog.lineEdit_Server_remote.setText(C.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME))
+                    myDialog.lineEdit_Server_remote.setText(Data[0])
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    myDialog.lineEdit_Driver_AC.setText(C.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME))
+                    myDialog.lineEdit_Driver_AC.setText(Data[1])
                     # Версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    myDialog.lineEdit_ODBCversion_AC.setText(C.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER))
+                    myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    myDialog.lineEdit_Schema_AC.setText(C.cnxnFN.getinfo(pyodbc.SQL_USER_NAME))
+                    myDialog.lineEdit_Schema_AC.setText(Data[4])
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    myDialog.lineEdit_DSN_AC.setText(C.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                    myDialog.lineEdit_DSN_AC.setText(Data[3])
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
                     if St.Connected_AL and St.Connected_RT:
@@ -418,21 +417,12 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if St.Connected_AC_XML:
-            # Снимаем курсор
-            C.seekAC_XML.close()
-            # Отключаемся от базы данных
-            C.cnxnAC_XML.close()
+            C.disconnectAC_XML()
             St.Connected_AC_XML = False
         if St.Connected_ACFN:
-            # Снимаем курсор
-            C.seekAC.close()
-            # Отключаемся от базы данных
-            C.cnxnAC.close()
+            C.disconnectAC()
+            C.disconnectFN()
             St.Connected_AC = False
-            # Снимаем курсор
-            C.seekFN.close()
-            # Отключаемся от базы данных
-            C.cnxnFN.close()
             St.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)

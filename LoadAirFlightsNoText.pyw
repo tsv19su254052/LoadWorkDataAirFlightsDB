@@ -1259,11 +1259,11 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        if Fl.useXQuery:
-            OutputString += " Используется xQuery (SAX) \n"
-        else:
-            OutputString += " Используется xml.etree.ElementTree (DOM) \n"
         if Fl.useAirCraftsDSN:
+            if Fl.useXQuery:
+                OutputString += " Используется xQuery (SAX) \n"
+            else:
+                OutputString += " Используется xml.etree.ElementTree (DOM) \n"
             OutputString += " Сервер СУБД = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
             OutputString += " Драйвер = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
             OutputString += " Версия ODBC = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"

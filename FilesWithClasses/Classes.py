@@ -12,7 +12,6 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставил 5-ую версию
 # > pyqt5-tools designer
 # или из библиотеки pyQt6_tools (3.11) командой в терминале
 # > pyqt6-tools designer
-# todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 
 
 # fixme правильно писать конструктор

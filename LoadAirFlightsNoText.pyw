@@ -3,6 +3,7 @@
 
 import pyodbc
 import pymssql  # работает тяжелее
+# todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 from sqlalchemy import create_engine
 import pandas
 import itertools
@@ -20,7 +21,7 @@ import pathlib
 import colorama
 import termcolor
 
-# Импорт пользовательской библиотеки
+# Импорт библиотек индивидуальной разработки
 from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
@@ -28,16 +29,15 @@ from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, AirLi
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-# Версия обработки с цветным выводом
-# todo Версия задается тут. Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
-myOwnDevelopingVersion = 8.7
+myOwnDevelopingVersion = 8.7  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
-colorama.init(autoreset=False)  # используем Colorama, чтобы сделать работу Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
+colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
 print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
 
-# Делаем свои рабочие экземпляры
+
+# Добавляем функционал
 class AirLineWork(AirLine):
     def __int__(self):
         pass
@@ -130,6 +130,7 @@ class AirCraftWork(AirCraft):
         return ResultSQL
 
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
+        # Вставляет строку самолета по его регистрации
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -163,6 +164,7 @@ class AirCraftWork(AirCraft):
         return ResultSQL
 
     def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
+        # Обновляет строку самолета с регистрацией (только для табличных данных)
         if useAirCrafts:
             return True
         else:
@@ -184,7 +186,7 @@ class AirPortWork(AirPort):
         pass
 
     def QueryAirPortByIATA(self, iata):
-        # Возвращает строку аэропорта по коду IATA
+        # Возвращает строку аэропорта по его коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
             self.seekRT.execute(SQLQuery)
@@ -216,6 +218,7 @@ class AirPortWork(AirPort):
         return ResultSQL
 
     def InsertAirPortByIATA(self, iata):
+        # Вставлет аэропорт по коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
@@ -229,6 +232,7 @@ class AirPortWork(AirPort):
         return ResultSQL
 
     def InsertAirRoute(self, IATADeparture, IATAArrival):
+        # Вставляет маршрут по кодам IATA аэропортов (для полной точности нужны пары кодов IATA и ICAO)
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
             self.seekRT.execute(SQLQuery)
@@ -244,6 +248,7 @@ class AirPortWork(AirPort):
         return ResultSQL
 
 
+# Делаем свои рабочие экземпляры
 A = AirLineWork()
 C = AirCraftWork()
 P = AirPortWork()

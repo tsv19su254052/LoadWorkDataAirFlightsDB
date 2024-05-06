@@ -1,4 +1,8 @@
 #  Interpreter 3.7 -> 3.10
+import pyodbc
+import pymssql  # работает тяжелее
+# todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
+from sqlalchemy import create_engine
 from xml.etree import ElementTree
 # todo ветка библиотек Qt - QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner, QtXml
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
@@ -11,38 +15,42 @@ from modulesFilesWithClasses.moduleClassServerExchange import ServerExchange
 
 
 class ServerNames:
-    # Имена серверов
-    #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-    ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
-    #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
-    # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
-    ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
-    ServerName = "localhost\mssqlserver15"  # указал инстанс
-    #ServerName = "localhost\sqldeveloper"  # указал инстанс
+    def __init__(self):
+        # Имена серверов
+        #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
+        self.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+        #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
+        # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
+        self.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
+        self.ServerName = "localhost\mssqlserver15"  # указал инстанс
+        #ServerName = "localhost\sqldeveloper"  # указал инстанс
 
 
 class FileNames:
-    # Имена читаемых и записываемых файлов
-    InputFileCSV = ' '
-    LogFileTXT = ' '
-    ErrorFileTXT = 'LogReport_Errors.txt'
+    def __init__(self):
+        # Имена читаемых и записываемых файлов
+        self.InputFileCSV = ' '
+        self.LogFileTXT = ' '
+        self.ErrorFileTXT = 'LogReport_Errors.txt'
 
 
 class Flags:
-    # Флаги
-    useAirFlightsDB = True
-    useAirCraftsDSN = False
-    useXQuery = False
-    SetInputDate = False
-    BeginDate = ' '
+    def __init__(self):
+        # Флаги
+        self.useAirFlightsDB = True
+        self.useAirCraftsDSN = False
+        self.useXQuery = False
+        self.SetInputDate = False
+        self.BeginDate = ' '
 
 
 class States:
-    # Состояния
-    Connected_AL = False
-    Connected_RT = False
-    Connected_ACFN = False
-    Connected_AC_XML = False
+    def __init__(self):
+        # Состояния
+        self.Connected_AL = False
+        self.Connected_RT = False
+        self.Connected_ACFN = False
+        self.Connected_AC_XML = False
 
 
 SE = ServerExchange
@@ -69,28 +77,15 @@ class AirLine(SE):
         self.seekAL = None  # курсор
 
     def connectDB_AL(self, driver, servername, database):
-        connection = SE.connectDB(driver=driver, servername=servername, database=database)
-        if connection[0]:
-            self.cnxnAL = connection[1]
-            self.seekAL = connection[2]
-            return True
-        else:
-            return False
-
-    def connectDSN_AL(self, dsn):
-        connection = SE.connectDSN(dsn=dsn)
-        if connection[0]:
-            self.cnxnAL = connection[1]
-            self.seekAL = connection[2]
+        if self.connectDB(driver=driver, servername=servername, database=database):
+            self.cnxnAL = self.cnxn
+            self.seekAL = self.seek
             return True
         else:
             return False
 
     def disconnectAL(self):
-        # Снимаем курсор
-        self.seekAL.close()
-        # Отключаемся от базы данных
-        self.cnxnAL.close()
+        self.disconnect()
 
     def QueryAlliances(self):
         try:

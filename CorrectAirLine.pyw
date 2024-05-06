@@ -158,6 +158,8 @@ def myApplication():
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
                 print("  База данных ", S.DataBase, " подключена")
+                Data = A.getSQLData()
+                print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB.setEnabled(False)
@@ -165,20 +167,20 @@ def myApplication():
                 myDialog.pushButton_Disconnect.setEnabled(True)
                 myDialog.pushButton_Begin.setEnabled(True)  # кнопка "Начало"
                 # SQL Server
-                myDialog.lineEdit_Server.setText(A.getSQLData()[0])
+                myDialog.lineEdit_Server.setText(str(Data[0]))
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver.setText(A.getSQLData()[1])
+                myDialog.lineEdit_Driver.setText(str(Data[1]))
                 myDialog.lineEdit_Driver.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion.setText(A.getSQLData()[2])
+                myDialog.lineEdit_ODBCversion.setText(str(Data[2]))
                 myDialog.lineEdit_ODBCversion.setEnabled(True)
                 # Источник данных
-                myDialog.lineEdit_DSN.setText(A.getSQLData()[3])
+                myDialog.lineEdit_DSN.setText(str(Data[3]))
                 myDialog.lineEdit_DSN.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 # todo Схема по умолчанию - dbo
-                myDialog.lineEdit_Schema.setText(A.getSQLData()[4])
+                myDialog.lineEdit_Schema.setText(str(Data[4]))
                 myDialog.lineEdit_Schema.setEnabled(True)
             else:
                 # Переводим в рабочее состояние

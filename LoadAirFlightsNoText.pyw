@@ -261,7 +261,7 @@ St = States()
 def myApplication():
     # Одно прикладное приложение
     myApp = QtWidgets.QApplication(sys.argv)
-    # Делаем экземпляры
+    # Делаем свой рабочий экземпляр
     myDialog = Ui_DialogLoadAirFlightsWithAirCrafts()
     myDialog.setupUi(Dialog=myDialog)  # надо вызывать явно
     myDialog.setFixedSize(940, 375)

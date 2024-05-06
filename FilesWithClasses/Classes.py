@@ -8,16 +8,14 @@ from ClassServerExchange import ServerExchange
 # Задача создания пользовательских структур данных не расматривается -> Только функционал
 # Компилируется и кладется в папку __pycache__
 # Идея выноса каждого класса в этот отдельный файл, как на Java -> Удобство просмотра типов данных, не особо практично
-# Qt Designer (см. https://build-system.fman.io/qt-designer-download)
-# Запуск Qt Designer из библиотеки pyQt5_tools (3.10 и более ранние) командой в терминале
-# > pyqt5-tools designer
-# или из библиотеки pyQt6_tools (3.11) командой в терминале
-# > pyqt6-tools designer
+
+
+SE = ServerExchange()
 
 
 # fixme правильно писать конструктор
 # todo Объявления внутри класса с конструктором и без
-class AirLine(ServerExchange):
+class AirLine(SE):
     def __init__(self):
         self.AirLine_ID = 1
         self.AirLineName = " "
@@ -32,11 +30,20 @@ class AirLine(ServerExchange):
         self.AirLineDescription = " "
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
-        self.cnxnAL = False  # подключение
-        self.seekAL = False  # курсор
+        self.cnxnAL = None  # подключение
+        self.seekAL = None  # курсор
 
-    def connectAL(self, driver, servername, database):
-        connection = ServerExchange.connectDB(driver=driver, servername=servername, database=database)
+    def connectAL_DB(self, driver, servername, database):
+        connection = SE.connectDB(driver=driver, servername=servername, database=database)
+        if connection[0]:
+            self.cnxnAL = connection[1]
+            self.seekAL = connection[2]
+            return True
+        else:
+            return False
+
+    def connectAL_DSN(self, dsn):
+        connection = SE.connectDSN(dsn=dsn)
         if connection[0]:
             self.cnxnAL = connection[1]
             self.seekAL = connection[2]
@@ -45,7 +52,7 @@ class AirLine(ServerExchange):
             return False
 
     def disconnectAL(self):
-        ServerExchange.disconnect()
+        SE.disconnect()
         pass
 
     def QueryAirLineByIATA(self, iata):

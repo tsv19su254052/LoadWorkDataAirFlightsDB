@@ -15,7 +15,6 @@ from ClassServerExchange import ServerExchange
 # > pyqt6-tools designer
 
 
-
 class Ui_DialogLoadAirFlightsWithAirCrafts(QtWidgets.QDialog):
     def __init__(self):
         # просто сразу вызываем конструктор предка

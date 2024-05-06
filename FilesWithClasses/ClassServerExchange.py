@@ -5,8 +5,8 @@ import pyodbc
 # Делаем предков
 class ServerExchange:
     def __int__(self):
-        self.cnxn = ' '  # подключение
-        self.seek = ' '  # курсор
+        self.cnxn = None  # подключение
+        self.seek = None  # курсор
 
     def connectDB(self, driver, servername, database):
         self.Result = False
@@ -75,13 +75,11 @@ class ServerExchange:
             self.Result = True
         except Exception:
             self.Result = False
-        return self.Result
+        return self.Result, self.cnxn, self.seek
 
     def disconnect(self):
-        self.Result = False
         # Снимаем курсор
         self.seek.close()
         # Отключаемся от базы данных
         self.cnxn.close()
-        return self.Result
 

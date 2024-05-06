@@ -7,7 +7,8 @@ import sys
 from PyQt5 import QtWidgets, QtCore
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-from FilesWithClasses.Classes import Ui_DialogCorrectAirLine, Ui_DialogInputIATAandICAO, AirLine, ServerNames, Flags, States
+from modulesFilesWithClasses.moduleClasses import AirLine, ServerNames, Flags, States
+from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirLine, Ui_DialogInputIATAandICAO
 
 
 # Делаем экземпляры

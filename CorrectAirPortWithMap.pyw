@@ -10,8 +10,9 @@ import folium
 from folium.plugins.draw import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
 
-# Импорт пользовательской библиотеки (файла *.py в этой же папке)
-from FilesWithClasses.Classes import Ui_DialogCorrectAirPortsWithMap, Ui_DialogInputIATAandICAO, AirPort, ServerNames, FileNames, Flags, States
+# Импорт модулей библиотек индивидуальной разработки (файла *.py в этой же папке)
+from modulesFilesWithClasses.moduleClasses import AirPort, ServerNames, FileNames, Flags, States
+from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirPortsWithMap, Ui_DialogInputIATAandICAO
 
 
 # Делаем экземпляры

@@ -94,6 +94,10 @@ class ServerExchange:
         SQLDrivers = pyodbc.drivers()
         return SQLDrivers
 
+    def getDataSources(self):
+        DataSources = pyodbc.dataSources()
+        return DataSources
+
     def getSQLData(self):
         SQLData = (self.cnxn.getinfo(pyodbc.SQL_SERVER_NAME),
                    self.cnxn.getinfo(pyodbc.SQL_DRIVER_NAME),

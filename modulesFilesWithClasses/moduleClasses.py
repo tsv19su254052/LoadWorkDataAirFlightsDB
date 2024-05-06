@@ -410,28 +410,15 @@ class AirPort(ServerExchange):
         self.seekRT = None  # курсор
 
     def connectDB_RT(self, driver, servername, database):
-        connection = SE.connectDB(driver=driver, servername=servername, database=database)
-        if connection[0]:
-            self.cnxnAL = connection[1]
-            self.seekAL = connection[2]
-            return True
-        else:
-            return False
-
-    def connectDSN_RT(self, dsn):
-        connection = SE.connectDSN(dsn=dsn)
-        if connection[0]:
-            self.cnxnAL = connection[1]
-            self.seekAL = connection[2]
+        if self.connectDB(driver=driver, servername=servername, database=database):
+            self.cnxnRT = self.cnxn
+            self.seekRT = self.seek
             return True
         else:
             return False
 
     def disconnectRT(self):
-        # Снимаем курсор
-        self.seekRT.close()
-        # Отключаемся от базы данных
-        self.cnxnRT.close()
+        self.disconnect()
 
     def QueryAirPortByIATA(self, iata):
         # Возвращает строку аэропорта по коду IATA

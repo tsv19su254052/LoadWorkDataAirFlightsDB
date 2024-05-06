@@ -45,7 +45,7 @@ class States:
     Connected_AC_XML = False
 
 
-SE = ServerExchange()
+SE = ServerExchange
 
 
 # fixme правильно писать конструктор

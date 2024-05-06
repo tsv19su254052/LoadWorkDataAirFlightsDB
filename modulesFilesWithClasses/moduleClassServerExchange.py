@@ -44,7 +44,7 @@ class ServerExchange:
             self.Result = True
         except Exception:
             self.Result = False
-        return self.Result, self.cnxn, self.seek
+        return self.Result
 
     def connectDSN(self, dsn):
         self.Result = False
@@ -78,7 +78,7 @@ class ServerExchange:
             self.Result = True
         except Exception:
             self.Result = False
-        return self.Result, self.cnxn, self.seek
+        return self.Result
 
     def disconnect(self):
         # Снимаем курсор

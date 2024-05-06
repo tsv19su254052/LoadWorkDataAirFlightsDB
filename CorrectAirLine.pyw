@@ -154,7 +154,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase = str(ChoiceDB)
             S.DriverODBC = str(ChoiceDriver)
-            if A.connectDB_AL(S.DriverODBC, S.ServerName, S.DataBase)[0]:
+            if A.connectDB_AL(S.DriverODBC, S.ServerName, S.DataBase):
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
                 print("  База данных ", S.DataBase, " подключена")

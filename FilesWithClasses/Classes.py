@@ -15,14 +15,11 @@ from PyQt5 import QtWidgets, QtCore, QtGui  # оставил 5-ую версию
 # todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 
 
-# Делаем предка
+# fixme правильно писать конструктор
+# todo Объявления внутри класса с конструктором и без
+# todo Пакет библиотек с __init.py__ и без
+# Делаем предков
 class AirLine:
-    # fixme правильно писать конструктор
-    # todo Объявления внутри класса с конструктором и без
-    # todo Пакет библиотек с __init.py__ и без
-    cnxnAL = ' '  # подключение
-    seekAL = ' '  # курсор
-
     def __init__(self):
         self.AirLine_ID = 1
         self.AirLineName = " "
@@ -38,19 +35,11 @@ class AirLine:
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
 
+    cnxnAL = ' '  # подключение
+    seekAL = ' '  # курсор
 
-# Делаем предка
+
 class AirCraft:
-    # fixme правильно писать конструктор
-    # Подключения
-    cnxnAC_XML = ' '
-    cnxnAC = ' '
-    cnxnFN = ' '
-    # Курсоры
-    seekAC_XML = ' '
-    seekAC = ' '
-    seekFN = ' '
-
     def __init__(self):
         self.AirCraftModel = 387  # Unknown Model
         self.BuildDate = '1920-01-01'
@@ -64,13 +53,17 @@ class AirCraft:
         self.EndDate = '1920-01-01'
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
 
+    # Подключения
+    cnxnAC_XML = ' '
+    cnxnAC = ' '
+    cnxnFN = ' '
+    # Курсоры
+    seekAC_XML = ' '
+    seekAC = ' '
+    seekFN = ' '
 
-# Делаем предка
+
 class AirPort:
-    # fixme правильно писать конструктор
-    cnxnRT = ' '  # подключение
-    seekRT = ' '  # курсор
-
     def __init__(self):
         self.HyperLinkToWikiPedia = " "
         self.HyperLinkToAirPortSite = " "
@@ -93,9 +86,12 @@ class AirPort:
         self.AirPortFacilities = " "
         self.AirPortIncidents = " "
 
+    cnxnRT = ' '  # подключение
+    seekRT = ' '  # курсор
 
-# Имена серверов
+
 class ServerNames:
+    # Имена серверов
     #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
     ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
     #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
@@ -105,15 +101,15 @@ class ServerNames:
     #ServerName = "localhost\sqldeveloper"  # указал инстанс
 
 
-# Имена читаемых и записываемых файлов
 class FileNames:
+    # Имена читаемых и записываемых файлов
     InputFileCSV = ' '
     LogFileTXT = ' '
     ErrorFileTXT = 'LogReport_Errors.txt'
 
 
-# Флаги
 class Flags:
+    # Флаги
     useAirFlightsDB = True
     useAirCraftsDSN = False
     useXQuery = False
@@ -121,8 +117,8 @@ class Flags:
     BeginDate = ' '
 
 
-# Состояния
 class States:
+    # Состояния
     Connected_AL = False
     Connected_RT = False
     Connected_ACFN = False

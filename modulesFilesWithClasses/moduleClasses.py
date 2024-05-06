@@ -5,7 +5,7 @@ from xml.etree import ElementTree
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
 
 # Пользовательская библиотека с классами
-from moduleClassServerExchange import ServerExchange
+from modulesFilesWithClasses.moduleClassServerExchange import ServerExchange
 # Задача создания пользовательских структур данных не расматривается -> Только функционал
 # Компилируется и кладется в папку __pycache__
 # Идея выноса каждого класса в этот отдельный файл, как на Java -> Удобство просмотра типов данных, не особо практично

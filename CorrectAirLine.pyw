@@ -193,35 +193,11 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase = str(ChoiceDB)
             S.DriverODBC = str(ChoiceDriver)
-            try:
+            if A.connectDB_AL(S.DriverODBC, S.ServerName, S.DataBase)[0]:
                 # Добавляем атрибут cnxn
                 # через драйвер СУБД + клиентский API-курсор
-                A.cnxnAL = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
                 print("  База данных ", S.DataBase, " подключена")
                 St.Connected_AL = True
-                # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                A.cnxnAL.autocommit = False
-                print("autocommit is disabled")
-                # Ставим набор курсоров
-                # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                # Способы реализации курсоров:
-                #  - SQL, Transact-SQL,
-                #  - серверные API-курсоры (OLE DB, ADO, ODBC),
-                #  - клиентские API-курсоры (выборка кэшируется на клиенте)
-                # API-курсоры ODBC по SQLSetStmtAttr:
-                #  - тип SQL_ATTR_CURSOR_TYPE:
-                #    - однопроходный (последовательный доступ),
-                #    - статический (копия в tempdb),
-                #    - управляемый набор ключей,
-                #    - динамический,
-                #    - смешанный
-                #  - режим работы в стиле ISO:
-                #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-                # Клиентские однопроходные , статические API-курсоры ODBC.
-                # Добавляем атрибуты seek...
-                A.seekAL = A.cnxnAL.cursor()
-                print("seeks is on")
                 # Переводим в рабочее состояние (продолжение)
                 myDialog.comboBox_DB.setEnabled(False)
                 myDialog.comboBox_Driver.setEnabled(False)
@@ -243,25 +219,18 @@ def myApplication():
                 # todo Схема по умолчанию - dbo
                 myDialog.lineEdit_Schema.setText(A.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
                 myDialog.lineEdit_Schema.setEnabled(True)
-            except Exception:
+            else:
                 # Переводим в рабочее состояние
                 myDialog.pushButton_SelectDB.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных авиакомпаний")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-            else:
-                pass
-            finally:
-                pass
 
     def PushButtonDisconnect():
         # кнопка "Отключиться от базы данных"
         if St.Connected_AL:
-            # Снимаем курсоры
-            A.seekAL.close()
-            # Отключаемся от базы данных
-            A.cnxnAL.close()
+            A.disconnectAL()
             # Снимаем флаги
             St.Connected_AL = False
             # Переключаем в исходное состояние

@@ -16,12 +16,13 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirP
 
 
 # Делаем экземпляры
-class P(AirPort):
+class AirPortWork(AirPort):
     def __int__(self):
         self.LogCountViewed = 0
         self.LogCountChanged = 0
 
 
+P = AirPortWork()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
@@ -326,70 +327,39 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase = str(ChoiceDB)
             S.DriverODBC = str(ChoiceDriver)
-            try:
-                # Добавляем атрибут cnxn
-                # через драйвер СУБД + клиентский API-курсор
-                P.cnxnRT = pyodbc.connect(driver=S.DriverODBC, server=S.ServerName, database=S.DataBase)
+            if P.connectDB_RT(S.DriverODBC, S.ServerName, S.DataBase):
                 print("  База данных ", S.DataBase, " подключена")
-                # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                P.cnxnRT.autocommit = False
-                print("autocommit is disabled")
-                # Ставим набор курсоров
-                # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                # Способы реализации курсоров:
-                #  - SQL, Transact-SQL,
-                #  - серверные API-курсоры (OLE DB, ADO, ODBC),
-                #  - клиентские API-курсоры (выборка кэшируется на клиенте)
-                # API-курсоры ODBC по SQLSetStmtAttr:
-                #  - тип SQL_ATTR_CURSOR_TYPE:
-                #    - однопроходный (последовательный доступ),
-                #    - статический (копия в tempdb),
-                #    - управляемый набор ключей,
-                #    - динамический,
-                #    - смешанный
-                #  - режим работы в стиле ISO:
-                #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-                # Клиентские однопроходные , статические API-курсоры ODBC.
-                # Добавляем атрибуты seek...
-                P.seekRT = P.cnxnRT.cursor()
-                print("seeks is on")
+                Data = P.getSQLData()
+                print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # SQL Server
-                myDialog.lineEdit_Server.setText(P.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(str(Data[0]))
                 # Драйвер
-                myDialog.lineEdit_Driver.setText(P.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver.setText(str(Data[1]))
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion.setText(P.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion.setText(str(Data[2]))
                 # Источник данных
-                myDialog.lineEdit_DSN.setText(P.cnxnRT.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                myDialog.lineEdit_DSN.setText(str(Data[3]))
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 # todo Схема по умолчанию - dbo
-                myDialog.lineEdit_Schema.setText(P.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema.setText(str(Data[4]))
                 # Переводим в рабочее состояние (продолжение)
                 SwitchingGUI(True)
                 myDialog.pushButton_DisconnectDB.setEnabled(True)
-            except Exception:
+            else:
                 # Переводим в рабочее состояние
                 myDialog.pushButton_ConnectDB.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных аэропортов")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-            else:
-                pass
-            finally:
-                pass
 
     def PushButtonDisconnect():
         # кнопка 'Отключиться от базы данных' нажата
         if St.Connected_RT:
+            P.disconnectRT()
             # Переводим в неактивное состояние
             myDialog.pushButton_DisconnectDB.setEnabled(False)
-            # Снимаем курсоры
-            P.seekRT.close()
-            # Отключаемся от базы данных
-            P.cnxnRT.close()
             # Снимаем флаги
             St.Connected_RT = False
             # Переводим в рабочее состояние (продолжение)

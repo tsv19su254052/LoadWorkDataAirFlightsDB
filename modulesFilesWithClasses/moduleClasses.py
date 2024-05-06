@@ -11,6 +11,41 @@ from moduleClassServerExchange import ServerExchange
 # Идея выноса каждого класса в этот отдельный файл, как на Java -> Удобство просмотра типов данных, не особо практично
 
 
+class ServerNames:
+    # Имена серверов
+    #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
+    ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+    #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
+    # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
+    ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
+    ServerName = "localhost\mssqlserver15"  # указал инстанс
+    #ServerName = "localhost\sqldeveloper"  # указал инстанс
+
+
+class FileNames:
+    # Имена читаемых и записываемых файлов
+    InputFileCSV = ' '
+    LogFileTXT = ' '
+    ErrorFileTXT = 'LogReport_Errors.txt'
+
+
+class Flags:
+    # Флаги
+    useAirFlightsDB = True
+    useAirCraftsDSN = False
+    useXQuery = False
+    SetInputDate = False
+    BeginDate = ' '
+
+
+class States:
+    # Состояния
+    Connected_AL = False
+    Connected_RT = False
+    Connected_ACFN = False
+    Connected_AC_XML = False
+
+
 SE = ServerExchange()
 
 
@@ -626,40 +661,4 @@ class AirPort(ServerExchange):
             Result = False
             self.cnxnRT.rollback()
         return Result
-
-
-
-class ServerNames:
-    # Имена серверов
-    #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-    ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
-    #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
-    # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
-    ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
-    ServerName = "localhost\mssqlserver15"  # указал инстанс
-    #ServerName = "localhost\sqldeveloper"  # указал инстанс
-
-
-class FileNames:
-    # Имена читаемых и записываемых файлов
-    InputFileCSV = ' '
-    LogFileTXT = ' '
-    ErrorFileTXT = 'LogReport_Errors.txt'
-
-
-class Flags:
-    # Флаги
-    useAirFlightsDB = True
-    useAirCraftsDSN = False
-    useXQuery = False
-    SetInputDate = False
-    BeginDate = ' '
-
-
-class States:
-    # Состояния
-    Connected_AL = False
-    Connected_RT = False
-    Connected_ACFN = False
-    Connected_AC_XML = False
 

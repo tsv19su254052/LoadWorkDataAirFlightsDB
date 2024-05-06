@@ -42,15 +42,15 @@ class AirLine:
 class AirCraft:
     def __init__(self):
         self.AirCraftModel = 387  # Unknown Model
-        self.BuildDate = '1920-01-01'
-        self.RetireDate = '1920-01-01'
+        self.BuildDate = '1990-01-01'
+        self.RetireDate = '1990-01-01'
         self.SourceCSVFile = " "
         self.AirCraftDescription = " "
         self.AirCraftLineNumber_LN = " "
         self.AirCraftLineNumber_MSN = " "
         self.AirCraftSerialNumber_SN = " "
         self.AirCraftCNumber = " "
-        self.EndDate = '1920-01-01'
+        self.EndDate = '1990-01-01'
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
 
     # Подключения

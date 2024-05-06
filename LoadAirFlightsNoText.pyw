@@ -1287,7 +1287,7 @@ def myApplication():
         # todo Сделать итоги в виде XML и писать его полем XML.Document в базу данных
         if ListAirLinesAdded:
             OutputString += " - вставились авиакомпании: \n  "
-            OutputString += str(set(ListAirLinesAdded))  # fixme с регистрациями NaN надолго зависает, не убирает повторы и не группирует
+            OutputString += str(set(ListAirLinesAdded))  # fixme с регистрациями NaN надолго зависает, не убирает повторы и не группирует -> данные без регистрации не загужаем
             OutputString += " \n"
         if ListAirLinesFailed:
             OutputString += " - не вставились данные по авиакомпаниям: \n  "
@@ -1324,9 +1324,9 @@ def myApplication():
             OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиарейсы \n"
         OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
         # Дописываем в журнал (обычным способом)
-        # fixme Большая строка не дописывается, скрипт долго висит
+        # fixme Большая строка не дописывается, скрипт долго висит -> Исправил
         try:
-            # fixme При больших объемах дозаписи и одновременном доступе к журналу нескольких обработок не все результаты дописываются в него
+            # fixme При больших объемах дозаписи и одновременном доступе к журналу нескольких обработок не все результаты дописываются в него -> Исправил
             LogFile = open(Log, 'a')
             LogFile.write(OutputString)
             # LogFile.write('Вывод обычным способом\n')
@@ -1346,7 +1346,7 @@ def myApplication():
         #     LogFile.write(OutputString)
         #     LogFile.write('Вывод с помощью менеджера контекста\n')
         myDialog.label_execute.setText("Загрузка окончена")
-        myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат
+        myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
         # Снимаем курсоры
         A.seekAL.close()

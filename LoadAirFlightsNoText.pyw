@@ -21,7 +21,7 @@ import pathlib
 import colorama
 import termcolor
 
-# Импорт библиотек индивидуальной разработки
+# Импорт модуля библиотек индивидуальной разработки
 from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала

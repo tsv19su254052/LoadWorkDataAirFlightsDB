@@ -81,10 +81,14 @@ class ServerExchange:
         return self.Result
 
     def disconnect(self):
-        # Снимаем курсор
-        self.seek.close()
-        # Отключаемся от базы данных
-        self.cnxn.close()
+        try:
+            # Снимаем курсор
+            self.seek.close()
+            # Отключаемся от базы данных
+            self.cnxn.close()
+            print(" -- отключение от БД")
+        except Exception:
+            print(" -- БД уже отключена")
 
     def getSQLDrivers(self):
         SQLDrivers = pyodbc.drivers()

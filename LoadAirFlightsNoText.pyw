@@ -917,23 +917,18 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
+        DataSQL = C.getSQLData()
         if Fl.useAirCraftsDSN:
             OutputString += " Авиаперелеты загружены в БД самолетов "
             if Fl.useXQuery:
                 OutputString += " с помощью xQuery (SAX) \n"
             else:
                 OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
-            OutputString += " Сервер СУБД = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-            OutputString += " Драйвер = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-            OutputString += " Версия ODBC = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-            OutputString += " DSN = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-            OutputString += " Схема = " + str(C.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
-        else:
-            OutputString += " Сервер СУБД = " + str(C.cnxnFN.getinfo(pyodbc.SQL_SERVER_NAME)) + " \n"
-            OutputString += " Драйвер = " + str(C.cnxnFN.getinfo(pyodbc.SQL_DRIVER_NAME)) + " \n"
-            OutputString += " Версия ODBC = " + str(C.cnxnFN.getinfo(pyodbc.SQL_ODBC_VER)) + " \n"
-            OutputString += " DSN = " + str(C.cnxnFN.getinfo(pyodbc.SQL_DATA_SOURCE_NAME)) + " \n"
-            OutputString += " Схема = " + str(C.cnxnFN.getinfo(pyodbc.SQL_USER_NAME)) + " \n"
+        OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
+        OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
+        OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
+        OutputString += " DSN = " + str(DataSQL[3]) + " \n"
+        OutputString += " Схема = " + str(DataSQL[4]) + " \n"
         OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"

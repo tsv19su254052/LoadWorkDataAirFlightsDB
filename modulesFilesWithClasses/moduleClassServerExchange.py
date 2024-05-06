@@ -44,7 +44,7 @@ class ServerExchange:
         return self.Result, self.cnxn, self.seek
 
     def connectDSN(self, dsn):
-        Result = False
+        self.Result = False
         try:
             # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
             self.cnxn = pyodbc.connect("DSN=" + dsn)

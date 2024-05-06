@@ -12,7 +12,6 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirL
 
 
 # Делаем экземпляры
-# fixme При наследовании с композицией непонятно - где и в каких местах участвуют части предков
 A = AirLine()
 S = ServerNames()
 Fl = Flags()

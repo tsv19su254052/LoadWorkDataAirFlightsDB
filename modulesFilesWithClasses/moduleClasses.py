@@ -780,7 +780,6 @@ class AirPort(ServerExchange):
         return Result
 
 
-
 class ModifyFlight:
     def __init__(self):
         pass

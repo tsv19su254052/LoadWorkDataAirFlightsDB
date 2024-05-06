@@ -86,3 +86,14 @@ class ServerExchange:
         # Отключаемся от базы данных
         self.cnxn.close()
 
+    def getSQLDrivers(self):
+        SQLDrivers = pyodbc.drivers()
+        return SQLDrivers
+
+    def getSQLData(self):
+        SQLData = (self.cnxn.getinfo(pyodbc.SQL_SERVER_NAME),
+                   self.cnxn.getinfo(pyodbc.SQL_DRIVER_NAME),
+                   self.cnxn.getinfo(pyodbc.SQL_ODBC_VER),
+                   self.cnxn.getinfo(pyodbc.SQL_DATA_SOURCE_NAME),
+                   self.cnxn.getinfo(pyodbc.SQL_USER_NAME))
+        return SQLData

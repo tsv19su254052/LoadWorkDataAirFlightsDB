@@ -2,7 +2,6 @@
 
 
 # QtSQL медленнее, чем pyodbc
-import pyodbc
 import sys
 from PyQt5 import QtWidgets, QtCore
 
@@ -125,7 +124,7 @@ def myApplication():
     myDialog.comboBox_DB.addItem("AirLinesDBNew62")
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = pyodbc.drivers()
+    S.DriversODBC = A.getSQLDrivers()
     if S.DriversODBC:
         for DriverODBC in S.DriversODBC:
             if not DriverODBC:
@@ -166,20 +165,20 @@ def myApplication():
                 myDialog.pushButton_Disconnect.setEnabled(True)
                 myDialog.pushButton_Begin.setEnabled(True)  # кнопка "Начало"
                 # SQL Server
-                myDialog.lineEdit_Server.setText(A.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(A.getSQLData()[0])
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver.setText(A.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver.setText(A.getSQLData()[1])
                 myDialog.lineEdit_Driver.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion.setText(A.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion.setText(A.getSQLData()[2])
                 myDialog.lineEdit_ODBCversion.setEnabled(True)
                 # Источник данных
-                myDialog.lineEdit_DSN.setText(A.cnxnAL.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                myDialog.lineEdit_DSN.setText(A.getSQLData()[3])
                 myDialog.lineEdit_DSN.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 # todo Схема по умолчанию - dbo
-                myDialog.lineEdit_Schema.setText(A.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema.setText(A.getSQLData()[4])
                 myDialog.lineEdit_Schema.setEnabled(True)
             else:
                 # Переводим в рабочее состояние

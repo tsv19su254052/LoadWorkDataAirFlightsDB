@@ -72,43 +72,6 @@ def myApplication():
     myDialog.lineEdit_AirLineID.setEnabled(False)
     myDialog.lineEdit_AirLineAlias.setEnabled(False)
     myDialog.lineEdit_Position.setEnabled(False)
-    # todo Сделать 2 гиперссылки на:
-    #  сайт на википедии,
-    #  сайт авиакомпании
-    #  + Кнопку диалога их правки (чтобы не выводить длинную краказябру, подставить псевдонимы)
-    #  Простенькие примеры с https://stackoverflow.com/questions/29987065/how-can-i-make-link-on-web-page-in-window-using-pyqt4
-    """
-    Бесхозный многострочный текст в роли комментария
-    ------------------------------------------------------------
-    from PyQt5.QtGui import QDesktopServices
-    from PyQt5.QtCore import QUrl
-
-    class MainWindow(QMainWindow, Ui_MainWindow):
-        def link(self, linkStr):
-            QDesktopServices.openUrl(QUrl(linkStr))
-
-        def __init__(self):
-            super(MainWindow, self).__init__()
-
-            # Set up the user interface from Designer.
-            self.setupUi(self)
-            self.label.linkActivated.connect(self.link)
-            self.label.setText('<a href="http://stackoverflow.com/">Stackoverflow/</a>')  # Адрес + Псевдоним
-
-    -------------------------------------------------------------
-    label.setText('<a href="http://stackoverflow.com/">Link</a>')  # Адрес + Псевдоним
-    label.setOpenExternalLinks(True)
-    -------------------------------------------------------------
-    from PyQt5 import QtWidgets
-
-    app = QtWidgets.QApplication([])
-    w = QtWidgets.QMainWindow()
-    QtWidgets.QLabel(parent=w, text='Hover mouse here', toolTip='<a href="http://google.com">Unclickable link</a>')  # Адрес + Псевдоним
-    w.show()
-    app.exec_()
-    -------------------------------------------------------------
-    """
-
     myDialog.tabWidget.setTabText(0, "Описание")
     myDialog.tabWidget.setTabText(1, "Функционал")
     # todo Сделать хабы интерактивным динамическим набором виджетов с подписанными "Наименованиями аэропортов" из базы аэропортов на вкладке "Хабы"

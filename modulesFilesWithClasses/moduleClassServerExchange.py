@@ -1,5 +1,8 @@
 #  Interpreter 3.7 -> 3.10
 import pyodbc
+import pymssql  # работает тяжелее
+# todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
+from sqlalchemy import create_engine
 
 
 # Делаем предков

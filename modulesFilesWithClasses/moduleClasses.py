@@ -1,5 +1,4 @@
 #  Interpreter 3.7 -> 3.10
-from PyQt5 import QtWidgets, QtCore, QtGui  # оставил 5-ую версию, потому что много наработок еще завязаны на нее
 from xml.etree import ElementTree
 # todo ветка библиотек Qt - QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner, QtXml
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
@@ -62,7 +61,7 @@ class AirLine(SE):
         self.AirLineCity = " "
         self.AirLineCountry = " "
         self.AirLineStatus = 1
-        self.CreationDate = '1920-01-01'
+        self.CreationDate = '1990-01-01'
         self.AirLineDescription = " "
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)

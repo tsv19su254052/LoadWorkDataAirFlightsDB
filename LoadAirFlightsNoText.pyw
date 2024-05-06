@@ -1,6 +1,7 @@
 #  Interpreter 3.7 -> 3.10
 
 
+import pyodbc
 import pandas
 import itertools
 import datetime
@@ -9,6 +10,7 @@ import os
 import sys
 import socket
 import threading
+from xml.etree import ElementTree
 
 # QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner - запускаем в командной строке, QtXml (устарел) -> замена QXmlStreamReader, QXmlStreamWriter
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
@@ -440,7 +442,6 @@ def myApplication():
         filenameTXT = pathlib.Path(F.LogFileTXT).name
         myDialog.lineEdit_TXTFile.setText(filenameTXT)
 
-    """
     def ModifyAirFlight(ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:
@@ -590,7 +591,6 @@ def myApplication():
         else:
             Results.Result = 0
         return Results.Result
-    """
 
     def LoadThread(Csv, Log):
         """
@@ -840,7 +840,7 @@ def myApplication():
                         DBAirRoute = P.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = MF.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
+                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

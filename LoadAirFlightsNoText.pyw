@@ -22,7 +22,8 @@ import colorama
 import termcolor
 
 # Импорт модуля библиотек индивидуальной разработки
-from FilesWithClasses.Classes import Ui_DialogLoadAirFlightsWithAirCrafts, AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
+from modulesFilesWithClasses.moduleClasses import AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
+from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
 #       - Результат импорта -> на github-е - синяя неактивная ссылка, по которой никуда не перейдешь, внутри pyCharm-а - дубликат репозитория подмодуля в локальную ветку

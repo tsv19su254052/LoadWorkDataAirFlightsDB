@@ -252,59 +252,62 @@ class AirCraft(ServerExchange):
         self.seekAC = None
         self.seekFN = None
 
+    def connectDB_AC_XML(self, driver, servername, database):
+        if self.connectDB(driver=driver, servername=servername, database=database):
+            self.cnxnAC_XML = self.cnxn
+            self.seekAC_XML = self.seek
+            return True
+        else:
+            return False
+
+    def connectDSN_AC_XML(self, dsn):
+        if self.connectDSN(dsn=dsn):
+            self.cnxnAC_XML = self.cnxn
+            self.seekAC_XML = self.seek
+            return True
+        else:
+            return False
+
+    def disconnectAC_XML(self):
+        self.disconnect()
+
     def connectDB_AC(self, driver, servername, database):
-        connection = SE.connectDB(driver=driver, servername=servername, database=database)
-        if connection[0]:
-            self.cnxnAC = connection[1]
-            self.seekAC = connection[2]
+        if self.connectDB(driver=driver, servername=servername, database=database):
+            self.cnxnAC = self.cnxn
+            self.seekAC = self.seek
             return True
         else:
             return False
 
     def connectDSN_AC(self, dsn):
-        connection = SE.connectDSN(dsn=dsn)
-        if connection[0]:
-            self.cnxnAC = connection[1]
-            self.seekAC = connection[2]
-            return True
-        else:
-            return False
-
-    def connectDB_FN(self, driver, servername, database):
-        connection = SE.connectDB(driver=driver, servername=servername, database=database)
-        if connection[0]:
-            self.cnxnFN = connection[1]
-            self.seekFN = connection[2]
-            return True
-        else:
-            return False
-
-    def connectDSN_FN(self, dsn):
-        connection = SE.connectDSN(dsn=dsn)
-        if connection[0]:
-            self.cnxnFN = connection[1]
-            self.seekFN = connection[2]
+        if self.connectDSN(dsn=dsn):
+            self.cnxnAC = self.cnxn
+            self.seekAC = self.seek
             return True
         else:
             return False
 
     def disconnectAC(self):
-        # Снимаем курсор
-        self.seekAC.close()
-        # Отключаемся от базы данных
-        self.cnxnAC.close()
+        self.disconnect()
+
+    def connectDB_FN(self, driver, servername, database):
+        if self.connectDB(driver=driver, servername=servername, database=database):
+            self.cnxnFN = self.cnxn
+            self.seekFN = self.seek
+            return True
+        else:
+            return False
+
+    def connectDSN_FN(self, dsn):
+        if self.connectDSN(dsn=dsn):
+            self.cnxnFN = self.cnxn
+            self.seekFN = self.seek
+            return True
+        else:
+            return False
 
     def disconnectFN(self):
-        # Снимаем курсор
-        self.seekFN.close()
-        # Отключаемся от базы данных
-        self.cnxnFN.close()
-
-    def disconnectAC_XML(self):
-        # Снимаем курсор
-        self.seekAC_XML.close()
-        # Отключаемся от базы данных
-        self.cnxnAC_XML.close()
+        self.disconnect()
 
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации

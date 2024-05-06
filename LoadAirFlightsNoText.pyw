@@ -19,7 +19,7 @@ import colorama
 import termcolor
 
 # Импорт модуля библиотек индивидуальной разработки
-from modulesFilesWithClasses.moduleClasses import ServerExchange, AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
+from modulesFilesWithClasses.moduleClasses import AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
@@ -39,7 +39,6 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 
 
 # Делаем свои рабочие экземпляры
-SE = ServerExchange
 A = AirLine()
 C = AirCraft()
 P = AirPort()
@@ -238,73 +237,39 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_AL = str(ChoiceDB)
             S.DriverODBC_AL = str(ChoiceDriver)
-            try:
-                # Добавляем атрибут cnxn
-                # через драйвер СУБД + клиентский API-курсор
-                A.cnxnAL = pyodbc.connect(driver=S.DriverODBC_AL, server=S.ServerNameOriginal, database=S.DataBase_AL)
+            if A.connectDB_AL(S.DriverODBC_AL, S.ServerName, S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
-                # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                A.cnxnAL.autocommit = False
-                print("autocommit is disabled")
-                # Делаем свой экземпляр и ставим набор курсоров
-                # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                #
-                # Способы реализации курсоров:
-                #  - SQL, Transact-SQL,
-                #  - серверные API-курсоры (OLE DB, ADO, ODBC),
-                #  - клиентские API-курсоры (выборка кэшируется на клиенте)
-                #
-                # API-курсоры ODBC по SQLSetStmtAttr:
-                #  - тип SQL_ATTR_CURSOR_TYPE:
-                #    - однопроходный (последовательный доступ),
-                #    - статический (копия в tempdb),
-                #    - управляемый набор ключей,
-                #    - динамический,
-                #    - смешанный
-                #  - режим работы в стиле ISO:
-                #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-
-                # Клиентские однопроходные , статические API-курсоры ODBC.
-                # Добавляем атрибуты seek...
-                A.seekAL = A.cnxnAL.cursor()
-                print("seeks is on")
+                Data = A.getSQLData()
+                print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переключаем в рабочее состояние
                 # SQL Server
                 myDialog.lineEdit_Server.setEnabled(True)
-                myDialog.lineEdit_Server.setText(A.cnxnAL.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(Data[0])
                 # Драйвер
                 myDialog.lineEdit_Driver_AL.setEnabled(True)
-                myDialog.lineEdit_Driver_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_AL.setText(Data[1])
                 # версия ODBC
                 myDialog.lineEdit_ODBCversion_AL.setEnabled(True)
-                myDialog.lineEdit_ODBCversion_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_AL.setText(Data[2])
                 # Схема (если из-под другой учетки, то выводит имя учетки)
                 myDialog.lineEdit_Schema_AL.setEnabled(True)
-                myDialog.lineEdit_Schema_AL.setText(A.cnxnAL.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_AL.setText(Data[4])
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirLinesSourcesChoiceByStatesAndFlags()
                 myDialog.pushButton_Disconnect_AL.setEnabled(True)
-            except Exception:
+            else:
                 myDialog.pushButton_Connect_AL.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных авиакомпаний")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-            else:
-                pass
-            finally:
-                pass
 
     def PushButtonDisconnect_AL():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
         if St.Connected_AL:
-            # Снимаем курсор
-            A.seekAL.close()
-            # Отключаемся от базы данных
-            A.cnxnAL.close()
+            A.disconnectAL()
             St.Connected_AL = False
         # Переключаем в исходное состояние
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
@@ -320,73 +285,39 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_RT = str(ChoiceDB)
             S.DriverODBC_RT = str(ChoiceDriver)
-            try:
-                # Добавляем атрибут cnxn
-                # через драйвер СУБД + клиентский API-курсор
-                P.cnxnRT = pyodbc.connect(driver=S.DriverODBC_RT, server=S.ServerNameOriginal, database=S.DataBase_RT)
+            if P.connectDB_RT(S.DriverODBC_RT, S.ServerName, S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
-                # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                P.cnxnRT.autocommit = False
-                print("autocommit is disabled")
-                # Делаем свой экземпляр и ставим набор курсоров
-                # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                #
-                # Способы реализации курсоров:
-                #  - SQL, Transact-SQL,
-                #  - серверные API-шные курсоры (OLE DB, ADO, ODBC),
-                #  - клиентские API-шные курсоры (выборка кэшируется на клиенте)
-                #
-                # API-шные курсоры ODBC по SQLSetStmtAttr:
-                #  - тип SQL_ATTR_CURSOR_TYPE:
-                #    - однопроходный (последовательный доступ),
-                #    - статический (копия в tempdb),
-                #    - управляемый набор ключей,
-                #    - динамический,
-                #    - смешанный
-                #  - режим работы в стиле ISO:
-                #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-
-                # Клиентские однопроходные, статические API-курсоры ODBC.
-                # Добавляем атрибуты seek...
-                P.seekRT = P.cnxnRT.cursor()
-                print("seeks is on")
+                Data = P.getSQLData()
+                print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # Переключаем в рабочее состояние
                 # SQL Server
-                myDialog.lineEdit_Server.setText(P.cnxnRT.getinfo(pyodbc.SQL_SERVER_NAME))
+                myDialog.lineEdit_Server.setText(Data[0])
                 myDialog.lineEdit_Server.setEnabled(True)
                 # Драйвер
-                myDialog.lineEdit_Driver_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_DRIVER_NAME))
+                myDialog.lineEdit_Driver_RT.setText(Data[1])
                 myDialog.lineEdit_Driver_RT.setEnabled(True)
                 # версия ODBC
-                myDialog.lineEdit_ODBCversion_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_ODBC_VER))
+                myDialog.lineEdit_ODBCversion_RT.setText(Data[2])
                 myDialog.lineEdit_ODBCversion_RT.setEnabled(True)
                 # Схема (если из-под другой учетки, то выводит имя учетки)
-                myDialog.lineEdit_Schema_RT.setText(P.cnxnRT.getinfo(pyodbc.SQL_USER_NAME))
+                myDialog.lineEdit_Schema_RT.setText(Data[4])
                 myDialog.lineEdit_Schema_RT.setEnabled(True)
                 # Переводим в рабочее состояние (продолжение)
                 UpdateAirPortsSourcesChoiceByStatesAndFlags()
                 myDialog.pushButton_Disconnect_RT.setEnabled(True)
-            except Exception:
+            else:
                 myDialog.pushButton_Connect_RT.setEnabled(True)
                 message = QtWidgets.QMessageBox()
                 message.setText("Нет подключения к базе данных аэропортов и маршрутов")
                 message.setIcon(QtWidgets.QMessageBox.Warning)
                 message.exec_()
-            else:
-                pass
-            finally:
-                pass
 
     def PushButtonDisconnect_RT():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         if St.Connected_RT:
-            # Снимаем курсор
-            P.seekRT.close()
-            # Отключаемся от базы данных
-            P.cnxnRT.close()
+            P.disconnectRT()
             St.Connected_RT = False
         # Переключаем в исходное состояние
         UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -401,63 +332,35 @@ def myApplication():
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
-                try:
-                    # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-                    C.cnxnAC_XML = pyodbc.connect("DSN=" + S.myDSN_AC_XML)
-                    # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
-                    C.cnxnAC_XML.autocommit = False
-                    # Делаем свой экземпляр и ставим набор курсоров
-                    # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
-                    #
-                    # Способы реализации курсоров:
-                    #  - SQL, Transact-SQL,
-                    #  - серверные API-курсоры (OLE DB, ADO, ODBC),
-                    #  - клиентские API-курсоры (выборка кэшируется на клиенте)
-                    #
-                    # API-курсоры ODBC по SQLSetStmtAttr:
-                    #  - тип SQL_ATTR_CURSOR_TYPE:
-                    #    - однопроходный (последовательный доступ),
-                    #    - статический (копия в tempdb),
-                    #    - управляемый набор ключей,
-                    #    - динамический,
-                    #    - смешанный
-                    #  - режим работы в стиле ISO:
-                    #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
-                    #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
-
-                    # Клиентские однопроходные , статические API-курсоры ODBC.
-                    # Добавляем атрибуты seek...
-                    C.seekAC_XML = C.cnxnAC_XML.cursor()
+                if C.connectDSN_AC_XML(S.myDSN_AC_XML):
+                    Data = C.getSQLData()
+                    print(" Data = " + str(Data))
                     St.Connected_AC_XML = True
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    myDialog.lineEdit_Server_remote.setText(C.cnxnAC_XML.getinfo(pyodbc.SQL_SERVER_NAME))
+                    myDialog.lineEdit_Server_remote.setText(Data[0])
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    myDialog.lineEdit_Driver_AC.setText(C.cnxnAC_XML.getinfo(pyodbc.SQL_DRIVER_NAME))
+                    myDialog.lineEdit_Driver_AC.setText(Data[1])
                     # версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    myDialog.lineEdit_ODBCversion_AC.setText(C.cnxnAC_XML.getinfo(pyodbc.SQL_ODBC_VER))
+                    myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    myDialog.lineEdit_Schema_AC.setText(C.cnxnAC_XML.getinfo(pyodbc.SQL_USER_NAME))
+                    myDialog.lineEdit_Schema_AC.setText(Data[4])
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    myDialog.lineEdit_DSN_AC.setText(C.cnxnAC_XML.getinfo(pyodbc.SQL_DATA_SOURCE_NAME))
+                    myDialog.lineEdit_DSN_AC.setText(Data[3])
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
-                except Exception:
+                else:
                     myDialog.pushButton_Connect_AC.setEnabled(True)
                     message = QtWidgets.QMessageBox()
                     message.setText("Нет подключения к БД самолетов")
                     message.setIcon(QtWidgets.QMessageBox.Warning)
                     message.exec_()
-                else:
-                    pass
-                finally:
-                    pass
         else:
             myDialog.pushButton_Connect_AC.setEnabled(False)
             if not St.Connected_ACFN:

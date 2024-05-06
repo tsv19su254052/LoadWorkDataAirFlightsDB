@@ -789,7 +789,6 @@ class ModifyFlight:
     operativeC = AirCraft()
     operativeP = AirPort()
 
-
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:

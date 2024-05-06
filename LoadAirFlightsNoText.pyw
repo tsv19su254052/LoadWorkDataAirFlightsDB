@@ -19,7 +19,7 @@ import colorama
 import termcolor
 
 # Импорт модуля библиотек индивидуальной разработки
-from modulesFilesWithClasses.moduleClasses import AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States
+from modulesFilesWithClasses.moduleClasses import AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States, ModifyFlight
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
@@ -46,6 +46,7 @@ S = ServerNames()
 F = FileNames()
 Fl = Flags()
 St = States()
+MF = ModifyFlight()
 
 
 def myApplication():
@@ -839,7 +840,7 @@ def myApplication():
                         DBAirRoute = P.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
+                            ResultModify = MF.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

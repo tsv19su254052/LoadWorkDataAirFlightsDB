@@ -93,6 +93,19 @@ class AirLine(SE):
         # Отключаемся от базы данных
         self.cnxnAL.close()
 
+    def QueryAlliances(self):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT AllianceUniqueNumber, AllianceName FROM dbo.AlliancesTable"  # Убрал  ORDER BY AlianceName
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchall()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL
+
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
@@ -107,12 +120,33 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
-    def QueryAirLineByPK(self, pk):
-        # Возвращает строку авиакомпании по первичному ключу
+    def QueryAirLineByICAO(self, icao):
+        # Возвращает строку авиакомпании по ее коду ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
             self.seekAL.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeICAO = '" + str(icao) + "' "
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL
+
+    def QueryAirLineByIATAandICAO(self, iata, icao):
+        # Возвращает строку авиакомпании по ее кодам IATA и ICAO
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            if iata is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+            else:
+                SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
             self.cnxnAL.commit()
@@ -148,6 +182,62 @@ class AirLine(SE):
             ResultSQL = False
             self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
+
+    def UpdateAirLineByIATAandICAO(self, id, name, alias, iata, icao, callsign, city, country, status, date, description, aliance):
+        # Обновляет данные авиакомпании в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "UPDATE dbo.AirLinesTable SET AirLine_ID = " + str(id) + ", AirLineName = '" + str(name) + "', AirLineAlias = '" + str(alias)
+            SQLQuery += "', AirLineCallSighn = '" + str(callsign)
+            SQLQuery += "', AirLineCity = '" + str(city) + "', AirLineCountry = '" + str(country) + "', AirLineStatus = " + str(status)
+            SQLQuery += ", CreationDate = '" + str(date) + "', AirLineDescription = '" + str(description) + "', Alliance = " + str(aliance)
+            if iata is None:
+                print(" ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO = '" + str(icao) + "' "
+            elif icao is None:
+                print(" IATA=", str(iata))
+                SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO IS NULL "
+            elif iata is None and icao is None:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
+            else:
+                print(" IATA=", str(iata), " ICAO=", str(icao))
+                SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = True
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL
+
+    def QueryAirLineByPK(self, pk):
+        # Возвращает строку авиакомпании по первичному ключу
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL
+
+    def QueryAlliancePKByName(self, name):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL[0]
 
 
 class AirCraft(ServerExchange):

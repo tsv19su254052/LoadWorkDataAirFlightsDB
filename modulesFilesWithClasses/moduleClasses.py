@@ -96,6 +96,33 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    def QueryAlliancePKByName(self, name):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL[0]
+
+    def QueryAirLineByPK(self, pk):
+        # Возвращает строку авиакомпании по первичному ключу
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seekAL.execute(SQLQuery)
+            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
+            self.seekAL.execute(SQLQuery)
+            ResultSQL = self.seekAL.fetchone()
+            self.cnxnAL.commit()
+        except Exception:
+            ResultSQL = False
+            self.cnxnAL.rollback()
+        return ResultSQL
+
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
@@ -201,33 +228,6 @@ class AirLine(SE):
             ResultSQL = False
             self.cnxnAL.rollback()
         return ResultSQL
-
-    def QueryAirLineByPK(self, pk):
-        # Возвращает строку авиакомпании по первичному ключу
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
-            SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
-        except Exception:
-            ResultSQL = False
-            self.cnxnAL.rollback()
-        return ResultSQL
-
-    def QueryAlliancePKByName(self, name):
-        try:
-            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
-            SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
-        except Exception:
-            ResultSQL = False
-            self.cnxnAL.rollback()
-        return ResultSQL[0]
 
 
 class AirCraft(ServerExchange):

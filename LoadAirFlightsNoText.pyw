@@ -801,19 +801,18 @@ def myApplication():
                             #SQLQuery = "DECLARE @ReturnData INT = 5 "
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
-                            # todo При отладке вставлять тестовый файлик. После отладки убрать из строки ниже "Test" ...
+                            # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             C.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #C.seekAC_XML.execute(SQLQuery)
-                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))
+                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
                             Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            #print(" Результат хранимой процедуры = " + str(RV))
                             C.cnxnAC_XML.commit()
                             if Data:
-                                print("Data = " + str(Data))
+                                print(" Результат хранимой процедуры = " + str(Data))
                             Results.Result = 1
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
@@ -826,7 +825,7 @@ def myApplication():
                             C.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:
-                        # fixme на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных (модель восстановления БД - ПОЛНАЯ) -> сделал ПРОСТАЯ
+                        # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
                             C.seekAC_XML.execute(SQLQuery)

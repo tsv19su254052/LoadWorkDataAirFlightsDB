@@ -997,22 +997,13 @@ def myApplication():
         myDialog.label_execute.setText("Загрузка окончена")
         myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-        # Снимаем курсоры
-        A.seekAL.close()
-        P.seekRT.close()
+        A.disconnectAL()
+        P.disconnectRT()
         if Fl.useAirCraftsDSN:
-            C.seekAC_XML.close()
+            C.disconnectAC_XML()
         else:
-            C.seekAC.close()
-            C.seekFN.close()
-        # Отключаемся от баз данных
-        A.cnxnAL.close()
-        P.cnxnRT.close()
-        if Fl.useAirCraftsDSN:
-            C.cnxnAC_XML.close()
-        else:
-            C.cnxnAC.close()
-            C.cnxnFN.close()
+            C.disconnectAC()
+            C.disconnectFN()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)

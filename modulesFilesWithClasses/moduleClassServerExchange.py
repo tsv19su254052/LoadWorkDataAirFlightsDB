@@ -86,7 +86,7 @@ class ServerExchange:
             self.seek.close()
             # Отключаемся от базы данных
             self.cnxn.close()
-            print(" -- отключение от БД")
+            print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
 

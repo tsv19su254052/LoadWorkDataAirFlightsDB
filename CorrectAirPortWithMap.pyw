@@ -17,7 +17,8 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirP
 
 # Делаем экземпляры
 class AirPortWork(AirPort):
-    def __int__(self):
+    def __init__(self):
+        super().__init__()
         self.LogCountViewed = 0
         self.LogCountChanged = 0
 

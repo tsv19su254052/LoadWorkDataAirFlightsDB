@@ -473,7 +473,7 @@ def myApplication():
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]
-                            print(" pyodbcErrors = " + str(sqlstate0.split("-")) + " , " + str(sqlstate1))
+                            print(" pyodbcErrors = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
                             C.cnxnAC_XML.rollback()
                             Results.Result = 0
                         except Exception as exception:

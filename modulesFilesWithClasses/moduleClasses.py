@@ -788,7 +788,7 @@ class ModifyFlight:
         pass
 
     @staticmethod
-    def ModifyAirFlight(self, operativeC, operativeP, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
+    def ModifyAirFlight(operativeC, operativeP, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:
             Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали

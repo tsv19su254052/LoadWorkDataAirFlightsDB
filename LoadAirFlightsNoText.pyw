@@ -462,7 +462,7 @@ def myApplication():
                             C.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #C.seekAC_XML.execute(SQLQuery)
-                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
+                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для pymssql (пока не ставится)
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
                             Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
@@ -473,7 +473,7 @@ def myApplication():
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]
-                            print(" pyodbcError = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
+                            print(" pyodbcErrors = " + str(sqlstate0.split("-")) + " , " + str(sqlstate1))
                             C.cnxnAC_XML.rollback()
                             Results.Result = 0
                         except Exception as exception:

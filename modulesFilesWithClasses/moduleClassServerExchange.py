@@ -7,9 +7,9 @@ from sqlalchemy import create_engine
 
 # Делаем предков
 class ServerExchange:
-    def __init__(self):
-        self.cnxn = None  # подключение
-        self.seek = None  # курсор
+    def __init__(self, c, s):
+        self.cnxn = c  # подключение
+        self.seek = s  # курсор
 
     def connectDB(self, driver, servername, database):
         self.Result = False

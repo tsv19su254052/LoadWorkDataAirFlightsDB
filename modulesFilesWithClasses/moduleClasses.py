@@ -56,7 +56,7 @@ SE = ServerExchange
 # todo Объявления внутри класса с конструктором и без
 class AirLine(SE):
     def __init__(self):
-        super().__init__()
+        super().__init__(c=None, s=None)
         self.AirLine_ID = 1
         self.AirLineName = " "
         self.AirLineAlias = " "
@@ -233,7 +233,7 @@ class AirLine(SE):
 
 class AirCraft(ServerExchange):
     def __init__(self):
-        super().__init__()
+        super().__init__(c=None, s=None)
         self.AirCraftModel = 387  # Unknown Model
         self.BuildDate = '1990-01-01'
         self.RetireDate = '1990-01-01'
@@ -391,7 +391,7 @@ class AirCraft(ServerExchange):
 
 class AirPort(ServerExchange):
     def __init__(self):
-        super().__init__()
+        super().__init__(c=None, s=None)
         self.HyperLinkToWikiPedia = " "
         self.HyperLinkToAirPortSite = " "
         self.HyperLinkToOperatorSite = " "

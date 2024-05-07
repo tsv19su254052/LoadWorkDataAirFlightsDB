@@ -913,7 +913,7 @@ def myApplication():
         OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
         OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
         OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-        OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
+        #OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
         OutputString += " Входные данные внесены за " + str(Fl.BeginDate) + " \n"
         if Fl.SetInputDate:
             OutputString += " Дата авиарейса проставлена из входного файла\n"

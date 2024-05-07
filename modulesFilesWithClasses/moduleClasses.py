@@ -73,6 +73,7 @@ class AirLine(SE):
         self.cnxnAL = None  # подключение
         self.seekAL = None  # курсор
 
+    @staticmethod
     def connectDB_AL(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnAL = self.cnxn
@@ -81,9 +82,11 @@ class AirLine(SE):
         else:
             return False
 
+    @staticmethod
     def disconnectAL(self):
         self.disconnect()
 
+    @staticmethod
     def QueryAlliances(self):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
@@ -97,6 +100,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAlliancePKByName(self, name):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
@@ -110,6 +114,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL[0]
 
+    @staticmethod
     def QueryAirLineByPK(self, pk):
         # Возвращает строку авиакомпании по первичному ключу
         try:
@@ -124,6 +129,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
@@ -138,6 +144,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirLineByICAO(self, icao):
         # Возвращает строку авиакомпании по ее коду ICAO
         try:
@@ -152,6 +159,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirLineByIATAandICAO(self, iata, icao):
         # Возвращает строку авиакомпании по ее кодам IATA и ICAO
         try:
@@ -173,6 +181,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    @staticmethod
     def InsertAirLineByIATAandICAO(self, iata, icao):
         # Вставляем авиакомпанию с кодами IATA и ICAO, альянсом по умолчанию
         # fixme Потом подправить Альанс авиакомпании
@@ -201,6 +210,7 @@ class AirLine(SE):
             self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
+    @staticmethod
     def UpdateAirLineByIATAandICAO(self, id, name, alias, iata, icao, callsign, city, country, status, date, description, aliance):
         # Обновляет данные авиакомпании в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
         try:
@@ -231,7 +241,7 @@ class AirLine(SE):
         return ResultSQL
 
 
-class AirCraft(ServerExchange):
+class AirCraft(SE):
     def __init__(self):
         super().__init__(c=None, s=None)
         self.AirCraftModel = 387  # Unknown Model
@@ -254,6 +264,7 @@ class AirCraft(ServerExchange):
         self.seekAC = None
         self.seekFN = None
 
+    @staticmethod
     def connectDB_AC_XML(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnAC_XML = self.cnxn
@@ -262,6 +273,7 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def connectDSN_AC_XML(self, dsn):
         if self.connectDSN(dsn=dsn):
             self.cnxnAC_XML = self.cnxn
@@ -270,9 +282,11 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def disconnectAC_XML(self):
         self.disconnect()
 
+    @staticmethod
     def connectDB_AC(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnAC = self.cnxn
@@ -281,6 +295,7 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def connectDSN_AC(self, dsn):
         if self.connectDSN(dsn=dsn):
             self.cnxnAC = self.cnxn
@@ -289,9 +304,11 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def disconnectAC(self):
         self.disconnect()
 
+    @staticmethod
     def connectDB_FN(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnFN = self.cnxn
@@ -300,6 +317,7 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def connectDSN_FN(self, dsn):
         if self.connectDSN(dsn=dsn):
             self.cnxnFN = self.cnxn
@@ -308,9 +326,11 @@ class AirCraft(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def disconnectFN(self):
         self.disconnect()
 
+    @staticmethod
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации
         if useAirCrafts:
@@ -337,6 +357,7 @@ class AirCraft(ServerExchange):
                 self.cnxnAC.rollback()
         return ResultSQL
 
+    @staticmethod
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
         # Вставляет строку самолета по его регистрации
         if useAirCrafts:
@@ -371,6 +392,7 @@ class AirCraft(ServerExchange):
                 self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
+    @staticmethod
     def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
         # Обновляет строку самолета с регистрацией (только для табличных данных)
         if useAirCrafts:
@@ -389,7 +411,7 @@ class AirCraft(ServerExchange):
             return ResultSQL
 
 
-class AirPort(ServerExchange):
+class AirPort(SE):
     def __init__(self):
         super().__init__(c=None, s=None)
         self.HyperLinkToWikiPedia = " "
@@ -415,6 +437,7 @@ class AirPort(ServerExchange):
         self.cnxnRT = None  # подключение
         self.seekRT = None  # курсор
 
+    @staticmethod
     def connectDB_RT(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnRT = self.cnxn
@@ -423,9 +446,11 @@ class AirPort(ServerExchange):
         else:
             return False
 
+    @staticmethod
     def disconnectRT(self):
         self.disconnect()
 
+    @staticmethod
     def QueryAirPortByIATA(self, iata):
         # Возвращает строку аэропорта по коду IATA
         try:
@@ -440,6 +465,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirPortByICAO(self, icao):
         # Возвращает строку аэропорта по коду ICAO
         try:
@@ -454,6 +480,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirPortByIATAandICAO(self, iata, icao):
         # Возвращает строку аэропорта по кодам IATA и ICAO
         try:
@@ -476,6 +503,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirPortByFAA_LID(self, faa_lid):
         # Возвращает строку аэропорта по коду ICAO
         try:
@@ -490,6 +518,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirPortByWMO(self, wmo):
         # Возвращает строку аэропорта по коду ICAO
         try:
@@ -504,6 +533,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def QueryAirRoute(self, IATADeparture, IATAArrival):
         # Возвращает строку маршрута по кодам IATA аэропортов
         try:
@@ -522,6 +552,7 @@ class AirPort(ServerExchange):
             self.cnxnRT.rollback()
         return ResultSQL
 
+    @staticmethod
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой
         try:

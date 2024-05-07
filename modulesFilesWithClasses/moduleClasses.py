@@ -787,18 +787,19 @@ class ModifyFlight:
     def __init__(self):
         pass
 
-    operativeA = AirLine()
-    operativeC = AirCraft()
-    operativeP = AirPort()
+    #operativeA = AirLine()
+    #operativeC = AirCraft()
+    #operativeP = AirPort()
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
+    @staticmethod
+    def ModifyAirFlight(self, operativeC, operativeP, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:
             Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
-        db_air_route = self.operativeP.QueryAirRoute(dep, arr).AirRouteUniqueNumber
+        db_air_route = operativeP.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
-            db_air_craft = self.operativeC.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
+            db_air_craft = operativeC.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
@@ -808,29 +809,29 @@ class ModifyFlight:
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            self.operativeC.seekAC_XML.execute(SQLQuery)
+                            operativeC.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #C.seekAC_XML.execute(SQLQuery)
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
-                            Data = self.operativeC.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.operativeC.cnxnAC_XML.commit()
+                            Data = operativeC.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            operativeC.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                             Results.Result = 1
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.operativeC.cnxnAC_XML.rollback()
+                            operativeC.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                            self.operativeC.seekAC_XML.execute(SQLQuery)
+                            operativeC.seekAC_XML.execute(SQLQuery)
                             XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            self.operativeC.seekAC_XML.execute(XMLQuery)
-                            ResultXML = self.operativeC.seekAC_XML.fetchone()
+                            operativeC.seekAC_XML.execute(XMLQuery)
+                            ResultXML = operativeC.seekAC_XML.fetchone()
                             QuantityCounted = 1  # количество таких авиаперелетов за этот день
                             QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                             QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
@@ -890,19 +891,19 @@ class ModifyFlight:
                                     Results.Result = 1
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            self.operativeC.seekAC_XML.execute(XMLQuery)
-                            self.operativeC.cnxnAC_XML.commit()
+                            operativeC.seekAC_XML.execute(XMLQuery)
+                            operativeC.cnxnAC_XML.commit()
                         except Exception:
-                            self.operativeC.cnxnAC_XML.rollback()
+                            operativeC.cnxnAC_XML.rollback()
                             Results.Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        self.operativeC.seekFN.execute(SQLQuery)
+                        operativeC.seekFN.execute(SQLQuery)
                         SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
                         SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        self.operativeC.seekFN.execute(SQLQuery)
-                        ResultQuery = self.operativeC.seekFN.fetchone()
+                        operativeC.seekFN.execute(SQLQuery)
+                        ResultQuery = operativeC.seekFN.fetchone()
                         if ResultQuery is None:
                             SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
                             SQLQuery += str(db_air_route) + ", "  # bigint
@@ -918,10 +919,10 @@ class ModifyFlight:
                             Results.Result = 2
                         else:
                             pass
-                        self.operativeC.seekFN.execute(SQLQuery)
-                        self.operativeC.cnxnFN.commit()
+                        operativeC.seekFN.execute(SQLQuery)
+                        operativeC.cnxnFN.commit()
                     except Exception:
-                        self.operativeC.cnxnFN.rollback()
+                        operativeC.cnxnFN.rollback()
                         Results.Result = 0
                     finally:
                         pass

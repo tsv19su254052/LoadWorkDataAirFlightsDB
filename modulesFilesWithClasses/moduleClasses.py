@@ -787,10 +787,6 @@ class ModifyFlight:
     def __init__(self):
         pass
 
-    #operativeA = AirLine()
-    #operativeC = AirCraft()
-    #operativeP = AirPort()
-
     @staticmethod
     def ModifyAirFlight(self, operativeC, operativeP, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 

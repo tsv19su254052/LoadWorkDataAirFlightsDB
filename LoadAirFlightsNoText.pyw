@@ -840,7 +840,8 @@ def myApplication():
                         DBAirRoute = P.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
+                            #ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
+                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

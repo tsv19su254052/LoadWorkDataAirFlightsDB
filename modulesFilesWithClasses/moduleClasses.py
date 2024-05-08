@@ -802,7 +802,20 @@ class ACFN(SE):
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
 
         class Results:
-            Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
+            def __init__(self):
+                self.Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
+
+            @staticmethod
+            def Fail(self):
+                self.Result = 0
+
+            @staticmethod
+            def Added(self):
+                self.Result = 1
+
+            @staticmethod
+            def Padded(self):
+                self.Result = 2
 
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
@@ -826,11 +839,11 @@ class ACFN(SE):
                             self.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
-                            Results.Result = 1
+                            Result = Data[0][0]
                         except Exception as exception:
                             print(" exception = " + str(exception))
                             self.cnxnAC_XML.rollback()
-                            Results.Result = 0
+                            Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
@@ -877,32 +890,32 @@ class ACFN(SE):
                                                         QuantityCounted = int(nodeStep.text) + 1
                                                         nodeStep.text = str(QuantityCounted)
                                                         paddedStep = True
-                                                        Results.Result = 2
+                                                        Result = 2
                                                 if not paddedStep:
                                                     step.text = str(QuantityCounted)
                                                     nodeRoute.append(step)
                                                     addedStep = True
-                                                    Results.Result = 1
+                                                    Result = 1
                                         if not paddedStep and not addedStep:
                                             step.text = str(QuantityCounted)
                                             Route.append(step)
                                             nodeFlight.append(Route)
                                             addedRoute = True
-                                            Results.Result = 1
+                                            Result = 1
                                 if not paddedStep and not addedStep and not addedRoute:
                                     step.text = str(QuantityCounted)
                                     Route.append(step)
                                     Flight.append(Route)
                                     root_tag_FlightsByRoutes.append(Flight)
                                     addedFlight = True
-                                    Results.Result = 1
+                                    Result = 1
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                             self.seekAC_XML.execute(XMLQuery)
                             self.cnxnAC_XML.commit()
                         except Exception:
                             self.cnxnAC_XML.rollback()
-                            Results.Result = 0
+                            Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -917,28 +930,28 @@ class ACFN(SE):
                             SQLQuery += str(db_air_craft) + ", '"  # bigint
                             SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
                             SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                            Results.Result = 1
+                            Result = 1
                         elif ResultQuery is not None:
                             quantity = ResultQuery.QuantityCounted + 1
                             SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
                             SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
                             SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                            Results.Result = 2
+                            Result = 2
                         else:
                             pass
                         self.seekACFN.execute(SQLQuery)
                         self.cnxnACFN.commit()
                     except Exception:
                         self.cnxnACFN.rollback()
-                        Results.Result = 0
+                        Result = 0
                     finally:
                         pass
             elif db_air_craft is None:
-                Results.Result = 0
+                Result = 0
             else:
-                Results.Result = 0
+                Result = 0
         elif db_air_route is None:
-            Results.Result = 0
+            Result = 0
         else:
-            Results.Result = 0
-        return Results.Result
+            Result = 0
+        return Result

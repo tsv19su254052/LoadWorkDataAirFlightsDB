@@ -77,8 +77,6 @@ def myApplication():
     # Добавляем базы данных в выпадающие списки
     myDialog.comboBox_DB_AL.addItem("AirLinesDBNew62")
     myDialog.comboBox_DB_RT.addItem("AirPortsAndRoutesDBNew62")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew42")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew52")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")

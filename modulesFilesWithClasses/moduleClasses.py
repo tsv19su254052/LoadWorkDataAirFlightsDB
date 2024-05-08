@@ -55,9 +55,6 @@ SE = ServerExchange
 class ACFN(SE):
     def __init__(self):
         super().__init__(c=None, s=None)
-        # Подключение
-        self.cnxn = None  # подключение
-
         # AirLine
         self.AirLine_ID = 1
         self.AirLineName = " "
@@ -72,6 +69,7 @@ class ACFN(SE):
         self.AirLineDescription = " "
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
+        self.cnxnAL = None  # подключение
         self.seekAL = None  # курсор
 
         # AirCraft
@@ -86,6 +84,10 @@ class ACFN(SE):
         self.AirCraftCNumber = " "
         self.EndDate = '1990-01-01'
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
+        # Подключения
+        self.cnxnAC_XML = None
+        self.cnxnAC = None
+        self.cnxnFN = None
         # Курсоры
         self.seekAC_XML = None
         self.seekAC = None
@@ -112,12 +114,13 @@ class ACFN(SE):
         self.AirPortRunWays = " "
         self.AirPortFacilities = " "
         self.AirPortIncidents = " "
+        self.cnxnRT = None  # подключение
         self.seekRT = None  # курсор
 
     @staticmethod
     def connectDB_AL(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            #self.cnxnAL = self.cnxn
+            self.cnxnAL = self.cnxn
             self.seekAL = self.seek
             return True
         else:
@@ -135,10 +138,10 @@ class ACFN(SE):
             SQLQuery = "SELECT AllianceUniqueNumber, AllianceName FROM dbo.AlliancesTable"  # Убрал  ORDER BY AlianceName
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchall()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
@@ -149,10 +152,10 @@ class ACFN(SE):
             SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL[0]
 
     @staticmethod
@@ -164,10 +167,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
@@ -179,10 +182,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
@@ -194,10 +197,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
@@ -216,10 +219,10 @@ class ACFN(SE):
                 SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = self.seekAL.fetchone()
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
@@ -245,10 +248,10 @@ class ACFN(SE):
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
             self.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
             ResultSQL = True
-            self.cnxn.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            self.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+            self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     @staticmethod
@@ -275,16 +278,16 @@ class ACFN(SE):
                 SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
             self.seekAL.execute(SQLQuery)
             ResultSQL = True
-            self.cnxn.commit()
+            self.cnxnAL.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnAL.rollback()
         return ResultSQL
 
     @staticmethod
     def connectDB_AC_XML(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            #self.cnxnAC_XML = self.cnxn
+            self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek
             return True
         else:
@@ -293,7 +296,7 @@ class ACFN(SE):
     @staticmethod
     def connectDSN_AC_XML(self, dsn):
         if self.connectDSN(dsn=dsn):
-            #self.cnxnAC_XML = self.cnxn
+            self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek
             return True
         else:
@@ -306,7 +309,7 @@ class ACFN(SE):
     @staticmethod
     def connectDB_AC(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            #self.cnxnAC = self.cnxn
+            self.cnxnAC = self.cnxn
             self.seekAC = self.seek
             return True
         else:
@@ -315,7 +318,7 @@ class ACFN(SE):
     @staticmethod
     def connectDSN_AC(self, dsn):
         if self.connectDSN(dsn=dsn):
-            #self.cnxnAC = self.cnxn
+            self.cnxnAC = self.cnxn
             self.seekAC = self.seek
             return True
         else:
@@ -328,7 +331,7 @@ class ACFN(SE):
     @staticmethod
     def connectDB_FN(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            #self.cnxnFN = self.cnxn
+            self.cnxnFN = self.cnxn
             self.seekFN = self.seek
             return True
         else:
@@ -337,7 +340,7 @@ class ACFN(SE):
     @staticmethod
     def connectDSN_FN(self, dsn):
         if self.connectDSN(dsn=dsn):
-            #self.cnxnFN = self.cnxn
+            self.cnxnFN = self.cnxn
             self.seekFN = self.seek
             return True
         else:
@@ -357,10 +360,10 @@ class ACFN(SE):
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WHERE AirCraftRegistration = '" + str(Registration) + "' "
                 self.seekAC_XML.execute(SQLQuery)
                 ResultSQL = self.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                self.cnxn.commit()
+                self.cnxnAC_XML.commit()
             except Exception:
                 ResultSQL = False
-                self.cnxn.rollback()
+                self.cnxnAC_XML.rollback()
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
@@ -368,10 +371,10 @@ class ACFN(SE):
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
                 self.seekAC.execute(SQLQuery)
                 ResultSQL = self.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                self.cnxn.commit()
+                self.cnxnAC.commit()
             except Exception:
                 ResultSQL = False
-                self.cnxn.rollback()
+                self.cnxnAC.rollback()
         return ResultSQL
 
     @staticmethod
@@ -386,10 +389,10 @@ class ACFN(SE):
                 self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
                 # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
-                self.cnxn.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxn.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -403,10 +406,10 @@ class ACFN(SE):
                     SQLQuery += str(ALPK) + ") "
                 self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxn.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxn.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     @staticmethod
@@ -421,17 +424,17 @@ class ACFN(SE):
                 SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
                 self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxn.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxn.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
             return ResultSQL
 
 
     @staticmethod
     def connectDB_RT(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            #self.cnxnRT = self.cnxn
+            self.cnxnRT = self.cnxn
             self.seekRT = self.seek
             return True
         else:
@@ -450,10 +453,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -465,10 +468,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -488,10 +491,10 @@ class ACFN(SE):
                 SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -503,10 +506,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -518,10 +521,10 @@ class ACFN(SE):
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -537,10 +540,10 @@ class ACFN(SE):
                        WHERE (dbo.AirPortsTable.AirPortCodeIATA = '""" + str(IATADeparture) + "') AND (AirPortsTable_1.AirPortCodeIATA = '" + str(IATAArrival) + "') "
             self.seekRT.execute(SQLQuery)
             ResultSQL = self.seekRT.fetchone()
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -552,10 +555,10 @@ class ACFN(SE):
             SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA) VALUES ('" + str(iata) + "') "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -577,10 +580,10 @@ class ACFN(SE):
             SQLQuery += ") "
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -593,10 +596,10 @@ class ACFN(SE):
             SQLQuery += str(IATAArrival) + ") "  # bigint
             self.seekRT.execute(SQLQuery)
             ResultSQL = True
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -636,10 +639,10 @@ class ACFN(SE):
             self.seekRT.execute(SQLQuery)
             self.seekRT.execute(SQLGeoQuery)
             ResultSQL = True
-            self.cnxn.commit()
+            self.cnxnRT.commit()
         except Exception:
             ResultSQL = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return ResultSQL
 
     @staticmethod
@@ -724,11 +727,11 @@ class ACFN(SE):
                 XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             self.seekRT.execute(XMLQuery)
-            self.cnxn.commit()
+            self.cnxnRT.commit()
             Result = True
         except Exception:
             Result = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return Result
 
     @staticmethod
@@ -800,11 +803,11 @@ class ACFN(SE):
                 XMLQuery += Append
             self.seekRT.execute(SQLQuery)
             self.seekRT.execute(XMLQuery)
-            self.cnxn.commit()
+            self.cnxnRT.commit()
             Result = True
         except Exception:
             Result = False
-            self.cnxn.rollback()
+            self.cnxnRT.rollback()
         return Result
 
     @staticmethod
@@ -832,13 +835,13 @@ class ACFN(SE):
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
                             Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.cnxn.commit()
+                            self.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                             Results.Result = 1
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.cnxn.rollback()
+                            self.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
@@ -908,9 +911,9 @@ class ACFN(SE):
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
                             self.seekAC_XML.execute(XMLQuery)
-                            self.cnxn.commit()
+                            self.cnxnAC_XML.commit()
                         except Exception:
-                            self.cnxn.rollback()
+                            self.cnxnAC_XML.rollback()
                             Results.Result = 0
                 else:
                     try:
@@ -936,9 +939,9 @@ class ACFN(SE):
                         else:
                             pass
                         self.seekFN.execute(SQLQuery)
-                        self.cnxn.commit()
+                        self.cnxnFN.commit()
                     except Exception:
-                        self.cnxn.rollback()
+                        self.cnxnFN.rollback()
                         Results.Result = 0
                     finally:
                         pass

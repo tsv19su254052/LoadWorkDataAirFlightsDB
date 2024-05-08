@@ -116,6 +116,8 @@ class ACFN(SE):
         self.AirPortIncidents = " "
         self.cnxnRT = None  # подключение
         self.seekRT = None  # курсор
+        self.LogCountViewed = 0
+        self.LogCountChanged = 0
 
     def connectDB_AL(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):

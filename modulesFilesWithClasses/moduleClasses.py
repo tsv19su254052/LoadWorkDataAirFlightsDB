@@ -1,4 +1,6 @@
 #  Interpreter 3.7 -> 3.10
+
+
 from xml.etree import ElementTree
 # todo ветка библиотек Qt - QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner, QtXml
 # Руководство по установке см. https://packaging.python.org/tutorials/installing-packages/
@@ -76,14 +78,13 @@ class ACFN(SE):
         self.AirCraftModel = 387  # Unknown Model
         self.BuildDate = '1990-01-01'
         self.RetireDate = '1990-01-01'
-        self.SourceCSVFile = " "
+        self.AirCraftSourceCSVFile = " "
         self.AirCraftDescription = " "
         self.AirCraftLineNumber_LN = " "
         self.AirCraftLineNumber_MSN = " "
         self.AirCraftSerialNumber_SN = " "
         self.AirCraftCNumber = " "
         self.EndDate = '1990-01-01'
-        self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
         # Подключения
         self.cnxnAC_XML = None
         self.cnxnAC = None

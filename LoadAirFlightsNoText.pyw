@@ -19,7 +19,7 @@ import colorama
 import termcolor
 
 # Импорт модуля библиотек индивидуальной разработки
-from modulesFilesWithClasses.moduleClasses import AirLine, AirCraft, AirPort, ServerNames, FileNames, Flags, States, ModifyFlight
+from modulesFilesWithClasses.moduleClasses import ServerNames, FileNames, Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
@@ -39,14 +39,11 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 
 
 # Делаем свои рабочие экземпляры
-A = AirLine()
-C = AirCraft()
-P = AirPort()
+operativeACFN = ACFN()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
 St = States()
-#MF = ModifyFlight()
 
 
 def myApplication():
@@ -62,7 +59,7 @@ def myApplication():
     myDialog.label_Version.setText("Версия обработки " + str(myOwnDevelopingVersion))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
-    S.DSNs = A.getDataSources()  # добавленные системные DSN-ы
+    S.DSNs = ACFN.getDataSources()  # добавленные системные DSN-ы
     if S.DSNs:
         for DSN in S.DSNs:
             if not DSN:
@@ -71,7 +68,7 @@ def myApplication():
             myDialog.comboBox_DSN_AC.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = A.getSQLDrivers()
+    S.DriversODBC = operativeACFN.getSQLDrivers()
     if S.DriversODBC:
         for DriverODBC in S.DriversODBC:
             if not DriverODBC:

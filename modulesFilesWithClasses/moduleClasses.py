@@ -53,7 +53,6 @@ SE = ServerExchange
 
 
 class ACFN(SE):
-    # todo Объявления внутри класса с конструктором и без
     def __init__(self):
         super().__init__(c=None, s=None)
         self.AirLine_ID = 1
@@ -69,6 +68,7 @@ class ACFN(SE):
         self.AirLineDescription = " "
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
+        # todo Одно подключение, несколько курсоров
         self.cnxnAL = None  # подключение
         self.seekAL = None  # курсор
 

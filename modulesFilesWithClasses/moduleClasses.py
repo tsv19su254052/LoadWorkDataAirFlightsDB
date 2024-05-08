@@ -127,7 +127,15 @@ class ACFN(SE):
             return False
 
     def disconnectAL(self):
-        self.disconnect()
+        try:
+            # Снимаем курсор
+            self.seekAL.close()
+            # Отключаемся от базы данных
+            self.cnxnAL.close()
+            print(" -- БД отключена")
+        except Exception:
+            print(" -- БД уже отключена")
+        #self.disconnect()
 
     def QueryAlliances(self):
         try:
@@ -292,7 +300,15 @@ class ACFN(SE):
             return False
 
     def disconnectAC_XML(self):
-        self.disconnect()
+        try:
+            # Снимаем курсор
+            self.seekAC_XML.close()
+            # Отключаемся от базы данных
+            self.cnxnAC_XML.close()
+            print(" -- БД отключена")
+        except Exception:
+            print(" -- БД уже отключена")
+        #self.disconnect()
 
     def connectDB_ACFN(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
@@ -311,7 +327,15 @@ class ACFN(SE):
             return False
 
     def disconnectACFN(self):
-        self.disconnect()
+        try:
+            # Снимаем курсор
+            self.seekACFN.close()
+            # Отключаемся от базы данных
+            self.cnxnACFN.close()
+            print(" -- БД отключена")
+        except Exception:
+            print(" -- БД уже отключена")
+        #self.disconnect()
 
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации
@@ -400,7 +424,15 @@ class ACFN(SE):
             return False
 
     def disconnectRT(self):
-        self.disconnect()
+        try:
+            # Снимаем курсор
+            self.seekRT.close()
+            # Отключаемся от базы данных
+            self.cnxnRT.close()
+            print(" -- БД отключена")
+        except Exception:
+            print(" -- БД уже отключена")
+        #self.disconnect()
 
     def QueryAirPortByIATA(self, iata):
         # Возвращает строку аэропорта по коду IATA

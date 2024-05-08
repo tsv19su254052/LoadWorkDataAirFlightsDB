@@ -1,7 +1,6 @@
 #  Interpreter 3.7 -> 3.10
 
 
-import pyodbc
 import pandas
 import itertools
 import datetime
@@ -10,7 +9,6 @@ import os
 import sys
 import socket
 import threading
-from xml.etree import ElementTree
 
 # QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner - запускаем в командной строке, QtXml (устарел) -> замена QXmlStreamReader, QXmlStreamWriter
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
@@ -27,7 +25,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.7  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = 8.71  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
@@ -439,158 +437,6 @@ def myApplication():
         filenameTXT = pathlib.Path(F.LogFileTXT).name
         myDialog.lineEdit_TXTFile.setText(filenameTXT)
 
-    def ModifyAirFlight(ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
-
-        class Results:
-            Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
-
-        db_air_route = acfn.QueryAirRoute(dep, arr).AirRouteUniqueNumber
-        if db_air_route is not None:
-            db_air_craft = acfn.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
-            if db_air_craft is not None:
-                if useAirCrafts:
-                    if useXQuery:
-                        try:
-                            #SQLQuery = "DECLARE @ReturnData INT = 5 "
-                            #SQLQuery += "SET @ReturnData = 5 "
-                            #self.seekAC_XML.execute(SQLQuery)
-                            # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
-                            SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            acfn.seekAC_XML.execute(SQLQuery)
-                            #SQLQuery = "SELECT @ReturnData "
-                            #C.seekAC_XML.execute(SQLQuery)
-                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для pymssql (пока не ставится)
-                            #Status = C.seekAC_XML.proc_status
-                            #print(" Status = " + str(Status))
-                            Data = acfn.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            acfn.cnxnAC_XML.commit()
-                            if Data:
-                                print(" Результат хранимой процедуры = " + str(Data))
-                                Results.Result = Data[0][0]
-                            else:
-                                Results.Result = 0
-                        except pyodbc.Error as error:
-                            sqlstate0 = error.args[0]
-                            sqlstate1 = error.args[1]
-                            print(" pyodbcErrors = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
-                            acfn.cnxnAC_XML.rollback()
-                            Results.Result = 0
-                        except Exception as exception:
-                            print(" exception = " + str(exception))
-                            acfn.cnxnAC_XML.rollback()
-                            Results.Result = 0
-                    else:
-                        # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
-                        try:
-                            SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                            acfn.seekAC_XML.execute(SQLQuery)
-                            XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            acfn.seekAC_XML.execute(XMLQuery)
-                            ResultXML = acfn.seekAC_XML.fetchone()
-                            QuantityCounted = 1  # количество таких авиаперелетов за этот день
-                            QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
-                            QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
-                            QuantityTotal = 1  # количество авиапрелетов с этой регистрацией
-                            step = ElementTree.Element('step', FlightDate=str(flightdate), BeginDate=str(begindate))
-                            Route = ElementTree.Element('Route', RouteFK=str(db_air_route))
-                            Flight = ElementTree.Element('Flight', FlightNumberString=str(al) + str(fn))
-                            root_tag_FlightsByRoutes = ElementTree.Element('FlightsByRoutes')
-                            paddedStep = False
-                            addedStep = False
-                            addedRoute = False
-                            addedFlight = False
-                            if ResultXML[0] is None:
-                                step.text = str(QuantityCounted)
-                                Route.append(step)
-                                #Flight.text = str(1)
-                                Flight.append(Route)
-                                #root_tag_FlightsByRoutes.text = str(1)
-                                root_tag_FlightsByRoutes.append(Flight)
-                                #Route.text = str(QuantityOnThisRoute)  # fixme в SSMS с этого места выводит в одну строчку (строка всегда в одну строчку)
-                                addedStep = True
-                                addedRoute = True
-                                addedFlight = True
-                            else:
-                                root_tag_FlightsByRoutes = ElementTree.fromstring(ResultXML[0])
-                                SearchFlight = root_tag_FlightsByRoutes.findall(".//Flight")
-                                # fixme в БД наблюдаются дубликаты FlightNumberString, Route, step (цикл for ... break else ... работает не так, как ожидалось) -> добавил флаги added... , заменил else на if not added...
-                                for nodeFlight in SearchFlight:
-                                    if nodeFlight.attrib['FlightNumberString'] == str(al) + str(fn):
-                                        SearchRoute = nodeFlight.findall(".//Route")
-                                        for nodeRoute in SearchRoute:
-                                            if nodeRoute.attrib['RouteFK'] == str(db_air_route):
-                                                SearchStep = nodeRoute.findall(".//step")
-                                                for nodeStep in SearchStep:
-                                                    if nodeStep.attrib['FlightDate'] == str(flightdate) and not paddedStep:
-                                                        QuantityCounted = int(nodeStep.text) + 1
-                                                        nodeStep.text = str(QuantityCounted)
-                                                        paddedStep = True
-                                                        Results.Result = 2
-                                                if not paddedStep:
-                                                    step.text = str(QuantityCounted)
-                                                    nodeRoute.append(step)
-                                                    addedStep = True
-                                                    Results.Result = 1
-                                        if not paddedStep and not addedStep:
-                                            step.text = str(QuantityCounted)
-                                            Route.append(step)
-                                            nodeFlight.append(Route)
-                                            addedRoute = True
-                                            Results.Result = 1
-                                if not paddedStep and not addedStep and not addedRoute:
-                                    step.text = str(QuantityCounted)
-                                    Route.append(step)
-                                    Flight.append(Route)
-                                    root_tag_FlightsByRoutes.append(Flight)
-                                    addedFlight = True
-                                    Results.Result = 1
-                            xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
-                            XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            acfn.seekAC_XML.execute(XMLQuery)
-                            acfn.cnxnAC_XML.commit()
-                        except Exception:
-                            acfn.cnxnAC_XML.rollback()
-                            Results.Result = 0
-                else:
-                    try:
-                        SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        acfn.seekFN.execute(SQLQuery)
-                        SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
-                        SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        acfn.seekFN.execute(SQLQuery)
-                        ResultQuery = acfn.seekFN.fetchone()
-                        if ResultQuery is None:
-                            SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
-                            SQLQuery += str(db_air_route) + ", "  # bigint
-                            SQLQuery += str(db_air_craft) + ", '"  # bigint
-                            SQLQuery += str(al) + str(fn) + "', "  # nvarchar(50)
-                            SQLQuery += str(1) + ", '" + str(flightdate) + "', '" + str(begindate) + "') "  # bigint
-                            Results.Result = 1
-                        elif ResultQuery is not None:
-                            quantity = ResultQuery.QuantityCounted + 1
-                            SQLQuery = "UPDATE dbo.AirFlightsTable SET QuantityCounted = " + str(quantity)
-                            SQLQuery += " WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = " + str(db_air_route)
-                            SQLQuery += " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                            Results.Result = 2
-                        else:
-                            pass
-                        acfn.seekFN.execute(SQLQuery)
-                        acfn.cnxnFN.commit()
-                    except Exception:
-                        acfn.cnxnFN.rollback()
-                        Results.Result = 0
-                    finally:
-                        pass
-            elif db_air_craft is None:
-                Results.Result = 0
-            else:
-                Results.Result = 0
-        elif db_air_route is None:
-            Results.Result = 0
-        else:
-            Results.Result = 0
-        return Results.Result
-
     def LoadThread(Csv, Log):
         """
         Читаем входной файл и перепаковываем его в DataFrame (кодировка UTF-8, шапка таблицы на столбцы, разделитель - ,)
@@ -840,7 +686,7 @@ def myApplication():
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
                             #ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
-                            ResultModify = ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
+                            ResultModify = acfn.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

@@ -466,7 +466,9 @@ def myApplication():
                             acfn.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
-                            Results.Result = 1
+                                Results.Result = Data[0][0]
+                            else:
+                                Results.Result = 0
                         except pyodbc.Error as error:
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]

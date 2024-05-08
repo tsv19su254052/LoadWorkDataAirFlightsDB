@@ -87,12 +87,10 @@ class ACFN(SE):
         self.EndDate = '1990-01-01'
         # Подключения
         self.cnxnAC_XML = None
-        self.cnxnAC = None
-        self.cnxnFN = None
+        self.cnxnACFN = None
         # Курсоры
         self.seekAC_XML = None
-        self.seekAC = None
-        self.seekFN = None
+        self.seekACFN = None
 
         # AirPort
         self.HyperLinkToWikiPedia = " "
@@ -296,42 +294,23 @@ class ACFN(SE):
     def disconnectAC_XML(self):
         self.disconnect()
 
-    def connectDB_AC(self, driver, servername, database):
+    def connectDB_ACFN(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
-            self.cnxnAC = self.cnxn
-            self.seekAC = self.seek
+            self.cnxnACFN = self.cnxn
+            self.seekACFN = self.seek
             return True
         else:
             return False
 
-    def connectDSN_AC(self, dsn):
+    def connectDSN_ACFN(self, dsn):
         if self.connectDSN(dsn=dsn):
-            self.cnxnAC = self.cnxn
-            self.seekAC = self.seek
+            self.cnxnACFN = self.cnxn
+            self.seekACFN = self.seek
             return True
         else:
             return False
 
-    def disconnectAC(self):
-        self.disconnect()
-
-    def connectDB_FN(self, driver, servername, database):
-        if self.connectDB(driver=driver, servername=servername, database=database):
-            self.cnxnFN = self.cnxn
-            self.seekFN = self.seek
-            return True
-        else:
-            return False
-
-    def connectDSN_FN(self, dsn):
-        if self.connectDSN(dsn=dsn):
-            self.cnxnFN = self.cnxn
-            self.seekFN = self.seek
-            return True
-        else:
-            return False
-
-    def disconnectFN(self):
+    def disconnectACFN(self):
         self.disconnect()
 
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
@@ -350,14 +329,14 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                self.seekAC.execute(SQLQuery)
+                self.seekACFN.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                self.seekAC.execute(SQLQuery)
-                ResultSQL = self.seekAC.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                self.cnxnAC.commit()
+                self.seekACFN.execute(SQLQuery)
+                ResultSQL = self.seekACFN.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnACFN.commit()
             except Exception:
                 ResultSQL = False
-                self.cnxnAC.rollback()
+                self.cnxnACFN.rollback()
         return ResultSQL
 
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
@@ -378,7 +357,7 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                self.seekAC.execute(SQLQuery)
+                self.seekACFN.execute(SQLQuery)
                 if ALPK is None:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
                     SQLQuery += str(Registration) + "') "
@@ -386,12 +365,12 @@ class ACFN(SE):
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
                     SQLQuery += str(Registration) + "', "
                     SQLQuery += str(ALPK) + ") "
-                self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekACFN.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
@@ -401,14 +380,14 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-                self.seekAC.execute(SQLQuery)
+                self.seekACFN.execute(SQLQuery)
                 SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                self.seekAC.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekACFN.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxnAC.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
             return ResultSQL
 
 
@@ -884,11 +863,11 @@ class ACFN(SE):
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        self.seekFN.execute(SQLQuery)
+                        self.seekACFN.execute(SQLQuery)
                         SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
                         SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        self.seekFN.execute(SQLQuery)
-                        ResultQuery = self.seekFN.fetchone()
+                        self.seekACFN.execute(SQLQuery)
+                        ResultQuery = self.seekACFN.fetchone()
                         if ResultQuery is None:
                             SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
                             SQLQuery += str(db_air_route) + ", "  # bigint
@@ -904,10 +883,10 @@ class ACFN(SE):
                             Results.Result = 2
                         else:
                             pass
-                        self.seekFN.execute(SQLQuery)
-                        self.cnxnFN.commit()
+                        self.seekACFN.execute(SQLQuery)
+                        self.cnxnACFN.commit()
                     except Exception:
-                        self.cnxnFN.rollback()
+                        self.cnxnACFN.rollback()
                         Results.Result = 0
                     finally:
                         pass

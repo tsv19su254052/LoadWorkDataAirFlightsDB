@@ -371,10 +371,10 @@ def myApplication():
                 Connected_ACFN = False
                 # Добавляем атрибут cnxn
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_AC(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN) and acfn.connectDB_FN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
+                    if acfn.connectDB_ACFN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
-                    if acfn.connectDSN_AC(S.myDSN_ACFN) and acfn.connectDSN_FN(S.myDSN_ACFN):
+                    if acfn.connectDSN_ACFN(S.myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
                     Data = acfn.getSQLData()
@@ -414,9 +414,7 @@ def myApplication():
             acfn.disconnectAC_XML()
             St.Connected_AC_XML = False
         if St.Connected_ACFN:
-            acfn.disconnectAC()
-            acfn.disconnectFN()
-            St.Connected_AC = False
+            acfn.disconnectACFN()
             St.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -847,7 +845,7 @@ def myApplication():
         if Fl.useAirCraftsDSN:
             acfn.disconnectAC_XML()
         else:
-            acfn.disconnectAC()
+            acfn.disconnectACFN()
             acfn.disconnectFN()
 
     def PushButtonGetStarted():

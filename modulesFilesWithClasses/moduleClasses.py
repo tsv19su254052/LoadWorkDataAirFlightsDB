@@ -242,7 +242,6 @@ class ACFN:
                 self.cnxnAL.rollback()
             return ResultSQL
 
-
     class AirCraft(SE):
         def __init__(self):
             super().__init__(c=None, s=None)
@@ -411,7 +410,6 @@ class ACFN:
                     ResultSQL = False
                     self.cnxnAC.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
                 return ResultSQL
-
 
     class AirPort(SE):
         def __init__(self):
@@ -610,7 +608,6 @@ class ACFN:
                 self.cnxnRT.rollback()
             return ResultSQL
 
-
         @staticmethod
         def UpdateAirPortByIATAandICAO(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
             try:
@@ -742,7 +739,6 @@ class ACFN:
                 Result = False
                 self.cnxnRT.rollback()
             return Result
-
 
         @staticmethod
         def IncrementLogCountChangedAirPort(self, iata, icao, host, user, dtn):

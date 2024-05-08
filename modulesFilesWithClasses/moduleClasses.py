@@ -118,6 +118,10 @@ class ACFN(SE):
         self.LogCountViewed = 0
         self.LogCountChanged = 0
 
+    class AirLine:
+        def __init__(self):
+            pass
+
     def connectDB_AL(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnAL = self.cnxn
@@ -283,6 +287,10 @@ class ACFN(SE):
             self.cnxnAL.rollback()
         return ResultSQL
 
+    class AirCraft:
+        def __init__(self):
+            pass
+
     def connectDB_AC_XML(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):
             self.cnxnAC_XML = self.cnxn
@@ -414,6 +422,9 @@ class ACFN(SE):
                 self.cnxnACFN.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
             return ResultSQL
 
+    class AirPort:
+        def __init__(self):
+            pass
 
     def connectDB_RT(self, driver, servername, database):
         if self.connectDB(driver=driver, servername=servername, database=database):

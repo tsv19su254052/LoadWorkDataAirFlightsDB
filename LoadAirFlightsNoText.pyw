@@ -39,7 +39,7 @@ print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'gre
 
 
 # Делаем свои рабочие экземпляры
-operativeACFN = ACFN()
+acfn = ACFN()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
@@ -59,7 +59,7 @@ def myApplication():
     myDialog.label_Version.setText("Версия обработки " + str(myOwnDevelopingVersion))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
-    S.DSNs = ACFN.getDataSources()  # добавленные системные DSN-ы
+    S.DSNs = acfn.getDataSources()  # добавленные системные DSN-ы
     if S.DSNs:
         for DSN in S.DSNs:
             if not DSN:
@@ -68,7 +68,7 @@ def myApplication():
             myDialog.comboBox_DSN_AC.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = operativeACFN.getSQLDrivers()
+    S.DriversODBC = acfn.getSQLDrivers()
     if S.DriversODBC:
         for DriverODBC in S.DriversODBC:
             if not DriverODBC:
@@ -235,9 +235,9 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_AL = str(ChoiceDB)
             S.DriverODBC_AL = str(ChoiceDriver)
-            if A.connectDB_AL(S.DriverODBC_AL, S.ServerName, S.DataBase_AL):
+            if acfn.connectDB_AL(S.DriverODBC_AL, S.ServerName, S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
-                Data = A.getSQLData()
+                Data = acfn.getSQLData()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переключаем в рабочее состояние
@@ -267,7 +267,7 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
         if St.Connected_AL:
-            A.disconnectAL()
+            acfn.disconnectAL()
             St.Connected_AL = False
         # Переключаем в исходное состояние
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
@@ -283,9 +283,9 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_RT = str(ChoiceDB)
             S.DriverODBC_RT = str(ChoiceDriver)
-            if P.connectDB_RT(S.DriverODBC_RT, S.ServerName, S.DataBase_RT):
+            if acfn.connectDB_RT(S.DriverODBC_RT, S.ServerName, S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
-                Data = P.getSQLData()
+                Data = acfn.getSQLData()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # Переключаем в рабочее состояние
@@ -315,7 +315,7 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         if St.Connected_RT:
-            P.disconnectRT()
+            acfn.disconnectRT()
             St.Connected_RT = False
         # Переключаем в исходное состояние
         UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -330,8 +330,8 @@ def myApplication():
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
-                if C.connectDSN_AC_XML(S.myDSN_AC_XML):
-                    Data = C.getSQLData()
+                if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
+                    Data = acfn.getSQLData()
                     print(" Data = " + str(Data))
                     St.Connected_AC_XML = True
                     # Переключаем в рабочее состояние
@@ -375,13 +375,13 @@ def myApplication():
                 Connected_ACFN = False
                 # Добавляем атрибут cnxn
                 if Fl.useAirFlightsDB:
-                    if C.connectDB_AC(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN) and C.connectDB_FN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
+                    if acfn.connectDB_AC(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN) and acfn.connectDB_FN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
-                    if C.connectDSN_AC(S.myDSN_ACFN) and C.connectDSN_FN(S.myDSN_ACFN):
+                    if acfn.connectDSN_AC(S.myDSN_ACFN) and acfn.connectDSN_FN(S.myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
-                    Data = C.getSQLData()
+                    Data = acfn.getSQLData()
                     print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
@@ -415,11 +415,11 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if St.Connected_AC_XML:
-            C.disconnectAC_XML()
+            acfn.disconnectAC_XML()
             St.Connected_AC_XML = False
         if St.Connected_ACFN:
-            C.disconnectAC()
-            C.disconnectFN()
+            acfn.disconnectAC()
+            acfn.disconnectFN()
             St.Connected_AC = False
             St.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
@@ -444,9 +444,9 @@ def myApplication():
         class Results:
             Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
-        db_air_route = P.QueryAirRoute(dep, arr).AirRouteUniqueNumber
+        db_air_route = acfn.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         if db_air_route is not None:
-            db_air_craft = C.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
+            db_air_craft = acfn.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
@@ -456,14 +456,14 @@ def myApplication():
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
                             SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test" + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            C.seekAC_XML.execute(SQLQuery)
+                            acfn.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #C.seekAC_XML.execute(SQLQuery)
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для pymssql (пока не ставится)
                             #Status = C.seekAC_XML.proc_status
                             #print(" Status = " + str(Status))
-                            Data = C.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            C.cnxnAC_XML.commit()
+                            Data = acfn.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            acfn.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                             Results.Result = 1
@@ -471,20 +471,20 @@ def myApplication():
                             sqlstate0 = error.args[0]
                             sqlstate1 = error.args[1]
                             print(" pyodbcErrors = " + str(sqlstate0.split(".")) + " , " + str(sqlstate1))
-                            C.cnxnAC_XML.rollback()
+                            acfn.cnxnAC_XML.rollback()
                             Results.Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            C.cnxnAC_XML.rollback()
+                            acfn.cnxnAC_XML.rollback()
                             Results.Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                            C.seekAC_XML.execute(SQLQuery)
+                            acfn.seekAC_XML.execute(SQLQuery)
                             XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            C.seekAC_XML.execute(XMLQuery)
-                            ResultXML = C.seekAC_XML.fetchone()
+                            acfn.seekAC_XML.execute(XMLQuery)
+                            ResultXML = acfn.seekAC_XML.fetchone()
                             QuantityCounted = 1  # количество таких авиаперелетов за этот день
                             QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                             QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
@@ -544,19 +544,19 @@ def myApplication():
                                     Results.Result = 1
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            C.seekAC_XML.execute(XMLQuery)
-                            C.cnxnAC_XML.commit()
+                            acfn.seekAC_XML.execute(XMLQuery)
+                            acfn.cnxnAC_XML.commit()
                         except Exception:
-                            C.cnxnAC_XML.rollback()
+                            acfn.cnxnAC_XML.rollback()
                             Results.Result = 0
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        C.seekFN.execute(SQLQuery)
+                        acfn.seekFN.execute(SQLQuery)
                         SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
                         SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        C.seekFN.execute(SQLQuery)
-                        ResultQuery = C.seekFN.fetchone()
+                        acfn.seekFN.execute(SQLQuery)
+                        ResultQuery = acfn.seekFN.fetchone()
                         if ResultQuery is None:
                             SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
                             SQLQuery += str(db_air_route) + ", "  # bigint
@@ -572,10 +572,10 @@ def myApplication():
                             Results.Result = 2
                         else:
                             pass
-                        C.seekFN.execute(SQLQuery)
-                        C.cnxnFN.commit()
+                        acfn.seekFN.execute(SQLQuery)
+                        acfn.cnxnFN.commit()
                     except Exception:
-                        C.cnxnFN.rollback()
+                        acfn.cnxnFN.rollback()
                         Results.Result = 0
                     finally:
                         pass
@@ -669,9 +669,9 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirLine = A.QueryAirLineByIATA(AL)
+                DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is None:
-                    if A.InsertAirLineByIATAandICAO(AL, None):
+                    if acfn.InsertAirLineByIATAandICAO(AL, None):
                         ListAirLinesAdded.append(AL)
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                         print(colorama.Fore.GREEN + "вставилась ", end=" ")
@@ -695,12 +695,12 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = C.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
+                DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
                 if DBAirCraft is None:
-                    DBAirLine = A.QueryAirLineByIATA(AL)
+                    DBAirLine = acfn.QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if C.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Fl.useAirCraftsDSN):
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Fl.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -711,7 +711,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if C.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -728,16 +728,16 @@ def myApplication():
                     if Fl.useAirCraftsDSN:
                         break
                     else:
-                        DBAirLinePK = A.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
+                        DBAirLinePK = acfn.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
                         if DBAirLinePK is None or DBAirLinePK.AirLineCodeIATA != AL:
                             # fixme пустая ячейка в таблице SQL-ной БД - NULL <-> в Python-е - (None,) -> в условиях None и (None,) - не False и не True
                             # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация UNKNOWN не имеет внешнего ключа авиакомпании
                             # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация nan каждый раз переписывается на другую компанию-оператора
-                            DBAirLine = A.QueryAirLineByIATA(AL)
+                            DBAirLine = acfn.QueryAirLineByIATA(AL)
                             if DBAirLine is None:
                                 break
                             elif DBAirLine is not None:
-                                if C.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
+                                if acfn.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
                                     ListAirCraftsUpdated.append(AC)
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                     print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
@@ -769,14 +769,14 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirPortDep = P.QueryAirPortByIATA(Dep)
+                DBAirPortDep = acfn.QueryAirPortByIATA(Dep)
                 if DBAirPortDep is not None:
-                    DBAirPortArr = P.QueryAirPortByIATA(Arr)
+                    DBAirPortArr = acfn.QueryAirPortByIATA(Arr)
                     if DBAirPortArr is not None:
-                        DBAirRoute = P.QueryAirRoute(Dep, Arr)
+                        DBAirRoute = acfn.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is None:
                             # Если есть оба аэропорта и нет маршрута
-                            if P.InsertAirRoute(DBAirPortDep.AirPortUniqueNumber, DBAirPortArr.AirPortUniqueNumber):
+                            if acfn.InsertAirRoute(DBAirPortDep.AirPortUniqueNumber, DBAirPortArr.AirPortUniqueNumber):
                                 CountRoutesAdded += 1
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                 print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -794,7 +794,7 @@ def myApplication():
                     elif DBAirPortArr is None:
                         ListAirPortsNotFounded.append(Arr)
                         # Вставляем аэропорт только с кодом IATA
-                        if P.InsertAirPortByIATA(Arr):
+                        if acfn.InsertAirPortByIATA(Arr):
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставили аэропорт", str(Arr), end=" ")
                         else:
@@ -808,7 +808,7 @@ def myApplication():
                 elif DBAirPortDep is None:
                     ListAirPortsNotFounded.append(Dep)
                     # Вставляем аэропорт только с кодом IATA
-                    if P.InsertAirPortByIATA(Dep):
+                    if acfn.InsertAirPortByIATA(Dep):
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                         print(colorama.Fore.GREEN + "вставили аэропорт", str(Dep), end=" ")
                     else:
@@ -830,11 +830,11 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirLine = A.QueryAirLineByIATA(AL)
+                DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = C.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
+                    DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
                     if DBAirCraft is not None:
-                        DBAirRoute = P.QueryAirRoute(Dep, Arr)
+                        DBAirRoute = acfn.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
                             #ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
@@ -916,7 +916,7 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        DataSQL = C.getSQLData()
+        DataSQL = acfn.getSQLData()
         if Fl.useAirCraftsDSN:
             OutputString += " Авиаперелеты загружены в БД самолетов "
             if Fl.useXQuery:
@@ -996,13 +996,13 @@ def myApplication():
         myDialog.label_execute.setText("Загрузка окончена")
         myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-        A.disconnectAL()
-        P.disconnectRT()
+        acfn.disconnectAL()
+        acfn.disconnectRT()
         if Fl.useAirCraftsDSN:
-            C.disconnectAC_XML()
+            acfn.disconnectAC_XML()
         else:
-            C.disconnectAC()
-            C.disconnectFN()
+            acfn.disconnectAC()
+            acfn.disconnectFN()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)

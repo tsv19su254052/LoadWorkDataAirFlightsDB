@@ -82,6 +82,40 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
+    def connectDSNmssql(self, dsn):
+        self.Result = False
+        try:
+            # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
+            self.cnxn = pymssql.connect("DSN=" + dsn)
+            # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
+            self.cnxn.autocommit = False
+            # Делаем свой экземпляр и ставим курсор
+            # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
+            #
+            # Способы реализации курсоров:
+            #  - SQL, Transact-SQL,
+            #  - серверные API-курсоры (OLE DB, ADO, ODBC),
+            #  - клиентские API-курсоры (выборка кэшируется на клиенте)
+            #
+            # API-курсоры ODBC по SQLSetStmtAttr:
+            #  - тип SQL_ATTR_CURSOR_TYPE:
+            #    - однопроходный (последовательный доступ),
+            #    - статический (копия в tempdb),
+            #    - управляемый набор ключей,
+            #    - динамический,
+            #    - смешанный
+            #  - режим работы в стиле ISO:
+            #    - прокручиваемый SQL_ATTR_CURSOR_SCROLLABLE,
+            #    - обновляемый (чувствительный) SQL_ATTR_CURSOR_SENSITIVITY
+
+            # Клиентский однопроходной, статический API-курсор ODBC.
+            # Добавляем атрибут seek...
+            self.seek = self.cnxn.cursor()
+            self.Result = True
+        except Exception:
+            self.Result = False
+        return self.Result
+
     def disconnect(self):
         try:
             # Снимаем курсор

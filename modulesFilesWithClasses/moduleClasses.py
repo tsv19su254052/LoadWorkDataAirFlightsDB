@@ -805,15 +805,12 @@ class ACFN(SE):
             def __init__(self):
                 self.Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
 
-            @staticmethod
             def Fail(self):
                 self.Result = 0
 
-            @staticmethod
             def Added(self):
                 self.Result = 1
 
-            @staticmethod
             def Padded(self):
                 self.Result = 2
 

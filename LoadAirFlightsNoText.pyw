@@ -139,7 +139,7 @@ def myApplication():
         # Состояния + Флаги -> Графическая оболочка
         if St.Connected_AC_XML or St.Connected_ACFN:
             # Переключаем в рабочее состояние
-            myDialog.comboBox_DB_FN.setEnabled(False)
+            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(False)
@@ -156,7 +156,7 @@ def myApplication():
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
             if Fl.useAirCraftsDSN:
-                myDialog.comboBox_DB_FN.setEnabled(False)
+                myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
                 myDialog.comboBox_Driver_FN.setEnabled(False)
                 myDialog.comboBox_DSN_FN.setEnabled(False)
                 myDialog.comboBox_DSN_AC.setEnabled(True)
@@ -165,11 +165,11 @@ def myApplication():
                 myDialog.comboBox_DSN_AC.setEnabled(False)
                 myDialog.groupBox_2.setEnabled(False)
                 if Fl.useAirFlightsDB:
-                    myDialog.comboBox_DB_FN.setEnabled(True)
+                    myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
                     myDialog.comboBox_Driver_FN.setEnabled(True)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
                 else:
-                    myDialog.comboBox_DB_FN.setEnabled(False)
+                    myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(True)
             # Переключаем в исходное состояние

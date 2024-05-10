@@ -837,7 +837,7 @@ class ACFN(SE):
                             #SQLQuery = "DECLARE @ReturnData INT "
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery = "EXECUTE SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) "
+                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                             print(" SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))

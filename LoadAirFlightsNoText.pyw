@@ -237,7 +237,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_AL = str(ChoiceDB)
             S.DriverODBC_AL = str(ChoiceDriver)
-            if acfn.connectDB_AL(S.DriverODBC_AL, S.ServerName, S.DataBase_AL):
+            if acfn.connectDB_AL(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
                 Data = acfn.getSQLData()
                 print(" Data = " + str(Data))
@@ -285,7 +285,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_RT = str(ChoiceDB)
             S.DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT(S.DriverODBC_RT, S.ServerName, S.DataBase_RT):
+            if acfn.connectDB_RT(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
                 Data = acfn.getSQLData()
                 print(" Data = " + str(Data))
@@ -337,10 +337,10 @@ def myApplication():
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
-                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerNameOriginal, S.DataBase_ACFN):
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerNameOriginal, database=S.DataBase_ACFN, host=S.ServerHost):
                         St.Connected_AC_XML = True
                 else:
-                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):
                         St.Connected_AC_XML = True
                 if St.Connected_AC_XML:
                     Data = acfn.getSQLData()
@@ -386,7 +386,7 @@ def myApplication():
                 Connected_ACFN = False
                 # Добавляем атрибут cnxn
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFN(S.DriverODBC_ACFN, S.ServerNameFlights, S.DataBase_ACFN):
+                    if acfn.connectDB_ACFN(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
                     if acfn.connectDSN_ACFN(S.myDSN_ACFN):

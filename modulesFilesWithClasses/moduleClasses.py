@@ -15,13 +15,13 @@ from modulesFilesWithClasses.moduleClassServerExchange import ServerExchange
 class ServerNames:
     def __init__(self):
         # Имена серверов
-        #ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-        self.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
-        #ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
+        #self.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
+        self.ServerNameOriginal = "terminalserver\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+        #self.ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
         # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
         self.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
         self.ServerName = "localhost\mssqlserver15"  # указал инстанс
-        #ServerName = "localhost\sqldeveloper"  # указал инстанс
+        #self.ServerName = "localhost\sqldeveloper"  # указал инстанс
 
 
 class FileNames:

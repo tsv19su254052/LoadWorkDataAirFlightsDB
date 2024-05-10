@@ -337,7 +337,7 @@ def myApplication():
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
-                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerName, S.DataBase_ACFN):
+                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerNameOriginal, S.DataBase_ACFN):
                         St.Connected_AC_XML = True
                 else:
                     if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
@@ -427,7 +427,8 @@ def myApplication():
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if St.Connected_AC_XML:
             acfn.disconnectAC_XML()
-            acfn.disconnectAC_mssql()
+            if Fl.useXQuery:
+                acfn.disconnectAC_mssql()
             St.Connected_AC_XML = False
         if St.Connected_ACFN:
             acfn.disconnectACFN()

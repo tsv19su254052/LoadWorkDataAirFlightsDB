@@ -837,19 +837,21 @@ class ACFN(SE):
                             #SQLQuery = "DECLARE @ReturnData INT "
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
-                            print(str(SQLQuery))
-                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
-                            print(str(parameters))
+                            SQLQuery = "EXECUTE SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) "
+                            print(" SQLQuery = " + str(SQLQuery))
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
+                            print(" parameters = " + str(parameters))
                             #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', parameters)
-                            self.seekAC_XML.execute(SQLQuery, str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
+                            self.seekAC_XML.execute(SQLQuery, parameters)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
                             Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             self.cnxnAC_XML.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
-                            Result = Data[0][0]
+                                Result = Data[0][0]
+                            else:
+                                Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
                             self.cnxnAC_XML.rollback()

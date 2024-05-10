@@ -334,10 +334,10 @@ def myApplication():
                 S.DataBase_ACFN = str(ChoiceDB_AC_mssql)
                 S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
-                # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerNameOriginal, database=S.DataBase_ACFN):
+                    # fixme не подключается по pymssql
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerNameOriginal, database=S.DataBase_ACFN, host=S.ServerHost):
                         St.Connected_AC_XML = True
                 else:
                     if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):
@@ -377,14 +377,10 @@ def myApplication():
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDB_ACFN = myDialog.comboBox_DB_FN.currentText()
                 ChoiceDriver_ACFN = myDialog.comboBox_Driver_FN.currentText()
-                # Добавляем атрибуты DataBase, DriverODBC
                 S.DataBase_ACFN = str(ChoiceDB_ACFN)
                 S.DriverODBC_ACFN = str(ChoiceDriver_ACFN)
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
-                # Добавляем атрибут myDSN
                 S.myDSN_ACFN = str(ChoiceDSN_ACFN)
-                Connected_ACFN = False
-                # Добавляем атрибут cnxn
                 if Fl.useAirFlightsDB:
                     if acfn.connectDB_ACFN(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
                         St.Connected_ACFN = True

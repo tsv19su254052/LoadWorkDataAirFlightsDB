@@ -16,8 +16,8 @@ class ServerNames:
     def __init__(self):
         # Имена серверов
         #self.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-        self.ServerNameOriginal = ".\mssqlserver15"  # указал имя NetBIOS и указал инстанс
-        self.ServerHost = ".\mssqlserver15"
+        self.ServerNameOriginal = "localhost\mssqlserver15"  # указал имя NetBIOS и указал инстанс
+        self.ServerHost = "localhost\mssqlserver15"
         #self.ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
         # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN
         self.ServerNameFlights = "data-server-1.movistar.vrn.skylink.local"  # указал ресурсную запись из DNS
@@ -294,8 +294,8 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_AC_mssql(self, servername, database):
-        if self.connectDBmssql(servername=servername, database=database):
+    def connectDB_AC_mssql(self, servername, host, database):
+        if self.connectDBmssql(servername=servername, host=host, database=database):
             self.cnxnAC_mssql = self.cnxn
             self.seekAC_mssql = self.seek
             return True

@@ -16,7 +16,7 @@ class ServerNames:
     def __init__(self):
         # Имена серверов
         #self.ServerNameOriginal = "data-server-1.movistar.vrn.skylink.local"
-        self.ServerNameOriginal = "localhost"  # указал имя NetBIOS и указал инстанс
+        self.ServerNameOriginal = ".\mssqlserver15"  # указал имя NetBIOS и указал инстанс
         self.ServerHost = ".\mssqlserver15"
         #self.ServerNameOriginal = "localhost\sqldeveloper"  # указал инстанс
         # fixme Забыл отменить обратно, надо проверить как самолеты и авиарейсы грузились без него причем в рабочую базу -> Все нормально, этот выбор работал, если грузить не через системный DSN

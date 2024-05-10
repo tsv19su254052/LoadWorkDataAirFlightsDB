@@ -48,11 +48,11 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDSN(self, dsn):
+    def connectDBmssql(self, servername, database):
         self.Result = False
         try:
             # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-            self.cnxn = pyodbc.connect("DSN=" + dsn)
+            self.cnxn = pymssql.connect(server=servername, database=database)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
             self.cnxn.autocommit = False
             # Делаем свой экземпляр и ставим курсор
@@ -82,11 +82,11 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDSNmssql(self, dsn):
+    def connectDSN(self, dsn):
         self.Result = False
         try:
             # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
-            self.cnxn = pymssql.connect("DSN=" + dsn)
+            self.cnxn = pyodbc.connect("DSN=" + dsn)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
             self.cnxn.autocommit = False
             # Делаем свой экземпляр и ставим курсор

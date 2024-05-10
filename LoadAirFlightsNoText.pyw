@@ -79,6 +79,7 @@ def myApplication():
     myDialog.comboBox_DB_RT.addItem("AirPortsAndRoutesDBNew62")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
+    myDialog.comboBox_DB_FN.addItem("AirCraftsDBNew62")
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")

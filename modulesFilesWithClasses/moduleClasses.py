@@ -293,18 +293,16 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_AC_XML(self, driver, servername, database):
-        if self.connectDB(driver=driver, servername=servername, database=database):
-            self.cnxnAC_XML = self.cnxn
-            self.seekAC_XML = self.seek
+    def connectDB_AC_mssql(self, servername, database):
+        if self.connectDBmssql(servername=servername, database=database):
+            self.cnxnAC_mssql = self.cnxn
+            self.seekAC_mssql = self.seek
             return True
         else:
             return False
 
     def connectDSN_AC_XML(self, dsn):
-        if self.connectDSN(dsn=dsn):  #and self.connectDSNmssql(dsn=dsn):
-            #self.cnxnAC_mssql = self.cnxn
-            #self.seekAC_mssql = self.seek
+        if self.connectDSN(dsn=dsn):
             self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek
             return True

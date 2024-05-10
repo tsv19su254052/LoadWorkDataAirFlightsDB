@@ -834,12 +834,17 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            SQLQuery = "DECLARE @ReturnData INT "
-                            SQLQuery += "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery += "SELECT @ReturnData "
+                            #SQLQuery = "DECLARE @ReturnData INT "
+                            #self.seekAC_XML.execute(SQLQuery)
+                            #SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                             print(str(SQLQuery))
-                            self.seekAC_XML.execute(SQLQuery)
-                            #self.seekAC_mssql.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
+                            print(str(parameters))
+                            #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', parameters)
+                            self.seekAC_XML.execute(SQLQuery, str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
+                            #SQLQuery = "SELECT @ReturnData "
+                            #self.seekAC_XML.execute(SQLQuery)
                             Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             self.cnxnAC_XML.commit()
                             if Data:

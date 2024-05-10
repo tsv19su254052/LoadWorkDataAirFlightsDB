@@ -336,10 +336,17 @@ def myApplication():
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
-                if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerName, S.DataBase_ACFN):
-                    #Data = acfn.getSQLData()
-                    #print(" Data = " + str(Data))
-                    St.Connected_AC_XML = True
+                if Fl.useXQuery:
+                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerName, S.DataBase_ACFN):
+                        #Data = acfn.getSQLData()
+                        #print(" Data = " + str(Data))
+                        St.Connected_AC_XML = True
+                else:
+                    if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
+                        #Data = acfn.getSQLData()
+                        #print(" Data = " + str(Data))
+                        St.Connected_AC_XML = True
+                if St.Connected_AC_XML:
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)

@@ -337,7 +337,7 @@ def myApplication():
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
                     # fixme не подключается по pymssql
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerNameOriginal, database=S.DataBase_ACFN, host=S.ServerHost):
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML): # and acfn.connectDB_AC_mssql(servername=S.ServerNameOriginal, database=S.DataBase_ACFN, host=S.ServerHost):
                         St.Connected_AC_XML = True
                 else:
                     if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):

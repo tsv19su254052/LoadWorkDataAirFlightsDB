@@ -835,16 +835,11 @@ class ACFN(SE):
                     if useXQuery:
                         try:
                             #SQLQuery = "DECLARE @ReturnData INT "
-                            #SQLQuery += "SET @ReturnData = 5 "
-                            #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery += "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             #SQLQuery += "SELECT @ReturnData "
                             #print(str(SQLQuery))
                             #self.seekAC_mssql.execute(SQLQuery)
-                            #self.seekAC_mssql.execute(SQLQuery)
                             self.seekAC_mssql.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
-                            #Status = self.seekAC_mssql.proc_status
-                            #print(" Status = " + str(Status))
                             Data = self.seekAC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                             self.cnxnAC_mssql.commit()
                             if Data:

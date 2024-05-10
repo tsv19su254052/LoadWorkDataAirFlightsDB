@@ -836,13 +836,14 @@ class ACFN(SE):
                         try:
                             #SQLQuery = "DECLARE @ReturnData INT "
                             #self.seekAC_XML.execute(SQLQuery)
-                            #SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                            SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            #SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                             print(" SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))
                             #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', parameters)
-                            self.seekAC_XML.execute(SQLQuery, parameters)
+                            #self.seekAC_XML.execute(SQLQuery, parameters)
+                            self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
                             Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]

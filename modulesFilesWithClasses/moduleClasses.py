@@ -825,7 +825,7 @@ class ACFN(SE):
                             #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
-                            SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            SQLQuery = "EXECUTE dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             print(str(SQLQuery))
                             self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "

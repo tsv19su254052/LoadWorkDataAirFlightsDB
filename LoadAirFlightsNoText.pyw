@@ -503,7 +503,7 @@ def myApplication():
         DistributionDensityAirFlights = []
         Density = 2  # раз в секунду
         # attemptRetryCount = 750 * Density
-        attemptRetryCount = 750  # увеличить, если появятся несплюсованные и невставленные авиаперелеты
+        attemptRetryCount = 10  # увеличить, если появятся несплюсованные и невставленные авиаперелеты
         for Index in range(attemptRetryCount):
             DistributionDensityAirLines.append(0)
             DistributionDensityAirCrafts.append(0)

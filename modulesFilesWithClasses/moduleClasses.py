@@ -309,15 +309,25 @@ class ACFN(SE):
         else:
             return False
 
+    def disconnectAC_mssql(self):
+        try:
+            # Снимаем курсор
+            #self.seekAC_mssql.close()
+            # Отключаемся от базы данных
+            self.cnxnAC_mssql.close()
+            print(" -- БД mssql отключена")
+        except Exception:
+            print(" -- БД mssql уже отключена")
+
     def disconnectAC_XML(self):
         try:
             # Снимаем курсор
             self.seekAC_XML.close()
             # Отключаемся от базы данных
             self.cnxnAC_XML.close()
-            print(" -- БД отключена")
+            print(" -- БД pyodbc отключена")
         except Exception:
-            print(" -- БД уже отключена")
+            print(" -- БД pyodbc уже отключена")
         #self.disconnect()
 
     def connectDB_ACFN(self, driver, servername, database):
@@ -823,26 +833,26 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            SQLQuery = "DECLARE @ReturnData INT "
-                            SQLQuery += "SET @ReturnData = 5 "
+                            #SQLQuery = "DECLARE @ReturnData INT "
+                            #SQLQuery += "SET @ReturnData = 5 "
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
-                            SQLQuery += "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery += "SELECT @ReturnData "
-                            print(str(SQLQuery))
-                            self.seekAC_XML.execute(SQLQuery)
-                            #C.seekAC_XML.execute(SQLQuery)
-                            #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
-                            #Status = C.seekAC_XML.proc_status
+                            #SQLQuery += "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            #SQLQuery += "SELECT @ReturnData "
+                            #print(str(SQLQuery))
+                            #self.seekAC_mssql.execute(SQLQuery)
+                            #self.seekAC_mssql.execute(SQLQuery)
+                            self.seekAC_mssql.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
+                            #Status = self.seekAC_mssql.proc_status
                             #print(" Status = " + str(Status))
-                            Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.cnxnAC_XML.commit()
+                            Data = self.seekAC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            self.cnxnAC_mssql.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                             Result = Data[0][0]
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.cnxnAC_XML.rollback()
+                            self.cnxnAC_mssql.rollback()
                             Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую

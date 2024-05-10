@@ -51,7 +51,7 @@ class ServerExchange:
         self.Result = False
         try:
             # через драйвер СУБД + клиентский API-курсор
-            self.cnxn = pymssql.connect(server=servername, database=database)
+            self.cnxn = pymssql._pymssql.connect(server=servername, database=database)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
             self.cnxn.autocommit = False
             # Делаем свой экземпляр и ставим курсор

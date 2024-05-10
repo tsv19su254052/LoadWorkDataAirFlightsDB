@@ -294,8 +294,8 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_AC_mssql(self, servername, database, host):
-        if self.connectDBmssql(servername=servername, database=database, host=host):
+    def connectDB_AC_mssql(self, servername, database):
+        if self.connectDBmssql(servername=servername, database=database):
             self.cnxnAC_mssql = self.cnxn
             self.seekAC_mssql = self.seek
             return True

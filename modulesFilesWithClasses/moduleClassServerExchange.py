@@ -47,11 +47,11 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDBmssql(self, servername, database, host):
+    def connectDBmssql(self, servername, database):
         self.Result = False
         try:
             # через драйвер СУБД + клиентский API-курсор
-            self.cnxn = pymssql.connect(server=servername, database=database, host=host, autocommit=False)
+            self.cnxn = pymssql.connect(server=servername, database=database, autocommit=False)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
             #self.cnxn.autocommit = False
             # Делаем свой экземпляр и ставим курсор

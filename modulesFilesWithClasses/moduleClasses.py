@@ -86,9 +86,11 @@ class ACFN(SE):
         self.AirCraftCNumber = " "
         self.EndDate = '1990-01-01'
         # Подключения
+        self.cnxnAC_mssql = None
         self.cnxnAC_XML = None
         self.cnxnACFN = None
         # Курсоры
+        self.seekAC_mssql = None
         self.seekAC_XML = None
         self.seekACFN = None
 
@@ -300,7 +302,9 @@ class ACFN(SE):
             return False
 
     def connectDSN_AC_XML(self, dsn):
-        if self.connectDSN(dsn=dsn):
+        if self.connectDSN(dsn=dsn) and self.connectDSNmssql(dsn=dsn):
+            self.cnxnAC_mssql = self.cnxn
+            self.seekAC_mssql = self.seek
             self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek
             return True
@@ -826,9 +830,9 @@ class ACFN(SE):
                             #self.seekAC_XML.execute(SQLQuery)
                             # todo При отладке вставлять тестовый файлик. После отладки убрать из БД все тестовые строки и убрать из строки ниже "Test" ...
                             SQLQuery += "EXECUTE @ReturnData = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                            SQLQuery += "SELECT @ReturnData "
                             print(str(SQLQuery))
                             self.seekAC_XML.execute(SQLQuery)
-                            #SQLQuery = "SELECT @ReturnData "
                             #C.seekAC_XML.execute(SQLQuery)
                             #C.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', (ac, al + fn, db_air_route, flightdate, begindate))  # для библиотеки pymssql (пока не ставится)
                             #Status = C.seekAC_XML.proc_status

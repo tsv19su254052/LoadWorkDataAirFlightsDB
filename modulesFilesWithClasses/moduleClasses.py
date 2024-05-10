@@ -302,9 +302,9 @@ class ACFN(SE):
             return False
 
     def connectDSN_AC_XML(self, dsn):
-        if self.connectDSN(dsn=dsn) and self.connectDSNmssql(dsn=dsn):
-            self.cnxnAC_mssql = self.cnxn
-            self.seekAC_mssql = self.seek
+        if self.connectDSN(dsn=dsn):  #and self.connectDSNmssql(dsn=dsn):
+            #self.cnxnAC_mssql = self.cnxn
+            #self.seekAC_mssql = self.seek
             self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek
             return True

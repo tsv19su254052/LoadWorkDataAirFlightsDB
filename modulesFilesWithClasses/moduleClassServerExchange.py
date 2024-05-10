@@ -16,7 +16,6 @@ class ServerExchange:
     def connectDB(self, driver, servername, database):
         self.Result = False
         try:
-            # Добавляем атрибут cnxn
             # через драйвер СУБД + клиентский API-курсор
             self.cnxn = pyodbc.connect(driver=driver, server=servername, database=database)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
@@ -51,7 +50,7 @@ class ServerExchange:
     def connectDBmssql(self, servername, database):
         self.Result = False
         try:
-            # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)
+            # через драйвер СУБД + клиентский API-курсор
             self.cnxn = pymssql.connect(server=servername, database=database)
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде, в СУБД по умолчанию FALSE
             self.cnxn.autocommit = False

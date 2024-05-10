@@ -80,6 +80,7 @@ def myApplication():
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
     myDialog.comboBox_DB_FN.addItem("AirCraftsDBNew62")
+    myDialog.comboBox_DB_FN.addItem("AirCraftsDBNew62Test")
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
@@ -324,10 +325,14 @@ def myApplication():
             if not St.Connected_AC_XML:
                 # Подключаемся к базе данных самолетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
+                ChoiceDB_AC_mssql = myDialog.comboBox_DB_FN.currentText()
+                ChoiceDriver_AC_mssql = myDialog.comboBox_Driver_FN.currentText()
+                S.DataBase_ACFN = str(ChoiceDB_AC_mssql)
+                S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
                 ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
                 # Добавляем атрибут myDSN
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
-                if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
+                if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerName, S.DataBase_ACFN):
                     Data = acfn.getSQLData()
                     print(" Data = " + str(Data))
                     St.Connected_AC_XML = True

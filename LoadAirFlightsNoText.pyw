@@ -338,31 +338,29 @@ def myApplication():
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
                     if acfn.connectDSN_AC_XML(S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(S.ServerName, S.DataBase_ACFN):
-                        #Data = acfn.getSQLData()
-                        #print(" Data = " + str(Data))
                         St.Connected_AC_XML = True
                 else:
                     if acfn.connectDSN_AC_XML(S.myDSN_AC_XML):
-                        #Data = acfn.getSQLData()
-                        #print(" Data = " + str(Data))
                         St.Connected_AC_XML = True
                 if St.Connected_AC_XML:
+                    Data = acfn.getSQLData()
+                    print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    #myDialog.lineEdit_Server_remote.setText(Data[0])
+                    myDialog.lineEdit_Server_remote.setText(Data[0])
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    #myDialog.lineEdit_Driver_AC.setText(Data[1])
+                    myDialog.lineEdit_Driver_AC.setText(Data[1])
                     # версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    #myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
+                    myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    #myDialog.lineEdit_Schema_AC.setText(Data[4])
+                    myDialog.lineEdit_Schema_AC.setText(Data[4])
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    #myDialog.lineEdit_DSN_AC.setText(Data[3])
+                    myDialog.lineEdit_DSN_AC.setText(Data[3])
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)

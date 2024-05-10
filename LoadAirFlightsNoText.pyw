@@ -140,7 +140,7 @@ def myApplication():
         # Состояния + Флаги -> Графическая оболочка
         if St.Connected_AC_XML or St.Connected_ACFN:
             # Переключаем в рабочее состояние
-            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+            myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
             myDialog.comboBox_Driver_FN.setEnabled(False)
             myDialog.comboBox_DSN_FN.setEnabled(False)
             myDialog.comboBox_DSN_AC.setEnabled(False)
@@ -191,8 +191,10 @@ def myApplication():
     def RadioButtonsXQueryToggled():
         if myDialog.radioButton_DSN_AirCrafts_DOM.isChecked():
             Fl.useXQuery = False
+            myDialog.comboBox_DB_FN.setEnabled(False)
         if myDialog.radioButton_DSN_AirCrafts_SAX.isChecked():
             Fl.useXQuery = True
+            myDialog.comboBox_DB_FN.setEnabled(True)
 
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()

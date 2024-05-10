@@ -25,7 +25,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.71  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = 8.72  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))

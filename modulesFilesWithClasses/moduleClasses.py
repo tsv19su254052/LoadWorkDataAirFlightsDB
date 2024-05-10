@@ -838,11 +838,11 @@ class ACFN(SE):
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
-                            print(" SQLQuery = " + str(SQLQuery))
+                            print("\n SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))
                             #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', parameters)
-                            self.seekAC_XML.execute(SQLQuery, parameters)
+                            self.seekAC_XML.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)

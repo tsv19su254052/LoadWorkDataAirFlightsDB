@@ -238,7 +238,7 @@ def myApplication():
             S.DriverODBC_AL = str(ChoiceDriver)
             if acfn.connectDB_AL_odbc(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
-                Data = acfn.getSQLDataODBC()
+                Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переключаем в рабочее состояние
@@ -286,7 +286,7 @@ def myApplication():
             S.DriverODBC_RT = str(ChoiceDriver)
             if acfn.connectDB_RT_odbc(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
-                Data = acfn.getSQLDataODBC()
+                Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # Переключаем в рабочее состояние
@@ -343,9 +343,9 @@ def myApplication():
                         St.Connected_AC = True
                 if St.Connected_AC:
                     if Fl.useXQuery:
-                        Data = acfn.getSQLDatamssql()
+                        Data = acfn.getSQLData_mssql()
                     else:
-                        Data = acfn.getSQLDataODBC()
+                        Data = acfn.getSQLData_odbc()
                     print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
@@ -390,7 +390,7 @@ def myApplication():
                     if acfn.connectDSN_ACFN_odbc(S.myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
-                    Data = acfn.getSQLDataODBC()
+                    Data = acfn.getSQLData_odbc()
                     print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
@@ -778,10 +778,10 @@ def myApplication():
         if Fl.useAirCraftsDSN:
             OutputString += " Авиаперелеты загружены в БД самолетов "
             if Fl.useXQuery:
-                DataSQL = acfn.getSQLDatamssql()
+                DataSQL = acfn.getSQLData_mssql()
                 OutputString += " с помощью xQuery (SAX) \n"
             else:
-                DataSQL = acfn.getSQLDataODBC()
+                DataSQL = acfn.getSQLData_odbc()
                 OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
         OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
         OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"

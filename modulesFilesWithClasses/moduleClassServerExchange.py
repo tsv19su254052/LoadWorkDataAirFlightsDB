@@ -133,7 +133,7 @@ class ServerExchange:
         DataSources = pyodbc.dataSources()
         return DataSources
 
-    def getSQLDataODBC(self):
+    def getSQLData_odbc(self):
         SQLData = (self.cnxn.getinfo(pyodbc.SQL_SERVER_NAME),
                    self.cnxn.getinfo(pyodbc.SQL_DRIVER_NAME),
                    self.cnxn.getinfo(pyodbc.SQL_ODBC_VER),
@@ -141,7 +141,7 @@ class ServerExchange:
                    self.cnxn.getinfo(pyodbc.SQL_USER_NAME))
         return SQLData
 
-    def getSQLDatamssql(self):
+    def getSQLData_mssql(self):
         SQLData = (self.cnxn.getinfo(pymssql.STRING),
                    self.cnxn.getinfo(pymssql.paramstyle),
                    self.cnxn.getinfo(pymssql.VERSION),

@@ -156,7 +156,7 @@ def myApplication():
             S.DriverODBC = str(ChoiceDriver)
             if acfn.connectDB_AL_odbc(S.DriverODBC, S.ServerName, S.DataBase):
                 print("  База данных ", S.DataBase, " подключена")
-                Data = acfn.getSQLDataODBC()
+                Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переводим в рабочее состояние (продолжение)

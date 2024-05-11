@@ -88,11 +88,11 @@ class ACFN(SE):
         self.EndDate = '1990-01-01'
         # Подключения
         self.cnxnAC_mssql = None
-        self.cnxnAC_XML = None
+        self.cnxnAC_odbc = None
         self.cnxnACFN = None
         # Курсоры
         self.seekAC_mssql = None
-        self.seekAC_XML = None
+        self.seekAC_odbc = None
         self.seekACFN = None
 
         # AirPort
@@ -126,7 +126,7 @@ class ACFN(SE):
             pass
 
     def connectDB_AL(self, driver, servername, database):
-        if self.connectDB(driver=driver, servername=servername, database=database):
+        if self.connectDBodbc(driver=driver, servername=servername, database=database):
             self.cnxnAL = self.cnxn
             self.seekAL = self.seek
             return True
@@ -303,9 +303,9 @@ class ACFN(SE):
             return False
 
     def connectDSN_AC_odbc(self, dsn):
-        if self.connectDSN(dsn=dsn):
-            self.cnxnAC_XML = self.cnxn
-            self.seekAC_XML = self.seek
+        if self.connectDSNodbc(dsn=dsn):
+            self.cnxnAC_odbc = self.cnxn
+            self.seekAC_odbc = self.seek
             return True
         else:
             return False
@@ -320,19 +320,19 @@ class ACFN(SE):
         except Exception:
             print(" -- БД mssql уже отключена")
 
-    def disconnectAC_XML(self):
+    def disconnectAC_odbc(self):
         try:
             # Снимаем курсор
-            self.seekAC_XML.close()
+            self.seekAC_odbc.close()
             # Отключаемся от базы данных
-            self.cnxnAC_XML.close()
+            self.cnxnAC_odbc.close()
             print(" -- БД pyodbc отключена")
         except Exception:
             print(" -- БД pyodbc уже отключена")
         #self.disconnect()
 
     def connectDB_ACFN(self, driver, servername, database):
-        if self.connectDB(driver=driver, servername=servername, database=database):
+        if self.connectDBodbc(driver=driver, servername=servername, database=database):
             self.cnxnACFN = self.cnxn
             self.seekACFN = self.seek
             return True
@@ -340,7 +340,7 @@ class ACFN(SE):
             return False
 
     def connectDSN_ACFN(self, dsn):
-        if self.connectDSN(dsn=dsn):
+        if self.connectDSNodbc(dsn=dsn):
             self.cnxnACFN = self.cnxn
             self.seekACFN = self.seek
             return True
@@ -363,14 +363,14 @@ class ACFN(SE):
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                self.seekAC_XML.execute(SQLQuery)
+                self.seekAC_odbc.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTableNew2XsdIntermediate WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                self.seekAC_XML.execute(SQLQuery)
-                ResultSQL = self.seekAC_XML.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                self.cnxnAC_XML.commit()
+                self.seekAC_odbc.execute(SQLQuery)
+                ResultSQL = self.seekAC_odbc.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnAC_odbc.commit()
             except Exception:
                 ResultSQL = False
-                self.cnxnAC_XML.rollback()
+                self.cnxnAC_odbc.rollback()
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
@@ -389,16 +389,16 @@ class ACFN(SE):
         if useAirCrafts:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                self.seekAC_XML.execute(SQLQuery)
+                self.seekAC_odbc.execute(SQLQuery)
                 SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
                 SQLQuery += str(Registration) + "') "
-                self.seekAC_XML.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekAC_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
                 # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
-                self.cnxnAC_XML.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_odbc.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxnAC_XML.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnAC_odbc.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
@@ -440,7 +440,7 @@ class ACFN(SE):
             pass
 
     def connectDB_RT(self, driver, servername, database):
-        if self.connectDB(driver=driver, servername=servername, database=database):
+        if self.connectDBodbc(driver=driver, servername=servername, database=database):
             self.cnxnRT = self.cnxn
             self.seekRT = self.seek
             return True
@@ -839,13 +839,13 @@ class ACFN(SE):
                             print("\n SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))
-                            self.seekAC_XML.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                            self.seekAC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
                             #self.seekAC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
-                            Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.cnxnAC_XML.commit()
+                            Data = self.seekAC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            self.cnxnAC_odbc.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                                 Result = Data[0][0]
@@ -853,16 +853,16 @@ class ACFN(SE):
                                 Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.cnxnAC_XML.rollback()
+                            self.cnxnAC_odbc.rollback()
                             Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                            self.seekAC_XML.execute(SQLQuery)
+                            self.seekAC_odbc.execute(SQLQuery)
                             XMLQuery = "SELECT FlightsByRoutes FROM dbo.AirCraftsTableNew2XsdIntermediate WITH (UPDLOCK) WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            self.seekAC_XML.execute(XMLQuery)
-                            ResultXML = self.seekAC_XML.fetchone()
+                            self.seekAC_odbc.execute(XMLQuery)
+                            ResultXML = self.seekAC_odbc.fetchone()
                             QuantityCounted = 1  # количество таких авиаперелетов за этот день
                             QuantityOnThisRoute = 1  # количестов авиаперелетов этого авиарейса по этому маршруту
                             QuantityOnThisFlight = 1  # количество авиаперелетов этого авиарейса
@@ -922,10 +922,10 @@ class ACFN(SE):
                                     Result = 1
                             xml_FlightsByRoutes_to_String = ElementTree.tostring(root_tag_FlightsByRoutes, method='xml').decode(encoding="utf-8")  # XML-ная строка
                             XMLQuery = "UPDATE dbo.AirCraftsTableNew2XsdIntermediate SET FlightsByRoutes = '" + str(xml_FlightsByRoutes_to_String) + "' WHERE AirCraftRegistration = '" + str(ac) + "' "
-                            self.seekAC_XML.execute(XMLQuery)
-                            self.cnxnAC_XML.commit()
+                            self.seekAC_odbc.execute(XMLQuery)
+                            self.cnxnAC_odbc.commit()
                         except Exception:
-                            self.cnxnAC_XML.rollback()
+                            self.cnxnAC_odbc.rollback()
                             Result = 0
                 else:
                     try:

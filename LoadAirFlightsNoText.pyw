@@ -104,7 +104,7 @@ def myApplication():
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_AL.setEnabled(False)
             myDialog.comboBox_Driver_AL.setEnabled(False)
-            if St.Connected_RT and (St.Connected_ACFN or St.Connected_AC_XML):
+            if St.Connected_RT and (St.Connected_ACFN or St.Connected_AC):
                 PrepareForInputData(True)
         else:
             # Переключаем в исходное состояние
@@ -122,7 +122,7 @@ def myApplication():
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_RT.setEnabled(False)
             myDialog.comboBox_Driver_RT.setEnabled(False)
-            if St.Connected_AL and (St.Connected_ACFN or St.Connected_AC_XML):
+            if St.Connected_AL and (St.Connected_ACFN or St.Connected_AC):
                 PrepareForInputData(True)
         else:
             # Переключаем в исходное состояние
@@ -137,7 +137,7 @@ def myApplication():
 
     def UpdateFlightsSourcesChoiceByStatesAndFlags():
         # Состояния + Флаги -> Графическая оболочка
-        if St.Connected_AC_XML or St.Connected_ACFN:
+        if St.Connected_AC or St.Connected_ACFN:
             # Переключаем в рабочее состояние
             myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
             myDialog.comboBox_Driver_FN.setEnabled(False)
@@ -325,7 +325,7 @@ def myApplication():
     def PushButtonConnect_ACFN():
         if Fl.useAirCraftsDSN:
             myDialog.pushButton_Connect_AC.setEnabled(False)
-            if not St.Connected_AC_XML:
+            if not St.Connected_AC:
                 # Подключаемся к базе данных самолетов
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDB_AC_mssql = myDialog.comboBox_DB_FN.currentText()
@@ -336,12 +336,12 @@ def myApplication():
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
                     # fixme не подключается по pymssql
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):  # and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
-                        St.Connected_AC_XML = True
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                        St.Connected_AC = True
                 else:
                     if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):
-                        St.Connected_AC_XML = True
-                if St.Connected_AC_XML:
+                        St.Connected_AC = True
+                if St.Connected_AC:
                     if Fl.useXQuery:
                         Data = acfn.getSQLDatamssql()
                     else:
@@ -423,11 +423,11 @@ def myApplication():
     def PushButtonDisconnect_ACFN():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
-        if St.Connected_AC_XML:
+        if St.Connected_AC:
             acfn.disconnectAC_XML()
             if Fl.useXQuery:
                 acfn.disconnectAC_mssql()
-            St.Connected_AC_XML = False
+            St.Connected_AC = False
         if St.Connected_ACFN:
             acfn.disconnectACFN()
             St.Connected_ACFN = False

@@ -49,7 +49,7 @@ class States:
         self.Connected_AL = False
         self.Connected_RT = False
         self.Connected_ACFN = False
-        self.Connected_AC_XML = False
+        self.Connected_AC = False
 
 
 SE = ServerExchange

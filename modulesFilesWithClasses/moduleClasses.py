@@ -857,7 +857,7 @@ class ACFN(SE):
                                 self.cnxn_AC_odbc.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
-                                Result = Data[0][0]
+                                Result = 1
                             else:
                                 Result = 0
                         except Exception as exception:

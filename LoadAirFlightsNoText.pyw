@@ -384,7 +384,7 @@ def myApplication():
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 S.myDSN_ACFN = str(ChoiceDSN_ACFN)
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFNodbc(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
+                    if acfn.connectDB_ACFN_odbc(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
                     if acfn.connectDSN_ACFN_odbc(S.myDSN_ACFN):

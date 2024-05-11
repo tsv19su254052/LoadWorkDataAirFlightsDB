@@ -236,7 +236,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_AL = str(ChoiceDB)
             S.DriverODBC_AL = str(ChoiceDriver)
-            if acfn.connectDB_AL(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
+            if acfn.connectDB_AL_odbc(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
                 Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
@@ -268,7 +268,7 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_AL.setEnabled(False)
         if St.Connected_AL:
-            acfn.disconnectAL()
+            acfn.disconnectAL_odbc()
             St.Connected_AL = False
         # Переключаем в исходное состояние
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
@@ -284,7 +284,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_RT = str(ChoiceDB)
             S.DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
+            if acfn.connectDB_RT_odbc(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
                 Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
@@ -316,7 +316,7 @@ def myApplication():
         # Обработчик кнопки 'Отключиться от базы данных'
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         if St.Connected_RT:
-            acfn.disconnectRT()
+            acfn.disconnectRT_odbc()
             St.Connected_RT = False
         # Переключаем в исходное состояние
         UpdateAirPortsSourcesChoiceByStatesAndFlags()
@@ -384,10 +384,10 @@ def myApplication():
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 S.myDSN_ACFN = str(ChoiceDSN_ACFN)
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFN(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
+                    if acfn.connectDB_ACFNodbc(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
-                    if acfn.connectDSN_ACFN(S.myDSN_ACFN):
+                    if acfn.connectDSN_ACFN_odbc(S.myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
                     Data = acfn.getSQLDataODBC()
@@ -429,7 +429,7 @@ def myApplication():
                 acfn.disconnectAC_mssql()
             St.Connected_AC = False
         if St.Connected_ACFN:
-            acfn.disconnectACFN()
+            acfn.disconnectACFN_odbc()
             St.Connected_ACFN = False
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
@@ -856,12 +856,12 @@ def myApplication():
         myDialog.label_execute.setText("Загрузка окончена")
         myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
         print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-        acfn.disconnectAL()
-        acfn.disconnectRT()
+        acfn.disconnectAL_odbc()
+        acfn.disconnectRT_odbc()
         if Fl.useAirCraftsDSN:
             acfn.disconnectAC_odbc()
         else:
-            acfn.disconnectACFN()
+            acfn.disconnectACFN_odbc()
             acfn.disconnectFN()
 
     def PushButtonGetStarted():

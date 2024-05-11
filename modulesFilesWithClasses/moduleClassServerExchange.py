@@ -13,7 +13,7 @@ class ServerExchange:
         self.cnxn = c  # подключение
         self.seek = s  # курсор
 
-    def connectDBodbc(self, driver, servername, database):
+    def connectDB_odbc(self, driver, servername, database):
         self.Result = False
         try:
             # через драйвер СУБД + клиентский API-курсор
@@ -47,7 +47,7 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDBmssql(self, servername, database):
+    def connectDB_mssql(self, servername, database):
         self.Result = False
         try:
             # через драйвер СУБД + клиентский API-курсор
@@ -81,7 +81,7 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDSNodbc(self, dsn):
+    def connectDSN_odbc(self, dsn):
         self.Result = False
         try:
             # через DSN + клиентский API-курсор (все настроено и протестировано в DSN)

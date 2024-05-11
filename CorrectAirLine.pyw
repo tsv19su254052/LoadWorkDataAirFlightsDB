@@ -154,7 +154,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase = str(ChoiceDB)
             S.DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_AL(S.DriverODBC, S.ServerName, S.DataBase):
+            if acfn.connectDB_AL_odbc(S.DriverODBC, S.ServerName, S.DataBase):
                 print("  База данных ", S.DataBase, " подключена")
                 Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
@@ -191,7 +191,7 @@ def myApplication():
     def PushButtonDisconnect():
         # кнопка "Отключиться от базы данных"
         if St.Connected_AL:
-            acfn.disconnectAL()
+            acfn.disconnectAL_odbc()
             # Снимаем флаги
             St.Connected_AL = False
             # Переключаем в исходное состояние

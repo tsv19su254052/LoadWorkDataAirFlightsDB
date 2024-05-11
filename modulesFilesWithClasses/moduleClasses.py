@@ -72,8 +72,8 @@ class ACFN(SE):
         self.AirLineDescription = " "
         self.Alliance = 4
         self.Position = 1  # Позиция курсора в таблице (в SQL начинается с 1)
-        self.cnxnAL = None  # подключение
-        self.seekAL = None  # курсор
+        self.cnxnAL_odbc = None  # подключение
+        self.seekAL_odbc = None  # курсор
 
         # AirCraft
         self.AirCraftModel = 387  # Unknown Model
@@ -89,11 +89,11 @@ class ACFN(SE):
         # Подключения
         self.cnxnAC_mssql = None
         self.cnxnAC_odbc = None
-        self.cnxnACFN = None
+        self.cnxnACFN_odbc = None
         # Курсоры
         self.seekAC_mssql = None
         self.seekAC_odbc = None
-        self.seekACFN = None
+        self.seekACFN_odbc = None
 
         # AirPort
         self.HyperLinkToWikiPedia = " "
@@ -116,8 +116,8 @@ class ACFN(SE):
         self.AirPortRunWays = " "
         self.AirPortFacilities = " "
         self.AirPortIncidents = " "
-        self.cnxnRT = None  # подключение
-        self.seekRT = None  # курсор
+        self.cnxnRT_odbc = None  # подключение
+        self.seekRT_odbc = None  # курсор
         self.LogCountViewed = 0
         self.LogCountChanged = 0
 
@@ -125,20 +125,20 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_AL(self, driver, servername, database):
-        if self.connectDBodbc(driver=driver, servername=servername, database=database):
-            self.cnxnAL = self.cnxn
-            self.seekAL = self.seek
+    def connectDB_AL_odbc(self, driver, servername, database):
+        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+            self.cnxnAL_odbc = self.cnxn
+            self.seekAL_odbc = self.seek
             return True
         else:
             return False
 
-    def disconnectAL(self):
+    def disconnectAL_odbc(self):
         try:
-            # Снимаем курсор
-            self.seekAL.close()
+            # Закрываем курсор
+            self.seekAL_odbc.close()
             # Отключаемся от базы данных
-            self.cnxnAL.close()
+            self.cnxnAL_odbc.close()
             print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
@@ -147,76 +147,76 @@ class ACFN(SE):
     def QueryAlliances(self):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "SELECT AllianceUniqueNumber, AllianceName FROM dbo.AlliancesTable"  # Убрал  ORDER BY AlianceName
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchall()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchall()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     def QueryAlliancePKByName(self, name):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "SELECT AllianceUniqueNumber FROM dbo.AlliancesTable WHERE AllianceName='" + str(name) + "' "  # Убрал  ORDER BY AlianceName
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchone()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL[0]
 
     def QueryAirLineByPK(self, pk):
         # Возвращает строку авиакомпании по первичному ключу
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineUniqueNumber = '" + str(pk) + "' "
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchone()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     def QueryAirLineByIATA(self, iata):
         # Возвращает строку авиакомпании по ее коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' "
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchone()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     def QueryAirLineByICAO(self, icao):
         # Возвращает строку авиакомпании по ее коду ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeICAO = '" + str(icao) + "' "
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchone()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     def QueryAirLineByIATAandICAO(self, iata, icao):
         # Возвращает строку авиакомпании по ее кодам IATA и ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             if iata is None:
                 SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO = '" + str(icao) + "' "
             elif icao is None:
@@ -225,12 +225,12 @@ class ACFN(SE):
                 SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA IS NULL AND AirLineCodeICAO IS NULL "
             else:
                 SQLQuery = "SELECT * FROM dbo.AirLinesTable WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
-            self.seekAL.execute(SQLQuery)
-            ResultSQL = self.seekAL.fetchone()
-            self.cnxnAL.commit()
+            self.seekAL_odbc.execute(SQLQuery)
+            ResultSQL = self.seekAL_odbc.fetchone()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     def InsertAirLineByIATAandICAO(self, iata, icao):
@@ -238,7 +238,7 @@ class ACFN(SE):
         # fixme Потом подправить Альанс авиакомпании
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             if iata is None:
                 print(" ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeICAO) VALUES ('" + str(icao) + "') "
@@ -253,19 +253,19 @@ class ACFN(SE):
             else:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery = "INSERT INTO dbo.AirLinesTable (AirLineCodeIATA, AirLineCodeICAO) VALUES ('" + str(iata) + "', '" + str(icao) + "') "
-            self.seekAL.execute(SQLQuery)  # записываем данные по самолету в БД
+            self.seekAL_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
             ResultSQL = True
-            self.cnxnAL.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+            self.cnxnAL_odbc.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+            self.cnxnAL_odbc.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     def UpdateAirLineByIATAandICAO(self, id, name, alias, iata, icao, callsign, city, country, status, date, description, aliance):
         # Обновляет данные авиакомпании в один запрос - БЫСТРЕЕ, НАДЕЖНЕЕ
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             SQLQuery = "UPDATE dbo.AirLinesTable SET AirLine_ID = " + str(id) + ", AirLineName = '" + str(name) + "', AirLineAlias = '" + str(alias)
             SQLQuery += "', AirLineCallSighn = '" + str(callsign)
             SQLQuery += "', AirLineCity = '" + str(city) + "', AirLineCountry = '" + str(country) + "', AirLineStatus = " + str(status)
@@ -282,12 +282,12 @@ class ACFN(SE):
             else:
                 print(" IATA=", str(iata), " ICAO=", str(icao))
                 SQLQuery += " WHERE AirLineCodeIATA = '" + str(iata) + "' AND AirLineCodeICAO = '" + str(icao) + "' "
-            self.seekAL.execute(SQLQuery)
+            self.seekAL_odbc.execute(SQLQuery)
             ResultSQL = True
-            self.cnxnAL.commit()
+            self.cnxnAL_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnAL.rollback()
+            self.cnxnAL_odbc.rollback()
         return ResultSQL
 
     class AirCraft:
@@ -295,7 +295,7 @@ class ACFN(SE):
             pass
 
     def connectDB_AC_mssql(self, servername, database):
-        if self.connectDBmssql(servername=servername, database=database):
+        if self.connectDB_mssql(servername=servername, database=database):
             self.cnxnAC_mssql = self.cnxn
             self.seekAC_mssql = self.seek
             return True
@@ -303,7 +303,7 @@ class ACFN(SE):
             return False
 
     def connectDSN_AC_odbc(self, dsn):
-        if self.connectDSNodbc(dsn=dsn):
+        if self.connectDSN_odbc(dsn=dsn):
             self.cnxnAC_odbc = self.cnxn
             self.seekAC_odbc = self.seek
             return True
@@ -312,9 +312,7 @@ class ACFN(SE):
 
     def disconnectAC_mssql(self):
         try:
-            # Снимаем курсор
-            #self.seekAC_mssql.close()
-            # Отключаемся от базы данных
+            # Отключаемся от базы данных, курсов закрывается
             self.cnxnAC_mssql.close()
             print(" -- БД mssql отключена")
         except Exception:
@@ -322,7 +320,7 @@ class ACFN(SE):
 
     def disconnectAC_odbc(self):
         try:
-            # Снимаем курсор
+            # Закрываем курсор
             self.seekAC_odbc.close()
             # Отключаемся от базы данных
             self.cnxnAC_odbc.close()
@@ -331,28 +329,28 @@ class ACFN(SE):
             print(" -- БД pyodbc уже отключена")
         #self.disconnect()
 
-    def connectDB_ACFN(self, driver, servername, database):
-        if self.connectDBodbc(driver=driver, servername=servername, database=database):
-            self.cnxnACFN = self.cnxn
-            self.seekACFN = self.seek
+    def connectDB_ACFNodbc(self, driver, servername, database):
+        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+            self.cnxnACFN_odbc = self.cnxn
+            self.seekACFN_odbc = self.seek
             return True
         else:
             return False
 
-    def connectDSN_ACFN(self, dsn):
-        if self.connectDSNodbc(dsn=dsn):
-            self.cnxnACFN = self.cnxn
-            self.seekACFN = self.seek
+    def connectDSN_ACFN_odbc(self, dsn):
+        if self.connectDSN_odbc(dsn=dsn):
+            self.cnxnACFN_odbc = self.cnxn
+            self.seekACFN_odbc = self.seek
             return True
         else:
             return False
 
-    def disconnectACFN(self):
+    def disconnectACFN_odbc(self):
         try:
             # Снимаем курсор
-            self.seekACFN.close()
+            self.seekACFN_odbc.close()
             # Отключаемся от базы данных
-            self.cnxnACFN.close()
+            self.cnxnACFN_odbc.close()
             print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
@@ -374,14 +372,14 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-                self.seekACFN.execute(SQLQuery)
+                self.seekACFN_odbc.execute(SQLQuery)
                 SQLQuery = "SELECT * FROM dbo.AirCraftsTable WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                self.seekACFN.execute(SQLQuery)
-                ResultSQL = self.seekACFN.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
-                self.cnxnACFN.commit()
+                self.seekACFN_odbc.execute(SQLQuery)
+                ResultSQL = self.seekACFN_odbc.fetchone()  # курсор забирает одну строку и сдвигается на строку вниз
+                self.cnxnACFN_odbc.commit()
             except Exception:
                 ResultSQL = False
-                self.cnxnACFN.rollback()
+                self.cnxnACFN_odbc.rollback()
         return ResultSQL
 
     def InsertAirCraftByRegistration(self, Registration, ALPK, useAirCrafts):
@@ -402,7 +400,7 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                self.seekACFN.execute(SQLQuery)
+                self.seekACFN_odbc.execute(SQLQuery)
                 if ALPK is None:
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
                     SQLQuery += str(Registration) + "') "
@@ -410,12 +408,12 @@ class ACFN(SE):
                     SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
                     SQLQuery += str(Registration) + "', "
                     SQLQuery += str(ALPK) + ") "
-                self.seekACFN.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekACFN_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxnACFN.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN_odbc.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxnACFN.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN_odbc.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
         return ResultSQL
 
     def UpdateAirCraft(self, Registration, ALPK, useAirCrafts):
@@ -425,34 +423,34 @@ class ACFN(SE):
         else:
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-                self.seekACFN.execute(SQLQuery)
+                self.seekACFN_odbc.execute(SQLQuery)
                 SQLQuery = "UPDATE dbo.AirCraftsTable SET AirCraftAirLine = " + str(ALPK) + " WHERE AirCraftRegistration = '" + str(Registration) + "' "
-                self.seekACFN.execute(SQLQuery)  # записываем данные по самолету в БД
+                self.seekACFN_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
-                self.cnxnACFN.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN_odbc.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
             except Exception:
                 ResultSQL = False
-                self.cnxnACFN.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
+                self.cnxnACFN_odbc.rollback()  # откатываем транзакцию, снимаем блокировку с запрошенных диапазонов
             return ResultSQL
 
     class AirPort:
         def __init__(self):
             pass
 
-    def connectDB_RT(self, driver, servername, database):
-        if self.connectDBodbc(driver=driver, servername=servername, database=database):
-            self.cnxnRT = self.cnxn
-            self.seekRT = self.seek
+    def connectDB_RT_odbc(self, driver, servername, database):
+        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+            self.cnxnRT_odbc = self.cnxn
+            self.seekRT_odbc = self.seek
             return True
         else:
             return False
 
-    def disconnectRT(self):
+    def disconnectRT_odbc(self):
         try:
-            # Снимаем курсор
-            self.seekRT.close()
+            # Закрываем курсор
+            self.seekRT_odbc.close()
             # Отключаемся от базы данных
-            self.cnxnRT.close()
+            self.cnxnRT_odbc.close()
             print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
@@ -462,35 +460,35 @@ class ACFN(SE):
         # Возвращает строку аэропорта по коду IATA
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeIATA = '" + str(iata) + "' "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def QueryAirPortByICAO(self, icao):
         # Возвращает строку аэропорта по коду ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeICAO = '" + str(icao) + "' "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def QueryAirPortByIATAandICAO(self, iata, icao):
         # Возвращает строку аэропорта по кодам IATA и ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable "
             if iata is None:
                 SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO = '" + str(icao) + "' "
@@ -500,78 +498,78 @@ class ACFN(SE):
                 SQLQuery += "WHERE AirPortCodeIATA IS NULL AND AirPortCodeICAO IS NULL "
             else:
                 SQLQuery += "WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()  # выбираем первую строку из возможно нескольких
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def QueryAirPortByFAA_LID(self, faa_lid):
         # Возвращает строку аэропорта по коду ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeFAA_LID = '" + str(faa_lid) + "' "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def QueryAirPortByWMO(self, wmo):
         # Возвращает строку аэропорта по коду ICAO
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT * FROM dbo.AirPortsTable WHERE AirPortCodeWMO = '" + str(wmo) + "' "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def QueryAirRoute(self, IATADeparture, IATAArrival):
         # Возвращает строку маршрута по кодам IATA аэропортов
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = """SELECT dbo.AirRoutesTable.AirRouteUniqueNumber                                 
                        FROM dbo.AirRoutesTable INNER JOIN
                        dbo.AirPortsTable ON dbo.AirRoutesTable.AirPortDeparture = dbo.AirPortsTable.AirPortUniqueNumber INNER JOIN
                        dbo.AirPortsTable AS AirPortsTable_1 ON dbo.AirRoutesTable.AirPortArrival = AirPortsTable_1.AirPortUniqueNumber
                        WHERE (dbo.AirPortsTable.AirPortCodeIATA = '""" + str(IATADeparture) + "') AND (AirPortsTable_1.AirPortCodeIATA = '" + str(IATAArrival) + "') "
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def InsertAirPortByIATA(self, iata):
         # fixme дописать функционал, когда код пустой
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA) VALUES ('" + str(iata) + "') "
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             ResultSQL = True
-            self.cnxnRT.commit()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def InsertAirPortByIATAandICAO(self, iata, icao):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirPortsTable (AirPortCodeIATA, AirPortCodeICAO) VALUES ("
             if iata is None:
                 SQLQuery += " NULL, '" + str(icao) + "' "
@@ -584,33 +582,33 @@ class ACFN(SE):
             else:
                 SQLQuery += " '" + str(iata) + "', '" + str(icao) + "' "
             SQLQuery += ") "
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             ResultSQL = True
-            self.cnxnRT.commit()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def InsertAirRoute(self, IATADeparture, IATAArrival):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "INSERT INTO dbo.AirRoutesTable (AirPortDeparture, AirPortArrival) VALUES ("
             SQLQuery += str(IATADeparture) + ", "  # bigint
             SQLQuery += str(IATAArrival) + ") "  # bigint
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             ResultSQL = True
-            self.cnxnRT.commit()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def UpdateAirPortByIATAandICAO(self, csv, hyperlinkWiki, hyperlinkAirPort, hyperlinkOperator, iata, icao, faa_lid, wmo, name, city, county, country, lat, long, height, desc, facilities, incidents):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "UPDATE dbo.AirPortsTable SET SourceCSVFile = '" + str(csv) + "', HyperLinkToWikiPedia = '" + str(hyperlinkWiki) + "', HyperLinkToAirPortSite = '" + str(hyperlinkAirPort) + "', HyperLinkToOperatorSite = '" + str(hyperlinkOperator)
             SQLQuery += "', AirPortCodeFAA_LID = '" + str(faa_lid) + "', AirPortCodeWMO = '" + str(wmo) + "', AirPortName = '" + str(name) + "', AirPortCity = '" + str(city)
             SQLQuery += "', AirPortCounty = '" + str(county) + "', AirPortCountry = '" + str(country) + "', AirPortLatitude = " + str(lat)
@@ -640,19 +638,19 @@ class ACFN(SE):
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append
                 SQLGeoQuery += Append
-            self.seekRT.execute(SQLQuery)
-            self.seekRT.execute(SQLGeoQuery)
+            self.seekRT_odbc.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLGeoQuery)
             ResultSQL = True
-            self.cnxnRT.commit()
+            self.cnxnRT_odbc.commit()
         except Exception:
             ResultSQL = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return ResultSQL
 
     def IncrementLogCountViewedAirPort(self, iata, icao, host, user, dtn):
         try:
             Query = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekRT.execute(Query)
+            self.seekRT_odbc.execute(Query)
             SQLQuery = "SELECT LogCountViewed FROM dbo.AirPortsTable"
             XMLQuery = "SELECT LogDateAndTimeViewed FROM dbo.AirPortsTable"
             if iata is None:
@@ -671,10 +669,10 @@ class ACFN(SE):
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append
                 XMLQuery += Append
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            self.seekRT.execute(XMLQuery)
-            ResultXML = self.seekRT.fetchone()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT_odbc.execute(XMLQuery)
+            ResultXML = self.seekRT_odbc.fetchone()
             Count = 1
             #host = 'WorkCompTest1'
             #user = 'ArtemTest20'
@@ -728,19 +726,19 @@ class ACFN(SE):
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append
                 XMLQuery += Append
-            self.seekRT.execute(SQLQuery)
-            self.seekRT.execute(XMLQuery)
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            self.seekRT_odbc.execute(XMLQuery)
+            self.cnxnRT_odbc.commit()
             Result = True
         except Exception:
             Result = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return Result
 
     def IncrementLogCountChangedAirPort(self, iata, icao, host, user, dtn):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ"
-            self.seekRT.execute(SQLQuery)
+            self.seekRT_odbc.execute(SQLQuery)
             SQLQuery = "SELECT LogCountChanged FROM dbo.AirPortsTable"
             XMLQuery = "SELECT LogDateAndTimeChanged FROM dbo.AirPortsTable"
             if iata is None:
@@ -759,10 +757,10 @@ class ACFN(SE):
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append
                 XMLQuery += Append
-            self.seekRT.execute(SQLQuery)
-            ResultSQL = self.seekRT.fetchone()  # выбираем первую строку из возможно нескольких
-            self.seekRT.execute(XMLQuery)
-            ResultXML = self.seekRT.fetchone()
+            self.seekRT_odbc.execute(SQLQuery)
+            ResultSQL = self.seekRT_odbc.fetchone()  # выбираем первую строку из возможно нескольких
+            self.seekRT_odbc.execute(XMLQuery)
+            ResultXML = self.seekRT_odbc.fetchone()
             Count = 1
             DateTime = ElementTree.Element('DateTime', From=str(host))
             DateTime.text = str(dtn)
@@ -803,13 +801,13 @@ class ACFN(SE):
                 Append = " WHERE AirPortCodeIATA = '" + str(iata) + "' AND AirPortCodeICAO = '" + str(icao) + "' "
                 SQLQuery += Append
                 XMLQuery += Append
-            self.seekRT.execute(SQLQuery)
-            self.seekRT.execute(XMLQuery)
-            self.cnxnRT.commit()
+            self.seekRT_odbc.execute(SQLQuery)
+            self.seekRT_odbc.execute(XMLQuery)
+            self.cnxnRT_odbc.commit()
             Result = True
         except Exception:
             Result = False
-            self.cnxnRT.rollback()
+            self.cnxnRT_odbc.rollback()
         return Result
 
     def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
@@ -930,11 +928,11 @@ class ACFN(SE):
                 else:
                     try:
                         SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
-                        self.seekACFN.execute(SQLQuery)
+                        self.seekACFN_odbc.execute(SQLQuery)
                         SQLQuery = "SELECT * FROM dbo.AirFlightsTable WITH (UPDLOCK) WHERE FlightNumberString = '" + str(al) + str(fn) + "' AND AirRoute = "
                         SQLQuery += str(db_air_route) + " AND AirCraft = " + str(db_air_craft) + " AND FlightDate = '" + str(flightdate) + "' AND BeginDate = '" + str(begindate) + "' "
-                        self.seekACFN.execute(SQLQuery)
-                        ResultQuery = self.seekACFN.fetchone()
+                        self.seekACFN_odbc.execute(SQLQuery)
+                        ResultQuery = self.seekACFN_odbc.fetchone()
                         if ResultQuery is None:
                             SQLQuery = "INSERT INTO dbo.AirFlightsTable (AirRoute, AirCraft, FlightNumberString, QuantityCounted, FlightDate, BeginDate) VALUES ("
                             SQLQuery += str(db_air_route) + ", "  # bigint
@@ -950,10 +948,10 @@ class ACFN(SE):
                             Result = 2
                         else:
                             pass
-                        self.seekACFN.execute(SQLQuery)
-                        self.cnxnACFN.commit()
+                        self.seekACFN_odbc.execute(SQLQuery)
+                        self.cnxnACFN_odbc.commit()
                     except Exception:
-                        self.cnxnACFN.rollback()
+                        self.cnxnACFN_odbc.rollback()
                         Result = 0
                     finally:
                         pass

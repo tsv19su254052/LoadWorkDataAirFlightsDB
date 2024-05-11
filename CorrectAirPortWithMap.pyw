@@ -322,7 +322,7 @@ def myApplication():
             S.DriverODBC = str(ChoiceDriver)
             if acfn.connectDB_RT(S.DriverODBC, S.ServerName, S.DataBase):
                 print("  База данных ", S.DataBase, " подключена")
-                Data = acfn.getSQLData()
+                Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # SQL Server

@@ -238,7 +238,7 @@ def myApplication():
             S.DriverODBC_AL = str(ChoiceDriver)
             if acfn.connectDB_AL(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
-                Data = acfn.getSQLData()
+                Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True
                 # Переключаем в рабочее состояние
@@ -286,7 +286,7 @@ def myApplication():
             S.DriverODBC_RT = str(ChoiceDriver)
             if acfn.connectDB_RT(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
-                Data = acfn.getSQLData()
+                Data = acfn.getSQLDataODBC()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True
                 # Переключаем в рабочее состояние
@@ -345,7 +345,7 @@ def myApplication():
                     if Fl.useXQuery:
                         Data = acfn.getSQLDatamssql()
                     else:
-                        Data = acfn.getSQLData()
+                        Data = acfn.getSQLDataODBC()
                     print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
@@ -390,7 +390,7 @@ def myApplication():
                     if acfn.connectDSN_ACFN(S.myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
-                    Data = acfn.getSQLData()
+                    Data = acfn.getSQLDataODBC()
                     print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
@@ -781,7 +781,7 @@ def myApplication():
                 DataSQL = acfn.getSQLDatamssql()
                 OutputString += " с помощью xQuery (SAX) \n"
             else:
-                DataSQL = acfn.getSQLData()
+                DataSQL = acfn.getSQLDataODBC()
                 OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
         OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
         OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"

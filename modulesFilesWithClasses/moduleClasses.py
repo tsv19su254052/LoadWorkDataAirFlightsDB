@@ -835,8 +835,8 @@ class ACFN(SE):
                     if useXQuery:
                         try:
                             #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
-                            print("\n SQLQuery = " + str(SQLQuery))
+                            #SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                            #print("\n SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))
                             #self.seekAC_XML.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'

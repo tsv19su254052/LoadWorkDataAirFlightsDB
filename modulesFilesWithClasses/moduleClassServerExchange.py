@@ -140,3 +140,11 @@ class ServerExchange:
                    self.cnxn.getinfo(pyodbc.SQL_DATA_SOURCE_NAME),
                    self.cnxn.getinfo(pyodbc.SQL_USER_NAME))
         return SQLData
+
+    def getSQLDatamssql(self):
+        SQLData = (self.cnxn.getinfo(pymssql.STRING),
+                   self.cnxn.getinfo(pymssql.paramstyle),
+                   self.cnxn.getinfo(pymssql.NUMBER),
+                   self.cnxn.getinfo(pymssql.VERSION),
+                   self.cnxn.getinfo(pymssql.apilevel))
+        return SQLData

@@ -40,6 +40,7 @@ class Flags:
         self.useAirCraftsDSN = False
         self.useXQuery = False
         self.useMSsql = False
+        self.useODBCMarkers = False
         self.SetInputDate = False
         self.BeginDate = ' '
 
@@ -811,7 +812,7 @@ class ACFN(SE):
             self.cnxn_RT_odbc.rollback()
         return Result
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery, useMSsql):
+    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery, useMSsql, useMarkers):
 
         class Results:
             def __init__(self):
@@ -836,33 +837,27 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate),)
+                            print(" parameters = " + str(parameters))
                             if useMSsql:
-                                parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
-                                print(" parameters = " + str(parameters))
                                 self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_mssql.commit()
-                                if Data:
-                                    print(" Результат хранимой процедуры = " + str(Data))
-                                    Result = Data[0][0]
-                                else:
-                                    Result = 0
-                                pass
                             else:
-                                #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                                SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                                if useMarkers:
+                                    SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                                    self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                                else:
+                                    SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                                    self.seek_AC_odbc.execute(SQLQuery)
                                 print("\n SQLQuery = " + str(SQLQuery))
-                                parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
-                                print(" parameters = " + str(parameters))
-                                self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
-                                #self.seek_AC_odbc.execute(SQLQuery)
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_odbc.commit()
-                                if Data:
-                                    print(" Результат хранимой процедуры = " + str(Data))
-                                    Result = Data[0][0]
-                                else:
-                                    Result = 0
+                            if Data:
+                                print(" Результат хранимой процедуры = " + str(Data))
+                                Result = Data[0][0]
+                            else:
+                                Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
                             if useMSsql:

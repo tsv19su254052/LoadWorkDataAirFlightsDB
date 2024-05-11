@@ -87,6 +87,8 @@ def myApplication():
     myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Можно выставить в свойствах БД модель восстановления - ПОЛНАЯ \n экономит ресурсы, но работает медленнее")
     myDialog.radioButton_DB_AirFlights.setChecked(True)
     myDialog.radioButton_DSN_AirCrafts_DOM.setChecked(True)
+    myDialog.checkBox_SetUseMSSQL.setChecked(False)
+    myDialog.checkBox_SetUseODBCMarkers.setChecked(False)
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)
@@ -866,11 +868,18 @@ def myApplication():
             acfn.disconnectAC_odbc()
         else:
             acfn.disconnectACFN_odbc()
-            acfn.disconnectFN()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)
         Fl.BeginDate = myDialog.dateEdit_BeginDate.date().toString('yyyy-MM-dd')
+        if myDialog.checkBox_SetUseMSSQL:
+            Fl.useMSsql = True
+        else:
+            Fl.useMSsql = False
+        if myDialog.checkBox_SetUseODBCMarkers:
+            Fl.useODBCMarkers = True
+        else:
+            Fl.useODBCMarkers = False
         if myDialog.checkBox_SetInputDate.isChecked():
             Fl.SetInputDate = True
         else:

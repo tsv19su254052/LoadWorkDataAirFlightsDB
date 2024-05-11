@@ -53,7 +53,7 @@ class ServerExchange:
             # через драйвер СУБД + клиентский API-курсор
             # Разрешаем транзакции и вызываем функцию commit() при необходимости в явном виде
             #self.cnxn = pymssql.connect(server=servername, database=database, host=host, autocommit=False)
-            self.cnxn = pymssql._pymssql.connect(server=servername, database=database, autocommit=False)
+            self.cnxn = pymssql.connect(server=servername, database=database, autocommit=False)
             # Делаем свой экземпляр и ставим курсор
             # КУРСОР нужен для перехода функционального языка формул на процедурный или для вставки процедурных кусков в функциональный скрипт.
             #

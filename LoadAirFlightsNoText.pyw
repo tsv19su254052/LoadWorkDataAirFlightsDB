@@ -25,7 +25,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.72  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = 8.73  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
@@ -336,7 +336,7 @@ def myApplication():
                 S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
                 if Fl.useXQuery:
                     # fixme не подключается по pymssql
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):  # and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
                         St.Connected_AC_XML = True
                 else:
                     if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):

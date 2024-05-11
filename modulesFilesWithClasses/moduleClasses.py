@@ -40,7 +40,7 @@ class Flags:
         self.useAirCraftsDSN = False
         self.useXQuery = False
         self.useMSsql = False
-        self.useODBCMarkers = True
+        self.useODBCMarkers = False
         self.SetInputDate = False
         self.BeginDate = ' '
 
@@ -838,7 +838,7 @@ class ACFN(SE):
                     if useXQuery:
                         try:
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate),)
-                            print(" parameters = " + str(parameters))
+                            print("\n parameters = " + str(parameters))
                             if useMSsql:
                                 self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
@@ -846,11 +846,13 @@ class ACFN(SE):
                             else:
                                 if useMarkers:
                                     SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
-                                    self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                                    print(" SQLQuery = " + str(SQLQuery))
+                                    self.seek_AC_odbc.execute(SQLQuery, parameters)
+                                    #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 Incorrect syntax near '@P1'
                                 else:
                                     SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                                    print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)
-                                print("\n SQLQuery = " + str(SQLQuery))
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_odbc.commit()
                             if Data:

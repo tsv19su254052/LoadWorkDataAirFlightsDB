@@ -47,7 +47,7 @@ class ServerExchange:
             self.Result = False
         return self.Result
 
-    def connectDBmssql(self, servername, database, host):
+    def connectDBmssql(self, servername, database):
         self.Result = False
         try:
             # через драйвер СУБД + клиентский API-курсор

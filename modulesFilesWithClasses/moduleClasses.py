@@ -39,6 +39,7 @@ class Flags:
         self.useAirFlightsDB = True
         self.useAirCraftsDSN = False
         self.useXQuery = False
+        self.useMSsql = False
         self.SetInputDate = False
         self.BeginDate = ' '
 
@@ -810,7 +811,7 @@ class ACFN(SE):
             self.cnxn_RT_odbc.rollback()
         return Result
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery):
+    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery, useMSsql):
 
         class Results:
             def __init__(self):
@@ -835,26 +836,39 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                            SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
-                            print("\n SQLQuery = " + str(SQLQuery))
-                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
-                            print(" parameters = " + str(parameters))
-                            self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
-                            #self.seekAC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
-                            #self.seekAC_XML.execute(SQLQuery)
-                            #SQLQuery = "SELECT @ReturnData "
-                            #self.seekAC_XML.execute(SQLQuery)
-                            Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.cnxn_AC_odbc.commit()
-                            if Data:
-                                print(" Результат хранимой процедуры = " + str(Data))
-                                Result = Data[0][0]
+                            if useMSsql:
+                                parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
+                                print(" parameters = " + str(parameters))
+                                self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
+                                Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                                self.cnxn_AC_mssql.commit()
+                                if Data:
+                                    print(" Результат хранимой процедуры = " + str(Data))
+                                    Result = Data[0][0]
+                                else:
+                                    Result = 0
+                                pass
                             else:
-                                Result = 0
+                                #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                                SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                                print("\n SQLQuery = " + str(SQLQuery))
+                                parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
+                                print(" parameters = " + str(parameters))
+                                self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                                #self.seek_AC_odbc.execute(SQLQuery)
+                                Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                                self.cnxn_AC_odbc.commit()
+                                if Data:
+                                    print(" Результат хранимой процедуры = " + str(Data))
+                                    Result = Data[0][0]
+                                else:
+                                    Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.cnxn_AC_odbc.rollback()
+                            if useMSsql:
+                                self.cnxn_AC_mssql.rollback()
+                            else:
+                                self.cnxn_AC_odbc.rollback()
                             Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую

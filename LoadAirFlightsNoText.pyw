@@ -346,7 +346,7 @@ def myApplication():
                     if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc):
                         St.Connected_AC = True
                 if St.Connected_AC:
-                    if Fl.useXQuery:
+                    if Fl.useXQuery and Fl.useMSsql:
                         Data = acfn.getSQLData_mssql()
                     else:
                         Data = acfn.getSQLData_odbc()

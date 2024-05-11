@@ -203,6 +203,18 @@ def myApplication():
             Fl.useXQuery = True
         UpdateFlightsSourcesChoiceByStatesAndFlags()
 
+    def CheckBoxUseMssql():
+        if myDialog.checkBox_SetUseMSSQL.isChecked():
+            Fl.useMSsql = True
+        else:
+            Fl.useMSsql = False
+
+    def CheckBoxUseOdbcMarkers():
+        if myDialog.checkBox_SetUseODBCMarkers.isChecked():
+            Fl.useODBCMarkers = True
+        else:
+            Fl.useODBCMarkers = False
+
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
     RadioButtonsDataSourcesToggled()
@@ -220,6 +232,8 @@ def myApplication():
     myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsDataSourcesToggled())
     myDialog.radioButton_DSN_AirCrafts_DOM.toggled.connect(lambda: RadioButtonsXQueryToggled())
     myDialog.radioButton_DSN_AirCrafts_SAX.toggled.connect(lambda: RadioButtonsXQueryToggled())
+    myDialog.checkBox_SetUseMSSQL.stateChanged.connect(lambda: CheckBoxUseMssql())
+    myDialog.checkBox_SetUseODBCMarkers.stateChanged.connect(lambda: CheckBoxUseOdbcMarkers())
     #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует
     myDialog.pushButton_Connect_AL.clicked.connect(lambda: PushButtonConnect_AL())  # Подключиться к базе данных
     myDialog.pushButton_Disconnect_AL.clicked.connect(lambda: PushButtonDisconnect_AL())  # Отключиться от базы данных
@@ -876,14 +890,6 @@ def myApplication():
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)
         Fl.BeginDate = myDialog.dateEdit_BeginDate.date().toString('yyyy-MM-dd')
-        if myDialog.checkBox_SetUseMSSQL:
-            Fl.useMSsql = True
-        else:
-            Fl.useMSsql = False
-        if myDialog.checkBox_SetUseODBCMarkers:
-            Fl.useODBCMarkers = True
-        else:
-            Fl.useODBCMarkers = False
         if myDialog.checkBox_SetInputDate.isChecked():
             Fl.SetInputDate = True
         else:

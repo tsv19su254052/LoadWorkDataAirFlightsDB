@@ -144,7 +144,7 @@ class ServerExchange:
     def getSQLDatamssql(self):
         SQLData = (self.cnxn.getinfo(pymssql.STRING),
                    self.cnxn.getinfo(pymssql.paramstyle),
-                   self.cnxn.getinfo(pymssql.NUMBER),
                    self.cnxn.getinfo(pymssql.VERSION),
+                   self.cnxn.getinfo(pymssql.get_dbversion()),
                    self.cnxn.getinfo(pymssql.apilevel))
         return SQLData

@@ -159,9 +159,13 @@ def myApplication():
             myDialog.groupBox.setEnabled(True)
             if Fl.useAirCraftsDSN:
                 if Fl.useXQuery:
-                    myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+                    if Fl.useMSsql:
+                        myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                    else:
+                        myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
+                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
                     myDialog.checkBox_SetUseMSSQL.setEnabled(True)
-                    myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
                 else:
                     myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
                     myDialog.checkBox_SetUseMSSQL.setEnabled(False)
@@ -208,6 +212,7 @@ def myApplication():
             Fl.useMSsql = True
         else:
             Fl.useMSsql = False
+        UpdateFlightsSourcesChoiceByStatesAndFlags()
 
     def CheckBoxUseOdbcMarkers():
         if myDialog.checkBox_SetUseODBCMarkers.isChecked():
@@ -449,8 +454,9 @@ def myApplication():
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         if St.Connected_AC:
             acfn.disconnectAC_odbc()
-            if Fl.useXQuery:
+            if Fl.useXQuery and Fl.useMSsql:
                 acfn.disconnectAC_mssql()
+            acfn.disconnectACFN_odbc()
             St.Connected_AC = False
         if St.Connected_ACFN:
             acfn.disconnectACFN_odbc()

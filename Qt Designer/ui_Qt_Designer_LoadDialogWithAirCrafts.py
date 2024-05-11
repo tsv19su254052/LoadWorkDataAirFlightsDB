@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'Qt_Designer_LoadDialogWithAirCraftsHOzYsW.ui'
+## Form generated from reading UI file 'Qt_Designer_LoadDialogWithAirCraftstnpijl.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -206,13 +206,19 @@ class Ui_Dialog(object):
         self.label_BeginDate.setLayoutDirection(Qt.LeftToRight)
         self.groupBox_2 = QGroupBox(Dialog)
         self.groupBox_2.setObjectName(u"groupBox_2")
-        self.groupBox_2.setGeometry(QRect(730, 100, 131, 51))
+        self.groupBox_2.setGeometry(QRect(730, 100, 201, 101))
         self.radioButton_DSN_AirCrafts_DOM = QRadioButton(self.groupBox_2)
         self.radioButton_DSN_AirCrafts_DOM.setObjectName(u"radioButton_DSN_AirCrafts_DOM")
         self.radioButton_DSN_AirCrafts_DOM.setGeometry(QRect(10, 20, 51, 20))
         self.radioButton_DSN_AirCrafts_SAX = QRadioButton(self.groupBox_2)
         self.radioButton_DSN_AirCrafts_SAX.setObjectName(u"radioButton_DSN_AirCrafts_SAX")
         self.radioButton_DSN_AirCrafts_SAX.setGeometry(QRect(70, 20, 51, 18))
+        self.checkBox_SetUseMSSQL = QCheckBox(self.groupBox_2)
+        self.checkBox_SetUseMSSQL.setObjectName(u"checkBox_SetUseMSSQL")
+        self.checkBox_SetUseMSSQL.setGeometry(QRect(10, 50, 151, 18))
+        self.checkBox_SetUseODBCMarkers = QCheckBox(self.groupBox_2)
+        self.checkBox_SetUseODBCMarkers.setObjectName(u"checkBox_SetUseODBCMarkers")
+        self.checkBox_SetUseODBCMarkers.setGeometry(QRect(10, 70, 181, 18))
 
         self.retranslateUi(Dialog)
 
@@ -226,7 +232,7 @@ class Ui_Dialog(object):
         self.label_11.setText(QCoreApplication.translate("Dialog", u"\u0421\u0435\u0440\u0432\u0435\u0440 \u0421\u0423\u0411\u0414 \u0441\u043f\u0440\u0430\u0432\u043e\u0447\u043d\u0438\u043a\u043e\u0432", None))
         self.label_9.setText(QCoreApplication.translate("Dialog", u"\u0421\u0438\u0441\u0442\u0435\u043c\u043d\u044b\u0439 DSN \u043f\u043e \u0430\u0432\u0438\u0430\u043f\u0435\u0440\u0435\u043b\u0435\u0442\u0430\u043c", None))
         self.label_14.setText(QCoreApplication.translate("Dialog", u"\u0412\u0435\u0440\u0441\u0438\u044f ODBC", None))
-        self.label_8.setText(QCoreApplication.translate("Dialog", u"\u0411\u0414 \u0430\u0432\u0438\u0430\u043f\u0435\u0440\u0435\u043b\u0435\u0442\u043e\u0432", None))
+        self.label_8.setText(QCoreApplication.translate("Dialog", u"\u0411\u0414 \u0430\u0432\u0438\u0430\u043f\u0435\u0440\u0435\u043b\u0435\u0442\u043e\u0432 \u0438\u043b\u0438 \u0441\u0430\u043c\u043e\u043b\u0435\u0442\u043e\u0432", None))
         self.label_15.setText(QCoreApplication.translate("Dialog", u"\u0421\u0445\u0435\u043c\u0430", None))
         self.pushButton_GetStarted.setText(QCoreApplication.translate("Dialog", u"\u041d\u0430\u0447\u0430\u0442\u044c \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0443", None))
         self.pushButton_ChooseTXTFile.setText(QCoreApplication.translate("Dialog", u"\u0424\u0430\u0439\u043b \u0436\u0443\u0440\u043d\u0430\u043b\u0430", None))
@@ -257,5 +263,7 @@ class Ui_Dialog(object):
         self.groupBox_2.setTitle(QCoreApplication.translate("Dialog", u"\u041f\u0430\u0440\u0441\u0438\u0442\u044c \u0411\u0414 \u043a\u0430\u043a:", None))
         self.radioButton_DSN_AirCrafts_DOM.setText(QCoreApplication.translate("Dialog", u"DOM", None))
         self.radioButton_DSN_AirCrafts_SAX.setText(QCoreApplication.translate("Dialog", u"SAX", None))
+        self.checkBox_SetUseMSSQL.setText(QCoreApplication.translate("Dialog", u"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c pymssql", None))
+        self.checkBox_SetUseODBCMarkers.setText(QCoreApplication.translate("Dialog", u"\u0418\u0441\u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u044c \u043c\u0430\u0440\u043a\u0435\u0440\u044b ODBC", None))
     # retranslateUi
 

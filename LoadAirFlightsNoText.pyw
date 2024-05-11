@@ -342,24 +342,24 @@ def myApplication():
                     if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):
                         St.Connected_AC_XML = True
                 if St.Connected_AC_XML:
-                    Data = acfn.getSQLData()
-                    print(" Data = " + str(Data))
+                    #Data = acfn.getSQLData()
+                    #print(" Data = " + str(Data))
                     # Переключаем в рабочее состояние
                     # SQL Server
                     myDialog.lineEdit_Server_remote.setEnabled(True)
-                    myDialog.lineEdit_Server_remote.setText(Data[0])
+                    #myDialog.lineEdit_Server_remote.setText(Data[0])
                     # Драйвер
                     myDialog.lineEdit_Driver_AC.setEnabled(True)
-                    myDialog.lineEdit_Driver_AC.setText(Data[1])
+                    #myDialog.lineEdit_Driver_AC.setText(Data[1])
                     # версия ODBC
                     myDialog.lineEdit_ODBCversion_AC.setEnabled(True)
-                    myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
+                    #myDialog.lineEdit_ODBCversion_AC.setText(Data[2])
                     # Схема (если из-под другой учетки, то выводит имя учетки)
                     myDialog.lineEdit_Schema_AC.setEnabled(True)
-                    myDialog.lineEdit_Schema_AC.setText(Data[4])
+                    #myDialog.lineEdit_Schema_AC.setText(Data[4])
                     # Источник данных
                     myDialog.lineEdit_DSN_AC.setEnabled(True)
-                    myDialog.lineEdit_DSN_AC.setText(Data[3])
+                    #myDialog.lineEdit_DSN_AC.setText(Data[3])
                     # Переводим в рабочее состояние (продолжение)
                     UpdateFlightsSourcesChoiceByStatesAndFlags()
                     myDialog.pushButton_Disconnect_AC.setEnabled(True)
@@ -772,18 +772,18 @@ def myApplication():
             OutputString += " Дата авиарейса проставлена из входного файла\n"
         else:
             OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        DataSQL = acfn.getSQLData()
+        #DataSQL = acfn.getSQLData()
         if Fl.useAirCraftsDSN:
             OutputString += " Авиаперелеты загружены в БД самолетов "
             if Fl.useXQuery:
                 OutputString += " с помощью xQuery (SAX) \n"
             else:
                 OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
-        OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
-        OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
-        OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
-        OutputString += " DSN = " + str(DataSQL[3]) + " \n"
-        OutputString += " Схема = " + str(DataSQL[4]) + " \n"
+        #OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
+        #OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
+        #OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
+        #OutputString += " DSN = " + str(DataSQL[3]) + " \n"
+        #OutputString += " Схема = " + str(DataSQL[4]) + " \n"
         OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
         OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
         OutputString += " Итоги: \n"

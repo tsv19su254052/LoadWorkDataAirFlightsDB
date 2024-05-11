@@ -834,20 +834,18 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            #SQLQuery = "DECLARE @ReturnData INT "
-                            #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                             SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                             print("\n SQLQuery = " + str(SQLQuery))
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print(" parameters = " + str(parameters))
-                            #self.seekAC_XML.callproc('dbo.SPUpdateFlightsByRoutes', parameters)
-                            self.seekAC_XML.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                            #self.seekAC_XML.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                            self.seekAC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
                             #self.seekAC_XML.execute(SQLQuery)
                             #SQLQuery = "SELECT @ReturnData "
                             #self.seekAC_XML.execute(SQLQuery)
-                            Data = self.seekAC_XML.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
-                            self.cnxnAC_XML.commit()
+                            Data = self.seekAC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
+                            self.cnxnAC_mssql.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
                                 Result = Data[0][0]
@@ -855,7 +853,7 @@ class ACFN(SE):
                                 Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            self.cnxnAC_XML.rollback()
+                            self.cnxnAC_mssql.rollback()
                             Result = 0
                     else:
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую

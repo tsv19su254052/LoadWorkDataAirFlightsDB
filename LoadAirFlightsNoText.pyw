@@ -332,14 +332,14 @@ def myApplication():
                 ChoiceDriver_AC_mssql = myDialog.comboBox_Driver_FN.currentText()
                 S.DataBase_ACFN = str(ChoiceDB_AC_mssql)
                 S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
-                ChoiceDSN_AC_XML = myDialog.comboBox_DSN_AC.currentText()
-                S.myDSN_AC_XML = str(ChoiceDSN_AC_XML)
+                ChoiceDSN_AC_odbc = myDialog.comboBox_DSN_AC.currentText()
+                S.myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
                 if Fl.useXQuery:
                     # fixme не подключается по pymssql
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                    if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
                         St.Connected_AC = True
                 else:
-                    if acfn.connectDSN_AC_XML(dsn=S.myDSN_AC_XML):
+                    if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc):
                         St.Connected_AC = True
                 if St.Connected_AC:
                     if Fl.useXQuery:

@@ -302,7 +302,7 @@ class ACFN(SE):
         else:
             return False
 
-    def connectDSN_AC_XML(self, dsn):
+    def connectDSN_AC_odbc(self, dsn):
         if self.connectDSN(dsn=dsn):
             self.cnxnAC_XML = self.cnxn
             self.seekAC_XML = self.seek

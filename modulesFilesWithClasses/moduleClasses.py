@@ -40,7 +40,7 @@ class Flags:
         self.useAirCraftsDSN = False
         self.useXQuery = False
         self.useMSsql = False
-        self.useODBCMarkers = False
+        self.useODBCMarkers = True
         self.SetInputDate = False
         self.BeginDate = ' '
 

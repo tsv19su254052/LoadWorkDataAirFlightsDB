@@ -837,7 +837,7 @@ class ACFN(SE):
                 if useAirCrafts:
                     if useXQuery:
                         try:
-                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate),)
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
                                 self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)

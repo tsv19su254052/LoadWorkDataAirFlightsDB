@@ -178,7 +178,7 @@ def myApplication():
             # Переключаем в исходное состояние
             PrepareForInputData(False)
 
-    def RadioButtonsToggled():
+    def RadioButtonsDataSourcesToggled():
         # Переключатели -> Флаги
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
             Fl.useAirCraftsDSN = True
@@ -199,7 +199,7 @@ def myApplication():
 
     UpdateAirLinesSourcesChoiceByStatesAndFlags()
     UpdateAirPortsSourcesChoiceByStatesAndFlags()
-    RadioButtonsToggled()
+    RadioButtonsDataSourcesToggled()
     RadioButtonsXQueryToggled()
     UpdateFlightsSourcesChoiceByStatesAndFlags()
     myDialog.pushButton_Disconnect_AL.setEnabled(False)
@@ -209,9 +209,9 @@ def myApplication():
     myDialog.label_execute.setEnabled(False)
 
     # Привязки обработчиков todo без lambda не работает
-    myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
-    myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsToggled())
-    myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsToggled())
+    myDialog.radioButton_DB_AirFlights.toggled.connect(lambda: RadioButtonsDataSourcesToggled())
+    myDialog.radioButton_DSN_AirFlights.toggled.connect(lambda: RadioButtonsDataSourcesToggled())
+    myDialog.radioButton_DSN_AirCrafts.toggled.connect(lambda: RadioButtonsDataSourcesToggled())
     myDialog.radioButton_DSN_AirCrafts_DOM.toggled.connect(lambda: RadioButtonsXQueryToggled())
     myDialog.radioButton_DSN_AirCrafts_SAX.toggled.connect(lambda: RadioButtonsXQueryToggled())
     #myDialog.groupBox.toggled.connect(lambda: RadioButtonsToggled())  # fixme не реагирует

@@ -978,3 +978,9 @@ class ACFN(SE):
         else:
             Result = 0
         return Result
+
+    def checkConnection(self):
+        if self.cnxn_AL_odbc and (self.cnxn_AC_odbc or self.cnxn_ACFN_odbc) and self.cnxn_RT_odbc:
+            return True
+        else:
+            return False

@@ -777,6 +777,12 @@ def myApplication():
                 ExecutePrevious = Execute
             # todo Сделать полосу выполнения все время внизу со всеми параметрами например с помощью tqdm - Не работает в цикле
             print(colorama.Fore.CYAN + "Выполнение =", str(Execute), "%")
+            if not acfn.checkConnection():
+                St.Connected_AL = False
+                St.Connected_AC = False
+                St.Connected_ACFN = False
+                St.Connected_RT = False
+                break
         # Отметка времени окончания загрузки
         EndTime = datetime.datetime.now()
         # Убираем с конца столбцы с нулями
@@ -883,15 +889,22 @@ def myApplication():
         # with open(Log, 'a') as LogFile:
         #     LogFile.write(OutputString)
         #     LogFile.write('Вывод с помощью менеджера контекста\n')
-        myDialog.label_execute.setText("Загрузка окончена")
-        myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
-        print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-        acfn.disconnectAL_odbc()
-        acfn.disconnectRT_odbc()
-        if Fl.useAirCraftsDSN:
-            acfn.disconnectAC_odbc()
+        if St.Connected_AL and (St.Connected_AC or St.Connected_ACFN) and St.Connected_RT:
+            myDialog.label_execute.setText("Загрузка окончена")
+            myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
+            print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
+            acfn.disconnectAL_odbc()
+            if Fl.useAirCraftsDSN:
+                acfn.disconnectAC_odbc()
+                if Fl.useMSsql:
+                    acfn.disconnectAC_mssql()
+            else:
+                acfn.disconnectACFN_odbc()
+            acfn.disconnectRT_odbc()
         else:
-            acfn.disconnectACFN_odbc()
+            myDialog.label_execute.setText("Загрузка прервана (пропало соединение с БД)")
+            myDialog.label_22.setStyleSheet("border: 5px solid; border-color: red")
+            print(termcolor.colored("Загрузка прервана (пропало соединение с БД)", "red", "on_yellow"))
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)

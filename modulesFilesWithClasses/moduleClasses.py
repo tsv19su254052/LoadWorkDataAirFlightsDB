@@ -889,13 +889,13 @@ class ACFN(SE):
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_mssql.commit()
                             else:
+                                # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 if useMarkers:
                                     SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 Incorrect syntax near '@P1'
                                 else:
-                                    # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                     #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                                     SQLQuery = "EXECUTE SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "  # fixme 4200 Incorrect syntax near 'N906DL'
                                     print(" SQLQuery = " + str(SQLQuery))

@@ -135,11 +135,24 @@ class ACFN(SE):
             print(" результат запроса = " + str(ResultSQL))
             #список баз данных = [('master',), ('tempdb',), ('model',), ('msdb',), ('AirCraftsDBNew62',), ('AirLinesDBNew62',), ('AirPortsAndRoutesDBNew62',)]
             ListDataBases = []
+            ListDataBasesAirLines = []
+            ListDataBasesAirCrafts = []
+            ListDataBasesAirPorts = []
             for line in ResultSQL:
                 print(" line = " + str(line[0]))
-                if line[0] != ('master' or 'tempdb' or 'model' or 'msdb'):
+                if line[0] != 'master' and line[0] != 'tempdb' and line[0] != 'model' and line[0] != 'msdb':
                     ListDataBases.append(line[0])
             print(" список баз = " + str(ListDataBases))
+            for string in ListDataBases:
+                if 'AirLines' in string:
+                    ListDataBasesAirLines.append(string)
+                if 'AirCrafts' in string:
+                    ListDataBasesAirCrafts.append(string)
+                if 'AirPorts' in string:
+                    ListDataBasesAirPorts.append(string)
+            print(" БД авиакомпаний = " + str(ListDataBasesAirLines))
+            print(" БД самолетов = " + str(ListDataBasesAirCrafts))
+            print(" БД аэропортов = " + str(ListDataBasesAirPorts))
         except Exception:
             ResultSQL = False
             self.cnxn_AL_odbc.rollback()

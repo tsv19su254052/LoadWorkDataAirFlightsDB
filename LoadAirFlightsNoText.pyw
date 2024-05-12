@@ -312,8 +312,12 @@ def myApplication():
                 ChoiceDSN_AC_odbc = myDialog.comboBox_DSN_AC.currentText()
                 S.myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
                 if Fl.useAirCraftsDB:
-                    if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
-                        St.Connected_AC = True
+                    if Fl.useXQuery and Fl.useMSsql:
+                        if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                            St.Connected_AC = True
+                    else:
+                        if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
+                            St.Connected_AC = True
                 else:
                     if Fl.useXQuery and Fl.useMSsql:
                         # fixme не подключается по pymssql

@@ -124,6 +124,30 @@ class ACFN(SE):
         self.LogCountViewed = 0
         self.LogCountChanged = 0
 
+    def getListDataBasesLocal(self):
+        try:
+            SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
+            self.seek_AL_odbc.execute(SQLQuery)
+            SQLQuery = "SELECT name from sys.databases"
+            self.seek_AL_odbc.execute(SQLQuery)
+            ResultSQL = self.seek_AL_odbc.fetchall()
+            self.cnxn_AL_odbc.commit()
+            print(" результат запроса = " + str(ResultSQL))
+            #список баз данных = [('master',), ('tempdb',), ('model',), ('msdb',), ('AirCraftsDBNew62',), ('AirLinesDBNew62',), ('AirPortsAndRoutesDBNew62',)]
+            ListDataBases = []
+            for line in ResultSQL:
+                print(" line = " + str(line[0]))
+                if line[0] != ('master' or 'tempdb' or 'model' or 'msdb'):
+                    ListDataBases.append(line[0])
+            print(" список баз = " + str(ListDataBases))
+        except Exception:
+            ResultSQL = False
+            self.cnxn_AL_odbc.rollback()
+        return ListDataBases
+
+    def getListDataBasesRemote(self):
+        pass
+
     class AirLine:
         def __init__(self):
             pass
@@ -132,6 +156,7 @@ class ACFN(SE):
         if self.connectDB_odbc(servername=servername, driver=driver, database=database):
             self.cnxn_AL_odbc = self.cnxn
             self.seek_AL_odbc = self.seek
+            self.getListDataBasesLocal()
             return True
         else:
             return False

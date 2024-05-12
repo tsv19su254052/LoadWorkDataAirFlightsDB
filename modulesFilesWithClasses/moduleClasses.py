@@ -128,8 +128,8 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_AL_odbc(self, driver, servername, database):
-        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+    def connectDB_AL_odbc(self, servername, driver, database):
+        if self.connectDB_odbc(servername=servername, driver=driver, database=database):
             self.cnxn_AL_odbc = self.cnxn
             self.seek_AL_odbc = self.seek
             return True
@@ -340,8 +340,8 @@ class ACFN(SE):
             print(" -- БД pyodbc уже отключена")
         #self.disconnect()
 
-    def connectDB_ACFN_odbc(self, driver, servername, database):
-        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+    def connectDB_ACFN_odbc(self, servername, driver, database):
+        if self.connectDB_odbc(servername=servername, driver=driver, database=database):
             self.cnxn_ACFN_odbc = self.cnxn
             self.seek_ACFN_odbc = self.seek
             return True
@@ -448,8 +448,8 @@ class ACFN(SE):
         def __init__(self):
             pass
 
-    def connectDB_RT_odbc(self, driver, servername, database):
-        if self.connectDB_odbc(driver=driver, servername=servername, database=database):
+    def connectDB_RT_odbc(self, servername, driver, database):
+        if self.connectDB_odbc(servername=servername, driver=driver, database=database):
             self.cnxn_RT_odbc = self.cnxn
             self.seek_RT_odbc = self.seek
             return True

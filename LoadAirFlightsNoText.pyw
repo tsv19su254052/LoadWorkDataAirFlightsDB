@@ -25,7 +25,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.76  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = 8.8  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
@@ -261,7 +261,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_AL = str(ChoiceDB)
             S.DriverODBC_AL = str(ChoiceDriver)
-            if acfn.connectDB_AL_odbc(driver=S.DriverODBC_AL, servername=S.ServerName, database=S.DataBase_AL):
+            if acfn.connectDB_AL_odbc(servername=S.ServerName, driver=S.DriverODBC_AL, database=S.DataBase_AL):
                 print("  БД = ", S.DataBase_AL, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
@@ -365,7 +365,7 @@ def myApplication():
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 S.myDSN_ACFN = str(ChoiceDSN_ACFN)
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFN_odbc(driver=S.DriverODBC_ACFN, servername=S.ServerNameFlights, database=S.DataBase_ACFN):
+                    if acfn.connectDB_ACFN_odbc(servername=S.ServerNameFlights, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
                     if acfn.connectDSN_ACFN_odbc(S.myDSN_ACFN):
@@ -426,7 +426,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             S.DataBase_RT = str(ChoiceDB)
             S.DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
+            if acfn.connectDB_RT_odbc(servername=S.ServerName, driver=S.DriverODBC_RT, database=S.DataBase_RT):
                 print("  БД = ", S.DataBase_RT, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))

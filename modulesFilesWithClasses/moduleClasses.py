@@ -376,7 +376,6 @@ class ACFN(SE):
             print(" -- БД pyodbc отключена")
         except Exception:
             print(" -- БД pyodbc уже отключена")
-        #self.disconnect()
 
     def connectDB_ACFN_odbc(self, servername, driver, database):
         if self.connectDB_odbc(servername=servername, driver=driver, database=database):
@@ -403,7 +402,6 @@ class ACFN(SE):
             print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
-        #self.disconnect()
 
     def QueryAirCraftByRegistration(self, Registration, useAirCrafts):
         # Возвращает строку самолета по его регистрации
@@ -503,7 +501,6 @@ class ACFN(SE):
             print(" -- БД отключена")
         except Exception:
             print(" -- БД уже отключена")
-        #self.disconnect()
 
     def QueryAirPortByIATA(self, iata):
         # Возвращает строку аэропорта по коду IATA

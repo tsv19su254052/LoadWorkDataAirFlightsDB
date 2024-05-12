@@ -158,52 +158,46 @@ def myApplication():
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
             if Fl.useAirCrafts:
+                myDialog.groupBox_2.setEnabled(True)
                 if Fl.useAirCraftsDB:
                     if Fl.useXQuery:
+                        myDialog.checkBox_SetUseMSSQL.setEnabled(True)
                         if Fl.useMSsql:
-                            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
                             myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
                         else:
-                            myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
                             myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
-                        myDialog.checkBox_SetUseMSSQL.setEnabled(True)
                     else:
-                        myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
                         myDialog.checkBox_SetUseMSSQL.setEnabled(False)
                         myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
-                    myDialog.comboBox_Driver_FN.setEnabled(False)
+                    myDialog.comboBox_DB_FN.setEnabled(True)
+                    myDialog.comboBox_Driver_FN.setEnabled(True)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
-                    myDialog.comboBox_DSN_AC.setEnabled(True)
-                    myDialog.groupBox_2.setEnabled(True)
+                    myDialog.comboBox_DSN_AC.setEnabled(False)
                 else:
                     if Fl.useXQuery:
                         if Fl.useMSsql:
-                            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
                             myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
                         else:
-                            myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
                             myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
                         myDialog.checkBox_SetUseMSSQL.setEnabled(True)
                     else:
-                        myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
                         myDialog.checkBox_SetUseMSSQL.setEnabled(False)
                         myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                    myDialog.comboBox_DB_FN.setEnabled(False)
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
                     myDialog.comboBox_DSN_AC.setEnabled(True)
-                    myDialog.groupBox_2.setEnabled(True)
             else:
                 myDialog.comboBox_DSN_AC.setEnabled(False)
                 myDialog.groupBox_2.setEnabled(False)
                 if Fl.useAirFlightsDB:
-                    myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+                    myDialog.comboBox_DB_FN.setEnabled(True)
                     myDialog.comboBox_Driver_FN.setEnabled(True)
                     myDialog.comboBox_DSN_FN.setEnabled(False)
                 else:
-                    myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
+                    myDialog.comboBox_DB_FN.setEnabled(False)
                     myDialog.comboBox_Driver_FN.setEnabled(False)
                     myDialog.comboBox_DSN_FN.setEnabled(True)
-            # Переключаем в исходное состояние
             PrepareForInputData(False)
 
     def RadioButtonsDataSourcesToggled():

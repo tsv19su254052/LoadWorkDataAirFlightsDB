@@ -890,10 +890,10 @@ class ACFN(SE):
                                 self.cnxn_AC_mssql.commit()
                             else:
                                 if useMarkers:
-                                    SQLQuery = "EXECUTE SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
+                                    SQLQuery = "CALL SPUpdateFlightsByRoutes ?, ?, ?, ?, ? "
                                     print(" SQLQuery = " + str(SQLQuery))
-                                    #self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
-                                    self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 Incorrect syntax near '@P1'
+                                    self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near '@P1'
+                                    #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 Incorrect syntax near '@P1'
                                 else:
                                     # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                     #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "

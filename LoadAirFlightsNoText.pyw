@@ -158,22 +158,40 @@ def myApplication():
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
             if Fl.useAirCrafts:
-                if Fl.useXQuery:
-                    if Fl.useMSsql:
-                        myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
-                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                if Fl.useAirCraftsDB:
+                    if Fl.useXQuery:
+                        if Fl.useMSsql:
+                            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+                            myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                        else:
+                            myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
+                            myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
+                        myDialog.checkBox_SetUseMSSQL.setEnabled(True)
                     else:
                         myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
-                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
-                    myDialog.checkBox_SetUseMSSQL.setEnabled(True)
+                        myDialog.checkBox_SetUseMSSQL.setEnabled(False)
+                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                    myDialog.comboBox_Driver_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_AC.setEnabled(True)
+                    myDialog.groupBox_2.setEnabled(True)
                 else:
-                    myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
-                    myDialog.checkBox_SetUseMSSQL.setEnabled(False)
-                    myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
-                myDialog.comboBox_Driver_FN.setEnabled(False)
-                myDialog.comboBox_DSN_FN.setEnabled(False)
-                myDialog.comboBox_DSN_AC.setEnabled(True)
-                myDialog.groupBox_2.setEnabled(True)
+                    if Fl.useXQuery:
+                        if Fl.useMSsql:
+                            myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
+                            myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                        else:
+                            myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
+                            myDialog.checkBox_SetUseODBCMarkers.setEnabled(True)
+                        myDialog.checkBox_SetUseMSSQL.setEnabled(True)
+                    else:
+                        myDialog.comboBox_DB_FN.setEnabled(False)  # mssql
+                        myDialog.checkBox_SetUseMSSQL.setEnabled(False)
+                        myDialog.checkBox_SetUseODBCMarkers.setEnabled(False)
+                    myDialog.comboBox_Driver_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_FN.setEnabled(False)
+                    myDialog.comboBox_DSN_AC.setEnabled(True)
+                    myDialog.groupBox_2.setEnabled(True)
             else:
                 myDialog.comboBox_DSN_AC.setEnabled(False)
                 myDialog.groupBox_2.setEnabled(False)
@@ -190,8 +208,12 @@ def myApplication():
 
     def RadioButtonsDataSourcesToggled():
         # Переключатели -> Флаги
-        if myDialog.radioButton_DSN_AirCrafts.isChecked():
+        if myDialog.radioButton_DB_AirCrafts.isChecked() or myDialog.radioButton_DSN_AirCrafts.isChecked():
             Fl.useAirCrafts = True
+            if myDialog.radioButton_DB_AirCrafts.isChecked():
+                Fl.useAirCraftsDB = True
+            if myDialog.radioButton_DSN_AirCrafts.isChecked():
+                Fl.useAirCraftsDB = False
         else:
             Fl.useAirCrafts = False
             if myDialog.radioButton_DB_AirFlights.isChecked():
@@ -311,6 +333,7 @@ def myApplication():
                 S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
                 ChoiceDSN_AC_odbc = myDialog.comboBox_DSN_AC.currentText()
                 S.myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
+                # fixme не подключается по pymssql
                 if Fl.useAirCraftsDB:
                     if Fl.useXQuery and Fl.useMSsql:
                         if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
@@ -320,7 +343,6 @@ def myApplication():
                             St.Connected_AC = True
                 else:
                     if Fl.useXQuery and Fl.useMSsql:
-                        # fixme не подключается по pymssql
                         if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
                             St.Connected_AC = True
                     else:

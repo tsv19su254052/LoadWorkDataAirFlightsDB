@@ -550,6 +550,7 @@ def myApplication():
         print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
         # Сигнал на обновление полоски выполнения
         completion = 0  # Выполнение загрузки
+        Execute = 0
         ExecutePrevious = 0
         # Один внешний цикл и три вложенных цикла
         for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):
@@ -801,110 +802,110 @@ def myApplication():
                                                          DistributionDensityAirFlights],
                                                         index=[" - авиакомпании", " - самолеты", " - маршруты", " - авиарейсы"])
         DataFrameDistributionDensity.index.name = "Базы данных:"
-        OutputString = " \n \n"
-        OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
-        OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
-        OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-        #OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
-        OutputString += " Входные данные внесены за " + str(Fl.BeginDate) + " \n"
-        if Fl.SetInputDate:
-            OutputString += " Дата авиарейса проставлена из входного файла\n"
-        else:
-            OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
-        if Fl.useAirCraftsDSN:
-            OutputString += " Авиаперелеты загружены в БД самолетов "
-            if Fl.useXQuery:
-                DataSQL = acfn.getSQLData_mssql()
-                OutputString += " с помощью xQuery (SAX) \n"
-            else:
-                DataSQL = acfn.getSQLData_odbc()
-                OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
-        OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
-        OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
-        OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
-        OutputString += " DSN = " + str(DataSQL[3]) + " \n"
-        OutputString += " Схема = " + str(DataSQL[4]) + " \n"
-        OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
-        OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
-        OutputString += " Итоги: \n"
-        # Формируем итоги
-        # todo Сделать итоги в виде XML и писать его полем XML.Document в базу данных
-        if ListAirLinesAdded:
-            OutputString += " - вставились авиакомпании: \n  "
-            OutputString += str(set(ListAirLinesAdded))  # fixme с регистрациями NaN надолго зависает, не убирает повторы и не группирует -> данные без регистрации не загужаем
-            OutputString += " \n"
-        if ListAirLinesFailed:
-            OutputString += " - не вставились данные по авиакомпаниям: \n  "
-            OutputString += str(set(ListAirLinesFailed))
-            OutputString += " \n"
-        if ListAirCraftsAdded:
-            OutputString += " - вставили самолеты: \n  "
-            OutputString += str(set(ListAirCraftsAdded))
-            OutputString += " \n"
-        if ListAirCraftsUpdated:
-            OutputString += " - добавлены данные по самолетам: \n  "
-            OutputString += str(set(ListAirCraftsUpdated))
-            # Убираем только повторы, идущие подряд, но с сохранением исходного порядка fixme не работает
-            OutPutNew = [el for el, _ in itertools.groupby(ListAirCraftsUpdated)]
-            OutputString += " \n"
-        if ListAirCraftsFailed:
-            OutputString += " - не добавлены данные по самолетам: \n  "
-            OutputString += str(set(ListAirCraftsFailed))
-            OutputString += " \n"
-        if CountRoutesAdded:
-            OutputString += " - вставились " + str(CountRoutesAdded) + " маршруты \n"
-        if CountRoutesFailed:
-            OutputString += " - не вставились " + str(CountRoutesFailed) + " маршруты \n"
-            OutputString += " \n"
-        if ListAirPortsNotFounded:
-            OutputString += " - не найдены аэропорты: \n  "
-            OutputString += str(set(ListAirPortsNotFounded))
-            OutputString += " \n"
-        if CountFlightsAdded:
-            OutputString += " - вставились " + str(CountFlightsAdded) + " авиарейсы \n"
-        if CountFlightsFailed:
-            OutputString += " - не вставились " + str(CountFlightsFailed) + " авиарейсы \n"
-        if CountFlightsPadded:
-            OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиарейсы \n"
-        OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
-        # Дописываем в журнал (обычным способом)
-        # fixme Большая строка не дописывается, скрипт долго висит -> Исправил
-        try:
-            # fixme При больших объемах дозаписи и одновременном доступе к журналу нескольких обработок не все результаты дописываются в него -> Исправил
-            LogFile = open(Log, 'a')
-            LogFile.write(OutputString)
-            # LogFile.write('Вывод обычным способом\n')
-        except IOError:
-            try:
-                LogError = open(F.ErrorFileTXT, 'a')
-                LogError.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.InputFileCSV) + " \n")
-            except IOError:
-                print("Ошибка дозаписи в файл журнала")
-            finally:
-                LogError.close()
-            print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(FileNames.LogFileTXT))
-        finally:
-            LogFile.close()
-        # Дописываем в журнал (с помощью менеджера контекста)
-        # with open(Log, 'a') as LogFile:
-        #     LogFile.write(OutputString)
-        #     LogFile.write('Вывод с помощью менеджера контекста\n')
         if St.Connected_AL and (St.Connected_AC or St.Connected_ACFN) and St.Connected_RT:
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
             print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-            acfn.disconnectAL_odbc()
-            if Fl.useAirCraftsDSN:
-                acfn.disconnectAC_odbc()
-                if Fl.useMSsql:
-                    acfn.disconnectAC_mssql()
+            OutputString = " \n \n"
+            OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
+            OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
+            OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
+            # OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
+            OutputString += " Входные данные внесены за " + str(Fl.BeginDate) + " \n"
+            if Fl.SetInputDate:
+                OutputString += " Дата авиарейса проставлена из входного файла\n"
             else:
-                acfn.disconnectACFN_odbc()
-            acfn.disconnectRT_odbc()
+                OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
+            if Fl.useAirCraftsDSN:
+                OutputString += " Авиаперелеты загружены в БД самолетов "
+                if Fl.useXQuery:
+                    DataSQL = acfn.getSQLData_mssql()
+                    OutputString += " с помощью xQuery (SAX) \n"
+                else:
+                    DataSQL = acfn.getSQLData_odbc()
+                    OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
+            OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
+            OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
+            OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
+            OutputString += " DSN = " + str(DataSQL[3]) + " \n"
+            OutputString += " Схема = " + str(DataSQL[4]) + " \n"
+            OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
+            OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
+            OutputString += " Итоги: \n"
+            # Формируем итоги
+            # todo Сделать итоги в виде XML и писать его полем XML.Document в базу данных
+            if ListAirLinesAdded:
+                OutputString += " - вставились авиакомпании: \n  "
+                OutputString += str(set(ListAirLinesAdded))  # fixme с регистрациями NaN надолго зависает, не убирает повторы и не группирует -> данные без регистрации не загужаем
+                OutputString += " \n"
+            if ListAirLinesFailed:
+                OutputString += " - не вставились данные по авиакомпаниям: \n  "
+                OutputString += str(set(ListAirLinesFailed))
+                OutputString += " \n"
+            if ListAirCraftsAdded:
+                OutputString += " - вставили самолеты: \n  "
+                OutputString += str(set(ListAirCraftsAdded))
+                OutputString += " \n"
+            if ListAirCraftsUpdated:
+                OutputString += " - добавлены данные по самолетам: \n  "
+                OutputString += str(set(ListAirCraftsUpdated))
+                # Убираем только повторы, идущие подряд, но с сохранением исходного порядка fixme не работает
+                OutPutNew = [el for el, _ in itertools.groupby(ListAirCraftsUpdated)]
+                OutputString += " \n"
+            if ListAirCraftsFailed:
+                OutputString += " - не добавлены данные по самолетам: \n  "
+                OutputString += str(set(ListAirCraftsFailed))
+                OutputString += " \n"
+            if CountRoutesAdded:
+                OutputString += " - вставились " + str(CountRoutesAdded) + " маршруты \n"
+            if CountRoutesFailed:
+                OutputString += " - не вставились " + str(CountRoutesFailed) + " маршруты \n"
+                OutputString += " \n"
+            if ListAirPortsNotFounded:
+                OutputString += " - не найдены аэропорты: \n  "
+                OutputString += str(set(ListAirPortsNotFounded))
+                OutputString += " \n"
+            if CountFlightsAdded:
+                OutputString += " - вставились " + str(CountFlightsAdded) + " авиарейсы \n"
+            if CountFlightsFailed:
+                OutputString += " - не вставились " + str(CountFlightsFailed) + " авиарейсы \n"
+            if CountFlightsPadded:
+                OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиарейсы \n"
+            OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
+            # Дописываем в журнал (обычным способом)
+            # fixme Большая строка не дописывается, скрипт долго висит -> Исправил
+            try:
+                # fixme При больших объемах дозаписи и одновременном доступе к журналу нескольких обработок не все результаты дописываются в него -> Исправил
+                LogFile = open(Log, 'a')
+                LogFile.write(OutputString)
+                # LogFile.write('Вывод обычным способом\n')
+            except IOError:
+                try:
+                    LogError = open(F.ErrorFileTXT, 'a')
+                    LogError.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.InputFileCSV) + " \n")
+                except IOError:
+                    print("Ошибка дозаписи в файл журнала")
+                finally:
+                    LogError.close()
+                print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(FileNames.LogFileTXT))
+            finally:
+                LogFile.close()
+            # Дописываем в журнал (с помощью менеджера контекста)
+            # with open(Log, 'a') as LogFile:
+            #     LogFile.write(OutputString)
+            #     LogFile.write('Вывод с помощью менеджера контекста\n')
         else:
-            myDialog.label_execute.setText("Загрузка прервана (пропало соединение с БД)")
+            myDialog.label_execute.setText("Соединение с СУБД прервано на "  + str(Execute) + " % ")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: red")
-            print(termcolor.colored("Загрузка прервана (пропало соединение с БД)", "red", "on_yellow"))
+            print(termcolor.colored("Соединение с СУБД прервано на "  + str(Execute) + " % ", "red", "on_yellow"))
+        acfn.disconnectAL_odbc()
+        if Fl.useAirCraftsDSN:
+            acfn.disconnectAC_odbc()
+            if Fl.useMSsql:
+                acfn.disconnectAC_mssql()
+        else:
+            acfn.disconnectACFN_odbc()
+        acfn.disconnectRT_odbc()
 
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)

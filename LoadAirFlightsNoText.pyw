@@ -60,10 +60,10 @@ def myApplication():
     S.DSNs = acfn.getDataSources()  # добавленные системные DSN-ы
     if S.DSNs:
         for DSN in S.DSNs:
-            if not DSN:
-                break
-            myDialog.comboBox_DSN_FN.addItem(str(DSN))
-            myDialog.comboBox_DSN_AC.addItem(str(DSN))
+            if 'AirCraft' in DSN:
+                myDialog.comboBox_DSN_AC.addItem(str(DSN))
+            if 'AirFlight' in DSN:
+                myDialog.comboBox_DSN_FN.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
     S.DriversODBC = acfn.getSQLDrivers()

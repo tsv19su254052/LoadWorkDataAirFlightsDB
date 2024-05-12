@@ -816,13 +816,17 @@ def myApplication():
                 OutputString += " Дата авиарейса проставлена из входного файла\n"
             else:
                 OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
+            DataSQL = acfn.getSQLData_odbc()
             if Fl.useAirCraftsDSN:
                 OutputString += " Авиаперелеты загружены в БД самолетов "
                 if Fl.useXQuery:
-                    DataSQL = acfn.getSQLData_mssql()
-                    OutputString += " с помощью xQuery (SAX) \n"
+                    OutputString += " с помощью xQuery (SAX)"
+                    if Fl.useMSsql:
+                        OutputString += " и mssql \n"
+                        DataSQL = acfn.getSQLData_mssql()
+                    else:
+                        OutputString += " \n"
                 else:
-                    DataSQL = acfn.getSQLData_odbc()
                     OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
             OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
             OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"

@@ -36,8 +36,9 @@ class FileNames:
 class Flags:
     def __init__(self):
         # Флаги
+        self.useAirCrafts = False
         self.useAirFlightsDB = True
-        self.useAirCraftsDSN = False
+        self.useAirCraftsDB = True
         self.useXQuery = False
         self.useMSsql = False
         self.useODBCMarkers = False
@@ -295,6 +296,14 @@ class ACFN(SE):
     class AirCraft:
         def __init__(self):
             pass
+
+    def connectDB_AC_odbc(self, servername, driver, database):
+        if self.connectDB_odbc(servername=servername, driver=driver, database=database):
+            self.cnxn_AC_odbc = self.cnxn
+            self.seek_AC_odbc = self.seek
+            return True
+        else:
+            return False
 
     def connectDB_AC_mssql(self, servername, database):
         if self.connectDB_mssql(servername=servername, database=database):

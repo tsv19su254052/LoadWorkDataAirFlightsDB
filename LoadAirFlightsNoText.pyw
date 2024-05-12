@@ -157,7 +157,7 @@ def myApplication():
             myDialog.lineEdit_Schema_AC.setEnabled(False)
             myDialog.lineEdit_DSN_AC.setEnabled(False)
             myDialog.groupBox.setEnabled(True)
-            if Fl.useAirCraftsDSN:
+            if Fl.useAirCrafts:
                 if Fl.useXQuery:
                     if Fl.useMSsql:
                         myDialog.comboBox_DB_FN.setEnabled(True)  # mssql
@@ -191,9 +191,9 @@ def myApplication():
     def RadioButtonsDataSourcesToggled():
         # Переключатели -> Флаги
         if myDialog.radioButton_DSN_AirCrafts.isChecked():
-            Fl.useAirCraftsDSN = True
+            Fl.useAirCrafts = True
         else:
-            Fl.useAirCraftsDSN = False
+            Fl.useAirCrafts = False
             if myDialog.radioButton_DB_AirFlights.isChecked():
                 Fl.useAirFlightsDB = True
             if myDialog.radioButton_DSN_AirFlights.isChecked():
@@ -300,7 +300,7 @@ def myApplication():
         myDialog.pushButton_Connect_AL.setEnabled(True)
 
     def PushButtonConnect_ACFN():
-        if Fl.useAirCraftsDSN:
+        if Fl.useAirCrafts:
             myDialog.pushButton_Connect_AC.setEnabled(False)
             if not St.Connected_AC:
                 # Подключаемся к базе данных самолетов
@@ -311,17 +311,17 @@ def myApplication():
                 S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
                 ChoiceDSN_AC_odbc = myDialog.comboBox_DSN_AC.currentText()
                 S.myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
-                if Fl.useXQuery:
-                    if Fl.useMSsql:
+                if Fl.useAirCraftsDB:
+                    if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
+                        St.Connected_AC = True
+                else:
+                    if Fl.useXQuery and Fl.useMSsql:
                         # fixme не подключается по pymssql
                         if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
                             St.Connected_AC = True
                     else:
                         if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc):
                             St.Connected_AC = True
-                else:
-                    if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc):
-                        St.Connected_AC = True
                 if St.Connected_AC:
                     if Fl.useXQuery and Fl.useMSsql:
                         Data = acfn.getSQLData_mssql()
@@ -584,12 +584,12 @@ def myApplication():
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
+                DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCrafts)
                 if DBAirCraft is None:
                     DBAirLine = acfn.QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Fl.useAirCraftsDSN):
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Fl.useAirCrafts):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -600,7 +600,7 @@ def myApplication():
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
                             ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
@@ -614,7 +614,7 @@ def myApplication():
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirCraft is not None:
-                    if Fl.useAirCraftsDSN:
+                    if Fl.useAirCrafts:
                         break
                     else:
                         DBAirLinePK = acfn.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
@@ -626,7 +626,7 @@ def myApplication():
                             if DBAirLine is None:
                                 break
                             elif DBAirLine is not None:
-                                if acfn.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCraftsDSN):
+                                if acfn.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
                                     ListAirCraftsUpdated.append(AC)
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                     print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
@@ -721,13 +721,13 @@ def myApplication():
                 deadlockCount = attemptNumber
                 DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCraftsDSN)
+                    DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCrafts)
                     if DBAirCraft is not None:
                         DBAirRoute = acfn.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
                             #ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
-                            ResultModify = acfn.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers)
+                            ResultModify = acfn.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCrafts, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
@@ -816,7 +816,7 @@ def myApplication():
             else:
                 OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
             DataSQL = acfn.getSQLData_odbc()
-            if Fl.useAirCraftsDSN:
+            if Fl.useAirCrafts:
                 OutputString += " Авиаперелеты загружены в БД самолетов "
                 if Fl.useXQuery:
                     OutputString += " с помощью xQuery (SAX)"
@@ -903,7 +903,7 @@ def myApplication():
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: red")
             print(termcolor.colored("Соединение с СУБД прервано на " + str(Execute) + " % ", "red", "on_yellow"))
         acfn.disconnectAL_odbc()
-        if Fl.useAirCraftsDSN:
+        if Fl.useAirCrafts:
             acfn.disconnectAC_odbc()
             if Fl.useMSsql:
                 acfn.disconnectAC_mssql()

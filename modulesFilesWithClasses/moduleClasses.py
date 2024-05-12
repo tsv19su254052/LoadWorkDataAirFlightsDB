@@ -878,6 +878,7 @@ class ACFN(SE):
                 self.Result = 2
 
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
+        Result = 0
         if db_air_route is not None:
             db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
             if db_air_craft is not None:

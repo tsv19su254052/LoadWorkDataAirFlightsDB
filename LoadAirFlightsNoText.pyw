@@ -895,9 +895,9 @@ def myApplication():
             #     LogFile.write(OutputString)
             #     LogFile.write('Вывод с помощью менеджера контекста\n')
         else:
-            myDialog.label_execute.setText("Соединение с СУБД прервано на "  + str(Execute) + " % ")
+            myDialog.label_execute.setText("Соединение с СУБД прервано на " + str(Execute) + " % ")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: red")
-            print(termcolor.colored("Соединение с СУБД прервано на "  + str(Execute) + " % ", "red", "on_yellow"))
+            print(termcolor.colored("Соединение с СУБД прервано на " + str(Execute) + " % ", "red", "on_yellow"))
         acfn.disconnectAL_odbc()
         if Fl.useAirCraftsDSN:
             acfn.disconnectAC_odbc()

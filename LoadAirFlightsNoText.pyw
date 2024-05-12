@@ -897,6 +897,8 @@ def myApplication():
             OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
             # Дописываем в журнал (обычным способом)
             # fixme Большая строка не дописывается, скрипт долго висит -> Исправил
+            LogFile = None
+            LogErrorFile = None
             try:
                 # fixme При больших объемах дозаписи и одновременном доступе к журналу нескольких обработок не все результаты дописываются в него -> Исправил
                 LogFile = open(Log, 'a')
@@ -904,13 +906,13 @@ def myApplication():
                 # LogFile.write('Вывод обычным способом\n')
             except IOError:
                 try:
-                    LogError = open(F.ErrorFileTXT, 'a')
-                    LogError.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.InputFileCSV) + " \n")
+                    LogErrorFile = open(F.ErrorFileTXT, 'a')
+                    LogErrorFile.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.InputFileCSV) + " \n")
                 except IOError:
                     print("Ошибка дозаписи в файл журнала")
                 finally:
-                    LogError.close()
-                print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(FileNames.LogFileTXT))
+                    LogErrorFile.close()
+                print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(F.LogFileTXT))
             finally:
                 LogFile.close()
             # Дописываем в журнал (с помощью менеджера контекста)

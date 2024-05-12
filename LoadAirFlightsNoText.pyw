@@ -299,54 +299,6 @@ def myApplication():
         UpdateAirLinesSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AL.setEnabled(True)
 
-    def PushButtonConnect_RT():
-        myDialog.pushButton_Connect_RT.setEnabled(False)
-        if not St.Connected_RT:
-            # Подключаемся к базе данных аэропортов и маршрутов
-            # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
-            ChoiceDB = myDialog.comboBox_DB_RT.currentText()
-            ChoiceDriver = myDialog.comboBox_Driver_RT.currentText()
-            # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase_RT = str(ChoiceDB)
-            S.DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
-                print("  БД = ", S.DataBase_RT, "подключена")
-                Data = acfn.getSQLData_odbc()
-                print(" Data = " + str(Data))
-                St.Connected_RT = True
-                # Переключаем в рабочее состояние
-                # SQL Server
-                myDialog.lineEdit_Server.setText(Data[0])
-                myDialog.lineEdit_Server.setEnabled(True)
-                # Драйвер
-                myDialog.lineEdit_Driver_RT.setText(Data[1])
-                myDialog.lineEdit_Driver_RT.setEnabled(True)
-                # версия ODBC
-                myDialog.lineEdit_ODBCversion_RT.setText(Data[2])
-                myDialog.lineEdit_ODBCversion_RT.setEnabled(True)
-                # Схема (если из-под другой учетки, то выводит имя учетки)
-                myDialog.lineEdit_Schema_RT.setText(Data[4])
-                myDialog.lineEdit_Schema_RT.setEnabled(True)
-                # Переводим в рабочее состояние (продолжение)
-                UpdateAirPortsSourcesChoiceByStatesAndFlags()
-                myDialog.pushButton_Disconnect_RT.setEnabled(True)
-            else:
-                myDialog.pushButton_Connect_RT.setEnabled(True)
-                message = QtWidgets.QMessageBox()
-                message.setText("Нет подключения к базе данных аэропортов и маршрутов")
-                message.setIcon(QtWidgets.QMessageBox.Warning)
-                message.exec_()
-
-    def PushButtonDisconnect_RT():
-        # Обработчик кнопки 'Отключиться от базы данных'
-        myDialog.pushButton_Disconnect_RT.setEnabled(False)
-        if St.Connected_RT:
-            acfn.disconnectRT_odbc()
-            St.Connected_RT = False
-        # Переключаем в исходное состояние
-        UpdateAirPortsSourcesChoiceByStatesAndFlags()
-        myDialog.pushButton_Connect_RT.setEnabled(True)
-
     def PushButtonConnect_ACFN():
         if Fl.useAirCraftsDSN:
             myDialog.pushButton_Connect_AC.setEnabled(False)
@@ -464,6 +416,53 @@ def myApplication():
         UpdateFlightsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_AC.setEnabled(True)
 
+    def PushButtonConnect_RT():
+        myDialog.pushButton_Connect_RT.setEnabled(False)
+        if not St.Connected_RT:
+            # Подключаемся к базе данных аэропортов и маршрутов
+            # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
+            ChoiceDB = myDialog.comboBox_DB_RT.currentText()
+            ChoiceDriver = myDialog.comboBox_Driver_RT.currentText()
+            # Добавляем атрибуты DataBase, DriverODBC
+            S.DataBase_RT = str(ChoiceDB)
+            S.DriverODBC_RT = str(ChoiceDriver)
+            if acfn.connectDB_RT_odbc(driver=S.DriverODBC_RT, servername=S.ServerName, database=S.DataBase_RT):
+                print("  БД = ", S.DataBase_RT, "подключена")
+                Data = acfn.getSQLData_odbc()
+                print(" Data = " + str(Data))
+                St.Connected_RT = True
+                # Переключаем в рабочее состояние
+                # SQL Server
+                myDialog.lineEdit_Server.setText(Data[0])
+                myDialog.lineEdit_Server.setEnabled(True)
+                # Драйвер
+                myDialog.lineEdit_Driver_RT.setText(Data[1])
+                myDialog.lineEdit_Driver_RT.setEnabled(True)
+                # версия ODBC
+                myDialog.lineEdit_ODBCversion_RT.setText(Data[2])
+                myDialog.lineEdit_ODBCversion_RT.setEnabled(True)
+                # Схема (если из-под другой учетки, то выводит имя учетки)
+                myDialog.lineEdit_Schema_RT.setText(Data[4])
+                myDialog.lineEdit_Schema_RT.setEnabled(True)
+                # Переводим в рабочее состояние (продолжение)
+                UpdateAirPortsSourcesChoiceByStatesAndFlags()
+                myDialog.pushButton_Disconnect_RT.setEnabled(True)
+            else:
+                myDialog.pushButton_Connect_RT.setEnabled(True)
+                message = QtWidgets.QMessageBox()
+                message.setText("Нет подключения к базе данных аэропортов и маршрутов")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+
+    def PushButtonDisconnect_RT():
+        # Обработчик кнопки 'Отключиться от базы данных'
+        myDialog.pushButton_Disconnect_RT.setEnabled(False)
+        if St.Connected_RT:
+            acfn.disconnectRT_odbc()
+            St.Connected_RT = False
+        # Переключаем в исходное состояние
+        UpdateAirPortsSourcesChoiceByStatesAndFlags()
+        myDialog.pushButton_Connect_RT.setEnabled(True)
 
     def PushButtonChooseCSVFile():
         filter = "Data files (*.csv)"

@@ -198,6 +198,9 @@ class ACFN(SE):
             self.cnxn_AL_odbc.rollback()
         return ResultSQL
 
+    def QueryAlliancesSqlAlchemy(self):
+        pass
+
     def QueryAlliancePKByName(self, name):
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"

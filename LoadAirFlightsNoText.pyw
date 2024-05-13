@@ -807,7 +807,7 @@ def myApplication():
             print(" ")
             DistributionDensityAirFlights[deadlockCount] += 1
             completion += 1
-            Execute = round(100 * completion / len(ListFlightNumber), 2)  # вычисляем и округляем процент выполнения до 2 цифр после запятой
+            Execute = round(100 * completion / len(DataFrameFromCSV.index), 2)  # вычисляем и округляем процент выполнения до 2 цифр после запятой
             # fixme При слишком частом обновлении виджета графическая оболочка подвисает, зависает или слетает (обработка исключения не помогает) -> Исправил
             if Execute > ExecutePrevious:
                 stringExecute = "Выполнение = " + str(Execute) + " %"

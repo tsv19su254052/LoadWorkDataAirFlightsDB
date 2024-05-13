@@ -510,7 +510,7 @@ def myApplication():
         print("  ожидайте ...", end=' ')
         # todo Если оперативной памяти не достаточно, то тут остановится
         DataFrameFromCSV = pandas.read_csv(Csv, sep=",")
-        # В исходном файле *.csv подписаны столбцы -> в DataFrame можно перемещаться по именам столбцов -> Разбираем на столбцы и работаем с ними
+        # todo В исходном файле *.csv столбцы подписаны -> в DataFrame можно перемещаться по именам столбцов -> Разбираем на столбцы и работаем с ними https://datatofish.com/convert-pandas-dataframe-to-list/
         ListAirLineCodeIATA = DataFrameFromCSV['OP_UNIQUE_CARRIER'].tolist()
         ListAirCraft = DataFrameFromCSV['TAIL_NUM'].tolist()
         ListAirPortDeparture = DataFrameFromCSV['ORIGIN'].tolist()

@@ -572,10 +572,10 @@ def myApplication():
         Execute = 0
         ExecutePrevious = 0
         # Один внешний цикл и три вложенных цикла
-        # todo Получение элемента по номеру строки и имени столбца см. https://stackoverflow.com/questions/70931002/pandas-get-cell-value-by-row-index-and-column-name
-        #for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):
+        #for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):  # fixme при загрузке ОЗУ зависает и сбрасывает данные -> исправил
         # todo Высота DataFrame см. https://stackoverflow.com/questions/15943769/how-do-i-get-the-row-count-of-a-pandas-dataframe
         for index in range(len(DataFrameFromCSV.index)):
+            # todo Получение элемента по номеру строки и имени столбца см. https://stackoverflow.com/questions/70931002/pandas-get-cell-value-by-row-index-and-column-name
             AL_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('OP_UNIQUE_CARRIER')]
             AC_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('TAIL_NUM')]
             Dep_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('ORIGIN')]

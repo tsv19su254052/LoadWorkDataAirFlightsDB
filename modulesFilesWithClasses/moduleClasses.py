@@ -886,7 +886,7 @@ class ACFN(SE):
                     if useXQuery:
                         # todo Самый быстрый вариант парса (использует функционал XML-ного поля)
                         try:
-                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), 0, )
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
                                 # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python
@@ -904,7 +904,7 @@ class ACFN(SE):
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
                                     SP = 'SPUpdateFlightsByRoutes'
-                                    SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?) }"  # fixme ... Incorrect syntax near '@P1' ...
+                                    SQLQuery = "CALL " + SP + " (?, ?, ?, ?, ?, ?) "  # fixme ... Incorrect syntax near '@P1' ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...

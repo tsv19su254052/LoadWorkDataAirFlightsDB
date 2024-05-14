@@ -902,7 +902,8 @@ class ACFN(SE):
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
-                                    SQLQuery = "{CALL SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) }"  # fixme ... Incorrect syntax near '@P1' ...
+                                    SP = 'SPUpdateFlightsByRoutes'
+                                    SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?) }"  # fixme ... Incorrect syntax near '@P1' ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...

@@ -865,6 +865,8 @@ def myApplication():
                         OutputString += " \n"
                 else:
                     OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
+            else:
+                OutputString += " Авиаперелеты загружены в БД авиаперелетов "
             OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"
             OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
             OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"

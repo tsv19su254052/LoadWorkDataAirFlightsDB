@@ -25,7 +25,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.9  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = 8.91  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
@@ -511,22 +511,22 @@ def myApplication():
         # todo Если оперативной памяти не достаточно, то тут остановится
         DataFrameFromCSV = pandas.read_csv(Csv, sep=",")
         # todo В исходном файле *.csv столбцы подписаны -> в DataFrame можно перемещаться по именам столбцов -> Разбираем на столбцы и работаем с ними https://datatofish.com/convert-pandas-dataframe-to-list/
-        ListAirLineCodeIATA = DataFrameFromCSV['OP_UNIQUE_CARRIER'].tolist()
-        ListAirCraft = DataFrameFromCSV['TAIL_NUM'].tolist()
-        ListAirPortDeparture = DataFrameFromCSV['ORIGIN'].tolist()
-        ListAirPortArrival = DataFrameFromCSV['DEST'].tolist()
-        ListFlightNumber = DataFrameFromCSV['OP_CARRIER_FL_NUM'].tolist()
+        #ListAirLineCodeIATA = DataFrameFromCSV['OP_UNIQUE_CARRIER'].tolist()
+        #ListAirCraft = DataFrameFromCSV['TAIL_NUM'].tolist()
+        #ListAirPortDeparture = DataFrameFromCSV['ORIGIN'].tolist()
+        #ListAirPortArrival = DataFrameFromCSV['DEST'].tolist()
+        #ListFlightNumber = DataFrameFromCSV['OP_CARRIER_FL_NUM'].tolist()
         # fixme Переделать эту часть (формат даты и времени в файле исходных данных поменялся с 2018-09-23 на 9/1/2023 12:00:00 AM)
-        ListFlightDate = DataFrameFromCSV['FL_DATE'].tolist()
+        #ListFlightDate = DataFrameFromCSV['FL_DATE'].tolist()
         # todo Собрать новый список с датами соединением из 3-х списков с целыми числами поэлементно через минусы и использовать теперь его -> СОБРАЛ
         # todo Проверить на соответствие результат перед записью в базу -> ПРОВЕРИЛ
-        ListYear = DataFrameFromCSV['YEAR'].tolist()
-        ListMonth = DataFrameFromCSV['MONTH'].tolist()
-        ListDay = DataFrameFromCSV['DAY_OF_MONTH'].tolist()
-        ListFlightDateConcatenated = []
-        for attemptNumber in range(len(ListYear)):
-            #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))
-            ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d' % ListMonth[attemptNumber] + "-" + '%02d' % ListDay[attemptNumber])
+        #ListYear = DataFrameFromCSV['YEAR'].tolist()
+        #ListMonth = DataFrameFromCSV['MONTH'].tolist()
+        #ListDay = DataFrameFromCSV['DAY_OF_MONTH'].tolist()
+        #ListFlightDateConcatenated = []
+        #for attemptNumber in range(len(ListYear)):
+            #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + str(ListMonth[attemptNumber]) + "-" + str(ListDay[attemptNumber]))  # fixme string -> date
+            #ListFlightDateConcatenated.append(str(ListYear[attemptNumber]) + "-" + '%02d' % ListMonth[attemptNumber] + "-" + '%02d' % ListDay[attemptNumber])
         #myDialog.label_execute.setText("Исходные данные перепакованы")  # оболочка зависает и слетает
         if Fl.SetInputDate:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")

@@ -889,11 +889,14 @@ class ACFN(SE):
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
+                                # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python
+                                # fixme см. статью https://github.com/tds-fdw/tds_fdw/issues/262
                                 self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_mssql.commit()
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
+                                # fixme см. статью https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
                                 if useMarkers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"

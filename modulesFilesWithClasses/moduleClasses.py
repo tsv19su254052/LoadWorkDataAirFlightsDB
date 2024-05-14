@@ -886,7 +886,7 @@ class ACFN(SE):
                     if useXQuery:
                         # todo Самый быстрый вариант парса (использует функционал XML-ного поля)
                         try:
-                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
+                            parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
                                 # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python

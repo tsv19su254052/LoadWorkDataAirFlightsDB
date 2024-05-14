@@ -894,7 +894,9 @@ class ACFN(SE):
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 if useMarkers:
-                                    SQLQuery = "DECLARE @return_value INT; CALL @return_value = SPUpdateFlightsByRoutes ?, ?, ?, ?, ? ; SELECT @return_value AS ReturnValue "
+                                    SQLQuery = """DECLARE @return_value INT 
+                                                EXECUTE @return_value = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ? 
+                                                SELECT @return_value """
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme 42000 Incorrect syntax near 'CALL'
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 Incorrect syntax near '@P1'

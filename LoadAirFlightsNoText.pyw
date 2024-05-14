@@ -574,16 +574,16 @@ def myApplication():
         # Один внешний цикл и три вложенных цикла
         #for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):  # fixme при загрузке ОЗУ зависает и сбрасывает данные -> исправил
         # todo Высота DataFrame см. https://stackoverflow.com/questions/15943769/how-do-i-get-the-row-count-of-a-pandas-dataframe
-        for index in range(len(DataFrameFromCSV.index)):
+        for i in range(len(DataFrameFromCSV.index)):
             # todo Получение элемента по номеру строки и имени столбца см. https://stackoverflow.com/questions/70931002/pandas-get-cell-value-by-row-index-and-column-name
-            AL_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('OP_UNIQUE_CARRIER')]
-            AC_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('TAIL_NUM')]
-            Dep_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('ORIGIN')]
-            Arr_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('DEST')]
-            FN_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('OP_CARRIER_FL_NUM')]
-            Year_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('YEAR')]
-            Month_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('MONTH')]
-            Day_from_DataFrameFromCSV = DataFrameFromCSV.iloc[index, DataFrameFromCSV.columns.get_loc('DAY_OF_MONTH')]
+            AL_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('OP_UNIQUE_CARRIER')]
+            AC_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('TAIL_NUM')]
+            Dep_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('ORIGIN')]
+            Arr_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('DEST')]
+            FN_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('OP_CARRIER_FL_NUM')]
+            Year_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('YEAR')]
+            Month_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('MONTH')]
+            Day_from_DataFrameFromCSV = DataFrameFromCSV.iloc[i, DataFrameFromCSV.columns.get_loc('DAY_OF_MONTH')]
             FD_Concatenated = str(Year_from_DataFrameFromCSV) + "-" + '%02d' % Month_from_DataFrameFromCSV + "-" + '%02d' % Day_from_DataFrameFromCSV
             print(colorama.Fore.BLUE + "Авикомпания", str(AL_from_DataFrameFromCSV), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем

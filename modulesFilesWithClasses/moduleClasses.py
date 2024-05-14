@@ -863,7 +863,7 @@ class ACFN(SE):
 
         class Results:
             def __init__(self):
-                self.Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали
+                self.Result = 0  # Коды возврата: 0 - несработка, 1 - вставили, 2 - сплюсовали, 3 - первая запись в еще пустую ячейку
 
             def getResult(self):
                 return self.Result

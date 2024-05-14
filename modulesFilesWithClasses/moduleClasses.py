@@ -884,6 +884,7 @@ class ACFN(SE):
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
+                        # todo Самый быстрый вариант парса (использует функционал XML-ного поля)
                         try:
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate))
                             print("\n parameters = " + str(parameters))
@@ -894,10 +895,11 @@ class ACFN(SE):
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 if useMarkers:
+                                    # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
-                                    SQLQuery = "CALL SPUpdateFlightsByRoutes (?, ?, ?, ?, ?, ) "
+                                    SQLQuery = "{CALL SPUpdateFlightsByRoutes (?, ?, ?, ?, ?, )} "
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...
@@ -921,6 +923,7 @@ class ACFN(SE):
                                 self.cnxn_AC_odbc.rollback()
                             Result = 0
                     else:
+                        # todo Самый ресурснозатратный вариант парса (работает с XML-ным полем как с двоичным или как с текстовым)
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

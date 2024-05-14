@@ -861,6 +861,8 @@ def myApplication():
                     if Fl.useMSsql:
                         OutputString += " и mssql \n"
                         DataSQL = acfn.getSQLData_mssql()
+                    elif Fl.useODBCMarkers:
+                        OutputString += " , с маркерами pyODBC \n"
                     else:
                         OutputString += " \n"
                 else:

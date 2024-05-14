@@ -899,6 +899,7 @@ class ACFN(SE):
                                 # fixme см. статью https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
                                 if useMarkers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
+                                    # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared

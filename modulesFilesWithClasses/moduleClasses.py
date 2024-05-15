@@ -903,25 +903,27 @@ class ACFN(SE):
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
-                                    # SQL Server format with markers
+                                    # todo SQL Server format with markers
                                     SQLQuery = """DECLARE @ReturnValue INT
                                                 EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ?
                                                 SELECT @ReturnValue AS RV
                                                 """  # fixme ... Previous SQL was not a query ...
                                     SP = 'SPUpdateFlightsByRoutes'
-                                    # ODBC format with markers
+                                    # todo ODBC format with markers
                                     #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Incorrect syntax near '@Reg' ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme ... Incorrect syntax near '@P1' ...
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...
                                 else:
-                                    #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
+                                    # todo SQL Server format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
                                     SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
+                                    # todo ODBC format
                                     #SQLQuery = "{CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "'} "  # fixme 4200 Incorrect syntax near 'CALL'
+                                    #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                                     print(" SQLQuery = " + str(SQLQuery))
-                                    self.seek_AC_odbc.execute(SQLQuery)  # fixme ... Incorrect syntax near 'N357UA' ...
+                                    self.seek_AC_odbc.execute(SQLQuery)
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_odbc.commit()
                             if Data:

@@ -871,11 +871,11 @@ def myApplication():
                         OutputString += " и mssql \n"
                         DataSQL = acfn.getSQLData_mssql()
                     elif Fl.useODBCMarkers:
-                        OutputString += " , с маркерами pyODBC \n"
+                        OutputString += ", с маркерами pyODBC \n"
                     else:
                         OutputString += " \n"
                 else:
-                    OutputString += " с помощью xml.etree.ElementTree (DOM) \n"
+                    OutputString += "с помощью xml.etree.ElementTree (DOM) \n"
             else:
                 OutputString += " Авиаперелеты загружены в БД авиаперелетов "
             OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"

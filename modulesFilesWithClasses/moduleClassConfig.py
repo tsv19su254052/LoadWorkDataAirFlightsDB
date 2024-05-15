@@ -10,14 +10,12 @@ class Config():
 
     def create_config(self):
         self.config.add_section("Settings")
-        #config.set("Settings", "bot_token", "token")
-        #config.set("Settings", "admin_id_own", "0:1")  # [1, 2]
-        #config.set("Settings", "admin_id_manager", "0:1")
-        #config.set("Settings", "bot_login", "0")
-        #config.set("Settings", "ref_percent", "0")
-        #config.set("Settings", "qiwi_number", "0")
-        #config.set("Settings", "qiwi_token", "0")
-        #config.set("Settings", "api_smshub", "0")
+        self.config.set("Settings", "ServerNameRemote", "_")
+        self.config.set("Settings", "ServerNameOriginal", "_")
+        self.config.set("Settings", "ServerHost", "_")
+        self.config.set("Settings", "ServerNameFlights", "_")
+        self.config.set("Settings", "ServerName", "_")
+        self.config.set("Settings", "ServerNameDeveloper", "_")
         with open(self.ConfigFile, "w") as config_file:
             self.config.write(config_file)
 

@@ -82,11 +82,18 @@ def myApplication():
             myDialog.comboBox_Driver_RT.addItem(str(DriverODBC))
             myDialog.comboBox_Driver_FN.addItem(str(DriverODBC))
     # Добавляем базы данных в выпадающие списки
-    myDialog.comboBox_DB_AL.addItem("AirLinesDBNew62")
-    myDialog.comboBox_DB_RT.addItem("AirPortsAndRoutesDBNew62")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
-    myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
-    myDialog.comboBox_DB_FN.addItem("AirCraftsDBNew62")
+    listdbs = config_from_cfg.get(section='DataBases', option='AirLines').split(',')
+    for point in listdbs:
+        myDialog.comboBox_DB_AL.addItem(point)
+    listdbs = config_from_cfg.get(section='DataBases', option='AirPorts').split(',')
+    for point in listdbs:
+        myDialog.comboBox_DB_RT.addItem(point)
+    listdbs = config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(',')
+    for point in listdbs:
+        myDialog.comboBox_DB_FN.addItem(point)
+    #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
+    #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
+    #myDialog.comboBox_DB_FN.addItem(config_from_cfg.get(section='DataBases', option='AirCrafts'))
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
@@ -492,14 +499,16 @@ def myApplication():
         myDialog.pushButton_Connect_RT.setEnabled(True)
 
     def PushButtonChooseCSVFile():
-        filter = "Data files (*.csv)"
+        filter = config_from_cfg.get(section='Paths', option='filterCSV')
+        #filter = "Data files (*.csv)"
         F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
         urnCSV = F.InputFileCSV.rstrip(os.sep)  # не сработало
         filenameCSV = pathlib.Path(F.InputFileCSV).name
         myDialog.lineEdit_CSVFile.setText(filenameCSV)
 
     def PushButtonChooseTXTFile():
-        filter = "Log Files (*.txt *.text)"
+        filter = config_from_cfg.get(section='Paths', option='filterLOG')
+        #filter = "Log Files (*.txt *.text)"
         F.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
         filenameTXT = pathlib.Path(F.LogFileTXT).name
         myDialog.lineEdit_TXTFile.setText(filenameTXT)
@@ -559,9 +568,9 @@ def myApplication():
         DistributionDensityAirCrafts = []
         DistributionDensityAirRoutes = []
         DistributionDensityAirFlights = []
-        Density = 2  # раз в секунду
+        Density = config_from_cfg.getint(section='ConstantParameters', option='Density')  # раз в секунду
         # attemptRetryCount = 750 * Density
-        attemptRetryCount = 10  # увеличить, если появятся несплюсованные и невставленные авиаперелеты
+        attemptRetryCount = config_from_cfg.getint(section='ConstantParameters', option='attemptRetryCount')  # увеличить, если появятся несплюсованные и невставленные авиаперелеты
         for Index in range(attemptRetryCount):
             DistributionDensityAirLines.append(0)
             DistributionDensityAirCrafts.append(0)

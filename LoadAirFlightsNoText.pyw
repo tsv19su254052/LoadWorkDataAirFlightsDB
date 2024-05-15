@@ -20,7 +20,6 @@ import termcolor
 # Импорт модуля библиотек индивидуальной разработки
 from modulesFilesWithClasses.moduleClasses import FileNames, Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
-from modulesFilesWithClasses.moduleClassConfig import Config
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
 #       - Результат импорта -> на github-е - синяя неактивная ссылка, по которой никуда не перейдешь, внутри pyCharm-а - дубликат репозитория подмодуля в локальную ветку
@@ -29,13 +28,8 @@ from modulesFilesWithClasses.moduleClassConfig import Config
 
 # Добавляем функционал
 # Делаем свои рабочие экземпляры
-c = Config()
-#ServerName = c.read_config_Settings(value="ServerName")
-#ServerNameRemote = c.read_config_Settings(value="ServerNameRemote")
 config_from_cfg = ConfigParser()
 config_from_cfg.read('configForLoadFlights.cfg')
-#path = config_from_cfg.get(section='Paths', option='pathToCSVFiles')
-#print("path = " + str(path))
 
 acfn = ACFN()
 F = FileNames()

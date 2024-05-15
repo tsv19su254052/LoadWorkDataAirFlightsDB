@@ -29,7 +29,7 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlig
 # Добавляем функционал
 # Делаем свои рабочие экземпляры
 config_from_cfg = ConfigParser()
-config_from_cfg.read('configForLoadFlights.cfg')
+config_from_cfg.read('configCommon.cfg')
 
 acfn = ACFN()
 F = FileNames()

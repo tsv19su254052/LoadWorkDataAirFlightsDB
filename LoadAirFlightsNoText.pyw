@@ -9,6 +9,7 @@ import os
 import sys
 import socket
 import threading
+from configparser import ConfigParser
 
 # QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner - запускаем в командной строке, QtXml (устарел) -> замена QXmlStreamReader, QXmlStreamWriter
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
@@ -19,30 +20,36 @@ import termcolor
 # Импорт модуля библиотек индивидуальной разработки
 from modulesFilesWithClasses.moduleClasses import ServerNames, FileNames, Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
+from modulesFilesWithClasses.moduleClassConfig import Config
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
 #       - Импортировать ее как подмодуль для повторного применения синхронно (mutualy connected) или асинхронно (independent) -> Импортировал асинхронно, обновление только вручную на командах git, для синхронного нет функционала
 #       - Результат импорта -> на github-е - синяя неактивная ссылка, по которой никуда не перейдешь, внутри pyCharm-а - дубликат репозитория подмодуля в локальную ветку
 # fixme pyCharm как графическая оболочка пока не работает с подмодулями в графическом режиме [@Aleks10](https://qna.habr.com/q/196071), а пока только командами 'git submodules'
 
 
-myOwnDevelopingVersion = 8.91  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
-
-colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
-print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
-print("Разработал Тарасов Сергей tsv19su@yandex.ru")
-print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
-
-
 # Добавляем функционал
-
-
 # Делаем свои рабочие экземпляры
+c = Config()
+#ServerName = c.read_config_Settings(value="ServerName")
+#ServerNameRemote = c.read_config_Settings(value="ServerNameRemote")
+config_from_cfg = ConfigParser()
+config_from_cfg.read('configForLoadFlights.cfg')
+#path = config_from_cfg.get(section='Paths', option='pathToCSVFiles')
+#print("path = " + str(path))
+
 acfn = ACFN()
 S = ServerNames()
 F = FileNames()
 Fl = Flags()
 St = States()
 
+
+myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+
+colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
+print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
+print("Разработал Тарасов Сергей tsv19su@yandex.ru")
+print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
 
 def myApplication():
     # Одно прикладное приложение

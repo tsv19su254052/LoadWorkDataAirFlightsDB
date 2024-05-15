@@ -10,9 +10,9 @@ class Config():
 
     def create_config(self):
         self.config.add_section("Settings")
-        self.config.set("Settings", "ServerNameRemote", "_")
-        self.config.set("Settings", "ServerNameOriginal", "_")
-        self.config.set("Settings", "ServerHost", "_")
+        self.config.set("Settings", "ServerNameRemote", "data-server-1.movistar.vrn.skylink.local")
+        self.config.set("Settings", "ServerNameOriginal", "localhost\mssqlserver15")
+        self.config.set("Settings", "ServerHost", "localhost\mssqlserver15")
         self.config.set("Settings", "ServerNameFlights", "_")
         self.config.set("Settings", "ServerName", "_")
         self.config.set("Settings", "ServerNameDeveloper", "_")
@@ -26,9 +26,9 @@ class Config():
             time.sleep(3)
             exit(0)
 
-    def config(self, what):
+    def read_config_Settings(self, value):
         self.config.read(self.ConfigFile)
-        value = self.config.get("Settings", what)
+        value = self.config.get("Settings", value)
         return value
 
     def edit_config(self, setting, value):

@@ -1041,7 +1041,8 @@ class ACFN(SE):
         return Result
 
     def checkConnection(self):
+        #if self.cnxn_AL_odbc.is_connected() and (self.cnxn_AC_odbc.is_connected() or self.cnxn_ACFN_odbc.is_connected()) and self.cnxn_RT_odbc.is_connected():  # mysql
         if self.cnxn_AL_odbc and (self.cnxn_AC_odbc or self.cnxn_ACFN_odbc) and self.cnxn_RT_odbc:
-            return True
+                return True
         else:
             return False

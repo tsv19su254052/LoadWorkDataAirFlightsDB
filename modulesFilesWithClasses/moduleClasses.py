@@ -906,9 +906,9 @@ class ACFN(SE):
                                     SP = 'SPUpdateFlightsByRoutes'
                                     # SQL Server format with markers
                                     SQLQuery =  """\
-                                                DECLARE @RV INT;
-                                                EXECUTE dbo.SPUpdateFlightsByRoutes @RV OUTPUT, @Reg = ?, @FNS = ?, @Route = ?, @FD = ?, @BD = ?;
-                                                SELECT @RV AS RV;
+                                                DECLARE @ReturnValue INT
+                                                EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ?
+                                                SELECT @ReturnValue AS RV
                                                 """  # fixme ... Previous SQL was not a query ...
                                     # ODBC format with markers
                                     #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Incorrect syntax near '@Reg' ...

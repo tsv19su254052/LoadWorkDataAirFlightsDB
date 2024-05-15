@@ -904,13 +904,20 @@ class ACFN(SE):
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
                                     SP = 'SPUpdateFlightsByRoutes'
-                                    SQLQuery = "CALL " + SP + " (?, ?, ?, ?, ?) "
+                                    # SQL Server format with markers
+                                    SQLQuery =  """\
+                                                DECLARE @RV INT;
+                                                EXECUTE dbo.SPUpdateFlightsByRoutes @RV OUTPUT, @Reg = ?, @FNS = ?, @Route = ?, @FD = ?, @BD = ?;
+                                                SELECT @RV AS RV;
+                                                """  # fixme ... Incorrect syntax near '@Reg' ...
+                                    # ODBC format with markers
+                                    #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Incorrect syntax near '@Reg' ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)  # fixme ... Incorrect syntax near '@P1' ...
                                     #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...
                                 else:
                                     #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
-                                    SQLQuery = "DECLARE @return_value INT CALL @return_value = SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' SELECT RV = @return_value "  # fixme 4200 Incorrect syntax near 'CALL'
+                                    SQLQuery = "{CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "'} "  # fixme 4200 Incorrect syntax near 'CALL'
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)  # fixme ... Incorrect syntax near 'N357UA' ...
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]

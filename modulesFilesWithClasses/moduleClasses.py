@@ -125,6 +125,10 @@ class ACFN(SE):
         self.LogCountChanged = 0
 
     def getListDataBasesLocal(self):
+        ListDataBases = []
+        ListDataBasesAirLines = []
+        ListDataBasesAirCrafts = []
+        ListDataBasesAirPorts = []
         try:
             SQLQuery = "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
             self.seek_AL_odbc.execute(SQLQuery)
@@ -134,10 +138,6 @@ class ACFN(SE):
             self.cnxn_AL_odbc.commit()
             print(" результат запроса = " + str(ResultSQL))
             #список баз данных = [('master',), ('tempdb',), ('model',), ('msdb',), ('AirCraftsDBNew62',), ('AirLinesDBNew62',), ('AirPortsAndRoutesDBNew62',)]
-            ListDataBases = []
-            ListDataBasesAirLines = []
-            ListDataBasesAirCrafts = []
-            ListDataBasesAirPorts = []
             for line in ResultSQL:
                 print(" line = " + str(line[0]))
                 if line[0] != 'master' and line[0] != 'tempdb' and line[0] != 'model' and line[0] != 'msdb':
@@ -169,7 +169,7 @@ class ACFN(SE):
         if self.connectDB_odbc(servername=servername, driver=driver, database=database):
             self.cnxn_AL_odbc = self.cnxn
             self.seek_AL_odbc = self.seek
-            self.getListDataBasesLocal()
+            #self.getListDataBasesLocal()
             return True
         else:
             return False

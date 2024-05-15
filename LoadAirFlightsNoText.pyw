@@ -18,7 +18,7 @@ import colorama
 import termcolor
 
 # Импорт модуля библиотек индивидуальной разработки
-from modulesFilesWithClasses.moduleClasses import ServerNames, FileNames, Flags, States, ACFN
+from modulesFilesWithClasses.moduleClasses import FileNames, Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogLoadAirFlightsWithAirCrafts
 from modulesFilesWithClasses.moduleClassConfig import Config
 # todo  - Сделать пользовательскую наработку (не библиотеку и не пакет) отдельным репозиторием
@@ -38,7 +38,6 @@ config_from_cfg.read('configForLoadFlights.cfg')
 #print("path = " + str(path))
 
 acfn = ACFN()
-S = ServerNames()
 F = FileNames()
 Fl = Flags()
 St = States()
@@ -64,18 +63,18 @@ def myApplication():
     myDialog.label_Version.setText("Версия обработки " + str(myOwnDevelopingVersion))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
-    S.DSNs = acfn.getDataSources()  # добавленные системные DSN-ы
-    if S.DSNs:
-        for DSN in S.DSNs:
+    DSNs = acfn.getDataSources()  # добавленные системные DSN-ы
+    if DSNs:
+        for DSN in DSNs:
             if 'AirCraft' in DSN:
                 myDialog.comboBox_DSN_AC.addItem(str(DSN))
             if 'AirFlight' in DSN:
                 myDialog.comboBox_DSN_FN.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = acfn.getSQLDrivers()
-    if S.DriversODBC:
-        for DriverODBC in S.DriversODBC:
+    DriversODBC = acfn.getSQLDrivers()
+    if DriversODBC:
+        for DriverODBC in DriversODBC:
             if not DriverODBC:
                 break
             myDialog.comboBox_Driver_AL.addItem(str(DriverODBC))
@@ -289,10 +288,10 @@ def myApplication():
             ChoiceDB = myDialog.comboBox_DB_AL.currentText()
             ChoiceDriver = myDialog.comboBox_Driver_AL.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase_AL = str(ChoiceDB)
-            S.DriverODBC_AL = str(ChoiceDriver)
-            if acfn.connectDB_AL_odbc(servername=S.ServerName, driver=S.DriverODBC_AL, database=S.DataBase_AL):
-                print("  БД = ", S.DataBase_AL, "подключена")
+            DataBase_AL = str(ChoiceDB)
+            DriverODBC_AL = str(ChoiceDriver)
+            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_AL, database=DataBase_AL):
+                print("  БД = ", DataBase_AL, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True
@@ -337,24 +336,24 @@ def myApplication():
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDB_AC_mssql = myDialog.comboBox_DB_FN.currentText()
                 ChoiceDriver_AC_mssql = myDialog.comboBox_Driver_FN.currentText()
-                S.DataBase_ACFN = str(ChoiceDB_AC_mssql)
-                S.DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
+                DataBase_ACFN = str(ChoiceDB_AC_mssql)
+                DriverODBC_ACFN = str(ChoiceDriver_AC_mssql)
                 ChoiceDSN_AC_odbc = myDialog.comboBox_DSN_AC.currentText()
-                S.myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
+                myDSN_AC_odbc = str(ChoiceDSN_AC_odbc)
                 # fixme не подключается по pymssql
                 if Fl.useAirCraftsDB:
                     if Fl.useXQuery and Fl.useMSsql:
-                        if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_ACFN, database=DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerName'), database=DataBase_ACFN):
                             St.Connected_AC = True
                     else:
-                        if acfn.connectDB_AC_odbc(servername=S.ServerName, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
+                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
                             St.Connected_AC = True
                 else:
                     if Fl.useXQuery and Fl.useMSsql:
-                        if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=S.ServerName, database=S.DataBase_ACFN):
+                        if acfn.connectDSN_AC_odbc(dsn=myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerName'), database=DataBase_ACFN):
                             St.Connected_AC = True
                     else:
-                        if acfn.connectDSN_AC_odbc(dsn=S.myDSN_AC_odbc):
+                        if acfn.connectDSN_AC_odbc(dsn=myDSN_AC_odbc):
                             St.Connected_AC = True
                 if St.Connected_AC:
                     if Fl.useXQuery and Fl.useMSsql:
@@ -394,15 +393,15 @@ def myApplication():
                 # todo Схема по умолчанию - dbo, другая схема указывается в явном виде
                 ChoiceDB_ACFN = myDialog.comboBox_DB_FN.currentText()
                 ChoiceDriver_ACFN = myDialog.comboBox_Driver_FN.currentText()
-                S.DataBase_ACFN = str(ChoiceDB_ACFN)
-                S.DriverODBC_ACFN = str(ChoiceDriver_ACFN)
+                DataBase_ACFN = str(ChoiceDB_ACFN)
+                DriverODBC_ACFN = str(ChoiceDriver_ACFN)
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
-                S.myDSN_ACFN = str(ChoiceDSN_ACFN)
+                myDSN_ACFN = str(ChoiceDSN_ACFN)
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFN_odbc(servername=S.ServerNameFlights, driver=S.DriverODBC_ACFN, database=S.DataBase_ACFN):
+                    if acfn.connectDB_ACFN_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameFlights'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
-                    if acfn.connectDSN_ACFN_odbc(S.myDSN_ACFN):
+                    if acfn.connectDSN_ACFN_odbc(myDSN_ACFN):
                         St.Connected_ACFN = True
                 if St.Connected_ACFN:
                     Data = acfn.getSQLData_odbc()
@@ -458,10 +457,10 @@ def myApplication():
             ChoiceDB = myDialog.comboBox_DB_RT.currentText()
             ChoiceDriver = myDialog.comboBox_Driver_RT.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase_RT = str(ChoiceDB)
-            S.DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(servername=S.ServerName, driver=S.DriverODBC_RT, database=S.DataBase_RT):
-                print("  БД = ", S.DataBase_RT, "подключена")
+            DataBase_RT = str(ChoiceDB)
+            DriverODBC_RT = str(ChoiceDriver)
+            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_RT, database=DataBase_RT):
+                print("  БД = ", DataBase_RT, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True

@@ -124,7 +124,12 @@ def myApplication():
     myDialog.lineEditCodeIATA = QtWidgets.QLineEdit()
     myDialog.lineEditCodeICAO = QtWidgets.QLineEdit()
     # Добавляем базы данных в выпадающий список
-    myDialog.comboBox_DB.addItem("AirLinesDBNew62")
+    #myDialog.comboBox_DB.addItem("AirLinesDBNew62")
+    listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirLines').split(','))
+    if listdbs:
+        for point in listdbs:
+            point = point.lstrip(' ')  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
+            myDialog.comboBox_DB.addItem(point)
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
     DriversODBC = sorted(acfn.getSQLDrivers())

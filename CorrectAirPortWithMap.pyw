@@ -318,10 +318,10 @@ def myApplication():
             ChoiceDB = myDialog.comboBox_DB.currentText()
             ChoiceDriver = myDialog.comboBox_Driver.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase = str(ChoiceDB)
-            S.DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(S.DriverODBC, S.ServerName, S.DataBase):
-                print("  База данных ", S.DataBase, " подключена")
+            DataBase = str(ChoiceDB)
+            DriverODBC = str(ChoiceDriver)
+            if acfn.connectDB_RT_odbc(servername=S.ServerName, driver=DriverODBC, database=DataBase):
+                print("  База данных ", DataBase, " подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_RT = True

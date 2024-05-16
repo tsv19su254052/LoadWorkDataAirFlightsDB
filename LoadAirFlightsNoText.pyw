@@ -65,7 +65,7 @@ def myApplication():
                 myDialog.comboBox_DSN_FN.addItem(str(DSN))
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    DriversODBC = acfn.getSQLDrivers()
+    DriversODBC = sorted(acfn.getSQLDrivers())
     if DriversODBC:
         for DriverODBC in DriversODBC:
             if not DriverODBC:

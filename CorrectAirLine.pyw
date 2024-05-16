@@ -4,6 +4,7 @@
 # QtSQL медленнее, чем pyodbc
 import sys
 from PyQt5 import QtWidgets, QtCore
+from configparser import ConfigParser
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
 from modulesFilesWithClasses.moduleClasses import ServerNames, Flags, States, ACFN
@@ -11,8 +12,10 @@ from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirL
 
 
 # Делаем экземпляры
+config_from_cfg = ConfigParser()
+config_from_cfg.read('configCommon.cfg')
+
 acfn = ACFN()
-S = ServerNames()
 Fl = Flags()
 St = States()
 
@@ -124,11 +127,9 @@ def myApplication():
     myDialog.comboBox_DB.addItem("AirLinesDBNew62")
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = acfn.getSQLDrivers()
-    if S.DriversODBC:
-        for DriverODBC in S.DriversODBC:
-            if not DriverODBC:
-                break
+    DriversODBC = sorted(acfn.getSQLDrivers())
+    if DriversODBC:
+        for DriverODBC in DriversODBC:
             myDialog.comboBox_Driver.addItem(str(DriverODBC))
     # Привязки обработчиков
     myDialog.pushButton_SelectDB.clicked.connect(lambda: PushButtonSelectDB())
@@ -152,10 +153,10 @@ def myApplication():
             ChoiceDB = myDialog.comboBox_DB.currentText()
             ChoiceDriver = myDialog.comboBox_Driver.currentText()
             # Добавляем атрибуты DataBase, DriverODBC
-            S.DataBase = str(ChoiceDB)
-            S.DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_AL_odbc(S.DriverODBC, S.ServerName, S.DataBase):
-                print("  База данных ", S.DataBase, " подключена")
+            DataBase = str(ChoiceDB)
+            DriverODBC = str(ChoiceDriver)
+            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC, database=DataBase):
+                print("  База данных ", DataBase, " подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
                 St.Connected_AL = True

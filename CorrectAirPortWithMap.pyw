@@ -8,14 +8,17 @@ from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEn
 import folium
 from folium.plugins.draw import Draw
 #from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
+from configparser import ConfigParser
 
 # Импорт модулей библиотек индивидуальной разработки (файла *.py в этой же папке)
-from modulesFilesWithClasses.moduleClasses import ServerNames, FileNames, Flags, States, ACFN
+from modulesFilesWithClasses.moduleClasses import FileNames, Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirPortsWithMap, Ui_DialogInputIATAandICAO
 
 
 # Делаем экземпляры
-S = ServerNames()
+config_from_cfg = ConfigParser()
+config_from_cfg.read('configCommon.cfg')
+
 F = FileNames()
 Fl = Flags()
 St = States()
@@ -54,11 +57,9 @@ def myApplication():
     myDialog.comboBox_DB.addItem("AirPortsAndRoutesDBNew62")
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
-    S.DriversODBC = pyodbc.drivers()
-    if S.DriversODBC:
-        for DriverODBC in S.DriversODBC:
-            if not DriverODBC:
-                break
+    DriversODBC = sorted(pyodbc.drivers())
+    if DriversODBC:
+        for DriverODBC in DriversODBC:
             myDialog.comboBox_Driver.addItem(str(DriverODBC))
     myDialog.textEdit_SourceCSVFile.setEnabled(False)
     myDialog.label_hyperlink_to_WikiPedia.setEnabled(False)
@@ -143,7 +144,6 @@ def myApplication():
                 elif child.layout() is not None:
                     myDialog.verticalLayout_Map.clearLayout(child.layout())
 
-
     def SwitchingGUI(Key):
         myDialog.comboBox_DB.setEnabled(not Key)
         myDialog.comboBox_Driver.setEnabled(not Key)
@@ -180,7 +180,6 @@ def myApplication():
         myDialog.textEdit_Incidents.setEnabled(Key)
         ClearMap()
         myDialog.verticalLayout_Map.setEnabled(Key)
-
 
     def ReadingQuery(ResultQuery):
         acfn.SourceCSVFile = ResultQuery.SourceCSVFile
@@ -320,7 +319,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             DataBase = str(ChoiceDB)
             DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(servername=S.ServerName, driver=DriverODBC, database=DataBase):
+            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC, database=DataBase):
                 print("  База данных ", DataBase, " подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))

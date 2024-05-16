@@ -7,7 +7,7 @@ from PyQt5 import QtWidgets, QtCore
 from configparser import ConfigParser
 
 # Импорт пользовательской библиотеки (файла *.py в этой же папке)
-from modulesFilesWithClasses.moduleClasses import ServerNames, Flags, States, ACFN
+from modulesFilesWithClasses.moduleClasses import Flags, States, ACFN
 from modulesFilesWithClasses.moduleClassesUIsSources import Ui_DialogCorrectAirLine, Ui_DialogInputIATAandICAO
 
 

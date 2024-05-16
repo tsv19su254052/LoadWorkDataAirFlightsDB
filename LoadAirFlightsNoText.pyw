@@ -11,7 +11,6 @@ import socket
 import threading
 from configparser import ConfigParser
 
-# QtCore, QtGui, QtNetwork, QtOpenGL, QtScript, QtSQL (медленнее чем pyodbc), QtDesigner - запускаем в командной строке, QtXml (устарел) -> замена QXmlStreamReader, QXmlStreamWriter
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
 import pathlib
 import colorama
@@ -77,12 +76,15 @@ def myApplication():
     # Добавляем базы данных в выпадающие списки
     listdbs = config_from_cfg.get(section='DataBases', option='AirLines').split(',')
     for point in listdbs:
+        point = point.lstrip(' ')
         myDialog.comboBox_DB_AL.addItem(point)
     listdbs = config_from_cfg.get(section='DataBases', option='AirPorts').split(',')
     for point in listdbs:
+        point = point.lstrip(' ')
         myDialog.comboBox_DB_RT.addItem(point)
     listdbs = config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(',')
     for point in listdbs:
+        point = point.lstrip(' ')
         myDialog.comboBox_DB_FN.addItem(point)
     #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")

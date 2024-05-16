@@ -56,7 +56,7 @@ def myApplication():
     myDialog.label_Version.setText("Версия обработки " + str(myOwnDevelopingVersion))
     # Получаем список DSN-ов
     # Добавляем атрибут DSNs по ходу действия
-    DSNs = acfn.getDataSources()  # добавленные системные DSN-ы
+    DSNs = sorted(acfn.getDataSources())  # добавленные системные DSN-ы
     if DSNs:
         for DSN in DSNs:
             if 'AirCraft' in DSN:
@@ -74,15 +74,15 @@ def myApplication():
             myDialog.comboBox_Driver_RT.addItem(str(DriverODBC))
             myDialog.comboBox_Driver_FN.addItem(str(DriverODBC))
     # Добавляем базы данных в выпадающие списки
-    listdbs = config_from_cfg.get(section='DataBases', option='AirLines').split(',')
+    listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirLines').split(','))
     for point in listdbs:
-        point = point.lstrip(' ')
+        point = point.lstrip(' ')  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
         myDialog.comboBox_DB_AL.addItem(point)
-    listdbs = config_from_cfg.get(section='DataBases', option='AirPorts').split(',')
+    listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirPorts').split(','))
     for point in listdbs:
         point = point.lstrip(' ')
         myDialog.comboBox_DB_RT.addItem(point)
-    listdbs = config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(',')
+    listdbs = sorted(config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(','))
     for point in listdbs:
         point = point.lstrip(' ')
         myDialog.comboBox_DB_FN.addItem(point)

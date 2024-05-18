@@ -54,7 +54,6 @@ def myApplication():
     myDialog.lineEdit_DSN.setEnabled(False)
     myDialog.lineEdit_Schema.setEnabled(False)
     # Добавляем базы данных в выпадающий список
-    #myDialog.comboBox_DB.addItem("AirPortsAndRoutesDBNew62")
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirPorts').split(','))
     if listdbs:
         for point in listdbs:

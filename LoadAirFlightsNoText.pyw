@@ -90,9 +90,6 @@ def myApplication():
             #point = point.lstrip(' ')
             point = point.strip()
             myDialog.comboBox_DB_FN.addItem(point)
-    #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
-    #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")
-    #myDialog.comboBox_DB_FN.addItem(config_from_cfg.get(section='DataBases', option='AirCrafts'))
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
@@ -100,8 +97,6 @@ def myApplication():
     myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Можно выставить в свойствах БД модель восстановления - ПОЛНАЯ \n экономит ресурсы, но работает медленнее")
     myDialog.radioButton_DB_AirFlights.setChecked(True)
     myDialog.radioButton_DSN_AirCrafts_DOM.setChecked(True)
-    #myDialog.checkBox_SetUseMSSQL.setChecked(False)
-    #myDialog.checkBox_SetUseODBCMarkers.setChecked(False)
 
     def PrepareForInputData(Key):
         myDialog.pushButton_ChooseCSVFile.setEnabled(Key)

@@ -124,7 +124,6 @@ def myApplication():
     myDialog.lineEditCodeIATA = QtWidgets.QLineEdit()
     myDialog.lineEditCodeICAO = QtWidgets.QLineEdit()
     # Добавляем базы данных в выпадающий список
-    #myDialog.comboBox_DB.addItem("AirLinesDBNew62")
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirLines').split(','))
     if listdbs:
         for point in listdbs:

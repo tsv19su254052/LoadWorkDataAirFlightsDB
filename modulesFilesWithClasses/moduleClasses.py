@@ -873,6 +873,7 @@ class ACFN(SE):
                     if useXQuery:
                         # todo Самый быстрый вариант парса (использует функционал XML-ного поля)
                         try:
+                            SP = 'SPUpdateFlightsByRoutes'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
@@ -895,7 +896,6 @@ class ACFN(SE):
                                                 EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ?
                                                 SELECT @ReturnValue AS RV
                                                 """  # fixme ... Previous SQL was not a query ...
-                                    SP = 'SPUpdateFlightsByRoutes'
                                     # todo ODBC format with markers
                                     SQLQuery = "{ CALL " + SP + " (?, ?, ?, ?, ?) } "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery = " + str(SQLQuery))
@@ -904,10 +904,10 @@ class ACFN(SE):
                                 else:
                                     # todo SQL Server format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
-                                    SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format
-                                    SQLQuery = "{ CALL SPUpdateFlightsByRoutes ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "') } "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "{ CALL " + SP +  "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "') } "  # fixme ... Previous SQL was not a query ...
                                     #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)

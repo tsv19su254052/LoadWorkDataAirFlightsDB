@@ -31,6 +31,7 @@ class Config():
         value = self.config.get("Settings", value)
         return value
 
+    # todo см. статью https://stackoverflow.com/questions/8884188/how-to-read-and-write-ini-file-with-python3
     def edit_config(self, setting, value):
         self.config.read(self.ConfigFile)
         self.config.set("Settings", setting, value)

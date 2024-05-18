@@ -76,20 +76,20 @@ def myApplication():
     if listdbs:
         for point in listdbs:
             #point = point.lstrip(' ')
-            point = point.strip()  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
-            myDialog.comboBox_DB_AL.addItem(point)
+            stripped_point = point.strip()  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
+            myDialog.comboBox_DB_AL.addItem(stripped_point)
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirPorts').split(','))
     if listdbs:
         for point in listdbs:
             #point = point.lstrip(' ')
-            point = point.strip()
-            myDialog.comboBox_DB_RT.addItem(point)
+            stripped_point = point.strip()
+            myDialog.comboBox_DB_RT.addItem(stripped_point)
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(','))
     if listdbs:
         for point in listdbs:
             #point = point.lstrip(' ')
-            point = point.strip()
-            myDialog.comboBox_DB_FN.addItem(point)
+            stripped_point = point.strip()
+            myDialog.comboBox_DB_FN.addItem(stripped_point)
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")

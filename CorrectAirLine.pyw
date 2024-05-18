@@ -128,8 +128,8 @@ def myApplication():
     if listdbs:
         for point in listdbs:
             #point = point.lstrip(' ')
-            point = point.strip()  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
-            myDialog.comboBox_DB.addItem(point)
+            stripped_point = point.strip()  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
+            myDialog.comboBox_DB.addItem(stripped_point)
     # Получаем список драйверов баз данных
     # Добавляем атрибут DriversODBC по ходу действия
     DriversODBC = sorted(acfn.getSQLDrivers())

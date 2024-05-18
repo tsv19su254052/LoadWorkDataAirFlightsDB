@@ -75,17 +75,20 @@ def myApplication():
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirLines').split(','))
     if listdbs:
         for point in listdbs:
-            point = point.lstrip(' ')  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
+            #point = point.lstrip(' ')
+            point = point.strip()  # todo см. статью https://stackoverflow.com/questions/959215/how-do-i-remove-leading-whitespace-in-python
             myDialog.comboBox_DB_AL.addItem(point)
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='AirPorts').split(','))
     if listdbs:
         for point in listdbs:
-            point = point.lstrip(' ')
+            #point = point.lstrip(' ')
+            point = point.strip()
             myDialog.comboBox_DB_RT.addItem(point)
     listdbs = sorted(config_from_cfg.get(section='DataBases', option='FlightsAndCrafts').split(','))
     if listdbs:
         for point in listdbs:
-            point = point.lstrip(' ')
+            #point = point.lstrip(' ')
+            point = point.strip()
             myDialog.comboBox_DB_FN.addItem(point)
     #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew62WorkBase")
     #myDialog.comboBox_DB_FN.addItem("AirFlightsDBNew72WorkBase")

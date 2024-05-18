@@ -1,0 +1,6 @@
+[Paths]
+# пути до файлов исходных данных и файлов журналов
+pathToCSVFiles = P:\Programming\Python Scripts\LoadWorkData - DataSources\Исходные данные transtats.bts.gov\Reporting Carrier On-Time Performance (1987 - present)\В очереди
+pathToLogFiles =
+
+

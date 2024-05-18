@@ -871,7 +871,7 @@ class ACFN(SE):
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
-                        # todo Самый быстрый вариант парса (использует функционал XML-ного поля)
+                        # todo Самый быстрый вариант парса (использует функционал XML-ного поля), используется XML-ный индекс (первичный и вторичный PATH)
                         try:
                             SP = 'SPUpdateFlightsByRoutes'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
@@ -927,7 +927,7 @@ class ACFN(SE):
                                 self.cnxn_AC_odbc.rollback()
                             Result = 0
                     else:
-                        # todo Самый ресурснозатратный вариант парса (работает с XML-ным полем как с двоичным или как с текстовым)
+                        # todo Ресурснозатратный вариант парса (работает с XML-ным полем как с двоичным или как с текстовым)
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

@@ -879,24 +879,24 @@ class ACFN(SE):
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
                                 # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python
-                                # fixme см. статью https://github.com/tds-fdw/tds_fdw/issues/262
+                                #  https://github.com/tds-fdw/tds_fdw/issues/262
                                 #  https://github.com/mkleehammer/pyodbc/issues/184
                                 self.seek_AC_mssql.callproc(SP, parameters=parameters)
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_mssql.commit()
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
-                                # fixme см. статью https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
+                                #  https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
                                 if useMarkers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
-                                    # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
-                                    # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
+                                    #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
+                                    #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # todo SQL Server Driver format with markers
                                     SQLQuery = "DECLARE @return_status INT \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
                                     SQLQuery += "SELECT @return_status AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format with markers
-                                    #SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:

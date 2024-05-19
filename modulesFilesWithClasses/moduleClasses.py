@@ -903,8 +903,8 @@ class ACFN(SE):
                                 else:
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
-                                    SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... function takes exactly 2 arguments (1 given) ...
+                                    SQLQuery += "EXECUTE @return_status = AirCraftsDBNew62.dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))

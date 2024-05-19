@@ -890,9 +890,9 @@ class ACFN(SE):
                                     # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # todo SQL Server format with markers
-                                    SQLQuery = "DECLARE @ReturnValue INT "
-                                    SQLQuery += "EXECUTE @ReturnValue = " + SP + " ?, ?, ?, ?, ? "
-                                    SQLQuery += "SELECT @ReturnValue AS RV "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "DECLARE @ReturnValue INT \n"
+                                    SQLQuery += "EXECUTE @ReturnValue = " + SP + " ?, ?, ?, ?, ? \n"
+                                    SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format with markers
                                     #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))

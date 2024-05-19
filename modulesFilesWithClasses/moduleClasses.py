@@ -897,7 +897,7 @@ class ACFN(SE):
                                     # todo ODBC Driver format with markers
                                     SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
-                                    self.seek_AC_odbc.execute(SQLQuery, return_value, parameters)
+                                    self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT \n"

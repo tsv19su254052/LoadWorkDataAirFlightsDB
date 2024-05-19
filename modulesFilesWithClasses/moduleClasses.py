@@ -895,8 +895,8 @@ class ACFN(SE):
                                                 SELECT @ReturnValue AS RV
                                                 """  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format with markers
-                                    SQLQuery = "CALL " + SP + " (?, ?, ?, ?, ?) "  # fixme ... Previous SQL was not a query ...
-                                    print(" SQLQuery = " + str(SQLQuery))
+                                    SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
                                     # todo SQL Server format

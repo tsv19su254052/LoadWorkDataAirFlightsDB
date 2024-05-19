@@ -895,7 +895,7 @@ class ACFN(SE):
                                                 SELECT @ReturnValue AS RV
                                                 """  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format with markers
-                                    #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "CALL " + SP + " (?, ?, ?, ?, ?) "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
@@ -905,7 +905,7 @@ class ACFN(SE):
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format
                                     #SQLQuery = "{CALL " + SP + "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... Previous SQL was not a query ...
-                                    print(" SQLQuery = " + str(SQLQuery))
+                                    print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)
                                 # todo см. статью https://learn.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-ver16
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]

@@ -889,9 +889,6 @@ class ACFN(SE):
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
-                                    #SQLQuery = "DECLARE @ReturnValue INT \n"
-                                    #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
-                                    #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
                                     # todo SQL Server format with markers
                                     SQLQuery = """DECLARE @ReturnValue INT
                                                 EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ?
@@ -901,7 +898,6 @@ class ACFN(SE):
                                     #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
-                                    #self.seek_AC_odbc.execute(SQLQuery, str(ac), str(al) + str(fn), str(db_air_route), str(flightdate), str(begindate))  # fixme 42000 ... Incorrect syntax near '@P1' ...
                                 else:
                                     # todo SQL Server format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"

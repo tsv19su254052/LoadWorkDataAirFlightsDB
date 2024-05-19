@@ -890,21 +890,20 @@ class ACFN(SE):
                                     # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # todo SQL Server format with markers
-                                    SQLQuery = """DECLARE @ReturnValue INT
-                                                EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes ?, ?, ?, ?, ?
-                                                SELECT @ReturnValue AS RV
-                                                """  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "DECLARE @ReturnValue INT "
+                                    SQLQuery += "EXECUTE @ReturnValue = " + SP + " ?, ?, ?, ?, ? "
+                                    SQLQuery += "SELECT @ReturnValue AS RV "  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format with markers
-                                    SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
                                     # todo SQL Server format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
-                                    SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @ReturnValue = " + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format
-                                    SQLQuery = "{CALL " + SP + "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... Previous SQL was not a query ...
+                                    #SQLQuery = "{CALL " + SP + "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)
                                 # todo см. статью https://learn.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-ver16

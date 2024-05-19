@@ -880,7 +880,8 @@ class ACFN(SE):
                             if useMSsql:
                                 # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python
                                 # fixme см. статью https://github.com/tds-fdw/tds_fdw/issues/262
-                                self.seek_AC_mssql.callproc('SPUpdateFlightsByRoutes', parameters=parameters)
+                                #  https://github.com/mkleehammer/pyodbc/issues/184
+                                self.seek_AC_mssql.callproc(SP, parameters=parameters)
                                 Data = self.seek_AC_mssql.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_mssql.commit()
                             else:

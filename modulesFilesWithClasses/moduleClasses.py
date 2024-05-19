@@ -894,21 +894,24 @@ class ACFN(SE):
                                     # todo SQL Server Driver format with markers
                                     SQLQuery = "DECLARE @return_status INT \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
-                                    SQLQuery += "SELECT @return_status AS RV \n"  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format with markers
                                     #SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
-                                    self.seek_AC_odbc.execute(SQLQuery, parameters)
+                                    self.seek_AC_odbc.fast_executemany = True
+                                    self.seek_AC_odbc.executemany(SQLQuery, parameters)
                                 else:
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
-                                    SQLQuery += "SELECT @return_status AS RV \n"  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format
                                     SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
-                                    self.seek_AC_odbc.execute(SQLQuery)
+                                    self.seek_AC_odbc.fast_executemany = True
+                                    self.seek_AC_odbc.executemany(SQLQuery)
                                 # todo см. статью https://learn.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-ver16
+                                #  https://github.com/mkleehammer/pyodbc/wiki/Tips-and-Tricks-by-Database-Platform#passing-row-oriented-parameter-data-as-a-json-string
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_odbc.commit()
                             if Data:

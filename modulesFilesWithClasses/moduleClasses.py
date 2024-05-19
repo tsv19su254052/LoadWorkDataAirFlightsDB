@@ -873,6 +873,7 @@ class ACFN(SE):
                     if useXQuery:
                         # todo Самый быстрый вариант парса (использует функционал XML-ного поля), используется XML-ный индекс (первичный и вторичный PATH)
                         try:
+                            return_value = 0
                             SP = 'SPUpdateFlightsByRoutes'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))
@@ -889,21 +890,21 @@ class ACFN(SE):
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
-                                    # todo SQL Server format with markers
+                                    # todo SQL Server Driver format with markers
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
                                     SQLQuery += "EXECUTE @ReturnValue = " + SP + " ?, ?, ?, ?, ? \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
-                                    # todo ODBC format with markers
-                                    #SQLQuery = "{CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    # todo ODBC Driver format with markers
+                                    SQLQuery = "{? = CALL " + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
-                                    self.seek_AC_odbc.execute(SQLQuery, parameters)
+                                    self.seek_AC_odbc.execute(SQLQuery, return_value, parameters)
                                 else:
-                                    # todo SQL Server format
+                                    # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
                                     SQLQuery += "EXECUTE @ReturnValue = " + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
-                                    # todo ODBC format
-                                    #SQLQuery = "{CALL " + SP + "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... Previous SQL was not a query ...
+                                    # todo ODBC Driver format
+                                    SQLQuery = "{ " + str(return_value) + " = CALL " + SP + "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)
                                 # todo см. статью https://learn.microsoft.com/en-us/sql/relational-databases/stored-procedures/return-data-from-a-stored-procedure?view=sql-server-ver16

@@ -888,6 +888,7 @@ class ACFN(SE):
                                 if useMarkers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     # fixme см. статью https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
+                                    # fixme см. статью https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     #SQLQuery = "DECLARE @ReturnValue INT \n"
                                     #SQLQuery += "CALL @return_value = dbo.SPUpdateFlightsByRoutes(?, ?, ?, ?, ?) \n"
                                     #SQLQuery += "SELECT @ReturnValue \n"  # fixme 42000 Incorrect syntax near \'CALL\' ... Must declare the scalar variable "@ReturnValue" ... Statement(s) could not be prepared
@@ -904,10 +905,10 @@ class ACFN(SE):
                                 else:
                                     # todo SQL Server format
                                     SQLQuery = "DECLARE @ReturnValue INT \n"
-                                    SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @ReturnValue = dbo.SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @ReturnValue AS RV \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC format
-                                    SQLQuery = "{ CALL " + SP +  "('" + str(ac) + "', '" + str(al) + str(fn) + "', '" + str(db_air_route) + "', '" + str(flightdate) + "', '" + str(begindate) + "') } "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "{ CALL " + SP +  "('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "') } "  # fixme ... Previous SQL was not a query ...
                                     #SQLQuery = "CALL SPUpdateFlightsByRoutes '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' "
                                     print(" SQLQuery = " + str(SQLQuery))
                                     self.seek_AC_odbc.execute(SQLQuery)

@@ -904,6 +904,7 @@ class ACFN(SE):
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT \n"
                                     SQLQuery += "PRINT 'return status = ' + CONVERT(VARCHAR(100), @return_status) \n"
+                                    # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format

@@ -904,10 +904,10 @@ class ACFN(SE):
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT = 5\n"
                                     SQLQuery += "PRINT 'return status = ' + CONVERT(VARCHAR(100), @return_status) \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " @Reg = '" + str(ac) + "', @FNS = '" + str(al) + str(fn) + "', @Route = " + str(db_air_route) + ", @FD = '" + str(flightdate) + "', @BD = '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format
-                                    SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
+                                    #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery)

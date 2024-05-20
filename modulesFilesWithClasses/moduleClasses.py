@@ -910,6 +910,7 @@ class ACFN(SE):
                                     SQLQuery += "SELECT @return_status AS return_status \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format
                                     SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
+                                    SQLQuery += "PRINT 'return status = ' + CONVERT(VARCHAR(100), @return_status) \n"
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery)

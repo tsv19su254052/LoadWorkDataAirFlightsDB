@@ -905,11 +905,10 @@ class ACFN(SE):
                                     SQLQuery = "DECLARE @return_status INT \n"
                                     # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> Не срабатывает ** Тарасов Сергей **
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " @Reg = " + str(ac) + ", @FNS = " + str(al) + str(fn) + ", @Route = " + str(db_air_route) + ", @FD = '" + str(flightdate) + "', @BD = '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " @Reg = " + str(ac) + ", @FNS = " + str(al) + str(fn) + "Test, @Route = " + str(db_air_route) + ", @FD = '" + str(flightdate) + "', @BD = '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @return_status AS 'return_status' \n"  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
-                                    SQLQuery += "PRINT 'return status = ' + CONVERT(VARCHAR(100), @return_status) "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery)

@@ -892,8 +892,8 @@ class ACFN(SE):
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # todo SQL Server Driver format with markers
-                                    SQLQuery = """DECLARE @return_status INT 
-                                                  EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? 
+                                    SQLQuery = """DECLARE @return_status INT = 5
+                                                  EXECUTE @return_status = dbo.""" + SP + """ ?, ?, ?, ?, ? 
                                                   SELECT @return_status AS 'return_status' """  # fixme ... Previous SQL was not a query ...
                                     # todo ODBC Driver format with markers
                                     #SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
@@ -904,8 +904,9 @@ class ACFN(SE):
                                     # todo SQL Server Driver format
                                     # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> Не срабатывает ** Тарасов Сергей **
-                                    SQLQuery = """DECLARE @return_status INT = 5
-                                                  EXECUTE @return_status = dbo." + SP + " '""" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \nSELECT @return_status AS 'return_status' "
+                                    SQLQuery = "DECLARE @return_status INT = 5 " \
+                                               "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' " \
+                                               "SELECT @return_status AS 'return_status' "
                                     # fixme ... 22003 ... floating point value '9E4969' is out of the range of computer representation (8 bytes) ...
                                     # todo ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...

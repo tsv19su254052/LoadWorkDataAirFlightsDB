@@ -903,7 +903,6 @@ class ACFN(SE):
                                 else:
                                     # todo SQL Server Driver format
                                     SQLQuery = "DECLARE @return_status INT \n"
-                                    SQLQuery += "PRINT 'return status = ' + CONVERT(VARCHAR(100), @return_status) \n"
                                     # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> Не срабатывает ** Тарасов Сергей **
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " @Reg = " + str(ac) + ", @FNS = " + str(al) + str(fn) + ", @Route = " + str(db_air_route) + ", @FD = '" + str(flightdate) + "', @BD = '" + str(begindate) + "' \n"

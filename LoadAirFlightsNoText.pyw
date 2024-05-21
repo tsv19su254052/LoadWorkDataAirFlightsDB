@@ -867,7 +867,7 @@ def myApplication():
             if Fl.useAirCrafts:
                 OutputString += " Авиаперелеты загружены в БД самолетов "
                 if Fl.useXQuery:
-                    OutputString += " с помощью xQuery (SAX)"
+                    OutputString += "с помощью xQuery (SAX)"
                     if Fl.useMSsql:
                         OutputString += " и mssql \n"
                         DataSQL = acfn.getSQLData_mssql()

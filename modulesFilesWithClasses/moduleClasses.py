@@ -871,9 +871,8 @@ class ACFN(SE):
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
-                        # todo Самый быстрый вариант парса (использует функционал XML-ного поля), используется XML-ный индекс (первичный и вторичный PATH)
+                        # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH)
                         try:
-                            return_value = 0
                             SP = 'SPUpdateFlights'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))
@@ -891,24 +890,24 @@ class ACFN(SE):
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
-                                    # todo SQL Server Driver format with markers
+                                    # SQL Server Driver format with markers
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
                                     SQLQuery += "SELECT @return_status AS 'return_status' "  # fixme ... Previous SQL was not a query ...
-                                    # todo ODBC Driver format with markers
+                                    # ODBC Driver format with markers
                                     #SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
-                                    # todo SQL Server Driver format
+                                    # SQL Server Driver format
                                     # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> Не срабатывает ** Тарасов Сергей **
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
                                     # fixme ... Previous SQL was not a query ...
-                                    # todo ODBC Driver format
+                                    # ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     #self.seek_AC_odbc.fast_executemany = True
@@ -930,7 +929,7 @@ class ACFN(SE):
                                 self.cnxn_AC_odbc.rollback()
                             Result = 0
                     else:
-                        # todo Ресурснозатратный вариант парса (работает с XML-ным полем как с двоичным или как с текстовым)
+                        # Работает с XML-ным полем как с двоичным или как с текстовым
                         # fixme при полной модели восстановления БД на первых 5-ти загрузках файл журнала стал в 1000 раз больше файла данных -> сделал простую
                         try:
                             SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"

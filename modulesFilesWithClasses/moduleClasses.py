@@ -871,7 +871,7 @@ class ACFN(SE):
             if db_air_craft is not None:
                 if useAirCrafts:
                     if useXQuery:
-                        # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH)
+                        # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH) todo см. статью https://learn.microsoft.com/ru-ru/sql/relational-databases/xml/xml-indexes-sql-server?view=sql-server-ver16
                         try:
                             SP = 'SPUpdateFlights'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )

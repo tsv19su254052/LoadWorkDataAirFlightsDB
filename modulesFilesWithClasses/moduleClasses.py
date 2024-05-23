@@ -887,12 +887,12 @@ class ACFN(SE):
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 #  https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
+                                # fixme наладить возврат результата из хранимки
                                 if useMarkers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # SQL Server Driver format with markers
-                                    # fixme наладить возврат результата из хранимки
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
@@ -906,7 +906,6 @@ class ACFN(SE):
                                 else:
                                     # SQL Server Driver format
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> работает!!!
-                                    # fixme наладить возврат результата из хранимки
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...

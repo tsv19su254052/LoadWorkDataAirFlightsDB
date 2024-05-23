@@ -893,12 +893,12 @@ class ACFN(SE):
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     # SQL Server Driver format with markers
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
-                                    #SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
+                                    #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
+                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
                                     # ODBC Driver format with markers
                                     #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
-                                    SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
@@ -911,8 +911,8 @@ class ACFN(SE):
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
                                     # ODBC Driver format
-                                    SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
-                                    #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
+                                    #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
+                                    SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     #self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery)

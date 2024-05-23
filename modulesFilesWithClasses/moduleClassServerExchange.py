@@ -1,7 +1,7 @@
 #  Interpreter 3.7 -> 3.10
 
 
-import pyodbc  # v. 5.0.1 - fixme вызов хранимых процедур EXECUTE ... не работает -> обновил до 5.1.0
+import pyodbc  # v. 5.0.1 - fixme вызов хранимых процедур EXECUTE ... не работает -> обновил до 5.1.0, работает
 import pymssql  # v. 2.3.0 работает тяжелее - fixme не подключается
 # todo Вероятно придется много переделать, чтобы не вызывать по 2 раза. Не работает с XML-ными полями см. https://docs.sqlalchemy.org/en/20/dialects/mssql.html#sqlalchemy.dialects.mssql.XML
 from sqlalchemy import create_engine

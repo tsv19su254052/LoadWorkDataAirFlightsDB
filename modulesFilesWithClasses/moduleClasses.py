@@ -873,7 +873,8 @@ class ACFN(SE):
                     if useXQuery:
                         # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH) todo см. статью https://learn.microsoft.com/ru-ru/sql/relational-databases/xml/xml-indexes-sql-server?view=sql-server-ver16
                         try:
-                            SP = 'SPUpdateFlights'
+                            SP = 'SPFlightUpdate'
+                            SPTest = 'SPFlightTest'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))
                             if useMSsql:
@@ -904,9 +905,9 @@ class ACFN(SE):
                                     # todo --> Если вызов не работает, вставь сюда тело хранимки вместе с транзакцией. Если тут заработает, тогда то же с маркерами ** Артюхов ВЛАД **
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> Не срабатывает ** Тарасов Сергей **
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                    #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
-                                    # fixme ... Previous SQL was not a query ...
                                     # ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "  # fixme ... 42000 Ошибка синтаксиса, отсутствие разрешения или другая неспецифическая ошибка ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
@@ -918,7 +919,7 @@ class ACFN(SE):
                                 self.cnxn_AC_odbc.commit()
                             if Data:
                                 print(" Результат хранимой процедуры = " + str(Data))
-                                Result = Data[0]
+                                Result = 1
                             else:
                                 Result = 0
                         except Exception as exception:

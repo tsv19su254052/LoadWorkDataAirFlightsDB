@@ -908,7 +908,7 @@ class ACFN(SE):
                                     # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> работает!!!
                                     SQLQuery = "DECLARE @return_status INT = 5 \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
-                                    #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
+                                    #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
                                     # ODBC Driver format
                                     #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "

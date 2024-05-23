@@ -94,7 +94,7 @@ def myApplication():
     myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
     myDialog.radioButton_DSN_AirCrafts_DOM.setToolTip("Ресурсозатратный, медленный\nПри использовании ПОЛНОЙ модели восстановления БД\n данный метод мягко говоря сильно загружает файл журнала *.ldf")
-    myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Быстрый\nМожно выставить в свойствах БД модель восстановления - ПОЛНАЯ")
+    myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Быстрый. Использует функционал XML-ного поля + XML-ный индекс\nМожно выставить в свойствах БД модель восстановления - ПОЛНАЯ")
     myDialog.radioButton_DB_AirFlights.setChecked(True)
     myDialog.radioButton_DSN_AirCrafts_DOM.setChecked(True)
 

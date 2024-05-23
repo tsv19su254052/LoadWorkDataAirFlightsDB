@@ -897,7 +897,7 @@ class ACFN(SE):
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
                                     SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
-                                    # ODBC Driver format with markers
+                                    # ODBC Driver format with markers fixme не возвращает результат
                                     #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
                                     SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
@@ -910,7 +910,7 @@ class ACFN(SE):
                                     SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
-                                    # ODBC Driver format
+                                    # ODBC Driver format fixme не возвращает результат
                                     #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                     SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))

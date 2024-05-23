@@ -897,8 +897,8 @@ class ACFN(SE):
                                     #SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
                                     SQLQuery += "SELECT @return_status AS 'return_status' "
                                     # ODBC Driver format with markers
-                                    SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
-                                    #SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
+                                    #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
+                                    SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "  # fixme ... Previous SQL was not a query ...
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)

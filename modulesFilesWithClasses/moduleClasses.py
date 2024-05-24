@@ -895,6 +895,13 @@ class ACFN(SE):
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
                                     if use_sql_server_driver_format:
                                         # SQL Server Driver format with markers
+                                        # todo --> Пробуем DSN-ы с разными драйверами
+                                        #  - Native Client,
+                                        #  - SQL Server,
+                                        #  - ODBC 13-ый,
+                                        #  - ODBC 17-ый (самый надежный и быстрый),
+                                        #  - ODBC 18-ый
+                                        #  и напрямую через драйвер SQL Server-а -> работает нормально
                                         SQLQuery = "DECLARE @return_status INT = 5 \n"
                                         #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
                                         SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
@@ -909,7 +916,6 @@ class ACFN(SE):
                                 else:
                                     if use_sql_server_driver_format:
                                         # SQL Server Driver format
-                                        # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> работает!!!
                                         SQLQuery = "DECLARE @return_status INT = 5 \n"
                                         SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                         #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"

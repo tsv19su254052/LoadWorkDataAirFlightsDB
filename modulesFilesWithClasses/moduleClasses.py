@@ -23,12 +23,13 @@ class FileNames:
 class Flags:
     def __init__(self):
         # Флаги
-        self.useAirCrafts = False
-        self.useAirFlightsDB = True
-        self.useAirCraftsDB = True
+        self.useAirCrafts = False  # пишем авиаперелеты в БД самолетов
+        self.useAirFlightsDB = True  # пишем авиаперелеты в БД авиаперелетов
+        self.useAirCraftsDB = True  # используем драйвер
         self.useXQuery = False
         self.useMSsql = False
         self.useODBCMarkers = False
+        self.useSQLServerDriverFormat = False
         self.SetInputDate = False
         self.BeginDate = ' '
 
@@ -846,7 +847,7 @@ class ACFN(SE):
             self.cnxn_RT_odbc.rollback()
         return Result
 
-    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, useAirCrafts, useXQuery, useMSsql, useMarkers):
+    def ModifyAirFlight(self, ac, al, fn, dep, arr, flightdate, begindate, use_aircrafts_db, use_xquery, use_ms_sql, use_markers, use_sql_server_driver_format):
 
         class Results:
             def __init__(self):
@@ -867,17 +868,17 @@ class ACFN(SE):
         db_air_route = self.QueryAirRoute(dep, arr).AirRouteUniqueNumber
         Result = 0
         if db_air_route is not None:
-            db_air_craft = self.QueryAirCraftByRegistration(ac, useAirCrafts).AirCraftUniqueNumber
+            db_air_craft = self.QueryAirCraftByRegistration(ac, use_aircrafts_db).AirCraftUniqueNumber
             if db_air_craft is not None:
-                if useAirCrafts:
-                    if useXQuery:
+                if use_aircrafts_db:
+                    if use_xquery:
                         # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH) todo см. статью https://learn.microsoft.com/ru-ru/sql/relational-databases/xml/xml-indexes-sql-server?view=sql-server-ver16
                         try:
                             SP = 'SPFlightUpdate'
                             SPTest = 'SPFlightTest'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))
-                            if useMSsql:
+                            if use_ms_sql:
                                 # fixme см. статью https://kontext.tech/article/893/call-sql-server-procedure-in-python
                                 #  https://github.com/tds-fdw/tds_fdw/issues/262
                                 #  https://github.com/mkleehammer/pyodbc/issues/184
@@ -888,31 +889,35 @@ class ACFN(SE):
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 #  https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
                                 # fixme наладить возврат результата из хранимки
-                                if useMarkers:
+                                if use_markers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
                                     #  https://github.com/mkleehammer/pyodbc/wiki/Calling-Stored-Procedures
-                                    # SQL Server Driver format with markers
-                                    SQLQuery = "DECLARE @return_status INT = 5 \n"
-                                    #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"  # fixme ... Previous SQL was not a query ...
-                                    SQLQuery += "SELECT @return_status AS 'return_status' "
-                                    # ODBC Driver format with markers fixme не возвращает результат
-                                    #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
-                                    SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "
+                                    if use_sql_server_driver_format:
+                                        # SQL Server Driver format with markers
+                                        SQLQuery = "DECLARE @return_status INT = 5 \n"
+                                        #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
+                                        SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
+                                        SQLQuery += "SELECT @return_status AS 'return_status' "
+                                    else:
+                                        # ODBC Driver format with markers fixme не возвращает результат
+                                        #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
+                                        SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery, parameters)
                                 else:
-                                    # SQL Server Driver format
-                                    # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> работает!!!
-                                    SQLQuery = "DECLARE @return_status INT = 5 \n"
-                                    SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
-                                    #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"  # fixme ... Previous SQL was not a query ...
-                                    SQLQuery += "SELECT @return_status AS 'return_status' "
-                                    # ODBC Driver format fixme не возвращает результат
-                                    #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
-                                    SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
+                                    if use_sql_server_driver_format:
+                                        # SQL Server Driver format
+                                        # todo --> Попробуй DSN-ы с разными драйверами (Native Client, SQL Server, ODBC 13-ый, ODBC 17-ый (самый надежный и быстрый), ODBC 18-ый) и напрямую через драйвер SQL Server-а -> работает!!!
+                                        SQLQuery = "DECLARE @return_status INT = 5 \n"
+                                        SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " '" + str(ac) + "', '" + str(al) + str(fn) + "Test', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                        #SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
+                                        SQLQuery += "SELECT @return_status AS 'return_status' "
+                                    else:
+                                        # ODBC Driver format fixme не возвращает результат
+                                        #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
+                                        SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
                                     #self.seek_AC_odbc.fast_executemany = True
                                     self.seek_AC_odbc.execute(SQLQuery)
@@ -927,7 +932,7 @@ class ACFN(SE):
                                 Result = 0
                         except Exception as exception:
                             print(" exception = " + str(exception))
-                            if useMSsql:
+                            if use_ms_sql:
                                 self.cnxn_AC_mssql.rollback()
                             else:
                                 self.cnxn_AC_odbc.rollback()

@@ -33,6 +33,7 @@ config_from_cfg.read('configCommon.cfg')
 acfn = ACFN()
 F = FileNames()
 Fl = Flags()
+Fl.useSQLServerDriverFormat = True
 St = States()
 
 
@@ -775,7 +776,7 @@ def myApplication():
                                                                 Dep_from_DataFrameFromCSV,
                                                                 Arr_from_DataFrameFromCSV,
                                                                 FD_Concatenated,
-                                                                Fl.BeginDate, Fl.useAirCrafts, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers)
+                                                                Fl.BeginDate, Fl.useAirCrafts, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers, Fl.useSQLServerDriverFormat)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает

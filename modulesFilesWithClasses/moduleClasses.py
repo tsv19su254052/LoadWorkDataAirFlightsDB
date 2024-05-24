@@ -874,7 +874,7 @@ class ACFN(SE):
                     if use_xquery:
                         # использует функционал XML-ного поля, использует XML-ный индекс (первичный и вторичный PATH) todo см. статью https://learn.microsoft.com/ru-ru/sql/relational-databases/xml/xml-indexes-sql-server?view=sql-server-ver16
                         try:
-                            SP = 'SPFlightUpdate'
+                            SP = 'SPFlightInsertOrUpdate'
                             SPTest = 'SPFlightTest'
                             parameters = (str(ac), str(al) + str(fn), db_air_route, str(flightdate), str(begindate), )
                             print("\n parameters = " + str(parameters))

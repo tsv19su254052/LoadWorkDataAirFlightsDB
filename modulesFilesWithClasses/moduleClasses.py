@@ -905,7 +905,7 @@ class ACFN(SE):
                                         SQLQuery = "DECLARE @return_status INT = 5 \n"
                                         #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
                                         SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
-                                        SQLQuery += "SELECT @return_status AS 'return_status' "  # fixme возвращает [('N132EV', '9E5186', 2345, '2023-09-01', '2023-09-01')]
+                                        SQLQuery += "SELECT @return_status AS 'return_status' "  # fixme возвращает [('N132EV', '9E5186', 2345, '2023-09-01', '2023-09-01')], наладить возврат результата хранимки, чтобы вернуть эту функцию в цикл попыток
                                     else:
                                         # ODBC Driver format with markers fixme не возвращает результат
                                         #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "

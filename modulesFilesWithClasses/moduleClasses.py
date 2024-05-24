@@ -888,7 +888,6 @@ class ACFN(SE):
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 #  https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
-                                # fixme наладить возврат результата из хранимки -> СДЕЛАЛ
                                 if use_markers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
@@ -905,9 +904,9 @@ class ACFN(SE):
                                         SQLQuery = "DECLARE @return_status INT = 5 \n"
                                         #SQLQuery += "EXECUTE @return_status = dbo." + SPTest + " ?, ?, ?, ?, ? \n"
                                         SQLQuery += "EXECUTE @return_status = dbo." + SP + " ?, ?, ?, ?, ? \n"
-                                        SQLQuery += "SELECT @return_status AS 'return_status' "  # fixme возвращает [('N132EV', '9E5186', 2345, '2023-09-01', '2023-09-01')], наладить возврат результата хранимки, чтобы вернуть эту функцию в цикл попыток
+                                        SQLQuery += "SELECT @return_status AS 'return_status' "
                                     else:
-                                        # ODBC Driver format with markers fixme не возвращает результат
+                                        # ODBC Driver format with markers
                                         #SQLQuery = "{CALL dbo." + SPTest + " (?, ?, ?, ?, ?)} "
                                         SQLQuery = "{CALL dbo." + SP + " (?, ?, ?, ?, ?)} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))
@@ -921,7 +920,7 @@ class ACFN(SE):
                                         SQLQuery += "EXECUTE @return_status = dbo." + SP + " '" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "' \n"
                                         SQLQuery += "SELECT @return_status AS 'return_status' "
                                     else:
-                                        # ODBC Driver format fixme не возвращает результат
+                                        # ODBC Driver format
                                         #SQLQuery = "{CALL dbo." + SPTest + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                         SQLQuery = "{CALL dbo." + SP + " ('" + str(ac) + "', '" + str(al) + str(fn) + "', " + str(db_air_route) + ", '" + str(flightdate) + "', '" + str(begindate) + "')} "
                                     print(" SQLQuery: \n ----\n" + str(SQLQuery))

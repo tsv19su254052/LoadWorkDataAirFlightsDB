@@ -888,7 +888,7 @@ class ACFN(SE):
                             else:
                                 # fixme см. статью https://stackoverflow.com/questions/28635671/using-sql-server-stored-procedures-from-python-pyodbc
                                 #  https://code.google.com/archive/p/pyodbc/wikis/Cursor.wiki
-                                # fixme наладить возврат результата из хранимки
+                                # fixme наладить возврат результата из хранимки -> СДЕЛАЛ
                                 if use_markers:
                                     # fixme см. статью https://stackoverflow.com/questions/34228152/python-execute-stored-procedure-with-parameters
                                     #  https://www.sqlservercentral.com/articles/sql-server-and-python-tutorial
@@ -932,8 +932,9 @@ class ACFN(SE):
                                 Data = self.seek_AC_odbc.fetchall()  # fetchval() - pyodbc convenience method similar to cursor.fetchone()[0]
                                 self.cnxn_AC_odbc.commit()
                             if Data:
-                                print(" Результат хранимой процедуры = " + str(Data))
-                                Result = 1
+                                print(" Data = " + str(Data))
+                                Result = Data[0][5]
+                                print(" Результат хранимой процедуры = " + str(Result))
                             else:
                                 Result = 0
                         except Exception as exception:

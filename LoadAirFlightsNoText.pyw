@@ -556,6 +556,7 @@ def myApplication():
         CountRoutesFailed = 0
         CountFlightsAdded = 0
         CountFlightsPadded = 0
+        CountFlightsInserted = 0
         CountFlightsFailed = 0
         CountProgressBarFailed = 0
         # Распределение плотности перезапросов сервера
@@ -792,6 +793,10 @@ def myApplication():
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                                 print(colorama.Fore.GREEN + "сплюсовался", end=" ")
                                 break
+                            if ResultModify == 3:
+                                CountFlightsInserted += 1
+                                print(colorama.Fore.GREEN + "записался с нуля новый", end=" ")
+                                break
                         elif DBAirRoute is None:
                             CountFlightsFailed += 1
                             break
@@ -923,6 +928,8 @@ def myApplication():
                 OutputString += " \n"
             if CountFlightsAdded:
                 OutputString += " - вставились " + str(CountFlightsAdded) + " авиарейсы \n"
+            if CountFlightsInserted:
+                OutputString += " - записались с нуля " + str(CountFlightsInserted) + " авиарейсы \n"
             if CountFlightsFailed:
                 OutputString += " - не вставились " + str(CountFlightsFailed) + " авиарейсы \n"
             if CountFlightsPadded:

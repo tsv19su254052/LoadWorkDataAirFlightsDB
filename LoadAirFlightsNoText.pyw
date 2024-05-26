@@ -37,6 +37,8 @@ Fl = Flags()
 Fl.useSQLServerDriverFormat = True
 St = States()
 
+logger = logging.getLogger(__name__)
+
 myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
@@ -519,7 +521,7 @@ def myApplication():
         myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: yellow")
         print("  Чтение и перепаковка исходных данных")
         print("  ожидайте ...", end=' ')
-        logging.info("Чтение и перепаковка исходных данных")
+        logger.info("Чтение и перепаковка исходных данных")
         # todo Если оперативной памяти не достаточно, то тут остановится
         DataFrameFromCSV = pandas.read_csv(Csv, sep=",")
         # todo В исходном файле *.csv столбцы подписаны -> в DataFrame можно перемещаться по именам столбцов -> Разбираем на столбцы и работаем с ними https://datatofish.com/convert-pandas-dataframe-to-list/
@@ -545,7 +547,7 @@ def myApplication():
         else:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: blue")
         print("Исходные данные перепакованы")
-        logging.info("Исходные данные перепакованы")
+        logger.info("Исходные данные перепакованы")
         # Списки
         ListAirLinesAdded = []
         ListAirLinesFailed = []
@@ -581,7 +583,7 @@ def myApplication():
         StartTime = datetime.datetime.now()
         #myDialog.label_execute.setText("Загрузка начата")  # оболочка зависает и слетает
         print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
-        logging.info("Загрузка начата")
+        logger.info("Загрузка начата")
         # Сигнал на обновление полоски выполнения
         completion = 0  # Выполнение загрузки
         Execute = 0
@@ -862,12 +864,12 @@ def myApplication():
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
             print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-            logging.info("Загрузка окончена. Результаты см. в " + str(F.LogFileTXT))
+            filenameCSV = pathlib.Path(F.InputFileCSV).name
+            logger.info("Загрузка окончена. Результаты см. в " + filenameCSV + " в папке Журналов")
             OutputString = " \n \n"
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
             OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
             OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-            filenameCSV = pathlib.Path(F.InputFileCSV).name
             OutputString += " Источник входных данных = " + filenameCSV + " \n"
             #OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"
@@ -1002,11 +1004,11 @@ def myApplication():
         LogFileName = LogFileNamePreffix + LogFileNameSuffix
         print(" LogFileName = " + str(LogFileName))
         logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-        logging.debug("a DEBUG Message")
-        logging.info("an INFO")
-        logging.warning("a WARNING")
-        logging.error("an ERROR")
-        logging.critical("a message of CRITICAL severity")
+        logger.debug("a DEBUG Message")
+        logger.info("an INFO")
+        logger.warning("a WARNING")
+        logger.error("an ERROR")
+        logger.critical("a message of CRITICAL severity")
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
         threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.LogFileTXT, ))  # поток не сам по себе
         threadLoad.start()

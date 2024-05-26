@@ -10,6 +10,7 @@ import sys
 import socket
 import threading
 from configparser import ConfigParser
+import logging
 
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
 import pathlib
@@ -35,7 +36,6 @@ F = FileNames()
 Fl = Flags()
 Fl.useSQLServerDriverFormat = True
 St = States()
-
 
 myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
@@ -863,7 +863,9 @@ def myApplication():
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
             OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
             OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-            # OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
+            filenameCSV = pathlib.Path(F.InputFileCSV).name
+            OutputString += " Источник входных данных = " + filenameCSV + " \n"
+            #OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"
             if Fl.SetInputDate:
                 OutputString += " Дата авиарейса проставлена из входного файла\n"
@@ -988,6 +990,16 @@ def myApplication():
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         myDialog.label_execute.setEnabled(True)
+        LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
+        filenameCSV = pathlib.Path(F.InputFileCSV).name
+        LogFileName = filenameCSV.rsplit('.', 1)[0] + LogFileNameSuffix
+        print(" LogFileName = " + str(LogFileName))
+        logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        logging.debug("a DEBUG Message")
+        logging.info("an INFO")
+        logging.warning("a WARNING")
+        logging.error("an ERROR")
+        logging.critical("a message of CRITICAL severity")
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
         threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.LogFileTXT, ))  # поток не сам по себе
         threadLoad.start()

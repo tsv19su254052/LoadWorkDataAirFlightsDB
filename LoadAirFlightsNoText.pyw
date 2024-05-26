@@ -519,6 +519,7 @@ def myApplication():
         myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: yellow")
         print("  Чтение и перепаковка исходных данных")
         print("  ожидайте ...", end=' ')
+        logging.info("Чтение и перепаковка исходных данных")
         # todo Если оперативной памяти не достаточно, то тут остановится
         DataFrameFromCSV = pandas.read_csv(Csv, sep=",")
         # todo В исходном файле *.csv столбцы подписаны -> в DataFrame можно перемещаться по именам столбцов -> Разбираем на столбцы и работаем с ними https://datatofish.com/convert-pandas-dataframe-to-list/
@@ -544,6 +545,7 @@ def myApplication():
         else:
             myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: blue")
         print("Исходные данные перепакованы")
+        logging.info("Исходные данные перепакованы")
         # Списки
         ListAirLinesAdded = []
         ListAirLinesFailed = []
@@ -579,6 +581,7 @@ def myApplication():
         StartTime = datetime.datetime.now()
         #myDialog.label_execute.setText("Загрузка начата")  # оболочка зависает и слетает
         print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
+        logging.info("Загрузка начата")
         # Сигнал на обновление полоски выполнения
         completion = 0  # Выполнение загрузки
         Execute = 0
@@ -859,6 +862,7 @@ def myApplication():
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
             print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
+            logging.info("Загрузка окончена. Результаты см. в " + str(F.LogFileTXT))
             OutputString = " \n \n"
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
             OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
@@ -957,6 +961,7 @@ def myApplication():
                 print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(F.LogFileTXT))
             finally:
                 LogFile.close()
+            #logging.info(OutputString)
             # Дописываем в журнал (с помощью менеджера контекста)
             # with open(Log, 'a') as LogFile:
             #     LogFile.write(OutputString)
@@ -990,9 +995,11 @@ def myApplication():
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         myDialog.label_execute.setEnabled(True)
-        LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
         filenameCSV = pathlib.Path(F.InputFileCSV).name
-        LogFileName = filenameCSV.rsplit('.', 1)[0] + LogFileNameSuffix
+        #LogFileNamePreffix = filenameCSV.rsplit('.', 1)[0]
+        LogFileNamePreffix = filenameCSV.removesuffix('.csv')
+        LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
+        LogFileName = LogFileNamePreffix + LogFileNameSuffix
         print(" LogFileName = " + str(LogFileName))
         logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
         logging.debug("a DEBUG Message")

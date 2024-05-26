@@ -864,12 +864,13 @@ def myApplication():
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
             print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-            filenameCSV = pathlib.Path(F.InputFileCSV).name
-            logger.info("Загрузка окончена. Результаты см. в " + filenameCSV + " в папке Журналов")
+            filenameTXT = pathlib.Path(F.LogFileTXT).name
+            logger.info("Загрузка окончена. Результаты см. в " + filenameTXT + " в папке Журналов")
             OutputString = " \n \n"
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
             OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
             OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
+            filenameCSV = pathlib.Path(F.InputFileCSV).name
             OutputString += " Источник входных данных = " + filenameCSV + " \n"
             #OutputString += " Источник входных данных = " + str(F.InputFileCSV) + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"

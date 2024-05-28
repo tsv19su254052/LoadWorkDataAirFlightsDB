@@ -1025,12 +1025,13 @@ def myApplication():
         LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
         LogFileName = LogFileNamePreffix + LogFileNameSuffix
         print(" LogFileName = " + str(LogFileName))
-        logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-        #logger.debug("a DEBUG Message")
-        #logger.info("an INFO")
-        #logger.warning("a WARNING")
-        #logger.error("an ERROR")
-        #logger.critical("a message of CRITICAL severity")
+        # todo При отладке ставим уровень DEBUG, при нормальной работе - INFO
+        logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        logger.debug("a DEBUG Message")
+        logger.info("an INFO")
+        logger.warning("a WARNING")
+        logger.error("an ERROR")
+        logger.critical("a message of CRITICAL severity")
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
         threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.LogFileTXT, ))  # поток не сам по себе
         threadLoad.start()

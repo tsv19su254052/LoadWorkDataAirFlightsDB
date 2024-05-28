@@ -975,7 +975,7 @@ def myApplication():
             except IOError:
                 try:
                     LogErrorFile = open(F.ErrorFileTXT, 'a')
-                    LogErrorFile.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.InputFileCSV) + " \n")
+                    LogErrorFile.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.LogFileTXT) + " \n")
                 except IOError:
                     print("Ошибка дозаписи в файл журнала")
                 finally:

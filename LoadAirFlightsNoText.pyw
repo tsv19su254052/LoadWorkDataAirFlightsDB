@@ -705,6 +705,7 @@ def myApplication():
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
+                    logger.debug(" - перезапрос самолета " + str(AC_from_DataFrameFromCSV))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
                 ListAirCraftsFailed.append(AC_from_DataFrameFromCSV)

@@ -617,12 +617,14 @@ def myApplication():
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
+                        logger.debug(" - ожидание вставки авиакомпании " + str(AL_from_DataFrameFromCSV))
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirLine is not None:
                     break
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
+                    logger.debug(" - перезапрос авиакомпании " + str(AL_from_DataFrameFromCSV))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
                 ListAirLinesFailed.append(AL_from_DataFrameFromCSV)

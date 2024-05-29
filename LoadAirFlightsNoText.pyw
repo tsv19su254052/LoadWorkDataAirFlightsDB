@@ -1026,7 +1026,10 @@ def myApplication():
         LogFileName = LogFileNamePreffix + LogFileNameSuffix
         print(" LogFileName = " + str(LogFileName))
         # todo При отладке ставим уровень DEBUG, при нормальной работе - INFO
-        logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        if Fl.DebugLevel:
+            logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        else:
+            logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
         logger.debug("a DEBUG Message")
         logger.info("an INFO")
         logger.warning("a WARNING")

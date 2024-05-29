@@ -32,6 +32,7 @@ class Flags:
         self.useSQLServerDriverFormat = False
         self.SetInputDate = False
         self.BeginDate = ' '
+        self.DebugLevel = False
 
 
 class States:

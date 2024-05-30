@@ -324,7 +324,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             DataBase = str(ChoiceDB)
             DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC, database=DataBase):
+            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC, database=DataBase):
                 print("  База данных ", DataBase, " подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))

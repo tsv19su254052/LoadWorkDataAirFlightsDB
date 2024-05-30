@@ -294,7 +294,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             DataBase_AL = str(ChoiceDB)
             DriverODBC_AL = str(ChoiceDriver)
-            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_AL, database=DataBase_AL):
+            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC_AL, database=DataBase_AL):
                 print("  БД = ", DataBase_AL, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))
@@ -347,14 +347,14 @@ def myApplication():
                 # fixme не подключается по pymssql
                 if Fl.useAirCraftsDB:
                     if Fl.useXQuery and Fl.useMSsql:
-                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_ACFN, database=DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerName'), database=DataBase_ACFN):
+                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC_ACFN, database=DataBase_ACFN) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), database=DataBase_ACFN):
                             St.Connected_AC = True
                     else:
-                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
+                        if acfn.connectDB_AC_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
                             St.Connected_AC = True
                 else:
                     if Fl.useXQuery and Fl.useMSsql:
-                        if acfn.connectDSN_AC_odbc(dsn=myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerName'), database=DataBase_ACFN):
+                        if acfn.connectDSN_AC_odbc(dsn=myDSN_AC_odbc) and acfn.connectDB_AC_mssql(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), database=DataBase_ACFN):
                             St.Connected_AC = True
                     else:
                         if acfn.connectDSN_AC_odbc(dsn=myDSN_AC_odbc):
@@ -402,7 +402,7 @@ def myApplication():
                 ChoiceDSN_ACFN = myDialog.comboBox_DSN_FN.currentText()
                 myDSN_ACFN = str(ChoiceDSN_ACFN)
                 if Fl.useAirFlightsDB:
-                    if acfn.connectDB_ACFN_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameFlights'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
+                    if acfn.connectDB_ACFN_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC_ACFN, database=DataBase_ACFN):
                         St.Connected_ACFN = True
                 else:
                     if acfn.connectDSN_ACFN_odbc(myDSN_ACFN):
@@ -463,7 +463,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             DataBase_RT = str(ChoiceDB)
             DriverODBC_RT = str(ChoiceDriver)
-            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC_RT, database=DataBase_RT):
+            if acfn.connectDB_RT_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC_RT, database=DataBase_RT):
                 print("  БД = ", DataBase_RT, "подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))

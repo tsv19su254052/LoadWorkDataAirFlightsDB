@@ -137,7 +137,7 @@ def myApplication():
         for DriverODBC in DriversODBC:
             myDialog.comboBox_Driver.addItem(str(DriverODBC))
     # Привязки обработчиков
-    myDialog.pushButton_SelectDB.clicked.connect(lambda: PushButtonSelectDB())
+    myDialog.pushButton_SelectDB.clicked.connect(lambda: PushButtonConnectDB())
     myDialog.pushButton_Disconnect.clicked.connect(lambda: PushButtonDisconnect())
     myDialog.pushButton_SearchByIATA.clicked.connect(lambda: PushButtonSearchByIATA())
     myDialog.pushButton_SearchByICAO.clicked.connect(lambda: PushButtonSearchByICAO())
@@ -150,7 +150,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_IATA.clicked.connect(lambda: Check_IATA())
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
-    def PushButtonSelectDB():
+    def PushButtonConnectDB():
         if not St.Connected_AL:
             # Переводим в неактивное состояние
             myDialog.pushButton_SelectDB.setEnabled(False)
@@ -160,7 +160,7 @@ def myApplication():
             # Добавляем атрибуты DataBase, DriverODBC
             DataBase = str(ChoiceDB)
             DriverODBC = str(ChoiceDriver)
-            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerName'), driver=DriverODBC, database=DataBase):
+            if acfn.connectDB_AL_odbc(servername=config_from_cfg.get(section='Servers', option='ServerNameRemote'), driver=DriverODBC, database=DataBase):
                 print("  База данных ", DataBase, " подключена")
                 Data = acfn.getSQLData_odbc()
                 print(" Data = " + str(Data))

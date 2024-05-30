@@ -38,7 +38,7 @@ Fl.useSQLServerDriverFormat = True
 St = States()
 
 logger = logging.getLogger(__name__)
-if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel'):
+if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and str(os.getlogin()) == 'Sergey':
     # logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
     logger.setLevel(level=logging.DEBUG)
 else:

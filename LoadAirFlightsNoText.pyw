@@ -48,7 +48,7 @@ else:
 myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
-print(termcolor.colored("Обработка v" + str(myOwnDevelopingVersion) + " загрузки рабочих данных в БД SQL Server-а", 'blue', 'on_yellow'))
+print(termcolor.colored("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а", 'blue', 'on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
 print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
 
@@ -1033,11 +1033,11 @@ def myApplication():
         print(" LogFileName = " + str(LogFileName))
         # todo При отладке ставим уровень DEBUG, при нормальной работе - INFO
         logging.basicConfig(filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-        logger.debug("a DEBUG Message")
-        logger.info("an INFO")
-        logger.warning("a WARNING")
-        logger.error("an ERROR")
-        logger.critical("a message of CRITICAL severity")
+        logger.info("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а")
+        logger.debug(" в режиме отладки")
+        #logger.warning("a WARNING")
+        #logger.error("an ERROR")
+        #logger.critical("a message of CRITICAL severity")
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
         threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.LogFileTXT, ))  # поток не сам по себе
         threadLoad.start()

@@ -39,7 +39,7 @@ St = States()
 
 logger = logging.getLogger(__name__)
 # todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
-if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and config_from_cfg.get(section='ConstantParameters', option='Developer') == str(os.getlogin()):
+if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and str(os.getlogin()) == config_from_cfg.get(section='ConstantParameters', option='Developer'):
     # logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
     logger.setLevel(level=logging.DEBUG)
 else:

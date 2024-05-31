@@ -38,6 +38,7 @@ Fl.useSQLServerDriverFormat = True
 St = States()
 
 logger = logging.getLogger(__name__)
+# todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
 if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and config_from_cfg.get(section='Users', option='Developer') == str(os.getlogin()):
     # logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
     logger.setLevel(level=logging.DEBUG)
@@ -1031,7 +1032,6 @@ def myApplication():
         LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
         LogFileName = LogFileNamePreffix + LogFileNameSuffix
         print(" LogFileName = " + str(LogFileName))
-        # todo При отладке ставим уровень DEBUG, при нормальной работе - INFO
         logging.basicConfig(filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
         logger.info("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а")
         logger.debug(" в режиме отладки")

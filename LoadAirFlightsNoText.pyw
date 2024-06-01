@@ -46,7 +46,7 @@ else:
     # logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
     logger.setLevel(level=logging.INFO)
 
-myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия. todo Пакеты на GitHub-е *.tar.gz (под Linux или под BSD) не нужны
+myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а", 'blue', 'on_yellow'))

@@ -729,17 +729,9 @@ class ACFN(SE):
                 added = False
                 for node in Search:
                     if node.attrib['Name'] == str(user):
-                        #newDateTime = ElementTree.SubElement(node, 'DateTime')
-                        #newDateTime.attrib['From'] = str(host)
-                        #newDateTime.text = str(dtn)
-                        #User.append(newDateTime)  # fixme добавляет еще раз
-                        # root_tag.insert(3, DateTime)  # вставилась 3-я по счету подветка (не по схеме)
                         node.append(DateTime)
-                        #root_tag.append(User)
                         added = True
-                        #break
                 if not added:
-                    #User.append(DateTime)
                     root_tag.append(User)
                 xQuery = ".//User[@Name='" + str(user) + "'] "
                 print(" xQuery = " + str(xQuery))

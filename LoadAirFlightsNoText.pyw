@@ -32,13 +32,18 @@ config_from_cfg = ConfigParser()
 config_from_cfg.read('configCommon.cfg')
 
 acfn = ACFN()
+
 F = FileNames()
 F.filenameCSV = ' '
 F.filenameTXT = ' '
 F.filenameLOG = ' '
+
 Fl = Flags()
 Fl.current_user = os.getlogin()
+Fl.current_hostname = socket.gethostname()
+Fl.current_interpreter_version = sys.version
 Fl.useSQLServerDriverFormat = True
+
 St = States()
 
 logger = logging.getLogger(__name__)
@@ -871,8 +876,8 @@ def myApplication():
             logger.info("Загрузка окончена. Результаты см. в " + F.filenameTXT + " в папке Журналов")
             OutputString = " \n \n"
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
-            OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
-            OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
+            OutputString += " Загрузка проведена с " + str(Fl.current_hostname) + " \n"
+            OutputString += " Версия интерпретатора = " + str(Fl.current_interpreter_version) + " \n"
             #F.filenameCSV = pathlib.Path(F.InputFileCSV).name
             OutputString += " Источник входных данных = " + F.filenameCSV + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"
@@ -964,7 +969,7 @@ def myApplication():
                 finally:
                     LogErrorFile.close()
                 print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(F.filenameTXT))
-                logger.error("Ошибка дозаписи в " + str(F.OutputFileTXT))
+                logger.error("Ошибка дозаписи в " + str(F.filenameTXT))
             finally:
                 LogFile.close()
             #logging.info(OutputString)

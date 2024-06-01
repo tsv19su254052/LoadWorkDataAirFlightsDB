@@ -792,7 +792,7 @@ def myApplication():
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - ожидание вставки (изменения) авиарейса " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
+                                logger.debug(" - ожидание вставки (изменения) авиарейса " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1
@@ -814,7 +814,7 @@ def myApplication():
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                            logger.debug(" - перезапрос маршрута " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
+                            logger.debug(" - перезапрос маршрута " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
                             time.sleep(attemptNumber / Density)
                     elif DBAirCraft is None:
                         CountFlightsFailed += 1
@@ -822,7 +822,7 @@ def myApplication():
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                        logger.debug(" - перезапрос самолета " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
+                        logger.debug(" - перезапрос самолета " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
                         time.sleep(attemptNumber / Density)
                 elif DBAirLine is None:
                     CountFlightsFailed += 1
@@ -830,7 +830,7 @@ def myApplication():
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                    logger.debug(" - перезапрос авиакомании " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
+                    logger.debug(" - перезапрос авиакомании " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
                 CountFlightsFailed += 1

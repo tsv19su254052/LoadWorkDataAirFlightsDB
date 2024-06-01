@@ -887,18 +887,18 @@ def myApplication():
                 OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
             DataSQL = acfn.getSQLData_odbc()
             if Fl.useAirCrafts:
-                OutputString += " Авиаперелеты загружены в БД самолетов "
+                OutputString += " Авиаперелеты загружены в БД самолетов с помощью "
                 if Fl.useXQuery:
-                    OutputString += "с помощью xQuery (SAX)"
+                    OutputString += "SQL-ных хранимок со вставками на xPath & xQuery (как SAX)"
                     if Fl.useMSsql:
                         OutputString += " и mssql \n"
                         DataSQL = acfn.getSQLData_mssql()
                     elif Fl.useODBCMarkers:
-                        OutputString += ", с маркерами pyODBC \n"
+                        OutputString += " с маркерами pyODBC \n"
                     else:
                         OutputString += " \n"
                 else:
-                    OutputString += "с помощью xml.etree.ElementTree (DOM) \n"
+                    OutputString += "xml.etree.ElementTree (как DOM) \n"
             else:
                 OutputString += " Авиаперелеты загружены в БД авиаперелетов \n"
             OutputString += " Сервер СУБД = " + str(DataSQL[0]) + " \n"

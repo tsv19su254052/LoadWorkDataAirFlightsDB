@@ -596,138 +596,137 @@ def myApplication():
         Execute = 0
         ExecutePrevious = 0
         # Один внешний цикл и три вложенных цикла
-        #for AL, AC, Dep, Arr, FN, FD in zip(ListAirLineCodeIATA, ListAirCraft, ListAirPortDeparture, ListAirPortArrival, ListFlightNumber, ListFlightDateConcatenated):  # fixme при загрузке ОЗУ зависает и сбрасывает данные -> исправил
         # todo Высота DataFrame см. https://stackoverflow.com/questions/15943769/how-do-i-get-the-row-count-of-a-pandas-dataframe
         for slider in range(len(DataFrameFromCSV.index)):
             # todo Получение элемента по номеру строки и имени столбца см. https://stackoverflow.com/questions/70931002/pandas-get-cell-value-by-row-index-and-column-name
-            AL_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('OP_UNIQUE_CARRIER')]
-            AC_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('TAIL_NUM')]
-            Dep_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('ORIGIN')]
-            Arr_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('DEST')]
-            FN_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('OP_CARRIER_FL_NUM')]
+            AL = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('OP_UNIQUE_CARRIER')]
+            AC = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('TAIL_NUM')]
+            Dep = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('ORIGIN')]
+            Arr = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('DEST')]
+            FN = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('OP_CARRIER_FL_NUM')]
             Year_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('YEAR')]
             Month_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('MONTH')]
             Day_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('DAY_OF_MONTH')]
-            FD_Concatenated = str(Year_from_DataFrameFromCSV) + "-" + '%02d' % Month_from_DataFrameFromCSV + "-" + '%02d' % Day_from_DataFrameFromCSV
-            print(colorama.Fore.BLUE + "Авикомпания", str(AL_from_DataFrameFromCSV), end=" ")
+            FD = str(Year_from_DataFrameFromCSV) + "-" + '%02d' % Month_from_DataFrameFromCSV + "-" + '%02d' % Day_from_DataFrameFromCSV
+            print(colorama.Fore.BLUE + "Авикомпания", str(AL), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirLine = acfn.QueryAirLineByIATA(AL_from_DataFrameFromCSV)
+                DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is None:
-                    if acfn.InsertAirLineByIATAandICAO(AL_from_DataFrameFromCSV, None):
-                        ListAirLinesAdded.append(AL_from_DataFrameFromCSV)
+                    if acfn.InsertAirLineByIATAandICAO(AL, None):
+                        ListAirLinesAdded.append(AL)
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                         print(colorama.Fore.GREEN + "вставилась ", end=" ")
                         break
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                        logger.debug(" - ожидание вставки авиакомпании " + str(AL_from_DataFrameFromCSV))
+                        logger.debug(" - ожидание вставки авиакомпании " + str(AL))
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirLine is not None:
                     break
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                    logger.debug(" - перезапрос авиакомпании " + str(AL_from_DataFrameFromCSV))
+                    logger.debug(" - перезапрос авиакомпании " + str(AL))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
-                ListAirLinesFailed.append(AL_from_DataFrameFromCSV)
+                ListAirLinesFailed.append(AL)
             print(" ")
             DistributionDensityAirLines[deadlockCount] += 1
-            print(colorama.Fore.BLUE + " Самолет", str(AC_from_DataFrameFromCSV), end=" ")
+            print(colorama.Fore.BLUE + " Самолет", str(AC), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirCraft = acfn.QueryAirCraftByRegistration(AC_from_DataFrameFromCSV, Fl.useAirCrafts)
+                DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCrafts)
                 if DBAirCraft is None:
-                    DBAirLine = acfn.QueryAirLineByIATA(AL_from_DataFrameFromCSV)
+                    DBAirLine = acfn.QueryAirLineByIATA(AL)
                     if DBAirLine is None:
                         # Вставляем самолет с пустым внешним ключем
-                        if acfn.InsertAirCraftByRegistration(Registration=AC_from_DataFrameFromCSV, ALPK=None, useAirCrafts=Fl.useAirCrafts):
-                            ListAirCraftsAdded.append(AC_from_DataFrameFromCSV)
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=None, useAirCrafts=Fl.useAirCrafts):
+                            ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                            logger.debug(" - ожидание вставки самолета " + str(AC_from_DataFrameFromCSV) + " неизвестной авиакомпании")
+                            logger.debug(" - ожидание вставки самолета " + str(AC) + " неизвестной авиакомпании")
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirLine is not None:
                         # Вставляем самолет (на предыдущем цикле вставили авиакомпанию)
-                        if acfn.InsertAirCraftByRegistration(Registration=AC_from_DataFrameFromCSV, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
-                            ListAirCraftsAdded.append(AC_from_DataFrameFromCSV)
+                        if acfn.InsertAirCraftByRegistration(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
+                            ListAirCraftsAdded.append(AC)
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                             print(colorama.Fore.GREEN + "вставился", end=" ")
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                            logger.debug(" - ожидание вставки самолета " + str(AC_from_DataFrameFromCSV) + " авиакомпании " + str(AL_from_DataFrameFromCSV))
+                            logger.debug(" - ожидание вставки самолета " + str(AC) + " авиакомпании " + str(AL))
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                        logger.debug(" - перезапрос авиакомпании " + str(AL_from_DataFrameFromCSV))
+                        logger.debug(" - перезапрос авиакомпании " + str(AL))
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirCraft is not None:
                     if Fl.useAirCrafts:
                         break
                     else:
                         DBAirLinePK = acfn.QueryAirLineByPK(DBAirCraft.AirCraftAirLine)
-                        if DBAirLinePK is None or DBAirLinePK.AirLineCodeIATA != AL_from_DataFrameFromCSV:
+                        if DBAirLinePK is None or DBAirLinePK.AirLineCodeIATA != AL:
                             # fixme пустая ячейка в таблице SQL-ной БД - NULL <-> в Python-е - (None,) -> в условиях None и (None,) - не False и не True
                             # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация UNKNOWN не имеет внешнего ключа авиакомпании
                             # fixme Просмотрел таблицу самолетов скриптом на SQL -> регистрация nan каждый раз переписывается на другую компанию-оператора
-                            DBAirLine = acfn.QueryAirLineByIATA(AL_from_DataFrameFromCSV)
+                            DBAirLine = acfn.QueryAirLineByIATA(AL)
                             if DBAirLine is None:
                                 break
                             elif DBAirLine is not None:
-                                if acfn.UpdateAirCraft(Registration=AC_from_DataFrameFromCSV, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
-                                    ListAirCraftsUpdated.append(AC_from_DataFrameFromCSV)
+                                if acfn.UpdateAirCraft(Registration=AC, ALPK=DBAirLine.AirLineUniqueNumber, useAirCrafts=Fl.useAirCrafts):
+                                    ListAirCraftsUpdated.append(AC)
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                                    print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL_from_DataFrameFromCSV), end=" ")
+                                    print(colorama.Fore.LIGHTCYAN_EX + "переписали на", str(AL), end=" ")
                                     break
                                 else:
                                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                                     print(colorama.Fore.LIGHTYELLOW_EX + "*", end=" ")
-                                    logger.debug(" - ожидание изменения авиакомпании " + str(AL_from_DataFrameFromCSV) + " самолета " + str(AC_from_DataFrameFromCSV))
+                                    logger.debug(" - ожидание изменения авиакомпании " + str(AL) + " самолета " + str(AC))
                                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             else:
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - перезапрос авиакомпании " + str(AL_from_DataFrameFromCSV))
+                                logger.debug(" - перезапрос авиакомпании " + str(AL))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
-                        elif DBAirLinePK.AirLineCodeIATA == AL_from_DataFrameFromCSV:
+                        elif DBAirLinePK.AirLineCodeIATA == AL:
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                            logger.debug(" - перезапрос авиакомпании " + str(AL_from_DataFrameFromCSV))
+                            logger.debug(" - перезапрос авиакомпании " + str(AL))
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                    logger.debug(" - перезапрос самолета " + str(AC_from_DataFrameFromCSV))
+                    logger.debug(" - перезапрос самолета " + str(AC))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
-                ListAirCraftsFailed.append(AC_from_DataFrameFromCSV)
+                ListAirCraftsFailed.append(AC)
             print(" ")
             DistributionDensityAirCrafts[deadlockCount] += 1
-            print(colorama.Fore.BLUE + " Маршрут", str(Dep_from_DataFrameFromCSV), "-", str(Arr_from_DataFrameFromCSV), end=" ")
+            print(colorama.Fore.BLUE + " Маршрут", str(Dep), "-", str(Arr), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirPortDep = acfn.QueryAirPortByIATA(Dep_from_DataFrameFromCSV)
+                DBAirPortDep = acfn.QueryAirPortByIATA(Dep)
                 if DBAirPortDep is not None:
-                    DBAirPortArr = acfn.QueryAirPortByIATA(Arr_from_DataFrameFromCSV)
+                    DBAirPortArr = acfn.QueryAirPortByIATA(Arr)
                     if DBAirPortArr is not None:
-                        DBAirRoute = acfn.QueryAirRoute(Dep_from_DataFrameFromCSV, Arr_from_DataFrameFromCSV)
+                        DBAirRoute = acfn.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is None:
                             # Если есть оба аэропорта и нет маршрута
                             if acfn.InsertAirRoute(DBAirPortDep.AirPortUniqueNumber, DBAirPortArr.AirPortUniqueNumber):
@@ -738,78 +737,71 @@ def myApplication():
                             else:
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                                logger.debug(" - ожидание вставки маршрута " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV))
+                                logger.debug(" - ожидание вставки маршрута " + str(Dep) + "-" + str(Arr))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                         elif DBAirRoute is not None:
                             break
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                            logger.debug(" - перезапрос маршрута " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV))
+                            logger.debug(" - перезапрос маршрута " + str(Dep) + "-" + str(Arr))
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     elif DBAirPortArr is None:
-                        ListAirPortsNotFounded.append(Arr_from_DataFrameFromCSV)
+                        ListAirPortsNotFounded.append(Arr)
                         # Вставляем аэропорт только с кодом IATA
-                        if acfn.InsertAirPortByIATA(Arr_from_DataFrameFromCSV):
+                        if acfn.InsertAirPortByIATA(Arr):
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                            print(colorama.Fore.GREEN + "вставили аэропорт", str(Arr_from_DataFrameFromCSV), end=" ")
+                            print(colorama.Fore.GREEN + "вставили аэропорт", str(Arr), end=" ")
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                            logger.debug(" - ожидание вставки аэропорта " + str(Arr_from_DataFrameFromCSV))
+                            logger.debug(" - ожидание вставки аэропорта " + str(Arr))
                             time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                        logger.debug(" - перезапрос аэропорта " + str(Arr_from_DataFrameFromCSV))
+                        logger.debug(" - перезапрос аэропорта " + str(Arr))
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 elif DBAirPortDep is None:
-                    ListAirPortsNotFounded.append(Dep_from_DataFrameFromCSV)
+                    ListAirPortsNotFounded.append(Dep)
                     # Вставляем аэропорт только с кодом IATA
-                    if acfn.InsertAirPortByIATA(Dep_from_DataFrameFromCSV):
+                    if acfn.InsertAirPortByIATA(Dep):
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
-                        print(colorama.Fore.GREEN + "вставили аэропорт", str(Dep_from_DataFrameFromCSV), end=" ")
+                        print(colorama.Fore.GREEN + "вставили аэропорт", str(Dep), end=" ")
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "+", end=" ")
-                        logger.debug(" - ожидание вставки аэропорта " + str(Dep_from_DataFrameFromCSV))
+                        logger.debug(" - ожидание вставки аэропорта " + str(Dep))
                         time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                    logger.debug(" - перезапрос аэропорта " + str(Dep_from_DataFrameFromCSV))
+                    logger.debug(" - перезапрос аэропорта " + str(Dep))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
                 CountRoutesFailed += 1
             print(" ")
             DistributionDensityAirRoutes[deadlockCount] += 1
-            print(colorama.Fore.BLUE + " Авиарейс", str(AL_from_DataFrameFromCSV) + str(FN_from_DataFrameFromCSV), end=" ")
+            print(colorama.Fore.BLUE + " Авиарейс", str(AL) + str(FN), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             if not Fl.SetInputDate:
                 FD = Fl.BeginDate
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
                 deadlockCount = attemptNumber
-                DBAirLine = acfn.QueryAirLineByIATA(AL_from_DataFrameFromCSV)
+                DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is not None:
-                    DBAirCraft = acfn.QueryAirCraftByRegistration(AC_from_DataFrameFromCSV, Fl.useAirCrafts)
+                    DBAirCraft = acfn.QueryAirCraftByRegistration(AC, Fl.useAirCrafts)
                     if DBAirCraft is not None:
-                        DBAirRoute = acfn.QueryAirRoute(Dep_from_DataFrameFromCSV, Arr_from_DataFrameFromCSV)
+                        DBAirRoute = acfn.QueryAirRoute(Dep, Arr)
                         if DBAirRoute is not None:
                             # todo между транзакциями маршрут и самолет еще раз перезапросить внутри вызываемой функции - СДЕЛАЛ
-                            #ResultModify = ModifyFlight.ModifyAirFlight(C, P, AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCraftsDSN, Fl.useXQuery)
-                            ResultModify = acfn.ModifyAirFlight(AC_from_DataFrameFromCSV,
-                                                                AL_from_DataFrameFromCSV,
-                                                                FN_from_DataFrameFromCSV,
-                                                                Dep_from_DataFrameFromCSV,
-                                                                Arr_from_DataFrameFromCSV,
-                                                                FD_Concatenated,
-                                                                Fl.BeginDate, Fl.useAirCrafts, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers, Fl.useSQLServerDriverFormat)
+                            ResultModify = acfn.ModifyAirFlight(AC, AL, FN, Dep, Arr, FD, Fl.BeginDate, Fl.useAirCrafts, Fl.useXQuery, Fl.useMSsql, Fl.useODBCMarkers, Fl.useSQLServerDriverFormat)
                             if ResultModify == 0:
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - ожидание вставки (изменения) авиарейса " + str(AC_from_DataFrameFromCSV) + ", " + str(AL_from_DataFrameFromCSV) + ", " + str(FN_from_DataFrameFromCSV) + ", " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV) + ", " + str(FD_Concatenated))
+                                logger.debug(" - ожидание вставки (изменения) авиарейса " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1
@@ -831,7 +823,7 @@ def myApplication():
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                            logger.debug(" - перезапрос маршрута " + str(AC_from_DataFrameFromCSV) + ", " + str(AL_from_DataFrameFromCSV) + ", " + str(FN_from_DataFrameFromCSV) + ", " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV) + ", " + str(FD_Concatenated))
+                            logger.debug(" - перезапрос маршрута " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
                             time.sleep(attemptNumber / Density)
                     elif DBAirCraft is None:
                         CountFlightsFailed += 1
@@ -839,7 +831,7 @@ def myApplication():
                     else:
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                         print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                        logger.debug(" - перезапрос самолета " + str(AC_from_DataFrameFromCSV) + ", " + str(AL_from_DataFrameFromCSV) + ", " + str(FN_from_DataFrameFromCSV) + ", " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV) + ", " + str(FD_Concatenated))
+                        logger.debug(" - перезапрос самолета " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
                         time.sleep(attemptNumber / Density)
                 elif DBAirLine is None:
                     CountFlightsFailed += 1
@@ -847,7 +839,7 @@ def myApplication():
                 else:
                     #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # оболочка зависает и слетает
                     print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                    logger.debug(" - перезапрос авиакомании " + str(AC_from_DataFrameFromCSV) + ", " + str(AL_from_DataFrameFromCSV) + ", " + str(FN_from_DataFrameFromCSV) + ", " + str(Dep_from_DataFrameFromCSV) + "-" + str(Arr_from_DataFrameFromCSV) + ", " + str(FD_Concatenated))
+                    logger.debug(" - перезапрос авиакомании " + str(AC) + ", " + str(AL) + str(FN) + ", " + str(Dep) + "-" + str(Arr) + ", " + str(FD))
                     time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
             else:
                 CountFlightsFailed += 1

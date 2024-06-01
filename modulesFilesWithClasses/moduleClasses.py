@@ -16,8 +16,9 @@ class FileNames:
     def __init__(self):
         # Имена читаемых и записываемых файлов
         self.InputFileCSV = ' '
-        self.LogFileTXT = ' '
-        self.ErrorFileTXT = 'LogReport_Errors.txt'
+        self.OutputFileTXT = ' '
+        self.OutputFileTXTErrors = 'LogReport_Errors.txt'
+        self.OutputFileLOG = ' '
 
 
 class Flags:

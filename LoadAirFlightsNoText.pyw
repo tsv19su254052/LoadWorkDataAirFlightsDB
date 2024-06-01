@@ -33,13 +33,17 @@ config_from_cfg.read('configCommon.cfg')
 
 acfn = ACFN()
 F = FileNames()
+F.filenameCSV = ' '
+F.filenameTXT = ' '
+F.filenameLOG = ' '
 Fl = Flags()
+Fl.current_user = os.getlogin()
 Fl.useSQLServerDriverFormat = True
 St = States()
 
 logger = logging.getLogger(__name__)
 # todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
-if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and str(os.getlogin()) == config_from_cfg.get(section='UserLogins', option='Developer'):
+if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and str(Fl.current_user == config_from_cfg.get(section='UserLogins', option='Developer')):
     # logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
     logger.setLevel(level=logging.DEBUG)
 else:
@@ -51,7 +55,7 @@ myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
 print(termcolor.colored("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а", 'blue', 'on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
-print(termcolor.colored("Пользователь = " + str(os.getlogin()), 'green', 'on_yellow'))
+print(termcolor.colored("Пользователь = " + str(Fl.current_user), 'green', 'on_yellow'))
 
 def myApplication():
     # Одно прикладное приложение
@@ -507,15 +511,15 @@ def myApplication():
         #filter = "Data files (*.csv)"
         F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
         urnCSV = F.InputFileCSV.rstrip(os.sep)  # не сработало
-        filenameCSV = pathlib.Path(F.InputFileCSV).name
-        myDialog.lineEdit_CSVFile.setText(filenameCSV)
+        F.filenameCSV = pathlib.Path(F.InputFileCSV).name
+        myDialog.lineEdit_CSVFile.setText(F.filenameCSV)
 
     def PushButtonChooseTXTFile():
         filter = config_from_cfg.get(section='Paths', option='filterLOG')
         #filter = "Log Files (*.txt *.text)"
-        F.LogFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
-        filenameTXT = pathlib.Path(F.LogFileTXT).name
-        myDialog.lineEdit_TXTFile.setText(filenameTXT)
+        F.OutputFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
+        F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
+        myDialog.lineEdit_TXTFile.setText(F.filenameTXT)
 
     def LoadThread(Csv, Log):
         """
@@ -559,7 +563,7 @@ def myApplication():
         DistributionDensityAirFlights = []
         Density = config_from_cfg.getint(section='ConstantParameters', option='Density')  # раз в секунду
         # attemptRetryCount = 750 * Density
-        attemptRetryCount = config_from_cfg.getint(section='ConstantParameters', option='attemptRetryCount')  # увеличить, если появятся несплюсованные и невставленные авиаперелеты
+        attemptRetryCount = config_from_cfg.getint(section='ConstantParameters', option='attemptRetryCount')
         for Index in range(attemptRetryCount):
             DistributionDensityAirLines.append(0)
             DistributionDensityAirCrafts.append(0)
@@ -863,14 +867,14 @@ def myApplication():
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
             print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
-            filenameTXT = pathlib.Path(F.LogFileTXT).name
-            logger.info("Загрузка окончена. Результаты см. в " + filenameTXT + " в папке Журналов")
+            #F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
+            logger.info("Загрузка окончена. Результаты см. в " + F.filenameTXT + " в папке Журналов")
             OutputString = " \n \n"
             OutputString += "Загрузка рабочих данных (версия обработки - " + str(myOwnDevelopingVersion) + ") начата " + str(DateTime) + " \n"
             OutputString += " Загрузка проведена с " + str(socket.gethostname()) + " \n"
             OutputString += " Версия интерпретатора = " + str(sys.version) + " \n"
-            filenameCSV = pathlib.Path(F.InputFileCSV).name
-            OutputString += " Источник входных данных = " + filenameCSV + " \n"
+            #F.filenameCSV = pathlib.Path(F.InputFileCSV).name
+            OutputString += " Источник входных данных = " + F.filenameCSV + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"
             if Fl.SetInputDate:
                 OutputString += " Дата авиарейса проставлена из входного файла\n"
@@ -898,7 +902,7 @@ def myApplication():
             OutputString += " DSN = " + str(DataSQL[3]) + " \n"
             OutputString += " Схема = " + str(DataSQL[4]) + " \n"
             OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
-            OutputString += " Пользователь = " + str(os.getlogin()) + " \n"
+            OutputString += " Пользователь = " + str(Fl.current_user) + " \n"
             OutputString += " Итоги: \n"
             # Формируем итоги
             # todo Сделать итоги в виде XML и писать его полем XML.Document в базу данных
@@ -953,14 +957,14 @@ def myApplication():
                 # LogFile.write('Вывод обычным способом\n')
             except IOError:
                 try:
-                    LogErrorFile = open(F.ErrorFileTXT, 'a')
-                    LogErrorFile.write("Ошибка дозаписи результатов по " + str(F.InputFileCSV) + " в " + str(F.LogFileTXT) + " \n")
+                    LogErrorFile = open(F.OutputFileTXTErrors, 'a')
+                    LogErrorFile.write("Ошибка дозаписи результатов по " + str(F.filenameCSV) + " в " + str(F.filenameTXT) + " \n")
                 except IOError:
                     print("Ошибка дозаписи в файл журнала")
                 finally:
                     LogErrorFile.close()
-                print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(F.LogFileTXT))
-                logger.error("Ошибка дозаписи в " + str(F.LogFileTXT))
+                print(colorama.Fore.LIGHTYELLOW_EX + "Ошибка дозаписи в " + str(F.filenameTXT))
+                logger.error("Ошибка дозаписи в " + str(F.OutputFileTXT))
             finally:
                 LogFile.close()
             #logging.info(OutputString)
@@ -998,20 +1002,20 @@ def myApplication():
         myDialog.pushButton_Disconnect_RT.setEnabled(False)
         myDialog.pushButton_Disconnect_AC.setEnabled(False)
         myDialog.label_execute.setEnabled(True)
-        filenameCSV = pathlib.Path(F.InputFileCSV).name
+        F.filenameCSV = pathlib.Path(F.InputFileCSV).name
         #LogFileNamePreffix = filenameCSV.rsplit('.', 1)[0]
-        LogFileNamePreffix = filenameCSV.removesuffix('.csv')
+        LogFileNamePreffix = F.filenameCSV
         LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
-        LogFileName = LogFileNamePreffix + LogFileNameSuffix
-        print(" LogFileName = " + str(LogFileName))
-        logging.basicConfig(filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        F.filenameLOG = LogFileNamePreffix.removesuffix('.csv') + LogFileNameSuffix
+        print(" LogFileName = " + str(F.filenameLOG))
+        logging.basicConfig(filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
         logger.info("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а")
         logger.debug(" в режиме отладки")
         #logger.warning("a WARNING")
         #logger.error("an ERROR")
         #logger.critical("a message of CRITICAL severity")
         # todo Заброс на возможность запуска нескольких загрузок с доработкой графической оболочки без ее закрытия на запуске загрузки
-        threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.LogFileTXT, ))  # поток не сам по себе
+        threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.OutputFileTXT,))  # поток не сам по себе
         threadLoad.start()
         # fixme с ... .join() кнопки не гаснут, графическая оболочка зависает -> убрал ... .join()
         #threadLoad.join(1)  # ждем поток в основном потоке (графическая оболочка зависает), секунд

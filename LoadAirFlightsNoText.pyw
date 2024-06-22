@@ -47,13 +47,6 @@ Fl.useSQLServerDriverFormat = True
 St = States()
 
 logger = logging.getLogger(__name__)
-# todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
-if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and str(Fl.current_user == config_from_cfg.get(section='UserLogins', option='Developer')):
-    # logging.basicConfig(level=logging.DEBUG, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-    logger.setLevel(level=logging.DEBUG)
-else:
-    # logging.basicConfig(level=logging.INFO, filename=LogFileName, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
-    logger.setLevel(level=logging.INFO)
 
 myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия
 
@@ -511,21 +504,6 @@ def myApplication():
         UpdateAirPortsSourcesChoiceByStatesAndFlags()
         myDialog.pushButton_Connect_RT.setEnabled(True)
 
-    def PushButtonChooseCSVFile():
-        filter = config_from_cfg.get(section='Paths', option='filterCSV')
-        #filter = "Data files (*.csv)"
-        F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
-        urnCSV = F.InputFileCSV.rstrip(os.sep)  # не сработало
-        F.filenameCSV = pathlib.Path(F.InputFileCSV).name
-        myDialog.lineEdit_CSVFile.setText(F.filenameCSV)
-
-    def PushButtonChooseTXTFile():
-        filter = config_from_cfg.get(section='Paths', option='filterLOG')
-        #filter = "Log Files (*.txt *.text)"
-        F.OutputFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
-        F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
-        myDialog.lineEdit_TXTFile.setText(F.filenameTXT)
-
     def LoadThread(Csv, Log):
         """
         Читаем входной файл и перепаковываем его в DataFrame (кодировка UTF-8, шапка таблицы на столбцы, разделитель - ,)
@@ -792,7 +770,7 @@ def myApplication():
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - ожидание вставки (изменения) авиарейса " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
+                                logger.debug(" - несработка вставки (изменения) авиарейса " + str(AC) + " " + str(AL) + str(FN) + " " + str(Dep) + "-" + str(Arr) + " " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1
@@ -806,6 +784,7 @@ def myApplication():
                                 break
                             if ResultModify == 3:
                                 CountFlightsInserted += 1
+                                #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.GREEN + "записался с нуля новый", end=" ")
                                 break
                         elif DBAirRoute is None:
@@ -992,6 +971,21 @@ def myApplication():
             acfn.disconnectACFN_odbc()
         acfn.disconnectRT_odbc()
 
+    def PushButtonChooseCSVFile():
+        filter = config_from_cfg.get(section='Paths', option='filterCSV')
+        #filter = "Data files (*.csv)"
+        F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
+        urnCSV = F.InputFileCSV.rstrip(os.sep)  # fixme не сработало
+        F.filenameCSV = pathlib.Path(F.InputFileCSV).name
+        myDialog.lineEdit_CSVFile.setText(F.filenameCSV)
+
+    def PushButtonChooseTXTFile():
+        filter = config_from_cfg.get(section='Paths', option='filterLOG')
+        #filter = "Log Files (*.txt *.text)"
+        F.OutputFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
+        F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
+        myDialog.lineEdit_TXTFile.setText(F.filenameTXT)
+
     def PushButtonGetStarted():
         myDialog.pushButton_GetStarted.setEnabled(False)
         Fl.BeginDate = myDialog.dateEdit_BeginDate.date().toString('yyyy-MM-dd')
@@ -1011,9 +1005,16 @@ def myApplication():
         #LogFileNamePreffix = filenameCSV.rsplit('.', 1)[0]
         LogFileNamePreffix = F.filenameCSV
         LogFileNameSuffix = config_from_cfg.get(section='Paths', option='LogFileNameSuffix')
-        F.filenameLOG = LogFileNamePreffix.removesuffix('.csv') + LogFileNameSuffix
+        F.filenameLOG = "P:\\Programming\\Python Scripts\\LoadWorkData - GUIs and Utilities\\Протоколы загрузки\\" + LogFileNamePreffix.removesuffix('.csv') + LogFileNameSuffix
         print(" LogFileName = " + str(F.filenameLOG))
         logging.basicConfig(filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+        # todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
+        if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and (Fl.current_user == config_from_cfg.get(section='UserLogins', option='Developer')):
+            #logging.basicConfig(level=logging.DEBUG, filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+            logger.setLevel(level=logging.DEBUG)
+        else:
+            #logging.basicConfig(level=logging.INFO, filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
+            logger.setLevel(level=logging.INFO)
         logger.info("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а")
         logger.debug(" в режиме отладки")
         #logger.warning("a WARNING")

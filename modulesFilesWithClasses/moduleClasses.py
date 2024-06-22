@@ -25,8 +25,8 @@ class Flags:
     def __init__(self):
         # Флаги
         self.useAirCrafts = False  # пишем авиаперелеты в БД самолетов
-        self.useAirFlightsDB = True  # пишем авиаперелеты в БД авиаперелетов
         self.useAirCraftsDB = True  # используем драйвер
+        self.useAirFlightsDB = True  # используем драйвер
         self.useXQuery = False
         self.useMSsql = False
         self.useODBCMarkers = False
@@ -427,8 +427,7 @@ class ACFN(SE):
             try:
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
                 self.seek_AC_odbc.execute(SQLQuery)
-                SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('"
-                SQLQuery += str(Registration) + "') "
+                SQLQuery = "INSERT INTO dbo.AirCraftsTableNew2XsdIntermediate (AirCraftRegistration) VALUES ('" + str(Registration) + "') "
                 self.seek_AC_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
                 # todo Дописать авиакомпанию-оператора в поле AirFlightsByAirLines -> не надо (он в начале FlightNumberString)
                 ResultSQL = True
@@ -441,12 +440,9 @@ class ACFN(SE):
                 SQLQuery = "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE"
                 self.seek_ACFN_odbc.execute(SQLQuery)
                 if ALPK is None:
-                    SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('"
-                    SQLQuery += str(Registration) + "') "
+                    SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration) VALUES ('" + str(Registration) + "') "
                 else:
-                    SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('"
-                    SQLQuery += str(Registration) + "', "
-                    SQLQuery += str(ALPK) + ") "
+                    SQLQuery = "INSERT INTO dbo.AirCraftsTable (AirCraftRegistration, AirCraftAirLine) VALUES ('" + str(Registration) + "', " + str(ALPK) + ") "
                 self.seek_ACFN_odbc.execute(SQLQuery)  # записываем данные по самолету в БД
                 ResultSQL = True
                 self.cnxn_ACFN_odbc.commit()  # фиксируем транзакцию, снимаем блокировку с запрошенных диапазонов
@@ -1052,6 +1048,6 @@ class ACFN(SE):
     def checkConnection(self):
         #if self.cnxn_AL_odbc.is_connected() and (self.cnxn_AC_odbc.is_connected() or self.cnxn_ACFN_odbc.is_connected()) and self.cnxn_RT_odbc.is_connected():  # mysql
         if self.cnxn_AL_odbc and (self.cnxn_AC_odbc or self.cnxn_ACFN_odbc) and self.cnxn_RT_odbc:
-                return True
+            return True
         else:
             return False

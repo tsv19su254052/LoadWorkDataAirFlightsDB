@@ -2,12 +2,16 @@
 
 
 import datetime
-import sys, io, os, socket, json
+import sys
+import io
+import os
+import socket
+import json
 import pyodbc
-from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил
+from PyQt5 import QtCore, QtWidgets, QtWebEngineWidgets  # pip install PyQtWebEngine -> поставил 02.06.2024
 import folium
 from folium.plugins.draw import Draw
-#from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine -> поставил
+#from PyQt5.QtWebEngineWidgets import QWebEngineView  # pip install PyQtWebEngine
 from configparser import ConfigParser
 
 # Импорт модулей библиотек индивидуальной разработки (файла *.py в этой же папке)
@@ -274,31 +278,68 @@ def myApplication():
             #  - Esri - не работает,
             #  - OpenWeatherMap - не работает,
             zoom = 13
-            m = folium.Map(tiles=None, zoom_start=zoom, location=coordinates)
-            folium.TileLayer("CartoDB Positron").add_to(m)
-            folium.TileLayer("CartoDB Voyager").add_to(m)
-            folium.TileLayer("NASAGIBS Blue Marble").add_to(m)
-            folium.TileLayer("OpenStreetMap").add_to(m)
-            folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=m&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Google Roadmap',
-                                           attr='Google Map', ).add_to(m)
-            folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=s&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Google Satellite', attr='Google Map', ).add_to(m)
-            folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=y&h1=p1Z&x={x}&y={y}&z={z}',
-                                           name='Google Hybrid',
-                                           attr='Google Map', ).add_to(m)
-            folium.TileLayer(show=True).add_to(m)
-            folium.LayerControl().add_to(m)
-            m.add_child(folium.LatLngPopup())
+            Map = folium.Map(tiles=None, zoom_start=zoom, location=coordinates)
+            try:
+                folium.TileLayer("CartoDB Positron").add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("CartoDB Positron не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.TileLayer("CartoDB Voyager").add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("CartoDB Voyager не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.TileLayer("NASAGIBS Blue Marble").add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("NASAGIBS Blue Marble не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.TileLayer("OpenStreetMap").add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("OpenStreetMap не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=m&h1=p1Z&x={x}&y={y}&z={z}', name='Google Roadmap', attr='Google Map', ).add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("Google Roadmap не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=s&h1=p1Z&x={x}&y={y}&z={z}', name='Google Satellite', attr='Google Map', ).add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("Google Satellite не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            try:
+                folium.raster_layers.TileLayer(tiles='http://mt1.google.com/vt/lyrs=y&h1=p1Z&x={x}&y={y}&z={z}', name='Google Hybrid', attr='Google Map', ).add_to(Map)
+            except Exception:
+                message = QtWidgets.QMessageBox()
+                message.setText("Google Hybrid не отвечает")
+                message.setIcon(QtWidgets.QMessageBox.Warning)
+                message.exec_()
+            folium.TileLayer(show=True).add_to(Map)
+            folium.LayerControl().add_to(Map)
+            Map.add_child(folium.LatLngPopup())
             # fixme Export не работает -> см. https://stackoverflow.com/questions/64402959/cant-export-coordinates-on-folium-draw-polygon-in-pyqt5-app
             Draw(export=True,
                  filename="my_data.geojson",
                  position="topleft",
                  draw_options={"polyline": True, "rectangle": True, "circle": True, "circlemarker": True, },
-                 edit_options={"poly": {"allowIntersection": False}}, ).add_to(m)
+                 edit_options={"poly": {"allowIntersection": False}}, ).add_to(Map)
             # save map data to data object
             data = io.BytesIO()
-            m.save(data, close_file=False)
+            Map.save(data, close_file=False)
 
             class WebEnginePage(QtWebEngineWidgets.QWebEnginePage):
                 def javaScriptConsoleMessage(self, level, msg, line, sourceID):
@@ -307,7 +348,7 @@ def myApplication():
                     print(str(coords))
 
             webView = QtWebEngineWidgets.QWebEngineView()
-            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не вызывается, connect не работает
+            webView.page().profile().downloadRequested.connect(lambda: ExportGeoJSON)  # fixme функция-обработчик не срабатывает, connect не работает
             page = WebEnginePage(webView)
             webView.setPage(page)
             webView.setHtml(data.getvalue().decode())

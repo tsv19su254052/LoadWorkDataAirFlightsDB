@@ -823,12 +823,14 @@ def myApplication():
                 myDialog.label_execute.setText(stringExecute)
                 ExecutePrevious = Execute
             print(colorama.Fore.CYAN + "Выполнение =", str(Execute), "%")
+            """
             if not acfn.checkConnection():
                 St.Connected_AL = False
                 St.Connected_AC = False
                 St.Connected_ACFN = False
                 St.Connected_RT = False
                 break
+            """
         # Отметка времени окончания загрузки
         EndTime = datetime.datetime.now()
         # Убираем с конца столбцы с нулями

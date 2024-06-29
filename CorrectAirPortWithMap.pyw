@@ -144,7 +144,7 @@ def myApplication():
     myDialogInputIATAandICAO.checkBox_Status_ICAO.clicked.connect(lambda: Check_ICAO())
 
     def ClearMap():
-        # очищаем предыдущую отрисовку
+        # очищаем предыдущую отрисовку см. https://stackoverflow.com/questions/4528347/clear-all-widgets-in-a-layout-in-pyqt/78674901#78674901
         if myDialog.verticalLayout_Map is not None:
             while myDialog.verticalLayout_Map.count():
                 child = myDialog.verticalLayout_Map.takeAt(0)

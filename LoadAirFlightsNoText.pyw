@@ -886,7 +886,7 @@ def myApplication():
             OutputString += " Драйвер = " + str(DataSQL[1]) + " \n"
             OutputString += " Версия ODBC = " + str(DataSQL[2]) + " \n"
             OutputString += " DSN = " + str(DataSQL[3]) + " \n"
-            OutputString += " Схема = " + str(DataSQL[4]) + " \n"
+            OutputString += " Схема (пользователь) = " + str(DataSQL[4]) + " \n"
             OutputString += " Длительность загрузки = " + str(EndTime - StartTime) + " \n"
             OutputString += " Пользователь = " + str(Fl.current_user) + " \n"
             OutputString += " Итоги: \n"

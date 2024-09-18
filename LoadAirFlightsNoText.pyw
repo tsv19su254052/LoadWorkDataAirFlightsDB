@@ -577,7 +577,7 @@ def myApplication():
             Month_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('MONTH')]
             Day_from_DataFrameFromCSV = DataFrameFromCSV.iloc[slider, DataFrameFromCSV.columns.get_loc('DAY_OF_MONTH')]
             FD = str(Year_from_DataFrameFromCSV) + "-" + '%02d' % Month_from_DataFrameFromCSV + "-" + '%02d' % Day_from_DataFrameFromCSV
-            print(colorama.Fore.BLUE + "Авикомпания", str(AL), end=" ")
+            print(colorama.Fore.BLUE + "Авиакомпания", str(AL), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             # Цикл попыток
             for attemptNumber in range(attemptRetryCount):
@@ -770,7 +770,7 @@ def myApplication():
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - несработка вставки (изменения) авиарейса " + str(AC) + "\t " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
+                                logger.debug(" - несработка вставки (изменения) " + str(AC) + "авиарейса \t " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1

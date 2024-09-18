@@ -1,4 +1,4 @@
-#  Interpreter 3.7 -> 3.10
+#  Interpreter 3.7 -> 3.10 -> 3.12
 
 
 import pyodbc  # v. 5.0.1 - fixme вызов хранимых процедур EXECUTE ... не работает -> обновил до 5.1.0, работает

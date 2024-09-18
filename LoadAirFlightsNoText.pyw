@@ -1,4 +1,4 @@
-#  Interpreter 3.7 -> 3.10
+#  Interpreter 3.7 -> 3.10 -> 3.12
 
 
 import pandas

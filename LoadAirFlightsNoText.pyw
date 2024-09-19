@@ -770,7 +770,7 @@ def myApplication():
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - несработка вставки (изменения) " + str(AC) + "авиарейса \t " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
+                                logger.debug(" - несработка вставки (изменения) " + str(AC) + "авиарейса \t   " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1
@@ -793,7 +793,7 @@ def myApplication():
                         else:
                             #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                             print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                            logger.debug(" - перезапрос маршрута " + str(AC) + "\t" + str(AL) + str(FN) + "\t" + str(Dep) + "-" + str(Arr) + "\t" + str(FD))
+                            logger.debug(" - перезапрос маршрута " + str(AC) + "\t   " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
                             time.sleep(attemptNumber / Density)
                     elif DBAirCraft is None:
                         CountFlightsFailed += 1

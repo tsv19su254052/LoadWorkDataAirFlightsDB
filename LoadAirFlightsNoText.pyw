@@ -11,7 +11,6 @@ import socket
 import threading
 from configparser import ConfigParser
 import logging
-
 from PyQt5 import QtWidgets  # оставил 5-ую версию (много наработок еще завязаны на нее)
 import pathlib
 import colorama

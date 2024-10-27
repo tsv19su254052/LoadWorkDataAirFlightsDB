@@ -216,7 +216,7 @@ def myApplication():
     @QtCore.pyqtSlot("QWebEngineDownloadItem*")
     def ExportGeoJSON(self, item):
         print(" выбираем путь записи файла *.geojson")
-        path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Записать файл геоданных", ' ', item.suggestedFileName())
+        path, _ = QtWidgets.QFileDialog.getSaveFileName(self, caption="Записать файл геоданных", directory=' ', filter=item.suggestedFileName())
         if path:
             print(str(path))
             item.setPath(path)

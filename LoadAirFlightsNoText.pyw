@@ -50,9 +50,9 @@ logger = logging.getLogger(__name__)
 myOwnDevelopingVersion = config_from_cfg.getfloat(section='ConstantParameters', option='myOwnDevelopingVersion')  # Версия
 
 colorama.init(autoreset=False)  # используем Colorama и Termcolor на Windows, оставляем цветовое оформление до следующего явного указания
-print(termcolor.colored("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а", 'blue', 'on_yellow'))
+print(termcolor.colored("Загрузка рабочих данных v" + str(myOwnDevelopingVersion) + " в БД SQL Server-а", color='blue', on_color='on_yellow'))
 print("Разработал Тарасов Сергей tsv19su@yandex.ru")
-print(termcolor.colored("Пользователь = " + str(Fl.current_user), 'green', 'on_yellow'))
+print(termcolor.colored("Пользователь = " + str(Fl.current_user), color='green', on_color='on_yellow'))
 
 def myApplication():
     # Одно прикладное приложение
@@ -102,7 +102,7 @@ def myApplication():
             stripped_point = point.strip()
             myDialog.comboBox_DB_FN.addItem(stripped_point)
     myDialog.dateEdit_BeginDate.setToolTip("Дата начала периода загрузки рабочих данных")
-    myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиарейса из входных данных")
+    myDialog.checkBox_SetInputDate.setToolTip("Перенос даты авиаперерейсов из входных данных")
     myDialog.pushButton_GetStarted.setToolTip("Запуск загрузки исходных данных по авиаперелетам \nВнимательно проверьте параметры загрузки")
     myDialog.radioButton_DSN_AirCrafts_DOM.setToolTip("Ресурсозатратный, медленный на больших объемах данных\nПри использовании ПОЛНОЙ модели восстановления БД\n данный метод мягко говоря сильно загружает файл журнала *.ldf")
     myDialog.radioButton_DSN_AirCrafts_SAX.setToolTip("Быстрый. Использует функционал XML-ного поля + XML-ный индекс\nМожно выставить в свойствах БД модель восстановления - ПОЛНАЯ")
@@ -557,7 +557,7 @@ def myApplication():
         # Отметка времени начала загрузки
         StartTime = datetime.datetime.now()
         #myDialog.label_execute.setText("Загрузка начата")  # оболочка зависает и слетает
-        print(termcolor.colored("Загрузка начата", "red", "on_yellow"))
+        print(termcolor.colored(text="Загрузка начата", color="red", on_color="on_yellow"))
         logger.info("Загрузка начата")
         # Сигнал на обновление полоски выполнения
         completion = 0  # Выполнение загрузки
@@ -583,7 +583,7 @@ def myApplication():
                 deadlockCount = attemptNumber
                 DBAirLine = acfn.QueryAirLineByIATA(AL)
                 if DBAirLine is None:
-                    if acfn.InsertAirLineByIATAandICAO(AL, None):
+                    if acfn.InsertAirLineByIATAandICAO(iata=AL, icao=None):
                         ListAirLinesAdded.append(AL)
                         #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: green")  # оболочка зависает и слетает
                         print(colorama.Fore.GREEN + "вставилась ", end=" ")
@@ -750,7 +750,7 @@ def myApplication():
                 CountRoutesFailed += 1
             print(" ")
             DistributionDensityAirRoutes[deadlockCount] += 1
-            print(colorama.Fore.BLUE + " Авиарейс", str(AL) + str(FN), end=" ")
+            print(colorama.Fore.BLUE + " Авиаперелет", str(AL) + str(FN), end=" ")
             deadlockCount = 0  # Счетчик попыток -> Обнуляем
             if not Fl.SetInputDate:
                 FD = Fl.BeginDate
@@ -769,7 +769,7 @@ def myApplication():
                                 # fixme оболочка зависает и слетает
                                 #myDialog.label_execute.setStyleSheet("border: 3px solid; border-color: red")  # fixme оболочка зависает и слетает
                                 print(colorama.Fore.LIGHTYELLOW_EX + "?", end=" ")
-                                logger.debug(" - несработка вставки (изменения)\t " + str(AC) + "\t\tавиарейса\t " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
+                                logger.debug(" - несработка вставки (изменения)\t " + str(AC) + "\t\tавиаперелета\t " + str(AL) + str(FN) + "\t " + str(Dep) + "-" + str(Arr) + "\t " + str(FD))
                                 time.sleep(attemptNumber / Density)  # пытаемся уйти от взаимоблокировки
                             if ResultModify == 1:
                                 CountFlightsAdded += 1
@@ -846,12 +846,12 @@ def myApplication():
                                                          DistributionDensityAirCrafts,
                                                          DistributionDensityAirRoutes,
                                                          DistributionDensityAirFlights],
-                                                        index=[" - авиакомпании", " - самолеты", " - маршруты", " - авиарейсы"])
+                                                        index=[" - авиакомпании", " - самолеты", " - маршруты", " - авиаперелеты"])
         DataFrameDistributionDensity.index.name = "Базы данных:"
         if St.Connected_AL and (St.Connected_AC or St.Connected_ACFN) and St.Connected_RT:
             myDialog.label_execute.setText("Загрузка окончена")
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: pink")  # fixme Тут графическая оболочка слетела -> Задержка не дала результат -> Исправил
-            print(termcolor.colored("Загрузка окончена", "red", "on_yellow"))
+            print(termcolor.colored("Загрузка окончена", color="red", on_color="on_yellow"))
             #F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
             logger.info("Загрузка окончена. Результаты см. в " + F.filenameTXT + " в папке Журналов")
             OutputString = " \n \n"
@@ -862,9 +862,9 @@ def myApplication():
             OutputString += " Источник входных данных = " + F.filenameCSV + " \n"
             OutputString += " Входные данные внесены через DataFrameFromCSV за " + str(Fl.BeginDate) + " \n"
             if Fl.SetInputDate:
-                OutputString += " Дата авиарейса проставлена из входного файла\n"
+                OutputString += " Дата авиаперелета проставлена из входного файла\n"
             else:
-                OutputString += " Дата авиарейса проставлена как 1-ое число указанного месяца \n"
+                OutputString += " Дата авиаперелета проставлена как 1-ое число указанного месяца \n"
             DataSQL = acfn.getSQLData_odbc()
             if Fl.useAirCrafts:
                 OutputString += " Авиаперелеты загружены в БД самолетов с помощью "
@@ -923,13 +923,13 @@ def myApplication():
                 OutputString += str(set(ListAirPortsNotFounded))
                 OutputString += " \n"
             if CountFlightsAdded:
-                OutputString += " - вставились " + str(CountFlightsAdded) + " авиарейсы \n"
+                OutputString += " - вставились " + str(CountFlightsAdded) + " авиаперелеты \n"
             if CountFlightsInserted:
-                OutputString += " - записались с нуля " + str(CountFlightsInserted) + " авиарейсы \n"
+                OutputString += " - записались с нуля " + str(CountFlightsInserted) + " авиаперелеты \n"
             if CountFlightsFailed:
-                OutputString += " - не вставились " + str(CountFlightsFailed) + " авиарейсы \n"
+                OutputString += " - не вставились " + str(CountFlightsFailed) + " авиаперелеты \n"
             if CountFlightsPadded:
-                OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиарейсы \n"
+                OutputString += " - сплюсовались " + str(CountFlightsPadded) + " авиаперелеты \n"
             OutputString += " - перезапросы сервера: \n" + str(DataFrameDistributionDensity) + " \n"
             # Дописываем в журнал (обычным способом)
             # fixme Большая строка не дописывается, скрипт долго висит -> Исправил
@@ -961,7 +961,7 @@ def myApplication():
             stringExecute = "Соединение с СУБД прервано на " + str(Execute) + " %"
             myDialog.label_execute.setText(stringExecute)
             myDialog.label_22.setStyleSheet("border: 5px solid; border-color: red")
-            print(termcolor.colored("Соединение с СУБД прервано на " + str(Execute) + " % ", "red", "on_yellow"))
+            print(termcolor.colored("Соединение с СУБД прервано на " + str(Execute) + " % ", color="red", on_color="on_yellow"))
             logger.error("Соединение с СУБД прервано на " + str(Execute) + " % ")
         acfn.disconnectAL_odbc()
         if Fl.useAirCrafts:
@@ -975,7 +975,7 @@ def myApplication():
     def PushButtonChooseCSVFile():
         filter = config_from_cfg.get(section='Paths', option='filterCSV')
         #filter = "Data files (*.csv)"
-        F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть рабочие данные", ' ', filter=filter)[0]
+        F.InputFileCSV = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption="Открыть рабочие данные", directory=' ', filter=filter)[0]
         urnCSV = F.InputFileCSV.rstrip(os.sep)  # fixme не сработало
         F.filenameCSV = pathlib.Path(F.InputFileCSV).name
         myDialog.lineEdit_CSVFile.setText(F.filenameCSV)
@@ -983,7 +983,7 @@ def myApplication():
     def PushButtonChooseTXTFile():
         filter = config_from_cfg.get(section='Paths', option='filterLOG')
         #filter = "Log Files (*.txt *.text)"
-        F.OutputFileTXT = QtWidgets.QFileDialog.getOpenFileName(None, "Открыть журнал", ' ', filter=filter)[0]
+        F.OutputFileTXT = QtWidgets.QFileDialog.getOpenFileName(parent=None, caption="Открыть журнал", directory=' ', filter=filter)[0]
         F.filenameTXT = pathlib.Path(F.OutputFileTXT).name
         myDialog.lineEdit_TXTFile.setText(F.filenameTXT)
 

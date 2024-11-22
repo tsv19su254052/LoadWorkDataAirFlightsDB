@@ -1,0 +1,78 @@
+﻿<FlightsByRoutes>
+  <Flight FlightNumberString="AA8">
+    <Route RouteFK="58">
+      <step FlightDate="1995-03-20" BeginDate="1995-03-01">2</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1395">
+    <Route RouteFK="1082">
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1262">
+    <Route RouteFK="552">
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1511">
+    <Route RouteFK="926">
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1094">
+    <Route RouteFK="100">
+      <step FlightDate="1995-05-07" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-11" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-12" BeginDate="1995-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1379">
+    <Route RouteFK="264">
+      <step FlightDate="1995-07-13" BeginDate="1995-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA918">
+    <Route RouteFK="144">
+      <step FlightDate="1995-12-06" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-14" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA900">
+    <Route RouteFK="106">
+      <step FlightDate="1995-10-20" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1103">
+    <Route RouteFK="89">
+      <step FlightDate="1996-01-05" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1881">
+    <Route RouteFK="610">
+      <step FlightDate="1996-01-01" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA47">
+    <Route RouteFK="1544">
+      <step FlightDate="1995-12-29" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA72">
+    <Route RouteFK="856">
+      <step FlightDate="1996-08-09" BeginDate="1996-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA342">
+    <Route RouteFK="402">
+      <step FlightDate="1997-02-21" BeginDate="1997-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1157">
+    <Route RouteFK="1209">
+      <step FlightDate="1997-02-21" BeginDate="1997-02-01">1</step>
+    </Route>
+  </Flight>
+</FlightsByRoutes>

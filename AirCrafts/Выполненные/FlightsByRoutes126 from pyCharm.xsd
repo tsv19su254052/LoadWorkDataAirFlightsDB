@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="FlightsByRoutes" type="FlightsByRoutesType"/>
+  <xs:complexType name="stepType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute type="xs:string" name="FlightDate" use="optional"/>
+        <xs:attribute type="xs:string" name="BeginDate" use="optional"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="RouteType">
+    <xs:sequence>
+      <xs:element type="stepType" name="step" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="RouteFK" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="FlightType">
+    <xs:sequence>
+      <xs:element type="RouteType" name="Route" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="FlightNumberString" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="FlightsByRoutesType">
+    <xs:sequence>
+      <xs:element type="FlightType" name="Flight" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

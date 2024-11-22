@@ -1,0 +1,3353 @@
+﻿<FlightsByRoutes>
+  <Flight FlightNumberString="DL175">
+    <Route RouteFK="153">
+      <step FlightDate="1995-01-08" BeginDate="1995-01-01">2</step>
+      <step FlightDate="1995-01-29" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-26" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-11" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1264">
+    <Route RouteFK="296">
+      <step FlightDate="1995-02-22" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-24" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-26" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-12-04" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-13" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-02" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-01-01" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL992">
+    <Route RouteFK="1146">
+      <step FlightDate="1995-02-26" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-08" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-29" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-11" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1664">
+    <Route RouteFK="285">
+      <step FlightDate="1995-02-14" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-10" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-12" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-23" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-28" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1445">
+      <step FlightDate="1995-01-10" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-14" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-06-02" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-16" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-04-12" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-28" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-11" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-20" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-29" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-09" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-03" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-11" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-15" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-19" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-25" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL316">
+    <Route RouteFK="1436">
+      <step FlightDate="1995-02-14" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-10" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-12" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-23" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-28" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL570">
+    <Route RouteFK="2404">
+      <step FlightDate="1995-02-25" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-07" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-28" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-12" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-10" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1187">
+    <Route RouteFK="3125">
+      <step FlightDate="1995-01-24" BeginDate="1995-01-01">1</step>
+    </Route>
+    <Route RouteFK="1056">
+      <step FlightDate="1995-10-07" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-09" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL968">
+    <Route RouteFK="983">
+      <step FlightDate="1995-02-23" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-06" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-24" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-26" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-10" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-08" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-30" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-12-01" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-19" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-31" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-06" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-02-07" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-19" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-28" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-03" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-04" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-16" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-24" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL496">
+    <Route RouteFK="2106">
+      <step FlightDate="1995-01-05" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-17" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-23" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-04" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-11" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-02" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-09" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-21" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-01" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-20" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="382">
+      <step FlightDate="1995-08-19" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL264">
+    <Route RouteFK="1971">
+      <step FlightDate="1995-01-19" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-06" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-13" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-04" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-15" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-06-12" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-04-03" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-07" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-22" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-26" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-05-01" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-07" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-17" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-27" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-06" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-14" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-05" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-09" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-19" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-27" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-01" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-09" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-13" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-17" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-23" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-12-08" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-16" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-22" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-27" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-11-27" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-03-10" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-19" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-27" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-10-01" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-04" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-23" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-31" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-14" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-01-05" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-15" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-30" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="838">
+      <step FlightDate="1995-06-12" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-01" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-07" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-17" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-27" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-14" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-01" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-09" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-13" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-17" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-23" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="382">
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-13" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-14" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL617">
+    <Route RouteFK="236">
+      <step FlightDate="1995-01-09" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL631">
+    <Route RouteFK="236">
+      <step FlightDate="1995-01-25" BeginDate="1995-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL370">
+    <Route RouteFK="407">
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1051">
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL295">
+    <Route RouteFK="47">
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-06" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-04" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-15" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-03" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-21" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-26" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="426">
+      <step FlightDate="1995-03-04" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-15" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-28" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-06" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-15" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-21" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-26" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="23">
+      <step FlightDate="1995-03-04" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-15" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-28" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-06" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-15" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-26" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL362">
+    <Route RouteFK="47">
+      <step FlightDate="1995-01-05" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-17" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-23" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-04" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-11" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-02" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-09" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-23" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-01" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-07" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-20" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL602">
+    <Route RouteFK="214">
+      <step FlightDate="1995-02-18" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-01" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-19" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-31" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-05" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-16" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-29" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-04" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-16" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-12-08" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-22" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-27" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-10" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-19" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-27" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-05" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-15" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-30" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1079">
+    <Route RouteFK="47">
+      <step FlightDate="1995-01-07" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-28" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-25" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-12" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-10" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL847">
+    <Route RouteFK="620">
+      <step FlightDate="1995-02-24" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-13" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-27" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-11" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-05" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-06" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-09" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1583">
+    <Route RouteFK="184">
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1208">
+    <Route RouteFK="493">
+      <step FlightDate="1995-01-09" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-13" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-11" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-27" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1525">
+    <Route RouteFK="1406">
+      <step FlightDate="1995-02-22" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-24" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-26" BeginDate="1995-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL212">
+    <Route RouteFK="1780">
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1996-05-12" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-25" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-06-11" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-04-17" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL336">
+    <Route RouteFK="1780">
+      <step FlightDate="1995-01-01" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-31" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-07" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-18" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-05" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-16" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-28" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-29" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-16" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-27" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL216">
+    <Route RouteFK="1835">
+      <step FlightDate="1995-01-12" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-18" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-05" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-12" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-16" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-03" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-14" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-27" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-02" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-25" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1671">
+    <Route RouteFK="527">
+      <step FlightDate="1995-02-23" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-10" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-12" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-24" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-26" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-04" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-05" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-08" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL526">
+    <Route RouteFK="201">
+      <step FlightDate="1995-02-25" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-12" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-07" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-28" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-10" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL556">
+    <Route RouteFK="201">
+      <step FlightDate="1995-02-07" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-26" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-08" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-29" BeginDate="1995-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL483">
+    <Route RouteFK="2188">
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1292">
+    <Route RouteFK="250">
+      <step FlightDate="1995-02-24" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-06" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-27" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-11" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-09" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="90">
+      <step FlightDate="1995-02-24" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-11" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-06" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-27" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-09" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL793">
+    <Route RouteFK="344">
+      <step FlightDate="1995-02-02" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-09" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-28" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-03" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-15" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-21" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-07" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-19" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-30" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-18" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="2060">
+      <step FlightDate="1995-01-03" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-15" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-21" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-02" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-09" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-28" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-07" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-06-07" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-04" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-21" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-04-18" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-09-12" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-07-02" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-11" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-21" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-28" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-21" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-02" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-25" BeginDate="1995-10-01">1</step>
+    </Route>
+    <Route RouteFK="72">
+      <step FlightDate="1995-05-04" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-21" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-07" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-02" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-11" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-12" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-21" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-28" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-02" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-11" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-25" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-27" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-21" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1425">
+    <Route RouteFK="2961">
+      <step FlightDate="1995-02-03" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-10" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-04" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-16" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-22" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-01" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-08" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-20" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-31" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-19" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-12-09" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-24" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-28" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-12" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-15" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-03" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-08" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="2968">
+      <step FlightDate="1995-01-04" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-16" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-22" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-03" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-10" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-01" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-08" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-20" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-31" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-19" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-12-09" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-24" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-28" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-12" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-15" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-03" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-08" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-12" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL698">
+    <Route RouteFK="2776">
+      <step FlightDate="1995-02-23" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-12" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-24" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-26" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-10" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-30" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-04-04" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-05" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-08" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-09-01" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-07" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-21" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-29" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-02" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-12" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-16" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1424">
+    <Route RouteFK="1628">
+      <step FlightDate="1995-02-03" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-10" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-04" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-16" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-22" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-01" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-08" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-20" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-31" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-19" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="2984">
+      <step FlightDate="1995-03-01" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-08" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-20" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-31" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-04" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-16" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-22" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-03" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-10" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-19" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1524">
+    <Route RouteFK="2387">
+      <step FlightDate="1995-02-24" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-13" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-27" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-11" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-05" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-06" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-09" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL174">
+    <Route RouteFK="1630">
+      <step FlightDate="1995-01-25" BeginDate="1995-01-01">1</step>
+    </Route>
+    <Route RouteFK="475">
+      <step FlightDate="1995-01-25" BeginDate="1995-01-01">1</step>
+    </Route>
+    <Route RouteFK="2858">
+      <step FlightDate="1995-01-25" BeginDate="1995-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL292">
+    <Route RouteFK="1183">
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+    </Route>
+    <Route RouteFK="1392">
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL476">
+    <Route RouteFK="209">
+      <step FlightDate="1995-02-01" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-08" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-19" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-27" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-02" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-14" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-20" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-06" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-17" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-17" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1276">
+      <step FlightDate="1996-07-24" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="321">
+      <step FlightDate="1996-07-24" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL905">
+    <Route RouteFK="206">
+      <step FlightDate="1995-01-12" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-18" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-05" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-12" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-16" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-03" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-14" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-27" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-02" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-25" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-12-06" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-18" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-20" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-08" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-05-05" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-17" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-01" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-11" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-28" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-02-11" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-25" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-10" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-11" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-13" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="344">
+      <step FlightDate="1995-12-06" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-18" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-20" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-08" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-11" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-25" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL661">
+    <Route RouteFK="2015">
+      <step FlightDate="1995-01-06" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-24" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-26" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-10" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-23" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-08" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-30" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-05-30" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-01" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-07" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-21" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-29" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-16" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-02" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-12" BeginDate="1995-11-01">1</step>
+    </Route>
+    <Route RouteFK="527">
+      <step FlightDate="1995-05-30" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-01" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-07" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-21" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-29" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-02" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-12" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-16" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL885">
+    <Route RouteFK="829">
+      <step FlightDate="1995-01-02" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-14" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-20" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-06" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-17" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-30" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-01" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-08" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-19" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-27" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-17" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="220">
+      <step FlightDate="1995-03-06" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-17" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-02" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-14" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-20" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-01" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-08" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-19" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-27" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-17" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL267">
+    <Route RouteFK="245">
+      <step FlightDate="1995-02-02" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-09" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-28" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-07" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-19" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-30" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-03" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-15" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-21" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-18" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="2453">
+      <step FlightDate="1995-02-02" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-09" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-28" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-07" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-19" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-30" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-03" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-15" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-21" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-18" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL198">
+    <Route RouteFK="1276">
+      <step FlightDate="1995-03-06" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-02" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-14" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-20" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-01" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-08" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-19" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-27" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-17" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-31" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-25" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-11" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-07" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-12" BeginDate="1995-10-01">1</step>
+    </Route>
+    <Route RouteFK="1319">
+      <step FlightDate="1995-02-01" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-08" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-19" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-27" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-06" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-02" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-14" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-20" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-17" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-31" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-25" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-11" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-07" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-12" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL226">
+    <Route RouteFK="1276">
+      <step FlightDate="1995-03-05" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-16" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-29" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-01" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-13" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-19" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-31" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-18" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-16" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL403">
+    <Route RouteFK="319">
+      <step FlightDate="1995-03-04" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-15" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-06" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-03" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-21" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-26" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL961">
+    <Route RouteFK="319">
+      <step FlightDate="1995-03-02" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-09" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-23" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-04" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-11" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-05" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-17" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-23" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-01" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-07" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-20" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL703">
+    <Route RouteFK="390">
+      <step FlightDate="1995-02-13" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-09" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-11" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-27" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL777">
+    <Route RouteFK="495">
+      <step FlightDate="1995-02-14" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-10" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-12" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-23" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-28" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="2846">
+      <step FlightDate="1995-01-10" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-14" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-12" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-23" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-28" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL181">
+    <Route RouteFK="282">
+      <step FlightDate="1995-02-25" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-12" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-07" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-28" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-10" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL255">
+    <Route RouteFK="999">
+      <step FlightDate="1995-02-05" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-12" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-16" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-01-18" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-03-03" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-14" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-27" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-02" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-06" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-25" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-30" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1353">
+      <step FlightDate="1995-01-18" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-05" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-12" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-16" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-03" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-14" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-27" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-02" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-06" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-25" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-30" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1121">
+      <step FlightDate="1995-02-05" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-16" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-03" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-14" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-27" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-18" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-02" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-06" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-25" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-30" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL447">
+    <Route RouteFK="1822">
+      <step FlightDate="1995-01-08" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-29" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-07" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-26" BeginDate="1995-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL550">
+    <Route RouteFK="1971">
+      <step FlightDate="1995-02-21" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-12-01" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-03" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-04" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-07" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-19" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-28" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-05-19" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-31" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-06" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-01-16" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-24" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="565">
+      <step FlightDate="1996-05-19" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-31" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-06" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-20" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-21" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-22" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL275">
+    <Route RouteFK="2093">
+      <step FlightDate="1995-03-22" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-11" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-29" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-02" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-16" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-11" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-03" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-11" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-15" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-25" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-07" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-10" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-12" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-26" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-07-19" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="1124">
+      <step FlightDate="1995-03-22" BeginDate="1995-03-01">1</step>
+    </Route>
+    <Route RouteFK="1471">
+      <step FlightDate="1996-07-14" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL350">
+    <Route RouteFK="1835">
+      <step FlightDate="1995-02-22" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-24" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-26" BeginDate="1995-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL863">
+    <Route RouteFK="1596">
+      <step FlightDate="1995-03-24" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-26" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-02-22" BeginDate="1995-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL325">
+    <Route RouteFK="382">
+      <step FlightDate="1995-01-09" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-13" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-04-11" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-27" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1529">
+    <Route RouteFK="2968">
+      <step FlightDate="1995-01-03" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-15" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-21" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-02-02" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-09" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-20" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-02-28" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-07" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-19" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-03-30" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-04-18" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL269">
+    <Route RouteFK="426">
+      <step FlightDate="1995-02-21" BeginDate="1995-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL658">
+    <Route RouteFK="1820">
+      <step FlightDate="1995-01-09" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-30" BeginDate="1995-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL947">
+    <Route RouteFK="1456">
+      <step FlightDate="1995-02-23" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-10" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-12" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-01-26" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-04" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-05" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-08" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL221">
+    <Route RouteFK="2395">
+      <step FlightDate="1995-02-15" BeginDate="1995-02-01">1</step>
+      <step FlightDate="1995-03-13" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-01-11" BeginDate="1995-01-01">1</step>
+      <step FlightDate="1995-04-13" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-24" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-04-29" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1996-06-25" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="1457">
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-25" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-12" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1799">
+    <Route RouteFK="642">
+      <step FlightDate="1995-03-25" BeginDate="1995-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL677">
+    <Route RouteFK="509">
+      <step FlightDate="1995-03-21" BeginDate="1995-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL187">
+    <Route RouteFK="1051">
+      <step FlightDate="1995-03-22" BeginDate="1995-03-01">1</step>
+    </Route>
+    <Route RouteFK="2183">
+      <step FlightDate="1995-03-22" BeginDate="1995-03-01">1</step>
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-11" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-29" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-02" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-16" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-03" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-11" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-15" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-25" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-11" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-07" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-10" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-12" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-26" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-07-19" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1941">
+    <Route RouteFK="184">
+      <step FlightDate="1995-03-23" BeginDate="1995-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL960">
+    <Route RouteFK="1784">
+      <step FlightDate="1995-03-26" BeginDate="1995-03-01">1</step>
+    </Route>
+    <Route RouteFK="285">
+      <step FlightDate="1995-09-13" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL916">
+    <Route RouteFK="493">
+      <step FlightDate="1995-05-10" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-24" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-01" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-18" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-23" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-26" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-30" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-05" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-13" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-08" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-10" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-30" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1053">
+    <Route RouteFK="1457">
+      <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-14" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-25" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-03" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-12" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-04" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-12" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-16" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-31" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="382">
+      <step FlightDate="1996-05-18" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-30" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL163">
+    <Route RouteFK="1780">
+      <step FlightDate="1995-05-04" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-21" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-07" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-02" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-11" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-21" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-28" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-12" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-21" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-02" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-11" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-25" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-27" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL572">
+    <Route RouteFK="2183">
+      <step FlightDate="1995-05-10" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-24" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-01" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-23" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-26" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-30" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-08" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-30" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-05" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-13" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-12" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-19" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="1051">
+      <step FlightDate="1995-10-05" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-13" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-23" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-08" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-19" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-30" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-06-12" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL284">
+    <Route RouteFK="1460">
+      <step FlightDate="1995-05-02" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-08" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-18" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-19" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-28" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-05" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-13" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-14" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-15" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-19" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-08" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-02" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-10" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-14" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-18" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-24" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-06" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-24" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-09" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-19" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-20" BeginDate="1995-11-01">1</step>
+    </Route>
+    <Route RouteFK="382">
+      <step FlightDate="1995-05-02" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-08" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-10" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-19" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-28" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-01" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-05" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-15" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-08" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-02" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-10" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-14" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-18" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-24" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="2776">
+      <step FlightDate="1995-11-09" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-19" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-20" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-06" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-24" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL584">
+    <Route RouteFK="1146">
+      <step FlightDate="1995-05-01" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-07" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-17" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-27" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-12" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-14" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-01" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-09" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-13" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-17" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-23" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="1051">
+      <step FlightDate="1995-05-01" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-07" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-17" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-18" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-27" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-04" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-12" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-13" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-14" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-18" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-07" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-01" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-09" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-13" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-17" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-23" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL870">
+    <Route RouteFK="2020">
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-22" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-09" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-21" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-01" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-07" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-23" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-07-06" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-09" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-10-18" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-28" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-14" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-22" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL241">
+    <Route RouteFK="214">
+      <step FlightDate="1995-05-03" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-09" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-31" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-25" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-11" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-10" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-12" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-26" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-07" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-05-10" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1085">
+    <Route RouteFK="426">
+      <step FlightDate="1995-06-10" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-14" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-25" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-08-04" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-12" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-16" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-02" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-08" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-14" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-24" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-07-03" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-12" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-29" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-10-19" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-29" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-23" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-05-03" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-13" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+    </Route>
+    <Route RouteFK="1457">
+      <step FlightDate="1995-09-02" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-08" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-14" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-24" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-15" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-23" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-19" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-29" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-01-02" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="1445">
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-13" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-14" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL161">
+    <Route RouteFK="1">
+      <step FlightDate="1995-06-11" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-06" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-16" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-26" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-05" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-13" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-31" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-04" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-16" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-18" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-26" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-06" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-08" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-24" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-25" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-26" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-03" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-20" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-21" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-22" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-30" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL739">
+    <Route RouteFK="3121">
+      <step FlightDate="1995-05-02" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-08" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-18" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-19" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-28" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-05" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-13" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-14" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-15" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-19" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-08" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-02" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-10" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-14" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-18" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-24" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-09" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-19" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-20" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-06" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-24" BeginDate="1995-10-01">1</step>
+    </Route>
+    <Route RouteFK="1083">
+      <step FlightDate="1995-11-09" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-19" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-20" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-06" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-24" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL657">
+    <Route RouteFK="509">
+      <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-25" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-03" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-12" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-04" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-12" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-16" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-31" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1819">
+    <Route RouteFK="390">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-09-10" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-30" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-17" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-03" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-04" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-06" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-13" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-19" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-23" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-21" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-21" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-26" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-06" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL245">
+    <Route RouteFK="2675">
+      <step FlightDate="1995-05-30" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-08" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-09-21" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-22" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-29" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-02" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-12" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-16" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL709">
+    <Route RouteFK="41">
+      <step FlightDate="1995-06-08" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-09" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-21" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-22" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-09-22" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-23" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-07-06" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-09" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-11-14" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-22" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-18" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-28" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL2034">
+    <Route RouteFK="2776">
+      <step FlightDate="1995-06-05" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-13" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-14" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-15" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-19" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-02" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-08" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-18" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-19" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-28" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-08-02" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-10" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-14" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-18" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-24" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-07-08" BeginDate="1995-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1487">
+    <Route RouteFK="838">
+      <step FlightDate="1995-06-04" BeginDate="1995-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1167">
+    <Route RouteFK="390">
+      <step FlightDate="1995-05-20" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-23" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-22" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-27" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-07-01" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-10" BeginDate="1995-07-01">1</step>
+    </Route>
+    <Route RouteFK="1535">
+      <step FlightDate="1995-06-10" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-22" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-23" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-08-27" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-07-01" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-10" BeginDate="1995-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1923">
+    <Route RouteFK="1554">
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-27" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-22" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-12-26" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-30" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-10-09" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-18" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-28" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1995-11-04" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-14" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-22" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-06-03" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-06" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-11" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-30" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-02-05" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-14" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-21" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-26" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-01-08" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-19" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-26" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-29" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-03-14" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-18" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL432">
+    <Route RouteFK="1801">
+      <step FlightDate="1995-06-10" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-22" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-14" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-23" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-09-02" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-08" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-24" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-27" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-07-01" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-07" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-10" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-11-15" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-23" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-19" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-29" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-04-02" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-12" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-29" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-18" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1272">
+    <Route RouteFK="1146">
+      <step FlightDate="1995-06-04" BeginDate="1995-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1148">
+    <Route RouteFK="1835">
+      <step FlightDate="1995-05-11" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-29" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-08-31" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL472">
+    <Route RouteFK="398">
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1577">
+    <Route RouteFK="509">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+    </Route>
+    <Route RouteFK="1457">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1004">
+    <Route RouteFK="229">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL265">
+    <Route RouteFK="565">
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-22" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-27" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-11-04" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-14" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-22" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-14" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-21" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-26" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-01-03" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-10-09" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-18" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-28" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-22" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL326">
+    <Route RouteFK="1124">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL194">
+    <Route RouteFK="493">
+      <step FlightDate="1995-04-14" BeginDate="1995-04-01">1</step>
+      <step FlightDate="1995-09-10" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-30" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-11-03" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-04" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-06" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-13" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-03-06" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-21" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-26" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1995-10-17" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-19" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-01-21" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-23" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL464">
+    <Route RouteFK="2093">
+      <step FlightDate="1995-05-10" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-24" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-01" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-06" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-23" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-26" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-30" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-08" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-30" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-05" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-13" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-12" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-19" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL387">
+    <Route RouteFK="2093">
+      <step FlightDate="1995-06-18" BeginDate="1995-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1668">
+    <Route RouteFK="2901">
+      <step FlightDate="1995-06-04" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-09" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-21" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-25" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-29" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-31" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-09-22" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-23" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-30" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-17" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-03" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-06" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-13" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL524">
+    <Route RouteFK="2381">
+      <step FlightDate="1995-06-02" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-16" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-27" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-29" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-03" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-11" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-15" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-25" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL318">
+    <Route RouteFK="2183">
+      <step FlightDate="1995-06-18" BeginDate="1995-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1097">
+    <Route RouteFK="1797">
+      <step FlightDate="1995-06-03" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-20" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-24" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-28" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-30" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-26" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL630">
+    <Route RouteFK="2679">
+      <step FlightDate="1995-06-17" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-27" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-13" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-22" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-11-04" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-14" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-22" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-09" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-18" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-28" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-05-21" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-26" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-22" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-06-03" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-06" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-11" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-30" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-14" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-01-03" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1274">
+    <Route RouteFK="1083">
+      <step FlightDate="1995-06-05" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-13" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-14" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-15" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-19" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-05-02" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-08" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-18" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-19" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-28" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-08" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-02" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-10" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-14" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-18" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-24" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1016">
+    <Route RouteFK="1549">
+      <step FlightDate="1995-05-23" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-10" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-22" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-01" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-10" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-27" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL308">
+    <Route RouteFK="2">
+      <step FlightDate="1995-05-06" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-15" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-26" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-06-11" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-07-04" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-13" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-30" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-03" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-15" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-17" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-25" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-05" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-07" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-20" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-21" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-22" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-30" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-24" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-25" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-26" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL592">
+    <Route RouteFK="12">
+      <step FlightDate="1995-05-16" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-05" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-31" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-04" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-16" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-18" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-26" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-06" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-08" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL485">
+    <Route RouteFK="2383">
+      <step FlightDate="1995-06-02" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-16" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-27" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-06-29" BeginDate="1995-06-01">1</step>
+      <step FlightDate="1995-08-03" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-11" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-15" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-25" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="509">
+      <step FlightDate="1996-01-20" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-22" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-31" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-02" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-17" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-22" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-05" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1554">
+    <Route RouteFK="229">
+      <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-14" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-25" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-09-02" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-08" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-14" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-24" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-07-03" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-12" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-04" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-12" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-16" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-31" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-10-19" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-29" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-15" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-23" BeginDate="1995-11-01">1</step>
+    </Route>
+    <Route RouteFK="1124">
+      <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-25" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-03" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-12" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-04" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-12" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-16" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-20" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-29" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-31" BeginDate="1995-08-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1699">
+    <Route RouteFK="11">
+      <step FlightDate="1995-05-06" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-05-15" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-04" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-07-30" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-08-05" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-08-07" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-09-03" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-15" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-17" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-25" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1136">
+    <Route RouteFK="47">
+      <step FlightDate="1995-05-20" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-09" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-10" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-19" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL879">
+    <Route RouteFK="1920">
+      <step FlightDate="1995-05-30" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-09-01" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-07" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-21" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-29" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-16" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-02" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-12" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL799">
+    <Route RouteFK="319">
+      <step FlightDate="1995-05-20" BeginDate="1995-05-01">1</step>
+      <step FlightDate="1995-07-09" BeginDate="1995-07-01">1</step>
+      <step FlightDate="1995-09-10" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-08-19" BeginDate="1995-08-01">1</step>
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1006">
+    <Route RouteFK="45">
+      <step FlightDate="1995-09-14" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL431">
+    <Route RouteFK="350">
+      <step FlightDate="1995-09-13" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1916">
+    <Route RouteFK="1445">
+      <step FlightDate="1995-08-19" BeginDate="1995-08-01">1</step>
+    </Route>
+    <Route RouteFK="1549">
+      <step FlightDate="1995-09-05" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-19" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-27" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-31" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-10" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-12-02" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL251">
+    <Route RouteFK="426">
+      <step FlightDate="1995-09-30" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL347">
+    <Route RouteFK="1925">
+      <step FlightDate="1995-09-06" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-20" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-28" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-15" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-01" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-11" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1996-06-13" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-18" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="1041">
+      <step FlightDate="1995-09-06" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-20" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-28" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-15" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-01" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-11" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL876">
+    <Route RouteFK="1051">
+      <step FlightDate="1995-09-05" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-09" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-13" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-19" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-27" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-27" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-29" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-01" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-04" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-23" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-31" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1637">
+    <Route RouteFK="1669">
+      <step FlightDate="1995-09-13" BeginDate="1995-09-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL683">
+    <Route RouteFK="184">
+      <step FlightDate="1995-09-05" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-09" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-13" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-19" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-27" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-10-01" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-04" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-23" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-31" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-27" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-29" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL322">
+    <Route RouteFK="1492">
+      <step FlightDate="1995-09-06" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-20" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-28" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-01" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-11" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-15" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL810">
+    <Route RouteFK="2019">
+      <step FlightDate="1995-09-06" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-20" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-09-28" BeginDate="1995-09-01">1</step>
+      <step FlightDate="1995-11-01" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-11" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-10-15" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-07-18" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL317">
+    <Route RouteFK="1801">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL586">
+    <Route RouteFK="296">
+      <step FlightDate="1995-12-08" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-22" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-27" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-27" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-10" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-19" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-05" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-15" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-30" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL821">
+    <Route RouteFK="1535">
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL604">
+    <Route RouteFK="45">
+      <step FlightDate="1995-12-24" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-07" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-19" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-03" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-12" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-24" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL352">
+    <Route RouteFK="1445">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1210">
+    <Route RouteFK="2106">
+      <step FlightDate="1995-12-11" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL240">
+    <Route RouteFK="1971">
+      <step FlightDate="1995-12-02" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-05" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-02" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-17" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-22" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-20" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-22" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-31" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL908">
+    <Route RouteFK="407">
+      <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-11" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-05-20" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-07" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-08" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-21" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-22" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-23" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-06-13" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-18" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-02-06" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1678">
+    <Route RouteFK="3099">
+      <step FlightDate="1995-12-26" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-30" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-14" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-18" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-05" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-10" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-14" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-08" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-19" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-26" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-29" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1552">
+    <Route RouteFK="2019">
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-10" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-06-01" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-10" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-12" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="1492">
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-10" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-27" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-04" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-02-10" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-10" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-12" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL164">
+    <Route RouteFK="350">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-23" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-14" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-30" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-22" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-27" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-20" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-28" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-15" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-20" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-29" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="1780">
+      <step FlightDate="1996-02-15" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-20" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-29" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-23" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-22" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-27" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1995-10-08" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-03-20" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-28" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-04" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-14" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-30" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL183">
+    <Route RouteFK="350">
+      <step FlightDate="1995-12-09" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-24" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-28" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-06-08" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-03-12" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-15" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-27" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-03" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-08" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1490">
+    <Route RouteFK="748">
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-11" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-06" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="319">
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-11" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-06" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL511">
+    <Route RouteFK="184">
+      <step FlightDate="1995-12-01" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1591">
+    <Route RouteFK="184">
+      <step FlightDate="1995-12-30" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-23" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-06-06" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-30" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-01-02" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-08" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-19" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-26" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-05" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-14" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1506">
+    <Route RouteFK="493">
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-06" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-21" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-23" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL902">
+    <Route RouteFK="838">
+      <step FlightDate="1995-11-28" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1252">
+    <Route RouteFK="1445">
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL605">
+    <Route RouteFK="236">
+      <step FlightDate="1995-11-18" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1019">
+    <Route RouteFK="1925">
+      <step FlightDate="1995-12-01" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-19" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-31" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-06" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-03-03" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-04" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-07" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-19" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-28" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL177">
+    <Route RouteFK="220">
+      <step FlightDate="1995-12-02" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-05" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-02" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-17" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-22" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL2063">
+    <Route RouteFK="509">
+      <step FlightDate="1995-12-07" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-15" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-21" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-26" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-01-04" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-12" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-14" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-29" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-12" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-26" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-09" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-18" BeginDate="1996-03-01">1</step>
+    </Route>
+    <Route RouteFK="208">
+      <step FlightDate="1996-01-04" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-12" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-14" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-29" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-09" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-18" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-07" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-15" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-21" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-26" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-26" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="1871">
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-09" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-07" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-15" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-21" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-26" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-09" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-18" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-12" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-26" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL704">
+    <Route RouteFK="1146">
+      <step FlightDate="1995-11-28" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1193">
+    <Route RouteFK="645">
+      <step FlightDate="1995-12-04" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-13" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-02" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-28" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="409">
+      <step FlightDate="1996-01-01" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-02" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-28" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-04" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-13" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL764">
+    <Route RouteFK="382">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1052">
+    <Route RouteFK="2127">
+      <step FlightDate="1995-12-09" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-24" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-28" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-12" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-15" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-27" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-03" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-08" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1979">
+    <Route RouteFK="78">
+      <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-11" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-07" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-21" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-22" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-23" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-20" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-02-06" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1581">
+    <Route RouteFK="565">
+      <step FlightDate="1995-12-30" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-01-19" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-05" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-10" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL979">
+    <Route RouteFK="390">
+      <step FlightDate="1995-10-01" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-04" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-10-24" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1995-11-09" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-20" BeginDate="1995-11-01">1</step>
+      <step FlightDate="1995-11-29" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1537">
+    <Route RouteFK="1471">
+      <step FlightDate="1996-02-28" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL684">
+    <Route RouteFK="1124">
+      <step FlightDate="1996-03-06" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-21" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-23" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="1669">
+      <step FlightDate="1996-07-16" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-22" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-04-17" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-10" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-12" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-25" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-22" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="382">
+      <step FlightDate="1996-07-16" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-22" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-22" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="390">
+      <step FlightDate="1995-12-03" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-17" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-18" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-23" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-01-21" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-23" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-05-10" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-12" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-25" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-06" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL493">
+    <Route RouteFK="208">
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-10" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-10" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL565">
+    <Route RouteFK="3125">
+      <step FlightDate="1996-06-01" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL559">
+    <Route RouteFK="1554">
+      <step FlightDate="1996-07-18" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL706">
+    <Route RouteFK="1183">
+      <step FlightDate="1996-02-12" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-26" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-12-07" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-15" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-19" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-21" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-09" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-23" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-04" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-12" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-14" BeginDate="1996-01-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1003">
+    <Route RouteFK="1124">
+      <step FlightDate="1996-06-10" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-12" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-31" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="229">
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-25" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-01-02" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-12" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL884">
+    <Route RouteFK="184">
+      <step FlightDate="1996-06-02" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-05" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-29" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-05" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL2154">
+    <Route RouteFK="184">
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1737">
+    <Route RouteFK="493">
+      <step FlightDate="1996-06-15" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-13" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-20" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-26" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="426">
+      <step FlightDate="1996-05-07" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-15" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-05" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-13" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-25" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-06-15" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-13" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-14" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-20" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-26" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="1136">
+      <step FlightDate="1996-03-15" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL922">
+    <Route RouteFK="2556">
+      <step FlightDate="1996-07-15" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-21" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-27" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-16" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-21" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="1630">
+      <step FlightDate="1996-06-16" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-21" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-15" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-21" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-27" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-04-16" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-09" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-11" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-24" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL281">
+    <Route RouteFK="924">
+      <step FlightDate="1996-04-16" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-24" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-06-16" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-21" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-03-05" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-30" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-07-15" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-21" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-27" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1995-12-02" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-02" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-17" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-22" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-05-09" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-24" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-01-09" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-22" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-31" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="344">
+      <step FlightDate="1996-07-15" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-21" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-27" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-16" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-21" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL2155">
+    <Route RouteFK="1083">
+      <step FlightDate="1996-06-13" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-18" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL742">
+    <Route RouteFK="398">
+      <step FlightDate="1996-04-19" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+    </Route>
+    <Route RouteFK="47">
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-07" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-06" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-19" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL786">
+    <Route RouteFK="398">
+      <step FlightDate="1996-04-20" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-13" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1934">
+    <Route RouteFK="398">
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-23" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1995-12-01" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-04" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-02-01" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="1445">
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL478">
+    <Route RouteFK="620">
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-02" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-28" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-04" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-13" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1062">
+    <Route RouteFK="2969">
+      <step FlightDate="1996-06-23" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL430">
+    <Route RouteFK="479">
+      <step FlightDate="1996-06-04" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-28" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1735">
+    <Route RouteFK="1456">
+      <step FlightDate="1995-12-06" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-14" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-18" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-20" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-08" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-22" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-11" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-25" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL217">
+    <Route RouteFK="2395">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-23" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-04-04" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-14" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-30" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-03-20" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-28" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1995-10-08" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-02-15" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-20" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-29" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-05-22" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-27" BeginDate="1996-05-01">1</step>
+    </Route>
+    <Route RouteFK="407">
+      <step FlightDate="1995-10-08" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL533">
+    <Route RouteFK="297">
+      <step FlightDate="1996-06-04" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-26" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-27" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-28" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1995-12-10" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-11" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-25" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-29" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-04" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-09" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-13" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-03-13" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-16" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-17" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-01-07" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-18" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-28" BeginDate="1996-01-01">1</step>
+    </Route>
+    <Route RouteFK="527">
+      <step FlightDate="1996-02-04" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-09" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-13" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-12-10" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-11" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-25" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-29" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-13" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-16" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-17" BeginDate="1996-03-01">1</step>
+    </Route>
+    <Route RouteFK="72">
+      <step FlightDate="1996-06-04" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-26" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-27" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-28" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1728">
+    <Route RouteFK="398">
+      <step FlightDate="1996-07-13" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-14" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-20" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-26" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-15" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="319">
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-07" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-15" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-05" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-18" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-25" BeginDate="1996-04-01">1</step>
+    </Route>
+    <Route RouteFK="1971">
+      <step FlightDate="1996-05-07" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-15" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-07-13" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-14" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-20" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-26" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-04-05" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-13" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-25" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-06-15" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL974">
+    <Route RouteFK="2408">
+      <step FlightDate="1996-06-04" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-26" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-27" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-28" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-01-07" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-18" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-28" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1995-12-10" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-11" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-25" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-29" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-13" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-16" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-17" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-04" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-09" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-13" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="2776">
+      <step FlightDate="1995-12-10" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-11" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-25" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-29" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-13" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-16" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-17" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-04" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-09" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-13" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="1466">
+      <step FlightDate="1996-06-04" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-26" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-27" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-28" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL277">
+    <Route RouteFK="2395">
+      <step FlightDate="1996-04-17" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-12" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-25" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-06-03" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-11" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="493">
+      <step FlightDate="1996-05-10" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-12" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-25" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-17" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1201">
+    <Route RouteFK="509">
+      <step FlightDate="1996-06-10" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-04" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-12" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-31" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1099">
+    <Route RouteFK="208">
+      <step FlightDate="1996-07-18" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1022">
+    <Route RouteFK="565">
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-12" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-19" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL797">
+    <Route RouteFK="1013">
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-03" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-06" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-11" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-30" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1978">
+    <Route RouteFK="85">
+      <step FlightDate="1996-02-06" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-20" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-04-07" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-08" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-21" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-22" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-23" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-06-13" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-18" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-03-11" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1930">
+    <Route RouteFK="1242">
+      <step FlightDate="1996-07-05" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-02" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-05" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-29" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL640">
+    <Route RouteFK="285">
+      <step FlightDate="1996-04-02" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-12" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-29" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL880">
+    <Route RouteFK="2556">
+      <step FlightDate="1996-04-16" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-09" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-11" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-24" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL406">
+    <Route RouteFK="1820">
+      <step FlightDate="1995-10-07" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-09" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL303">
+    <Route RouteFK="1530">
+      <step FlightDate="1996-04-02" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-12" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-29" BeginDate="1996-04-01">1</step>
+    </Route>
+    <Route RouteFK="1053">
+      <step FlightDate="1996-04-02" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-12" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-29" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL178">
+    <Route RouteFK="1801">
+      <step FlightDate="1996-06-24" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="2093">
+      <step FlightDate="1996-06-24" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL686">
+    <Route RouteFK="2183">
+      <step FlightDate="1996-06-25" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL675">
+    <Route RouteFK="1140">
+      <step FlightDate="1996-04-01" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-11" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-28" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-17" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL498">
+    <Route RouteFK="1146">
+      <step FlightDate="1996-06-08" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL890">
+    <Route RouteFK="1146">
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL92">
+    <Route RouteFK="2176">
+      <step FlightDate="1995-10-03" BeginDate="1995-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL875">
+    <Route RouteFK="1228">
+      <step FlightDate="1995-10-07" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-09" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1427">
+    <Route RouteFK="350">
+      <step FlightDate="1995-10-07" BeginDate="1995-10-01">1</step>
+      <step FlightDate="1996-06-09" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1869">
+    <Route RouteFK="1535">
+      <step FlightDate="1996-07-16" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-22" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-22" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1724">
+    <Route RouteFK="45">
+      <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-08" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1792">
+    <Route RouteFK="45">
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1026">
+    <Route RouteFK="1445">
+      <step FlightDate="1996-07-16" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-22" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-22" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="1549">
+      <step FlightDate="1996-06-17" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-22" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-16" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-22" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-28" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1238">
+    <Route RouteFK="1445">
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1095">
+    <Route RouteFK="350">
+      <step FlightDate="1996-04-20" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-18" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-30" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL568">
+    <Route RouteFK="201">
+      <step FlightDate="1995-11-17" BeginDate="1995-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1625">
+    <Route RouteFK="829">
+      <step FlightDate="1996-07-24" BeginDate="1996-07-01">1</step>
+    </Route>
+    <Route RouteFK="999">
+      <step FlightDate="1996-07-24" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL393">
+    <Route RouteFK="319">
+      <step FlightDate="1996-05-05" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1608">
+    <Route RouteFK="1051">
+      <step FlightDate="1996-01-02" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-08" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-19" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-01-26" BeginDate="1996-01-01">1</step>
+      <step FlightDate="1996-06-06" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-30" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-03-23" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1995-12-30" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-02-05" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-14" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL273">
+    <Route RouteFK="350">
+      <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1649">
+    <Route RouteFK="344">
+      <step FlightDate="1996-04-16" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-24" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-09" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-11" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-24" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1154">
+    <Route RouteFK="2487">
+      <step FlightDate="1996-04-15" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1995-12-04" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-13" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-05-01" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-02" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-23" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-28" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-03-01" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-02" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-21" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-29" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-16" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-21" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL911">
+    <Route RouteFK="382">
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1265">
+    <Route RouteFK="382">
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1140">
+    <Route RouteFK="1460">
+      <step FlightDate="1996-04-03" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-13" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-30" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL924">
+    <Route RouteFK="1051">
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL2046">
+    <Route RouteFK="1053">
+      <step FlightDate="1995-12-05" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-14" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1995-12-17" BeginDate="1995-12-01">1</step>
+      <step FlightDate="1996-03-07" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-22" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-03-31" BeginDate="1996-03-01">1</step>
+      <step FlightDate="1996-02-10" BeginDate="1996-02-01">1</step>
+      <step FlightDate="1996-02-24" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL519">
+    <Route RouteFK="41">
+      <step FlightDate="1996-06-02" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-05" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-10" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-29" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-05" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-31" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1898">
+    <Route RouteFK="2116">
+      <step FlightDate="1996-06-02" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-05" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-10" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-29" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-05" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-31" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL681">
+    <Route RouteFK="1445">
+      <step FlightDate="1996-05-19" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-31" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL190">
+    <Route RouteFK="407">
+      <step FlightDate="1996-07-11" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-30" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-06-07" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-12" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-06-19" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL268">
+    <Route RouteFK="1124">
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL176">
+    <Route RouteFK="296">
+      <step FlightDate="1996-04-24" BeginDate="1996-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL688">
+    <Route RouteFK="296">
+      <step FlightDate="1996-04-01" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-11" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-28" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-05" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-17" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL560">
+    <Route RouteFK="1471">
+      <step FlightDate="1996-04-20" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-13" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL775">
+    <Route RouteFK="1471">
+      <step FlightDate="1996-04-19" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-04-26" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-08" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-16" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1528">
+    <Route RouteFK="45">
+      <step FlightDate="1996-04-20" BeginDate="1996-04-01">1</step>
+      <step FlightDate="1996-05-06" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-18" BeginDate="1996-05-01">1</step>
+      <step FlightDate="1996-05-30" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1553">
+    <Route RouteFK="2428">
+      <step FlightDate="1996-06-01" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL690">
+    <Route RouteFK="1445">
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1914">
+    <Route RouteFK="407">
+      <step FlightDate="1996-06-10" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1632">
+    <Route RouteFK="1492">
+      <step FlightDate="1996-06-23" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL790">
+    <Route RouteFK="296">
+      <step FlightDate="1996-05-30" BeginDate="1996-05-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1965">
+    <Route RouteFK="264">
+      <step FlightDate="1996-06-24" BeginDate="1996-06-01">1</step>
+    </Route>
+    <Route RouteFK="206">
+      <step FlightDate="1996-06-24" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL160">
+    <Route RouteFK="1998">
+      <step FlightDate="1996-03-14" BeginDate="1996-03-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL445">
+    <Route RouteFK="1140">
+      <step FlightDate="1995-12-12" BeginDate="1995-12-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL542">
+    <Route RouteFK="398">
+      <step FlightDate="1996-02-27" BeginDate="1996-02-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL233">
+    <Route RouteFK="41">
+      <step FlightDate="1996-07-18" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1936">
+    <Route RouteFK="1624">
+      <step FlightDate="1996-06-25" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1293">
+    <Route RouteFK="382">
+      <step FlightDate="1996-06-13" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL539">
+    <Route RouteFK="390">
+      <step FlightDate="1996-06-14" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-12" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-19" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL423">
+    <Route RouteFK="1912">
+      <step FlightDate="1996-06-23" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1063">
+    <Route RouteFK="2405">
+      <step FlightDate="1996-06-01" BeginDate="1996-06-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL307">
+    <Route RouteFK="838">
+      <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-07" BeginDate="1996-07-01">1</step>
+      <step FlightDate="1996-07-25" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1793">
+    <Route RouteFK="838">
+      <step FlightDate="1996-06-08" BeginDate="1996-06-01">1</step>
+      <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="DL1083">
+    <Route RouteFK="509">
+      <step FlightDate="1996-07-06" BeginDate="1996-07-01">1</step>
+    </Route>
+  </Flight>
+</FlightsByRoutes>

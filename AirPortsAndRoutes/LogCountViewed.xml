@@ -1,0 +1,14 @@
+<!-- UTF-8 -->
+<Viewed>
+	<User Name = "Sergey">
+		<DateTime From = "TerminalServer"> 2024-01-01T21:02:00 </DateTime>
+		<DateTime From = "WorkComp"> 2024-01-02T19:05:00 </DateTime>
+	</User>	
+	<User Name = "Sasha">
+		<DateTime From = "TerminalServer"> 2024-01-05T22:02:00 </DateTime>
+		<DateTime From = "WorkComp"> 2024-01-07T15:05:00 </DateTime>
+		<DateTime From = "TerminalServer"> 2024-01-11T21:09:00 </DateTime>
+		<DateTime From = "WorkComp"> 2024-01-17T19:06:00 </DateTime>
+	</User>
+</Viewed>
+	

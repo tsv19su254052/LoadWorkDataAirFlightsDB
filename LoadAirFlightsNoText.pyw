@@ -1010,7 +1010,7 @@ def myApplication():
         print(" LogFileName = " + str(F.filenameLOG))
         logging.basicConfig(filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
         # todo При отладке из-под учетки разработчика - уровень DEBUG, при нормальной работе - INFO
-        if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and (Fl.current_user == (config_from_cfg.get(section='UserLogins', option='Developer1') or config_from_cfg.get(section='UserLogins', option='Developer2'))):
+        if config_from_cfg.getboolean(section='ConstantParameters', option='DebugLevel') and (Fl.current_user == (config_from_cfg.get(section='UserLogins', option='Developer1')) or config_from_cfg.get(section='UserLogins', option='Developer2')):
             #logging.basicConfig(level=logging.DEBUG, filename=F.filenameLOG, filemode="w", format="%(asctime)s %(levelname)s %(message)s")
             logger.setLevel(level=logging.DEBUG)
         else:

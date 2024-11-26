@@ -1,7 +1,7 @@
 USE AirCraftsDBNew62
 GO
 
-DECLARE @Reg1 VARCHAR(50), @Reg2 VARCHAR(50), @Reg3 VARCHAR(50), @Reg4 VARCHAR(50), @Reg5 VARCHAR(50), @Reg6 VARCHAR(50), @Reg7 VARCHAR(50), @Reg8 VARCHAR(50), @City VARCHAR(250)
+DECLARE @Reg1 VARCHAR(50), @Reg2 VARCHAR(50), @Reg3 VARCHAR(50), @Reg4 VARCHAR(50), @Reg5 VARCHAR(50), @Reg6 VARCHAR(50), @Reg7 VARCHAR(50), @Reg8 VARCHAR(50)
 -- Регистрации с наиболее частыми несработками
 SET @Reg1 = 'N2BYAA'
 SET @Reg2 = 'N2DCAA'
@@ -11,8 +11,6 @@ SET @Reg5 = 'NAN'
 SET @Reg6 = 'Unknown'
 SET @Reg7 = 'UNKNOW'
 SET @Reg8 = 'UNKNOWN'
-
-SET @City = 'Denver'  -- 
 
 /*
 Вывод:

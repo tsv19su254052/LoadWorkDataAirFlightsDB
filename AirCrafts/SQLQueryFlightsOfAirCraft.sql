@@ -3,22 +3,22 @@ GO
 
 DECLARE @Reg1 VARCHAR(50), @Reg2 VARCHAR(50), @Reg3 VARCHAR(50), @Reg4 VARCHAR(50), @Reg5 VARCHAR(50), @Reg6 VARCHAR(50), @Reg7 VARCHAR(50), @Reg8 VARCHAR(50)
 -- Регистрации с наиболее частыми несработками
-SET @Reg1 = 'N2BYAA'
-SET @Reg2 = 'N2DCAA'
-SET @Reg3 = 'nan'
-SET @Reg4 = 'Nan'
-SET @Reg5 = 'NAN'
-SET @Reg6 = 'Unknown'
-SET @Reg7 = 'UNKNOW'
-SET @Reg8 = 'UNKNOWN'
+SET @Reg1 = 'N67158'  -- 31
+SET @Reg2 = 'N68160'  -- 29
+SET @Reg3 = 'N76156'  -- 26
+SET @Reg4 = 'N2DCAA'  -- 8671, 20 (было много несработок)
+SET @Reg5 = 'N2BYAA'  -- 8770, 10 (было много несработок)
+SET @Reg6 = 'nan'  -- 2586, 1927
+SET @Reg7 = 'Unknow'  -- 523414, 318
+SET @Reg8 = 'Unknown'  -- 0
 
 /*
 Вывод:
 большие самолеты American AirLines, Continental как правило более привязаны к маршруту
 	UTair Boeing 767-224(ER):
-	- N76156 (Continental AirLines 15.02.2001, United Airlines 01.12.2011) -> VP-BAG -> RA-73081 (UTair Aviation) https://www.airfleets.net/ficheapp/plane-b767-30435.htm
 	- N67158 (Continental AirLines 30.05.2001 -> United Airlines 01.12.2011) -> VP-BAI -> RA-73082 (UTair Aviation) https://www.airfleets.net/ficheapp/plane-b767-30437.htm
 	- N68160 (Continental AirLines 30.10.2001 -> United Airlines 01.12.2011) -> VP-BAL -> RA-73083 (UTair Aviation) https://www.airfleets.net/ficheapp/plane-b767-30439.htm
+	- N76156 (Continental AirLines 15.02.2001, United Airlines 01.12.2011) -> VP-BAG -> RA-73081 (UTair Aviation) https://www.airfleets.net/ficheapp/plane-b767-30435.htm
 */
 
 SET Transaction Isolation Level Read Committed

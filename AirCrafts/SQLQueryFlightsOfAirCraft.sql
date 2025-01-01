@@ -2,15 +2,15 @@ USE AirCraftsDBNew62
 GO
 
 DECLARE @Reg1 VARCHAR(50), @Reg2 VARCHAR(50), @Reg3 VARCHAR(50), @Reg4 VARCHAR(50), @Reg5 VARCHAR(50), @Reg6 VARCHAR(50), @Reg7 VARCHAR(50), @Reg8 VARCHAR(50)
--- Регистрации с наиболее частыми несработками
-SET @Reg1 = 'N67158'  -- 31
-SET @Reg2 = 'N68160'  -- 29
-SET @Reg3 = 'N76156'  -- 26
-SET @Reg4 = 'N2DCAA'  -- 8671, 20 (было много несработок)
-SET @Reg5 = 'N2BYAA'  -- 8770, 10 (было много несработок)
-SET @Reg6 = 'nan'  -- 2586, 1927
-SET @Reg7 = 'Unknow'  -- 523414, 318
-SET @Reg8 = 'Unknown'  -- 0
+-- 10300
+SET @Reg1 = 'N67158'	-- 18, 4 -> 36, 0
+SET @Reg2 = 'N68160'	-- 16, 3 -> 37, 0
+SET @Reg3 = 'N76156'	-- 12, 2 -> 35, 0
+SET @Reg4 = 'N2DCAA'	-- 8416, 160 -> 8956, 19 (было много несработок)
+SET @Reg5 = 'N2BYAA'	-- 8469, 156 -> 9039, 16 (было много несработок)
+SET @Reg6 = 'nan'		-- 3581, 1321 -> 6916, 1321
+SET @Reg7 = 'Unknow'	-- 536198, 685 -> 
+SET @Reg8 = 'Unknown'	-- пусто
 
 /*
 Вывод:

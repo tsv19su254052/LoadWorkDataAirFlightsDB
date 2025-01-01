@@ -337,6 +337,7 @@
       <step FlightDate="1999-07-18" BeginDate="1999-07-01">1</step>
       <step FlightDate="1999-09-29" BeginDate="1999-09-01">1</step>
       <step FlightDate="2000-02-23" BeginDate="2000-02-01">1</step>
+      <step FlightDate="2000-11-11" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="89">
       <step FlightDate="2000-04-26" BeginDate="2000-04-01">1</step>
@@ -849,6 +850,9 @@
       <step FlightDate="1998-03-27" BeginDate="1998-03-01">1</step>
       <step FlightDate="1998-07-22" BeginDate="1998-07-01">1</step>
       <step FlightDate="1998-11-11" BeginDate="1998-11-01">1</step>
+      <step FlightDate="2000-07-16" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-16" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-10-30" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="970">
       <step FlightDate="1996-07-29" BeginDate="1996-07-01">1</step>
@@ -858,6 +862,7 @@
       <step FlightDate="1997-09-16" BeginDate="1997-09-01">1</step>
       <step FlightDate="1997-10-11" BeginDate="1997-10-01">1</step>
       <step FlightDate="1998-07-22" BeginDate="1998-07-01">1</step>
+      <step FlightDate="2000-07-16" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="4">
       <step FlightDate="1996-11-09" BeginDate="1996-11-01">1</step>
@@ -1241,6 +1246,7 @@
     <Route RouteFK="1220">
       <step FlightDate="2000-06-10" BeginDate="2000-06-01">1</step>
       <step FlightDate="2000-06-14" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-18" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1753">
@@ -1435,6 +1441,10 @@
     </Route>
     <Route RouteFK="2015">
       <step FlightDate="1997-02-03" BeginDate="1997-02-01">1</step>
+    </Route>
+    <Route RouteFK="5878">
+      <step FlightDate="2000-10-17" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-10-31" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA753">
@@ -2003,6 +2013,8 @@
       <step FlightDate="2000-02-13" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-06-15" BeginDate="2000-06-01">1</step>
       <step FlightDate="2000-06-27" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-11-09" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-11-12" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="1250">
       <step FlightDate="2002-04-07" BeginDate="2002-04-01">1</step>
@@ -2115,6 +2127,9 @@
     </Route>
     <Route RouteFK="994">
       <step FlightDate="1996-09-18" BeginDate="1996-09-01">1</step>
+    </Route>
+    <Route RouteFK="148">
+      <step FlightDate="2000-11-14" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA2293">
@@ -2303,6 +2318,7 @@
       <step FlightDate="2000-04-12" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-29" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-06-24" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-05" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1135">
       <step FlightDate="1999-12-21" BeginDate="1999-12-01">1</step>
@@ -2438,6 +2454,8 @@
     <Route RouteFK="926">
       <step FlightDate="2000-07-17" BeginDate="2000-07-01">1</step>
       <step FlightDate="2000-07-27" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-12" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-11-09" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1484">
@@ -2666,6 +2684,7 @@
       <step FlightDate="1995-02-17" BeginDate="1995-02-01">1</step>
       <step FlightDate="2000-04-17" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-07" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-23" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="2674">
       <step FlightDate="1995-05-05" BeginDate="1995-05-01">1</step>
@@ -2713,6 +2732,9 @@
       <step FlightDate="1995-12-31" BeginDate="1995-12-01">1</step>
       <step FlightDate="1996-02-17" BeginDate="1996-02-01">1</step>
       <step FlightDate="1996-02-29" BeginDate="1996-02-01">1</step>
+    </Route>
+    <Route RouteFK="413">
+      <step FlightDate="2000-10-15" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1492">
@@ -3091,7 +3113,9 @@
       <step FlightDate="1999-04-01" BeginDate="1999-04-01">1</step>
       <step FlightDate="1999-03-08" BeginDate="1999-03-01">1</step>
     </Route>
-    <Route RouteFK="1085" />
+    <Route RouteFK="1085">
+      <step FlightDate="2000-07-18" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1881">
     <Route RouteFK="926">
@@ -3330,6 +3354,7 @@
       <step FlightDate="2000-02-22" BeginDate="2000-02-01">1</step>
       <step FlightDate="1999-12-30" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-05-09" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-10-29" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="1250">
       <step FlightDate="1995-02-24" BeginDate="1995-02-01">1</step>
@@ -3357,6 +3382,7 @@
       <step FlightDate="2000-02-17" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-02-22" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-05-09" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-02" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA888">
@@ -3744,6 +3770,9 @@
       <step FlightDate="1999-09-17" BeginDate="1999-09-01">1</step>
       <step FlightDate="2000-04-05" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-16" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-08-14" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-18" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-26" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="889">
       <step FlightDate="1998-10-09" BeginDate="1998-10-01">1</step>
@@ -3754,6 +3783,7 @@
     <Route RouteFK="4">
       <step FlightDate="2000-04-05" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-16" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-31" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1070">
@@ -3916,6 +3946,7 @@
       <step FlightDate="1997-05-23" BeginDate="1997-05-01">1</step>
       <step FlightDate="2000-03-22" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-05-14" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-11" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1513">
       <step FlightDate="1995-11-05" BeginDate="1995-11-01">1</step>
@@ -4143,6 +4174,8 @@
       <step FlightDate="1999-08-14" BeginDate="1999-08-01">1</step>
       <step FlightDate="1999-12-12" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-04-02" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-07-17" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-26" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1250">
       <step FlightDate="1997-09-23" BeginDate="1997-09-01">1</step>
@@ -4152,6 +4185,7 @@
     </Route>
     <Route RouteFK="992">
       <step FlightDate="2000-08-24" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-07-26" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1289">
@@ -4839,6 +4873,7 @@
       <step FlightDate="1999-07-18" BeginDate="1999-07-01">1</step>
       <step FlightDate="1999-06-20" BeginDate="1999-06-01">1</step>
       <step FlightDate="1999-09-29" BeginDate="1999-09-01">1</step>
+      <step FlightDate="2000-11-12" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="1209">
       <step FlightDate="1999-06-20" BeginDate="1999-06-01">1</step>
@@ -4964,6 +4999,8 @@
       <step FlightDate="1999-11-02" BeginDate="1999-11-01">1</step>
       <step FlightDate="2000-03-29" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-02-15" BeginDate="2000-02-01">1</step>
+      <step FlightDate="2000-08-24" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-30" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="970">
       <step FlightDate="1995-08-22" BeginDate="1995-08-01">1</step>
@@ -6233,6 +6270,8 @@
     <Route RouteFK="4">
       <step FlightDate="1996-05-05" BeginDate="1996-05-01">1</step>
       <step FlightDate="1996-03-25" BeginDate="1996-03-01">1</step>
+      <step FlightDate="2000-07-05" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-15" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="413">
       <step FlightDate="1996-06-20" BeginDate="1996-06-01">1</step>
@@ -6248,9 +6287,14 @@
       <step FlightDate="2000-06-24" BeginDate="2000-06-01">1</step>
       <step FlightDate="2000-05-29" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-11-10" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-08-03" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-12-24" BeginDate="2000-12-01">1</step>
     </Route>
     <Route RouteFK="992">
       <step FlightDate="2000-04-12" BeginDate="2000-04-01">1</step>
+    </Route>
+    <Route RouteFK="1723">
+      <step FlightDate="2000-11-10" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA205">
@@ -6715,6 +6759,7 @@
       <step FlightDate="1999-11-30" BeginDate="1999-11-01">1</step>
       <step FlightDate="1999-09-16" BeginDate="1999-09-01">1</step>
       <step FlightDate="2000-04-03" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-08-30" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="142">
       <step FlightDate="1996-09-12" BeginDate="1996-09-01">1</step>
@@ -6735,6 +6780,7 @@
       <step FlightDate="1999-11-30" BeginDate="1999-11-01">1</step>
       <step FlightDate="2000-04-03" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-06-28" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-15" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA608">
@@ -6862,7 +6908,10 @@
     <Route RouteFK="1359">
       <step FlightDate="1995-09-05" BeginDate="1995-09-01">1</step>
     </Route>
-    <Route RouteFK="100" />
+    <Route RouteFK="100">
+      <step FlightDate="2000-07-08" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-10" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1076">
     <Route RouteFK="109">
@@ -6878,6 +6927,9 @@
     <Route RouteFK="1220">
       <step FlightDate="1995-10-14" BeginDate="1995-10-01">1</step>
       <step FlightDate="1995-10-17" BeginDate="1995-10-01">1</step>
+    </Route>
+    <Route RouteFK="228">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA567">
@@ -6955,6 +7007,7 @@
     <Route RouteFK="4">
       <step FlightDate="1997-01-01" BeginDate="1997-01-01">1</step>
       <step FlightDate="2000-01-07" BeginDate="2000-01-01">1</step>
+      <step FlightDate="2000-12-24" BeginDate="2000-12-01">1</step>
     </Route>
     <Route RouteFK="413">
       <step FlightDate="1998-05-24" BeginDate="1998-05-01">1</step>
@@ -7023,6 +7076,7 @@
     <Route RouteFK="892">
       <step FlightDate="2000-06-19" BeginDate="2000-06-01">1</step>
       <step FlightDate="2000-06-25" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-10-09" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1036">
@@ -7175,6 +7229,10 @@
       <step FlightDate="1996-11-10" BeginDate="1996-11-01">1</step>
       <step FlightDate="2000-02-20" BeginDate="2000-02-01">1</step>
       <step FlightDate="1999-12-14" BeginDate="1999-12-01">1</step>
+      <step FlightDate="2000-07-07" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-09" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-11" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-18" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="4">
       <step FlightDate="1997-11-12" BeginDate="1997-11-01">1</step>
@@ -7333,7 +7391,9 @@
       <step FlightDate="1996-10-26" BeginDate="1996-10-01">1</step>
       <step FlightDate="1996-12-12" BeginDate="1996-12-01">1</step>
     </Route>
-    <Route RouteFK="148" />
+    <Route RouteFK="148">
+      <step FlightDate="2000-08-27" BeginDate="2000-08-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1491">
     <Route RouteFK="4">
@@ -7824,6 +7884,9 @@
     </Route>
     <Route RouteFK="1085">
       <step FlightDate="2002-04-28" BeginDate="2002-04-01">1</step>
+    </Route>
+    <Route RouteFK="142">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA697">
@@ -8354,6 +8417,9 @@
       <step FlightDate="1996-07-23" BeginDate="1996-07-01">1</step>
       <step FlightDate="1996-09-15" BeginDate="1996-09-01">1</step>
     </Route>
+    <Route RouteFK="644">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA452">
     <Route RouteFK="184">
@@ -8487,6 +8553,7 @@
     </Route>
     <Route RouteFK="1008">
       <step FlightDate="2000-04-08" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-07-17" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="926">
       <step FlightDate="2000-04-08" BeginDate="2000-04-01">1</step>
@@ -8564,6 +8631,7 @@
       <step FlightDate="2000-12-02" BeginDate="2000-12-01">1</step>
       <step FlightDate="2000-12-08" BeginDate="2000-12-01">1</step>
       <step FlightDate="2000-10-06" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-11-25" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="168">
       <step FlightDate="1997-12-07" BeginDate="1997-12-01">1</step>
@@ -8608,6 +8676,7 @@
       <step FlightDate="1999-08-10" BeginDate="1999-08-01">1</step>
       <step FlightDate="2000-04-20" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-04-25" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-08-10" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="413">
       <step FlightDate="1996-11-27" BeginDate="1996-11-01">1</step>
@@ -9194,6 +9263,9 @@
     <Route RouteFK="1388">
       <step FlightDate="1997-09-11" BeginDate="1997-09-01">1</step>
     </Route>
+    <Route RouteFK="1051">
+      <step FlightDate="2000-10-05" BeginDate="2000-10-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1174">
     <Route RouteFK="661">
@@ -9363,7 +9435,9 @@
       <step FlightDate="1996-08-18" BeginDate="1996-08-01">1</step>
       <step FlightDate="1996-09-02" BeginDate="1996-09-01">1</step>
     </Route>
-    <Route RouteFK="6" />
+    <Route RouteFK="6">
+      <step FlightDate="2000-07-17" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1352">
     <Route RouteFK="373">
@@ -9394,6 +9468,7 @@
     <Route RouteFK="100">
       <step FlightDate="2002-03-11" BeginDate="2002-03-01">1</step>
       <step FlightDate="2002-03-14" BeginDate="2002-03-01">1</step>
+      <step FlightDate="2000-12-25" BeginDate="2000-12-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA840">
@@ -9427,6 +9502,7 @@
       <step FlightDate="2000-01-24" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-06-29" BeginDate="2000-06-01">1</step>
       <step FlightDate="2002-04-01" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-07-04" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1238">
@@ -9736,6 +9812,7 @@
       <step FlightDate="1998-12-18" BeginDate="1998-12-01">1</step>
       <step FlightDate="2000-04-18" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-08" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-24" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA855">
@@ -10170,6 +10247,7 @@
     <Route RouteFK="5878">
       <step FlightDate="1999-11-05" BeginDate="1999-11-01">1</step>
       <step FlightDate="2000-03-24" BeginDate="2000-03-01">1</step>
+      <step FlightDate="2000-07-22" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA437">
@@ -10371,6 +10449,7 @@
       <step FlightDate="1999-12-04" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-04-30" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-06-03" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-28" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA459">
@@ -10496,6 +10575,11 @@
       <step FlightDate="2000-01-26" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-04-18" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-05-08" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-24" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-12-22" BeginDate="2000-12-01">1</step>
+      <step FlightDate="2000-10-16" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-10-30" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-11-01" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="1051">
       <step FlightDate="1997-08-16" BeginDate="1997-08-01">1</step>
@@ -10696,6 +10780,9 @@
       <step FlightDate="2002-03-05" BeginDate="2002-03-01">1</step>
       <step FlightDate="2002-03-29" BeginDate="2002-03-01">1</step>
     </Route>
+    <Route RouteFK="1051">
+      <step FlightDate="2000-11-13" BeginDate="2000-11-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1805">
     <Route RouteFK="610">
@@ -10716,6 +10803,7 @@
       <step FlightDate="2000-02-14" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-03-22" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-04-14" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-08-23" BeginDate="2000-08-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA508">
@@ -10990,7 +11078,9 @@
     <Route RouteFK="6">
       <step FlightDate="1998-03-06" BeginDate="1998-03-01">1</step>
     </Route>
-    <Route RouteFK="970" />
+    <Route RouteFK="970">
+      <step FlightDate="2000-07-14" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA2027">
     <Route RouteFK="58">
@@ -11008,8 +11098,12 @@
     </Route>
     <Route RouteFK="753">
       <step FlightDate="2000-09-03" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-08-31" BeginDate="2000-08-01">1</step>
     </Route>
-    <Route RouteFK="1342" />
+    <Route RouteFK="1342">
+      <step FlightDate="2000-09-03" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-08-31" BeginDate="2000-08-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1391">
     <Route RouteFK="1001">
@@ -11084,6 +11178,7 @@
       <step FlightDate="2000-05-29" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-06-08" BeginDate="2000-06-01">1</step>
       <step FlightDate="2000-06-11" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-09-05" BeginDate="2000-09-01">1</step>
     </Route>
     <Route RouteFK="2038">
       <step FlightDate="1999-03-09" BeginDate="1999-03-01">1</step>
@@ -11287,6 +11382,9 @@
       <step FlightDate="1999-03-01" BeginDate="1999-03-01">1</step>
       <step FlightDate="1999-03-14" BeginDate="1999-03-01">1</step>
       <step FlightDate="1999-05-29" BeginDate="1999-05-01">1</step>
+    </Route>
+    <Route RouteFK="892">
+      <step FlightDate="2000-10-04" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA731">
@@ -11738,6 +11836,7 @@
     </Route>
     <Route RouteFK="992">
       <step FlightDate="2000-08-25" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-07-22" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1775">
@@ -11796,6 +11895,8 @@
       <step FlightDate="2000-02-16" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-05-16" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-04-05" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-12-26" BeginDate="2000-12-01">1</step>
+      <step FlightDate="2000-10-19" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="413">
       <step FlightDate="1997-06-26" BeginDate="1997-06-01">1</step>
@@ -11869,6 +11970,9 @@
       <step FlightDate="1999-11-19" BeginDate="1999-11-01">1</step>
       <step FlightDate="2000-03-21" BeginDate="2000-03-01">1</step>
       <step FlightDate="1999-12-01" BeginDate="1999-12-01">1</step>
+      <step FlightDate="2000-07-03" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-21" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-27" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA520">
@@ -11888,10 +11992,12 @@
       <step FlightDate="2000-04-07" BeginDate="2000-04-01">1</step>
       <step FlightDate="2002-04-09" BeginDate="2002-04-01">1</step>
       <step FlightDate="2002-04-22" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-07-12" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="4">
       <step FlightDate="1997-12-03" BeginDate="1997-12-01">1</step>
       <step FlightDate="2002-03-27" BeginDate="2002-03-01">1</step>
+      <step FlightDate="2000-07-12" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA2005">
@@ -12010,6 +12116,7 @@
       <step FlightDate="2000-01-19" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-06-15" BeginDate="2000-06-01">1</step>
       <step FlightDate="2002-04-24" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-08-17" BeginDate="2000-08-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA23">
@@ -12109,6 +12216,9 @@
       <step FlightDate="1997-09-14" BeginDate="1997-09-01">1</step>
       <step FlightDate="1997-10-22" BeginDate="1997-10-01">1</step>
     </Route>
+    <Route RouteFK="1082">
+      <step FlightDate="2000-11-12" BeginDate="2000-11-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1243">
     <Route RouteFK="89">
@@ -12199,6 +12309,11 @@
       <step FlightDate="2000-03-05" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-03-12" BeginDate="2000-03-01">1</step>
       <step FlightDate="2002-04-16" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-09-01" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-09-04" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-12-01" BeginDate="2000-12-01">1</step>
+      <step FlightDate="2000-12-11" BeginDate="2000-12-01">1</step>
+      <step FlightDate="2000-12-17" BeginDate="2000-12-01">1</step>
     </Route>
     <Route RouteFK="2680">
       <step FlightDate="1998-08-14" BeginDate="1998-08-01">1</step>
@@ -12387,6 +12502,8 @@
       <step FlightDate="2002-03-05" BeginDate="2002-03-01">1</step>
       <step FlightDate="2000-10-17" BeginDate="2000-10-01">1</step>
       <step FlightDate="2000-10-31" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-08-02" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-09" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="4">
       <step FlightDate="1999-12-19" BeginDate="1999-12-01">1</step>
@@ -12431,6 +12548,7 @@
       <step FlightDate="2000-03-10" BeginDate="2000-03-01">1</step>
       <step FlightDate="1999-12-30" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-05-07" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-23" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1051">
       <step FlightDate="1997-09-09" BeginDate="1997-09-01">1</step>
@@ -12560,6 +12678,7 @@
       <step FlightDate="1999-07-04" BeginDate="1999-07-01">1</step>
       <step FlightDate="1999-07-28" BeginDate="1999-07-01">1</step>
       <step FlightDate="2000-03-14" BeginDate="2000-03-01">1</step>
+      <step FlightDate="2000-11-19" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="990">
       <step FlightDate="2000-06-15" BeginDate="2000-06-01">1</step>
@@ -12581,7 +12700,10 @@
     <Route RouteFK="702">
       <step FlightDate="2002-04-19" BeginDate="2002-04-01">1</step>
     </Route>
-    <Route RouteFK="4" />
+    <Route RouteFK="4">
+      <step FlightDate="2000-07-17" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-27" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1853">
     <Route RouteFK="1209">
@@ -12682,6 +12804,7 @@
       <step FlightDate="1999-12-18" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-04-27" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-06-17" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-10-02" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="2936">
       <step FlightDate="1999-05-20" BeginDate="1999-05-01">1</step>
@@ -12824,6 +12947,7 @@
       <step FlightDate="1999-10-22" BeginDate="1999-10-01">1</step>
       <step FlightDate="2000-03-23" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-05-15" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-09-17" BeginDate="2000-09-01">1</step>
     </Route>
     <Route RouteFK="1723">
       <step FlightDate="1998-07-22" BeginDate="1998-07-01">1</step>
@@ -13104,10 +13228,13 @@
     <Route RouteFK="856">
       <step FlightDate="1999-01-24" BeginDate="1999-01-01">1</step>
       <step FlightDate="2000-05-14" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-11" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-13" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="970">
       <step FlightDate="2000-05-13" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-05-14" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-07-13" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1783">
@@ -13534,6 +13661,7 @@
     </Route>
     <Route RouteFK="1045">
       <step FlightDate="2000-11-14" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-12-21" BeginDate="2000-12-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA577">
@@ -13614,6 +13742,7 @@
     </Route>
     <Route RouteFK="184">
       <step FlightDate="2000-05-20" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-08-14" BeginDate="2000-08-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1341">
@@ -13691,6 +13820,7 @@
       <step FlightDate="2000-03-30" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-01-21" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-06-29" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-10-12" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="889">
       <step FlightDate="1998-06-24" BeginDate="1998-06-01">1</step>
@@ -13706,6 +13836,9 @@
     <Route RouteFK="4483">
       <step FlightDate="2002-03-28" BeginDate="2002-03-01">1</step>
       <step FlightDate="2002-03-30" BeginDate="2002-03-01">1</step>
+    </Route>
+    <Route RouteFK="4">
+      <step FlightDate="2000-10-12" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA719">
@@ -13842,6 +13975,7 @@
       <step FlightDate="1998-07-28" BeginDate="1998-07-01">1</step>
       <step FlightDate="1998-07-29" BeginDate="1998-07-01">1</step>
       <step FlightDate="1998-09-08" BeginDate="1998-09-01">1</step>
+      <step FlightDate="2000-07-23" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="100">
       <step FlightDate="1998-06-13" BeginDate="1998-06-01">1</step>
@@ -13854,6 +13988,7 @@
       <step FlightDate="1999-12-30" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-05-07" BeginDate="2000-05-01">1</step>
       <step FlightDate="2002-03-09" BeginDate="2002-03-01">1</step>
+      <step FlightDate="2000-07-23" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="413">
       <step FlightDate="1999-02-05" BeginDate="1999-02-01">1</step>
@@ -13894,6 +14029,8 @@
       <step FlightDate="1999-11-13" BeginDate="1999-11-01">1</step>
       <step FlightDate="1999-08-08" BeginDate="1999-08-01">1</step>
       <step FlightDate="2000-06-25" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-09-05" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-10-09" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1011">
@@ -14034,6 +14171,7 @@
       <step FlightDate="1998-11-04" BeginDate="1998-11-01">1</step>
       <step FlightDate="1999-05-14" BeginDate="1999-05-01">1</step>
       <step FlightDate="1999-04-16" BeginDate="1999-04-01">1</step>
+      <step FlightDate="2000-07-27" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1247">
       <step FlightDate="1998-10-22" BeginDate="1998-10-01">1</step>
@@ -14045,6 +14183,7 @@
     </Route>
     <Route RouteFK="296">
       <step FlightDate="2000-11-21" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-12-07" BeginDate="2000-12-01">1</step>
     </Route>
     <Route RouteFK="1663">
       <step FlightDate="2000-11-21" BeginDate="2000-11-01">1</step>
@@ -14155,6 +14294,7 @@
     </Route>
     <Route RouteFK="2318">
       <step FlightDate="2000-08-08" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-10-25" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1373">
@@ -14179,6 +14319,7 @@
     </Route>
     <Route RouteFK="142">
       <step FlightDate="2002-04-21" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-11-14" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="6">
       <step FlightDate="2000-06-22" BeginDate="2000-06-01">1</step>
@@ -14327,6 +14468,7 @@
     </Route>
     <Route RouteFK="976">
       <step FlightDate="2000-06-05" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-28" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1665">
@@ -14520,6 +14662,9 @@
       <step FlightDate="1998-08-20" BeginDate="1998-08-01">1</step>
       <step FlightDate="1998-08-28" BeginDate="1998-08-01">1</step>
     </Route>
+    <Route RouteFK="262">
+      <step FlightDate="2000-11-07" BeginDate="2000-11-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA2561">
     <Route RouteFK="3722">
@@ -14636,6 +14781,10 @@
     </Route>
     <Route RouteFK="1357">
       <step FlightDate="2000-10-18" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-08-13" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-15" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-12-25" BeginDate="2000-12-01">1</step>
+      <step FlightDate="2000-11-11" BeginDate="2000-11-01">1</step>
     </Route>
     <Route RouteFK="2318">
       <step FlightDate="2002-04-01" BeginDate="2002-04-01">1</step>
@@ -14819,6 +14968,9 @@
       <step FlightDate="1999-11-27" BeginDate="1999-11-01">1</step>
       <step FlightDate="2000-03-31" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-04-25" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-08-10" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-16" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-23" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="142">
       <step FlightDate="1998-12-26" BeginDate="1998-12-01">1</step>
@@ -14874,7 +15026,9 @@
     <Route RouteFK="856">
       <step FlightDate="2002-03-09" BeginDate="2002-03-01">1</step>
     </Route>
-    <Route RouteFK="1046" />
+    <Route RouteFK="1046">
+      <step FlightDate="2000-07-31" BeginDate="2000-07-01">1</step>
+    </Route>
     <Route RouteFK="1663">
       <step FlightDate="2000-05-11" BeginDate="2000-05-01">1</step>
       <step FlightDate="2000-05-26" BeginDate="2000-05-01">1</step>
@@ -15003,10 +15157,13 @@
       <step FlightDate="1999-10-15" BeginDate="1999-10-01">1</step>
       <step FlightDate="2000-02-15" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-08-29" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-07-14" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="2854">
       <step FlightDate="2000-02-15" BeginDate="2000-02-01">1</step>
       <step FlightDate="2002-04-20" BeginDate="2002-04-01">1</step>
+      <step FlightDate="2000-08-24" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-29" BeginDate="2000-08-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA652">
@@ -15498,6 +15655,8 @@
       <step FlightDate="2000-04-11" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-10-11" BeginDate="2000-10-01">1</step>
       <step FlightDate="2000-10-13" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-08-21" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-08-22" BeginDate="2000-08-01">1</step>
     </Route>
     <Route RouteFK="2936">
       <step FlightDate="2002-04-03" BeginDate="2002-04-01">1</step>
@@ -15505,6 +15664,7 @@
     </Route>
     <Route RouteFK="4">
       <step FlightDate="2000-04-11" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-10-11" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1480">
@@ -15671,6 +15831,7 @@
     </Route>
     <Route RouteFK="1220">
       <step FlightDate="2000-06-07" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-28" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1883">
@@ -15707,12 +15868,16 @@
     <Route RouteFK="926">
       <step FlightDate="2000-07-12" BeginDate="2000-07-01">1</step>
       <step FlightDate="2000-08-20" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-10-11" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="142">
       <step FlightDate="2002-03-15" BeginDate="2002-03-01">1</step>
     </Route>
     <Route RouteFK="610">
       <step FlightDate="2000-07-12" BeginDate="2000-07-01">1</step>
+    </Route>
+    <Route RouteFK="413">
+      <step FlightDate="2000-10-11" BeginDate="2000-10-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1043">
@@ -15964,6 +16129,9 @@
       <step FlightDate="2000-01-24" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-02-21" BeginDate="2000-02-01">1</step>
     </Route>
+    <Route RouteFK="904">
+      <step FlightDate="2000-11-28" BeginDate="2000-11-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1403">
     <Route RouteFK="926">
@@ -16047,6 +16215,7 @@
       <step FlightDate="2000-02-12" BeginDate="2000-02-01">1</step>
       <step FlightDate="2000-05-31" BeginDate="2000-05-01">1</step>
       <step FlightDate="2002-03-01" BeginDate="2002-03-01">1</step>
+      <step FlightDate="2000-11-07" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1016">
@@ -16072,6 +16241,7 @@
       <step FlightDate="2000-06-06" BeginDate="2000-06-01">1</step>
       <step FlightDate="2002-03-16" BeginDate="2002-03-01">1</step>
       <step FlightDate="2000-07-04" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-14" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="889">
       <step FlightDate="1999-09-28" BeginDate="1999-09-01">1</step>
@@ -16083,6 +16253,8 @@
       <step FlightDate="1999-10-19" BeginDate="1999-10-01">1</step>
       <step FlightDate="1999-12-01" BeginDate="1999-12-01">1</step>
       <step FlightDate="2000-06-06" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-04" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-10-14" BeginDate="2000-10-01">1</step>
     </Route>
     <Route RouteFK="854">
       <step FlightDate="2002-03-27" BeginDate="2002-03-01">1</step>
@@ -16128,6 +16300,8 @@
       <step FlightDate="2000-01-02" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-01-04" BeginDate="2000-01-01">1</step>
       <step FlightDate="2000-05-06" BeginDate="2000-05-01">1</step>
+      <step FlightDate="2000-11-23" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-07-29" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="1342">
       <step FlightDate="2000-05-06" BeginDate="2000-05-01">1</step>
@@ -16168,6 +16342,9 @@
     <Route RouteFK="5">
       <step FlightDate="1999-12-08" BeginDate="1999-12-01">1</step>
       <step FlightDate="1999-12-18" BeginDate="1999-12-01">1</step>
+    </Route>
+    <Route RouteFK="753">
+      <step FlightDate="2000-11-07" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA436">
@@ -16233,6 +16410,7 @@
       <step FlightDate="2000-03-08" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-04-13" BeginDate="2000-04-01">1</step>
       <step FlightDate="2000-06-22" BeginDate="2000-06-01">1</step>
+      <step FlightDate="2000-07-18" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="329">
       <step FlightDate="2000-06-21" BeginDate="2000-06-01">1</step>
@@ -16328,7 +16506,10 @@
       <step FlightDate="2000-03-31" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-02-19" BeginDate="2000-02-01">1</step>
     </Route>
-    <Route RouteFK="1008" />
+    <Route RouteFK="1008">
+      <step FlightDate="2000-07-09" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-11" BeginDate="2000-07-01">1</step>
+    </Route>
     <Route RouteFK="89">
       <step FlightDate="2000-06-06" BeginDate="2000-06-01">1</step>
     </Route>
@@ -16354,6 +16535,7 @@
     </Route>
     <Route RouteFK="2936">
       <step FlightDate="2000-10-03" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-07-30" BeginDate="2000-07-01">1</step>
     </Route>
     <Route RouteFK="2038">
       <step FlightDate="2000-05-03" BeginDate="2000-05-01">1</step>
@@ -16408,6 +16590,7 @@
       <step FlightDate="2000-03-05" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-03-12" BeginDate="2000-03-01">1</step>
       <step FlightDate="2000-04-26" BeginDate="2000-04-01">1</step>
+      <step FlightDate="2000-07-29" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1931">
@@ -16557,6 +16740,7 @@
   <Flight FlightNumberString="AA1870">
     <Route RouteFK="296">
       <step FlightDate="2000-11-20" BeginDate="2000-11-01">1</step>
+      <step FlightDate="2000-12-05" BeginDate="2000-12-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA344">
@@ -16748,7 +16932,10 @@
     <Route RouteFK="2038">
       <step FlightDate="2002-04-27" BeginDate="2002-04-01">1</step>
     </Route>
-    <Route RouteFK="1254" />
+    <Route RouteFK="1254">
+      <step FlightDate="2000-09-01" BeginDate="2000-09-01">1</step>
+      <step FlightDate="2000-09-04" BeginDate="2000-09-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1809">
     <Route RouteFK="116">
@@ -16819,6 +17006,8 @@
     <Route RouteFK="4362">
       <step FlightDate="2000-08-12" BeginDate="2000-08-01">1</step>
       <step FlightDate="2000-08-28" BeginDate="2000-08-01">1</step>
+      <step FlightDate="2000-07-08" BeginDate="2000-07-01">1</step>
+      <step FlightDate="2000-07-25" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1849">
@@ -16827,7 +17016,12 @@
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1227">
-    <Route RouteFK="1008" />
+    <Route RouteFK="1008">
+      <step FlightDate="2000-07-12" BeginDate="2000-07-01">1</step>
+    </Route>
+    <Route RouteFK="1723">
+      <step FlightDate="2000-10-25" BeginDate="2000-10-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA1793">
     <Route RouteFK="1135">
@@ -16847,6 +17041,9 @@
     <Route RouteFK="412">
       <step FlightDate="2000-12-12" BeginDate="2000-12-01">1</step>
     </Route>
+    <Route RouteFK="1367">
+      <step FlightDate="2000-10-04" BeginDate="2000-10-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA2093">
     <Route RouteFK="412">
@@ -16856,6 +17053,7 @@
   <Flight FlightNumberString="AA1371">
     <Route RouteFK="2015">
       <step FlightDate="2000-10-09" BeginDate="2000-10-01">1</step>
+      <step FlightDate="2000-07-31" BeginDate="2000-07-01">1</step>
     </Route>
   </Flight>
   <Flight FlightNumberString="AA1682">
@@ -16878,7 +17076,9 @@
     </Route>
   </Flight>
   <Flight FlightNumberString="AA601">
-    <Route RouteFK="6" />
+    <Route RouteFK="6">
+      <step FlightDate="2000-07-27" BeginDate="2000-07-01">1</step>
+    </Route>
   </Flight>
   <Flight FlightNumberString="AA2030">
     <Route RouteFK="180">
@@ -16894,6 +17094,41 @@
     </Route>
     <Route RouteFK="329">
       <step FlightDate="2000-04-09" BeginDate="2000-04-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1813">
+    <Route RouteFK="644">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1859">
+    <Route RouteFK="644">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1997">
+    <Route RouteFK="753">
+      <step FlightDate="2000-11-19" BeginDate="2000-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1315">
+    <Route RouteFK="5878">
+      <step FlightDate="2000-10-18" BeginDate="2000-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA463">
+    <Route RouteFK="1196">
+      <step FlightDate="2000-10-05" BeginDate="2000-10-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1362">
+    <Route RouteFK="184">
+      <step FlightDate="2000-11-13" BeginDate="2000-11-01">1</step>
+    </Route>
+  </Flight>
+  <Flight FlightNumberString="AA1812">
+    <Route RouteFK="228">
+      <step FlightDate="2000-11-15" BeginDate="2000-11-01">1</step>
     </Route>
   </Flight>
 </FlightsByRoutes>

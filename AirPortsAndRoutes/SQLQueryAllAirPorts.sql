@@ -23,7 +23,7 @@ SELECT	AirPortCodeIATA,
 		ORDER BY AirPortCodeIATA, AirPortCodeICAO
 
 SET Transaction Isolation Level Read Committed
-SELECT	@Name1,
+SELECT	@Name1 AS DataViewer,
 		HyperLinkToWikiPedia,
 		HyperLinkToAirPortSite,
 		HyperLinkToOperatorSite,
@@ -43,7 +43,7 @@ SELECT	@Name1,
 	WHERE LogDateAndTimeViewed.exist('/Viewed/User[@Name=sql:variable("@Name1")] ') = 1  -- есть просмотры
 		ORDER BY AirPortCodeIATA, AirPortCodeICAO
 
-SELECT	@Name2,
+SELECT	@Name2 AS DataViewer,
 		HyperLinkToWikiPedia,
 		HyperLinkToAirPortSite,
 		HyperLinkToOperatorSite,
@@ -63,7 +63,7 @@ SELECT	@Name2,
 	WHERE LogDateAndTimeViewed.exist('/Viewed/User[@Name=sql:variable("@Name2")] ') = 1  -- есть просмотры
 		ORDER BY AirPortCodeIATA, AirPortCodeICAO
 
-SELECT	@Name3,
+SELECT	@Name3 AS DataViewer,
 		HyperLinkToWikiPedia,
 		HyperLinkToAirPortSite,
 		HyperLinkToOperatorSite,
@@ -83,7 +83,7 @@ SELECT	@Name3,
 	WHERE LogDateAndTimeViewed.exist('/Viewed/User[@Name=sql:variable("@Name3")] ') = 1  -- есть просмотры
 		ORDER BY AirPortCodeIATA, AirPortCodeICAO
 
-SELECT	@Name4,
+SELECT	@Name4 AS DataViewer,
 		HyperLinkToWikiPedia,
 		HyperLinkToAirPortSite,
 		HyperLinkToOperatorSite,
@@ -103,7 +103,7 @@ SELECT	@Name4,
 	WHERE LogDateAndTimeViewed.exist('/Viewed/User[@Name=sql:variable("@Name4")] ') = 1  -- есть просмотры
 		ORDER BY AirPortCodeIATA, AirPortCodeICAO
 
-SELECT	@Name5,
+SELECT	@Name5 AS DataViewer,
 		HyperLinkToWikiPedia,
 		HyperLinkToAirPortSite,
 		HyperLinkToOperatorSite,

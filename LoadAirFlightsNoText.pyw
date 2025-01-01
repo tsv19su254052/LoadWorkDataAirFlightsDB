@@ -1026,7 +1026,7 @@ def myApplication():
         threadLoad = threading.Thread(target=LoadThread, daemon=False, args=(F.InputFileCSV, F.OutputFileTXT,))  # поток не сам по себе
         threadLoad.start()
         # fixme с ... .join() кнопки не гаснут, графическая оболочка зависает -> убрал ... .join()
-        #threadLoad.join(1)  # ждем поток в основном потоке (графическая оболочка зависает), секунд
+        #threadLoad.join(1)  # ждем поток в основном потоке (графическая оболочка зависает), секунд -> возвращаем поток в основной
         #myDialog.close()  # закрываем графическую оболочку, текстовая остается
 
     # Отрисовка диалога
